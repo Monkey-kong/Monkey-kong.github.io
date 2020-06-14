@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="悟空的技术博客"><title>Https 之 SSL/TLS 协议 | 悟空</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Https 之 SSL/TLS 协议</h1><a id="logo" href="/.">悟空</a><p class="description">悟空的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tag"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Https 之 SSL/TLS 协议</h1><div class="post-meta">Jun 6, 2020<span> | </span><span class="category"><a href="/categories/SpringCloud/">SpringCloud</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-作用"><span class="toc-text">1. 作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-基本运行过程"><span class="toc-text">2. 基本运行过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-握手阶段的详细过程"><span class="toc-text">3. 握手阶段的详细过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-客户端发出请求（ClientHello）"><span class="toc-text">3.1 客户端发出请求（ClientHello）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-服务器响应（ServerHello）"><span class="toc-text">3.2 服务器响应（ServerHello）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-客户端回应"><span class="toc-text">3.3 客户端回应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-服务器的最后回应"><span class="toc-text">3.4 服务器的最后回应</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-为什么需要-SSL-TSL-协议？"><span class="toc-text">4. 为什么需要 SSL\TSL 协议？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-HTTPS-真的安全吗？"><span class="toc-text">5. HTTPS 真的安全吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-参考资料"><span class="toc-text">6. 参考资料</span></a></li></ol></div></div><div class="post-content"><p>互联网的通信安全，建立在 SSL/TLS 协议之上。TLS 是 SSL 的升级。下面将简单介绍 SSL/TLS 协议基本原理。这里只说设计思想和运行过程，不涉及具体实现细节，如果需要了解具体实现细节，请参阅读<a href="https://tools.ietf.org/html/rfc5246" target="_blank" rel="external">RFC文档</a>。</p>
+<a id="more"></a>
+<h2 id="1-作用"><a href="#1-作用" class="headerlink" title="1. 作用"></a>1. 作用</h2><p>明文传播即不使用 SSL/TLS 的 HTTP 通信有三大风险：</p>
+<ul>
+<li><strong>窃听风险</strong>（eavesdropping）:第三方获取通信内容</li>
+<li><strong>篡改风险</strong>（tampering）：第三方可以修改通信内容</li>
+<li><strong>冒充风险</strong>（pretending）：第三方可以冒充他们身份参与通信</li>
+</ul>
+<p>SSL/TLS 协议是为了解决这三大风险而设计的：</p>
+<ul>
+<li>所有信息都是<strong>加密传播</strong>，第三方无法窃听</li>
+<li>具有<strong>校验机制</strong>，一旦被篡改，通信双方会立刻发现</li>
+<li>配备<strong>身份证书</strong>，防止身份被冒充</li>
+</ul>
+<h2 id="2-基本运行过程"><a href="#2-基本运行过程" class="headerlink" title="2. 基本运行过程"></a>2. 基本运行过程</h2><p>SSL/TLS 协议的基本思路是采用公钥加密算法。客户端用服务器公钥加密数据，服务器用自己的私钥解密。这里有两个问题：</p>
+<ol>
+<li><p><strong>如何保证公钥不被篡改</strong>？</p>
+<p>将公钥放在<strong>数字证书</strong>中，只要证书是可信的，公钥就是可信的</p>
+</li>
+<li><p>公钥加密计算量太大，如何减少耗用时间？</p>
+<p>解决方法：每次对话（session），客户端和服务器端都生成一个“对话密钥”（session key），用它来加密信息。这个“对话密钥”是<strong>对称加密</strong>，服务器公钥只用于加密“对话密钥”本身，这样就提高了加密运算的消耗时间。</p>
+</li>
+</ol>
+<p>因此 SSL/TLS 协议的基本过程是这样的：</p>
+<ol>
+<li>客户端向服务器端索要并验证公钥。</li>
+<li>双方协商生成“对话密钥”</li>
+<li>双方采用“对话密钥”进行加密通信</li>
+</ol>
+<p>上面过程的1、2步又称为“<strong>握手阶段</strong>”（handshake）</p>
+<h2 id="3-握手阶段的详细过程"><a href="#3-握手阶段的详细过程" class="headerlink" title="3. 握手阶段的详细过程"></a>3. 握手阶段的详细过程</h2><p><img src="../../images/springcloud/session/SSL、TLS协议四次握手.png" alt=""></p>
+<h3 id="3-1-客户端发出请求（ClientHello）"><a href="#3-1-客户端发出请求（ClientHello）" class="headerlink" title="3.1 客户端发出请求（ClientHello）"></a>3.1 客户端发出请求（ClientHello）</h3><p>客户端提供的信息：</p>
+<ol>
+<li>支持的协议版本，比如 TLS 1.0 版</li>
+<li>客户端生成的随机数，稍后用于生成“对话密钥”</li>
+<li>支持的加密算法，比如 RSA 公钥加密</li>
+<li>支持的压缩方法</li>
+</ol>
+<p>这里注意客户端发送的信息中不包含服务器的域名。也就是说理论上服务器只能包含一个网站，否则会分不清楚应该向客户端提供哪个网站的数字证书，这就是为什么通常一台服务器只能有一张数字证书发原因。</p>
+<p>2006 年 TLS 协议中加入了一个 <a href="https://tools.ietf.org/html/rfc4366" target="_blank" rel="external">Server Name Indication</a>  扩展，允许客户端向服务器提供它所请求的域名。</p>
+<h3 id="3-2-服务器响应（ServerHello）"><a href="#3-2-服务器响应（ServerHello）" class="headerlink" title="3.2 服务器响应（ServerHello）"></a>3.2 服务器响应（ServerHello）</h3><p>服务器响应信息：</p>
+<ol>
+<li>确认使用的加密通信协议版本，比如 TLS 1.0。如果浏览器与服务器支持的版本不一致，则服务器关闭加密通信。</li>
+<li><p>服务器生成的随机数，稍后用于生成“对话密钥”</p>
+</li>
+<li><p>确认使用的加密方法，比如 RSA 公钥加密</p>
+</li>
+<li>服务器证书</li>
+<li>客户端证书请求（如果服务器需要确认客户端的身份，如金融机构往往只允许认证客户连入自己的网络，就会向正式客户提供 USB 密钥，里边就包含一张客户端证书）</li>
+</ol>
+<h3 id="3-3-客户端回应"><a href="#3-3-客户端回应" class="headerlink" title="3.3 客户端回应"></a>3.3 客户端回应</h3><p>客户收到服务器回应后，首先<strong>验证服务器证书</strong>。如果证书不是可信的 CA 机构颁布或者证书中的域名与实际域名不一致或者证书已经过期，就会向访问者显示一个警告，由其选择是否还要继续通信。</p>
+<p>如果证书没有问题，客户端就会<strong>从证书中取出服务器的公钥</strong>，然后向服务器发送下面三项信息。</p>
+<ol>
+<li>客户端生成的随机数。<strong>该随机数用服务器公钥加密</strong>，防止被窃听。</li>
+<li>编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送</li>
+<li>客户端握手结束通知，表示客户端的握手阶段已经结束。这一项同时也是前面发送的所有内容的 hash 值，用来供服务器检验。</li>
+<li>客户端证书（如果前一步，服务器要求客户端证书）</li>
+</ol>
+<p>上面第一项的随机数是整个握手阶段出现的第三个随机数，又称“pre-master key”。所以客户端和服务端同时有了三个随机数，接着双方就用实现商定的加密方法，各自生成本次会话所用的同一把“会话密钥”。</p>
+<p>问：为什么一定要用三个随机数来生成“会话密钥”？</p>
+<p>答：pre master 的存在在于 SSL 协议不信任每个主机都能产生完全随机的随机数，如果随机数不随机，那么 pre master secret 就有可能被猜测出来，那么仅仅用 pre master secret 最为密钥就不和适了，因此必须引入新的随机因素。所以客户端和服务端加上 pre master secret 三个随机数一同生成的密钥就不容易被猜出来了，一个伪随机可能不完全随机，可是三个伪随机就十分接近随机了，每增加一个自由度，随机性增加的可不是一。这里注意，因为第一个和第二个随机数都是明文传输的，如果客户端随机是一个伪随机，那么第三方通过第一个随机数猜出 pre master key 的几率就大大增加，所以用三个随机数混合加密出一个“会话密钥”。</p>
+<h3 id="3-4-服务器的最后回应"><a href="#3-4-服务器的最后回应" class="headerlink" title="3.4 服务器的最后回应"></a>3.4 服务器的最后回应</h3><p>服务器收到客户端的第三个随机数pre-master key之后，计算生成本次会话所用的”会话密钥”。然后，向客户端最后发送下面信息。</p>
+<ol>
+<li>编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送。</li>
+<li>服务器握手结束通知，表示服务器的握手阶段已经结束。这一项同时也是前面发送的所有内容的hash值，用来供客户端校验。</li>
+</ol>
+<p>至此，整个握手阶段全部结束。接下来，客户端与服务器进入加密通信，就完全是使用普通的HTTP协议，只不过用”会话密钥”加密内容。</p>
+<h2 id="4-为什么需要-SSL-TSL-协议？"><a href="#4-为什么需要-SSL-TSL-协议？" class="headerlink" title="4. 为什么需要 SSL\TSL 协议？"></a>4. 为什么需要 SSL\TSL 协议？</h2><p>下图一步步解释了传输一步步加密的过程，最后衍生出较为安全的版本，也就是现在的 SSL\TSL 协议。</p>
+<p><img src="../../images/springcloud/session/SSL、TLS协议由来.png" alt=""></p>
+<h2 id="5-HTTPS-真的安全吗？"><a href="#5-HTTPS-真的安全吗？" class="headerlink" title="5. HTTPS 真的安全吗？"></a>5. HTTPS 真的安全吗？</h2><p>HTTPS 并不是绝对安全的，主要有以下两方面原因：</p>
+<ol>
+<li>CA 要靠法律约束。</li>
+<li>目前浏览器默认都是 HTTP 协议访问，所以代理服务器拦截到请求后，直接返回钓鱼网站，甚至都没有机会跳转 302 来使用 https 进行安全通信。</li>
+</ol>
+<h2 id="6-参考资料"><a href="#6-参考资料" class="headerlink" title="6. 参考资料"></a>6. 参考资料</h2><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2016/08/migrate-from-http-to-https.html" target="_blank" rel="external">阮一峰老师 https 相关博客</a></li>
+</ul>
+</div><div class="tags"><a href="/tags/SpringCloud/">SpringCloud</a></div><div class="post-nav"><a class="pre" href="/2020-06-06-IO/IO学习4.html">IO学习（四）</a><a class="next" href="/2020-05-31-算法与数据结构/训练营一期/Morris算法.html">算法基础之 Morris</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IO/">IO</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LVS/">LVS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCloud/">SpringCloud</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Srping-Boot/">Srping Boot</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加解密技术/">加解密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/吉他/">吉他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/多线程/">多线程</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息队列/">消息队列</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/疯狂-Java-讲义/">疯狂 Java 讲义</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计划/">计划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">3</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/计划/" style="font-size: 15px;">计划</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/PGP/" style="font-size: 15px;">PGP</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/SFTP/" style="font-size: 15px;">SFTP</a> <a href="/tags/Samba/" style="font-size: 15px;">Samba</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/NIO/" style="font-size: 15px;">NIO</a> <a href="/tags/Kafka/" style="font-size: 15px;">Kafka</a> <a href="/tags/MQTT/" style="font-size: 15px;">MQTT</a> <a href="/tags/LVS/" style="font-size: 15px;">LVS</a> <a href="/tags/网络/" style="font-size: 15px;">网络</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/心情/" style="font-size: 15px;">心情</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/SpringCloud/" style="font-size: 15px;">SpringCloud</a> <a href="/tags/Eureka/" style="font-size: 15px;">Eureka</a> <a href="/tags/Srping-Boot/" style="font-size: 15px;">Srping Boot</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/疯狂-Java-讲义/" style="font-size: 15px;">疯狂 Java 讲义</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/Singleton/" style="font-size: 15px;">Singleton</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/吉他/" style="font-size: 15px;">吉他</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.jamespan.me/" title="小鶸の道场" target="_blank">小鶸の道场</a><ul></ul><a href="https://www.haomwei.com/" title="屠城" target="_blank">屠城</a><ul></ul><a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a><ul></ul><a href="https://www.cnblogs.com/jingmoxukong/" title="静默虚空" target="_blank">静默虚空</a><ul></ul><a href="https://blog.hushhw.cn/" title="hushhw" target="_blank">hushhw</a><ul></ul><a href="https://hasaik.com/" title="hasaik" target="_blank">hasaik</a><ul></ul><a href="https://www.imalan.cn/" title="三无计划" target="_blank">三无计划</a><ul></ul><a href="https://i-meto.com/" title="meto" target="_blank">meto</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">悟空.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
