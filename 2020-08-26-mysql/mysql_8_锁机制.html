@@ -1,203 +1,195 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="悟空的技术博客"><title>MySql 调优(八) | 悟空</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">MySql 调优(八)</h1><a id="logo" href="/.">悟空</a><p class="description">悟空的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tag"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">MySql 调优(八)</h1><div class="post-meta">Aug 26, 2020<span> | </span><span class="category"><a href="/categories/MySQL/">MySQL</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-MySQL-锁的基本介绍"><span class="toc-text">1. MySQL 锁的基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-MyISAM-表锁"><span class="toc-text">2. MyISAM 表锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MyISAM写锁阻塞读的案例："><span class="toc-text">MyISAM写锁阻塞读的案例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyISAM读阻塞写的案例："><span class="toc-text">MyISAM读阻塞写的案例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加锁时机"><span class="toc-text">加锁时机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyISAM的并发插入问题"><span class="toc-text">MyISAM的并发插入问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-InnoDB-锁"><span class="toc-text">3. InnoDB 锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-事务及其-ACID-属性"><span class="toc-text">3.1 事务及其 ACID 属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-并发事务带来的问题"><span class="toc-text">3.2 并发事务带来的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-InnoDB-的行锁模式及加锁方法"><span class="toc-text">3.3 InnoDB 的行锁模式及加锁方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-InnoDB-行锁实现方式"><span class="toc-text">3.4 InnoDB 行锁实现方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-总结"><span class="toc-text">4. 总结</span></a></li></ol></div></div><div class="post-content"><p>MySQL 锁机制。</p>
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="悟空的技术博客"><title>MySql 调优(八) | 悟空</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">MySql 调优(八)</h1><a id="logo" href="/.">悟空</a><p class="description">悟空的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tag"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">MySql 调优(八)</h1><div class="post-meta">Aug 26, 2020<span> | </span><span class="category"><a href="/categories/MySQL/">MySQL</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-MySQL-锁的基本介绍"><span class="toc-text">1. MySQL 锁的基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-MyISAM-表锁"><span class="toc-text">2. MyISAM 表锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-表共享读锁"><span class="toc-text">2.1 表共享读锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-表独占写锁"><span class="toc-text">2.2 表独占写锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-read-local-实现并发插入"><span class="toc-text">2.3 read local 实现并发插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-加锁时机"><span class="toc-text">2.4 加锁时机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-检查表锁争夺情况"><span class="toc-text">2.5 检查表锁争夺情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-InnoDB-行锁和表锁"><span class="toc-text">3. InnoDB 行锁和表锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-行-表共享锁-读锁-s"><span class="toc-text">3.1 行/表共享锁-读锁(s)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-行-表排他锁-写锁-x"><span class="toc-text">3.2 行/表排他锁-写锁(x)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-加锁时机"><span class="toc-text">3.3 加锁时机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-表锁还是行锁？"><span class="toc-text">3.4 表锁还是行锁？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#无索引，表锁"><span class="toc-text">无索引，表锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#有索引，行锁"><span class="toc-text">有索引，行锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-索引冲突导致获取锁失败"><span class="toc-text">3.5 索引冲突导致获取锁失败</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-检查行锁争夺情况"><span class="toc-text">3.6 检查行锁争夺情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-总结"><span class="toc-text">4. 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-问题"><span class="toc-text">5. 问题</span></a></li></ol></div></div><div class="post-content"><p>MySQL 锁机制。</p>
 <a id="more"></a>
 <h2 id="1-MySQL-锁的基本介绍"><a href="#1-MySQL-锁的基本介绍" class="headerlink" title="1. MySQL 锁的基本介绍"></a>1. MySQL 锁的基本介绍</h2><p><strong>锁是计算机协调多个进程或线程并发访问某一资源的机制。</strong>在数据库中，除传统的计算资源（如 CPU、RAM、I/O 等）的争用以外，数据也是一种供许多用户共享的资源。如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一 个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</p>
-<p>​        相对其他数据库而言，MySQL 的锁机制比较简单，其最显著的特点是不同的<strong>存储引擎</strong>支持不同的锁机制。比如，MyISAM 和 MEMORY 存储引擎采用的是表级锁（table-level locking）；InnoDB 存储引擎既支持行级锁（row-level locking），也支持表级锁，但默认情况下是采用行级锁。 </p>
+<p>​        相对其他数据库而言，MySQL 的锁机制比较简单，其最显著的特点是不同的<strong>存储引擎</strong>支持不同的锁机制。比如，MyISAM 和 Memory 存储引擎采用的是表级锁（table-level locking）；InnoDB 存储引擎既支持行级锁（row-level locking），也支持表级锁，但默认情况下是采用行级锁。 </p>
 <ul>
 <li>表级锁：开销小，加锁块，不会出现死锁；锁粒度大，发生锁冲突的概率高，并发度低</li>
 <li>行级锁：开销大，加锁慢；会出现死锁；锁粒度小，发生锁冲突的概率小，并发度高</li>
 </ul>
 <p>从上述特点可见，很难笼统地说哪种锁更好，只能就具体应用的特点来说哪种锁更合适！仅从锁的角度 来说：表级锁更适合于以查询为主，只有少量按索引条件更新数据的应用，如Web应用；而行级锁则更适合于有大量<strong>按索引条件并发更新少量不同数据</strong>，同时又有 并发查询的应用，如一些在线事务处理（OLTP）系统。</p>
 <h2 id="2-MyISAM-表锁"><a href="#2-MyISAM-表锁" class="headerlink" title="2. MyISAM 表锁"></a>2. MyISAM 表锁</h2><p>MySQL的表级锁有两种模式：<strong>表共享读锁（Table Read Lock）</strong>和<strong>表独占写锁（Table Write Lock）</strong>。  </p>
-<p>对 MyISAM 表的读操作，不会阻塞其他用户对同一表的读请求，但会阻塞对同一表的写请求；对 MyISAM 表的写操作，则会阻塞其他用户对同一表的读和写操作；MyISAM 表的读操作与写操作之间，以及写操作之间是串行的！ </p>
-<p>建表语句：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`mylock`</span> (</div><div class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</div><div class="line">  <span class="string">`NAME`</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</div><div class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</div><div class="line">) <span class="keyword">ENGINE</span>=MyISAM <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</div><div class="line"></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`mylock`</span> (<span class="string">`id`</span>, <span class="string">`NAME`</span>) <span class="keyword">VALUES</span> (<span class="string">'1'</span>, <span class="string">'a'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`mylock`</span> (<span class="string">`id`</span>, <span class="string">`NAME`</span>) <span class="keyword">VALUES</span> (<span class="string">'2'</span>, <span class="string">'b'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`mylock`</span> (<span class="string">`id`</span>, <span class="string">`NAME`</span>) <span class="keyword">VALUES</span> (<span class="string">'3'</span>, <span class="string">'c'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`mylock`</span> (<span class="string">`id`</span>, <span class="string">`NAME`</span>) <span class="keyword">VALUES</span> (<span class="string">'4'</span>, <span class="string">'d'</span>);</div></pre></td></tr></table></figure>
-<h3 id="MyISAM写锁阻塞读的案例："><a href="#MyISAM写锁阻塞读的案例：" class="headerlink" title="MyISAM写锁阻塞读的案例："></a><strong>MyISAM写锁阻塞读的案例：</strong></h3><p>当一个线程获得对一个表的写锁之后，只有持有锁的线程可以对表进行更新操作。其他线程的读写操作都会等待，直到锁释放为止。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- 测试数据</span></div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`mylock`</span> (</div><div class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</div><div class="line">  <span class="string">`NAME`</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</div><div class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</div><div class="line">) <span class="keyword">ENGINE</span>=MyISAM <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</div><div class="line"></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`mylock`</span> (<span class="string">`id`</span>, <span class="string">`NAME`</span>) <span class="keyword">VALUES</span> (<span class="string">'1'</span>, <span class="string">'a'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`mylock`</span> (<span class="string">`id`</span>, <span class="string">`NAME`</span>) <span class="keyword">VALUES</span> (<span class="string">'2'</span>, <span class="string">'b'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`mylock`</span> (<span class="string">`id`</span>, <span class="string">`NAME`</span>) <span class="keyword">VALUES</span> (<span class="string">'3'</span>, <span class="string">'c'</span>);</div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`mylock`</span> (<span class="string">`id`</span>, <span class="string">`NAME`</span>) <span class="keyword">VALUES</span> (<span class="string">'4'</span>, <span class="string">'d'</span>);</div></pre></td></tr></table></figure>
+<h3 id="2-1-表共享读锁"><a href="#2-1-表共享读锁" class="headerlink" title="2.1 表共享读锁"></a>2.1 表共享读锁</h3><p>读锁阻塞写。</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">session1</th>
-<th style="text-align:center">session2</th>
+<th>session1</th>
+<th>session2</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">获取表的write锁定<br>lock table mylock write;</td>
-<td style="text-align:center"></td>
+<td>lock table mylock read;</td>
+<td></td>
 </tr>
 <tr>
-<td style="text-align:center">当前session对表的查询，插入，更新操作都可以执行<br>select * from mylock;<br>insert into mylock values(5,’e’);</td>
-<td style="text-align:center">当前session对表的查询会被阻塞<br>select * from mylock；</td>
+<td>select <em> from person;<br>【报错】<em>*非锁定表：不可读不可写</em></em><br>Table ‘person’ was not locked with LOCK TABLES</td>
+<td>select <em> from person;<br>delete from person where id = 3;<br>【成功】<em>*非锁定表：可读可写</em></em></td>
 </tr>
 <tr>
-<td style="text-align:center">释放锁：<br>unlock tables；</td>
-<td style="text-align:center">当前session能够立刻执行，并返回对应结果</td>
+<td>select <em> from mylock;<br>【成功】<em>*锁定表：可读</em></em></td>
+<td>select <em> from mylock;<br>【成功】<em>*锁定表：可读</em></em></td>
+</tr>
+<tr>
+<td>delete from mylock where id = 6;<br>【报错】<strong>锁定表：不可写</strong><br>Table ‘mylock’ was locked with a READ lock</td>
+<td>delete from mylock where id = 6;<br>【阻塞】<strong>锁定表：不可写</strong><br></td>
+</tr>
+<tr>
+<td>unlock tables;</td>
+<td>session1 释放锁，查询成功</td>
 </tr>
 </tbody>
 </table>
-<p>当前 session：锁定表可读可写；非锁定表不可读不可写</p>
-<p>其他 session：锁定表不可读不可写；非锁定表可读可写</p>
-<h3 id="MyISAM读阻塞写的案例："><a href="#MyISAM读阻塞写的案例：" class="headerlink" title="MyISAM读阻塞写的案例："></a><strong>MyISAM读阻塞写的案例：</strong></h3><p>一个 session 使用 lock table 给表加读锁，这个 session 可以锁定表中的记录，但更新和访问其他表都会提示错误，同时，另一个 session 可以查询表中的记录，但更新就会出现锁等待。</p>
+<h3 id="2-2-表独占写锁"><a href="#2-2-表独占写锁" class="headerlink" title="2.2 表独占写锁"></a>2.2 表独占写锁</h3><p>写锁阻塞读写。</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">session1</th>
-<th style="text-align:center">session2</th>
+<th>session1</th>
+<th>session2</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">获得表的read锁定<br>lock table mylock read;</td>
-<td style="text-align:center"></td>
+<td>lock table mylock write;</td>
+<td></td>
 </tr>
 <tr>
-<td style="text-align:center">当前session可以查询该表记录：<br>select * from mylock;</td>
-<td style="text-align:center">当前session可以查询该表记录：<br>select * from mylock;</td>
+<td>select <em> from person;<br>【报错】<em>*非锁定表：不可读不可写</em></em><br>Table ‘person’ was not locked with LOCK TABLES</td>
+<td>select <em> from person;<br>delete from person where id = 3;<br>【成功】<em>*非锁定表：可读可写</em></em></td>
 </tr>
 <tr>
-<td style="text-align:center">当前session不能查询没有锁定的表<br>select * from person<br>Table ‘person’ was not locked with LOCK TABLES</td>
-<td style="text-align:center">当前session可以查询或者更新未锁定的表<br>select * from mylock<br>insert into person values(1,’zhangsan’);</td>
+<td>select <em> from mylock;<br>【成功】<em>*锁定表：可读</em></em></td>
+<td>select <em> from mylock;<br>【阻塞】<em>*锁定表：不可读</em></em></td>
 </tr>
 <tr>
-<td style="text-align:center">当前session插入或者更新表会提示错误<br>insert into mylock values(6,’f’)<br>Table ‘mylock’ was locked with a READ lock and can’t be updated<br>update mylock set name=’aa’ where id = 1;<br>Table ‘mylock’ was locked with a READ lock and can’t be updated</td>
-<td style="text-align:center">当前session插入数据会等待获得锁<br>insert into mylock values(6,’f’);</td>
+<td>delete from mylock where id = 6;<br>【成功】<strong>锁定表：可写</strong></td>
+<td>delete from mylock where id = 6;<br>【阻塞】<strong>锁定表：不可写</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">释放锁<br>unlock tables;</td>
-<td style="text-align:center">获得锁，更新成功</td>
+<td>unlock tables;</td>
+<td>session1 释放锁，查询、删除均成功</td>
 </tr>
 </tbody>
 </table>
-<p>当前 session：锁定表可读不可写；非锁定表不可读不可写</p>
-<p>其他 session：锁定表可读不可写（写需等待锁）；非锁定表可读可写</p>
-<h3 id="加锁时机"><a href="#加锁时机" class="headerlink" title="加锁时机"></a>加锁时机</h3><ul>
+<p>可以看出，MyISAM 表的读操作与写操作之间，以及写操作之间是串行的！ </p>
+<h3 id="2-3-read-local-实现并发插入"><a href="#2-3-read-local-实现并发插入" class="headerlink" title="2.3 read local 实现并发插入"></a>2.3 read local 实现并发插入</h3><table>
+<thead>
+<tr>
+<th>session1</th>
+<th>session2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lock table mylock read local;</td>
+<td></td>
+</tr>
+<tr>
+<td>select <em> from person;<br>【报错】<em>*非锁定表：不可读不可写</em></em><br>Table ‘person’ was not locked with LOCK TABLES</td>
+<td>select <em> from person;<br>delete from person where id = 3;<br>【成功】<em>*非锁定表：可读可写</em></em></td>
+</tr>
+<tr>
+<td>select <em> from mylock;<br>【成功】<em>*锁定表：可读</em></em></td>
+<td>select <em> from mylock;<br>【成功】<em>*锁定表：可读</em></em></td>
+</tr>
+<tr>
+<td>insert into mylock values(6, ‘f’);<br>【失败】<strong>锁定表：不可插入</strong><br>Table ‘mylock’ was locked with a READ lock and can’t be updated</td>
+<td>insert into mylock values(6, ‘f’);<br>【成功】<strong>锁定表：可插入</strong></td>
+</tr>
+<tr>
+<td>delete from mylock where id = 6;<br>【失败】<strong>锁定表：不可写（delete、update）</strong><br>错误同上</td>
+<td>delete from mylock where id = 6;<br>【阻塞】<strong>锁定表：不可写（delete、update）</strong></td>
+</tr>
+<tr>
+<td>unlock tables;</td>
+<td>session1 释放锁，删除均成功</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-4-加锁时机"><a href="#2-4-加锁时机" class="headerlink" title="2.4 加锁时机"></a>2.4 加锁时机</h3><ul>
 <li>读锁：MyISAM 在执行查询前，涉及的所有表加读锁</li>
 <li>写锁：MyISAM 在执行更新操作前，涉及的所有表加写锁</li>
 </ul>
-<h3 id="MyISAM的并发插入问题"><a href="#MyISAM的并发插入问题" class="headerlink" title="MyISAM的并发插入问题"></a><strong>MyISAM的并发插入问题</strong></h3><p>MyISAM 表的读和写是串行的，这是就总体而言的，在一定条件下，MyISAM 也支持查询和插入操作的并发执行。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">session1</th>
-<th style="text-align:center">session2</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">获取表的read local锁定<br>lock table mylock read local</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">当前session不能对表进行更新或者插入操作<br>insert into mylock values(6,’f’)<br>Table ‘mylock’ was locked with a READ lock and can’t be updated<br>update mylock set name=’aa’ where id = 1;<br>Table ‘mylock’ was locked with a READ lock and can’t be updated</td>
-<td style="text-align:center">其他session可以查询该表的记录<br>select* from mylock</td>
-</tr>
-<tr>
-<td style="text-align:center">当前session不能查询没有锁定的表<br>select * from person<br>Table ‘person’ was not locked with LOCK TABLES</td>
-<td style="text-align:center">其他session可以进行插入操作，但是更新会阻塞<br>update mylock set name = ‘aa’ where id = 1;</td>
-</tr>
-<tr>
-<td style="text-align:center">当前session不能访问其他session插入的记录；</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">释放锁资源：unlock tables</td>
-<td style="text-align:center">当前session获取锁，更新操作完成</td>
-</tr>
-<tr>
-<td style="text-align:center">当前session可以查看其他session插入的记录</td>
-</tr>
-</tbody>
-</table>
-<p>当前 session：锁定表可读不可写；非锁定表不可读不可写</p>
-<p>其他 session：锁定表可读可插入，不可更新不可删除；非锁定表可读可写</p>
-<p> 可以通过检查table_locks_waited和table_locks_immediate状态变量来分析系统上的表锁定争夺：</p>
+<h3 id="2-5-检查表锁争夺情况"><a href="#2-5-检查表锁争夺情况" class="headerlink" title="2.5 检查表锁争夺情况"></a>2.5 检查表锁争夺情况</h3><p> 可以通过检查 table_locks_waited 和 table_locks_immediate 状态变量来分析系统上的表锁定争夺：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'table_%'</span>;</div><div class="line">+<span class="comment">----------------------------+-------+</span></div><div class="line">| Variable_name              | Value |</div><div class="line">+<span class="comment">----------------------------+-------+</span></div><div class="line">| Table_locks_immediate      | 136   |</div><div class="line">| Table_locks_waited         | 5     |</div></pre></td></tr></table></figure>
-<h2 id="3-InnoDB-锁"><a href="#3-InnoDB-锁" class="headerlink" title="3. InnoDB 锁"></a>3. InnoDB 锁</h2><h3 id="3-1-事务及其-ACID-属性"><a href="#3-1-事务及其-ACID-属性" class="headerlink" title="3.1 事务及其 ACID 属性"></a>3.1 事务及其 ACID 属性</h3><ul>
-<li>Actomicity</li>
-<li>Consistent</li>
-<li>Isolation</li>
-<li>Durable</li>
-</ul>
-<h3 id="3-2-并发事务带来的问题"><a href="#3-2-并发事务带来的问题" class="headerlink" title="3.2 并发事务带来的问题"></a>3.2 并发事务带来的问题</h3><p>相对于串行处理来说，并发事务处理能大大增加数据库资源的利用率，提高数据库系统的事务吞吐量，从而可以支持更多用户的并发操作，但与此同时，会带来一下问题：</p>
+<h2 id="3-InnoDB-行锁和表锁"><a href="#3-InnoDB-行锁和表锁" class="headerlink" title="3. InnoDB 行锁和表锁"></a>3. InnoDB 行锁和表锁</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tab_no_index</div><div class="line">( <span class="keyword">id</span> <span class="built_in">int</span>,</div><div class="line">  <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">10</span>)</div><div class="line">) <span class="keyword">engine</span>=<span class="keyword">innodb</span>;</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tab_no_index <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'1'</span>),(<span class="number">2</span>,<span class="string">'2'</span>),(<span class="number">3</span>,<span class="string">'3'</span>),(<span class="number">4</span>,<span class="string">'4'</span>);</div><div class="line"></div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tab_with_index</div><div class="line">( <span class="keyword">id</span> <span class="built_in">int</span>,</div><div class="line">  <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">10</span>)</div><div class="line">) <span class="keyword">engine</span>=<span class="keyword">innodb</span>;</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tab_with_index <span class="keyword">add</span> <span class="keyword">index</span> <span class="keyword">id</span>(<span class="keyword">id</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tab_with_index <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'1'</span>),(<span class="number">2</span>,<span class="string">'2'</span>),(<span class="number">3</span>,<span class="string">'3'</span>),(<span class="number">4</span>,<span class="string">'4'</span>);</div></pre></td></tr></table></figure>
+<h3 id="3-1-行-表共享锁-读锁-s"><a href="#3-1-行-表共享锁-读锁-s" class="headerlink" title="3.1 行/表共享锁-读锁(s)"></a>3.1 行/表共享锁-读锁(s)</h3><p>指定行/表加了读锁：</p>
 <ul>
-<li>脏读</li>
-<li>不可重复读</li>
-<li>幻读</li>
+<li>其他事务可以获取该行/表的读锁（<strong>所以可能发生死锁</strong>）</li>
+<li>其他事务不可获取改行/表的写锁</li>
 </ul>
-<p>上述出现的问题都是数据库读一致性的问题，可以通过事务的隔离机制来进行保证。</p>
-<p>数据库的事务隔离越严格，并发副作用就越小，但付出的代价也就越大，因为事务隔离本质上就是使事务在一定程度上串行化，需要根据具体的业务需求来决定使用哪种隔离级别。</p>
+<p>读锁阻塞写锁：</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">脏读</th>
-<th style="text-align:center">不可重复读</th>
-<th style="text-align:center">幻读</th>
+<th>session1</th>
+<th>session2</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">read uncommitted</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
+<td>set autocommit = 0;</td>
+<td>set autocommit = 0;</td>
 </tr>
 <tr>
-<td style="text-align:center">read committed</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
-<td style="text-align:center">√</td>
+<td>select * from tab_no_index lock in share mode;<br>加读锁</td>
+<td>select * from tab_no_index lock in share mode;<br>【成功】可以获取读锁</td>
 </tr>
 <tr>
-<td style="text-align:center">repeatable read</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
-<td style="text-align:center">√</td>
+<td></td>
+<td>delete from tab_no_index where id = 1;<br>【阻塞】不可获取写锁</td>
 </tr>
 <tr>
-<td style="text-align:center">serializable</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"></td>
+<td>commit;</td>
+<td>session1 释放锁，获取写锁成功</td>
 </tr>
 </tbody>
 </table>
-<p> 可以通过检查 InnoDB_row_lock 状态变量来分析系统上的行锁的争夺情况： </p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'%innodb_row_lock%'</span>;</div><div class="line">+<span class="comment">-------------------------------+-------+</span></div><div class="line">| Variable_name                 | Value |</div><div class="line">+<span class="comment">-------------------------------+-------+</span></div><div class="line">| Innodb_row_lock_current_waits | 0     |</div><div class="line">| Innodb_row_lock_time          | 0     |</div><div class="line">| Innodb_row_lock_time_avg      | 0     |</div><div class="line">| Innodb_row_lock_time_max      | 0     |</div><div class="line">| Innodb_row_lock_waits         | 0     |</div><div class="line">+<span class="comment">-------------------------------+-------+</span></div><div class="line"><span class="comment">--如果发现锁争用比较严重，如InnoDB_row_lock_waits和InnoDB_row_lock_time_avg的值比较高</span></div></pre></td></tr></table></figure>
-<h3 id="3-3-InnoDB-的行锁模式及加锁方法"><a href="#3-3-InnoDB-的行锁模式及加锁方法" class="headerlink" title="3.3 InnoDB 的行锁模式及加锁方法"></a>3.3 InnoDB 的行锁模式及加锁方法</h3><p><strong>共享锁（s）</strong>：又称读锁。允许一个事务去读一行，阻止其他事务获得相同数据集的排他锁。若事务 T 对数据对象 A 加上 S 锁，则事务 T 可以读 A 但不能修改 A，其他事务只能再对 A 加 S 锁，而不能加 X 锁，直到 T 释放 A 上的 S 锁。这保证了其他事务可以读A，但在T释放A上的S锁之前不能对A做任何修改。</p>
-<p><strong>排他锁（x）</strong>：又称写锁。允许获取排他锁的事务更新数据，阻止其他事务取得相同的数据集共享读锁和排他写锁。若事务 T 对数据对象 A 加上 X 锁，事务 T 可以读 A 也可以修改 A，其他事务不能再对 A 加任何锁，直到 T 释放 A 上的锁。</p>
-<p><strong>加共享锁时机</strong>：select 不会加任何锁。可以 select … lock in share mode</p>
-<p><strong>加排他锁时机</strong>：update、delete、insert 给涉及到的数据加排他锁；select … for update；</p>
-<p>所以加过排他锁的数据行在其他事务种是不能修改数据的，也不能通过 for update 和 lock in share mode 锁的方式查询数据，但可以直接通过 select …from… 查询数据，因为<strong>普通查询没有任何锁机制</strong>。（这个隔离级别有关，serializable 还是会加锁的）</p>
-<h3 id="3-4-InnoDB-行锁实现方式"><a href="#3-4-InnoDB-行锁实现方式" class="headerlink" title="3.4 InnoDB 行锁实现方式"></a>3.4 InnoDB 行锁实现方式</h3><p>InnoDB 行锁是通过给<strong>索引</strong>上的索引项加锁来实现的，这一点 MySQL 与 Oracle 不同，后者是通过在数据块中对相应数据行加锁来实现的。InnoDB 这种行锁实现特点意味着：只有通过索引条件检索数据，InnoDB 才使用行级锁，<strong>否则，InnoDB将使用表锁！</strong>  </p>
-<p>1、在不通过索引条件查询的时候，InnoDB 使用的是表锁而不是行锁</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tab_no_index(<span class="keyword">id</span> <span class="built_in">int</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">10</span>)) <span class="keyword">engine</span>=<span class="keyword">innodb</span>;</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tab_no_index <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'1'</span>),(<span class="number">2</span>,<span class="string">'2'</span>),(<span class="number">3</span>,<span class="string">'3'</span>),(<span class="number">4</span>,<span class="string">'4'</span>);</div></pre></td></tr></table></figure>
+<h3 id="3-2-行-表排他锁-写锁-x"><a href="#3-2-行-表排他锁-写锁-x" class="headerlink" title="3.2 行/表排他锁-写锁(x)"></a>3.2 行/表排他锁-写锁(x)</h3><p>指定行/表加了写锁：</p>
+<ul>
+<li>其他事务不可获取该行/表的读锁和写锁</li>
+</ul>
+<p>写锁阻塞读锁、写锁：</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">session1</th>
-<th style="text-align:center">session2</th>
+<th>session1</th>
+<th>session2</th>
+<th>session3</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">set autocommit=0<br>select * from tab_no_index where id = 1;</td>
-<td style="text-align:center">set autocommit=0<br>select * from tab_no_index where id =2</td>
+<td>set autocommit = 0;</td>
+<td>set autocommit = 0;</td>
+<td>set autocommit = 0;</td>
 </tr>
 <tr>
-<td style="text-align:center">select * from tab_no_index where id = 1 for update</td>
-<td style="text-align:center"></td>
+<td>delete from tab_no_index where id = 1 ;<br>加写锁</td>
+<td>select * from tab_no_index lock in share mode;<br>【阻塞】不可获取读锁</td>
+<td>delete from tab_no_index where id = 1;<br>【阻塞】不可获取写锁</td>
 </tr>
 <tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">select * from tab_no_index where id = 2 for update;</td>
+<td></td>
+<td>select * from tab_no_index;<br>【成功】select … 没有任何锁机制</td>
+<td></td>
+</tr>
+<tr>
+<td>commit;</td>
+<td>session1 释放锁，获取读锁成功</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>commit;</td>
+<td>session2 释放锁，获取写锁成功</td>
 </tr>
 </tbody>
 </table>
-<p>session1 只给一行加了排他锁，但是 session2 在请求其他行的排他锁的时候，会出现锁等待。原因是<strong>在没有索引的情况下，innodb 只能使用表锁。</strong></p>
-<p>当前 session：锁定表可读可写；其他表可读可写</p>
-<p>其他 session：锁定表不可读不可写（select … 除外）；其他表可读可写</p>
-<p>2、创建带索引的表进行条件查询，InnoDB 使用的是行锁</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> tab_with_index(<span class="keyword">id</span> <span class="built_in">int</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">10</span>)) <span class="keyword">engine</span>=<span class="keyword">innodb</span>;</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tab_with_index <span class="keyword">add</span> <span class="keyword">index</span> <span class="keyword">id</span>(<span class="keyword">id</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tab_with_index <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'1'</span>),(<span class="number">2</span>,<span class="string">'2'</span>),(<span class="number">3</span>,<span class="string">'3'</span>),(<span class="number">4</span>,<span class="string">'4'</span>);</div></pre></td></tr></table></figure>
-<table>
+<h3 id="3-3-加锁时机"><a href="#3-3-加锁时机" class="headerlink" title="3.3 加锁时机"></a>3.3 加锁时机</h3><p><strong>加共享锁时机</strong>：select … lock in share mode（注意 select 不会加任何锁。）</p>
+<p><strong>加排他锁时机</strong>：update、delete、insert 给涉及到的数据加排他锁；select … for update</p>
+<h3 id="3-4-表锁还是行锁？"><a href="#3-4-表锁还是行锁？" class="headerlink" title="3.4 表锁还是行锁？"></a>3.4 表锁还是行锁？</h3><p>InnoDB 行锁是通过给<strong>索引</strong>上的索引项加锁来实现的，这一点 MySQL 与 Oracle 不同，后者是通过在数据块中对相应数据行加锁来实现的。InnoDB 这种行锁实现特点意味着：只有通过索引条件检索数据，InnoDB 才使用行级锁，<strong>否则，InnoDB将使用表锁！</strong>  </p>
+<h4 id="无索引，表锁"><a href="#无索引，表锁" class="headerlink" title="无索引，表锁"></a>无索引，表锁</h4><table>
 <thead>
 <tr>
 <th style="text-align:center">session1</th>
@@ -206,23 +198,47 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">set autocommit=0<br>select * from tab_with_indexwhere id = 1;</td>
-<td style="text-align:center">set autocommit=0<br>select * from tab_with_indexwhere id =2</td>
+<td style="text-align:center">set autocommit=0</td>
+<td style="text-align:center">set autocommit=0</td>
 </tr>
 <tr>
-<td style="text-align:center">select * from tab_with_indexwhere id = 1 for update</td>
+<td style="text-align:center">select * from tab_no_index where id = 1 for update<br>加写锁，由于没有索引，锁定的是整个表</td>
 <td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">select * from tab_with_indexwhere id = 2 for update;</td>
+<td style="text-align:center">select * from tab_no_index where id = 2 for update;<br>【阻塞】整表被锁，获取写锁失败</td>
+</tr>
+<tr>
+<td style="text-align:center">commit;</td>
+<td style="text-align:center">session1 释放锁，获取写锁成功</td>
 </tr>
 </tbody>
 </table>
-<p>当前 session：锁定数据可读可写；其他表可读可写</p>
-<p>其他 session：锁定数据不可读不可写（select … 除外）；其他表可读可写</p>
-<p>3、由于mysql的行锁是针对索引加的锁，不是针对记录加的锁，所以虽然是访问不同行的记录，但是<strong>如果是使用相同的索引键，是会出现冲突的。</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> tab_with_index <span class="keyword">drop</span> <span class="keyword">index</span> <span class="keyword">id</span>;</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tab_with_index  <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'4'</span>);</div></pre></td></tr></table></figure>
+<h4 id="有索引，行锁"><a href="#有索引，行锁" class="headerlink" title="有索引，行锁"></a>有索引，行锁</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">session1</th>
+<th style="text-align:center">session2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">set autocommit=0</td>
+<td style="text-align:center">set autocommit=0</td>
+</tr>
+<tr>
+<td style="text-align:center">select * from tab_with_index where id = 1 for update<br>加写锁，有索引，只锁定 id=1 的行</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">select * from tab_with_indexwhere id = 2 for update;<br>【成功】获取写锁成功</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-5-索引冲突导致获取锁失败"><a href="#3-5-索引冲突导致获取锁失败" class="headerlink" title="3.5 索引冲突导致获取锁失败"></a>3.5 索引冲突导致获取锁失败</h3><p>由于 mysql 的行锁是针对索引加的锁，不是针对记录加的锁，所以虽然是访问不同行的记录，但是<strong>如果是使用相同的索引键，是会出现冲突的。</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tab_with_index  <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'4'</span>);</div><div class="line"><span class="keyword">insert</span> <span class="keyword">into</span> tab_with_index  <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'1'</span>);</div></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -236,18 +252,21 @@
 <td style="text-align:center">set autocommit=0</td>
 </tr>
 <tr>
-<td style="text-align:center">select * from tab_with_index where id = 1 and name=’1’ for update</td>
+<td style="text-align:center">select * from tab_with_index where id = 1 and name=’1’ for update<br>获取写锁，锁定了 id=1 对应的索引</td>
 <td style="text-align:center"></td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
-<td style="text-align:center">select * from tab_with_index where id = 1 and name=’4’ for update<br>虽然session2访问的是和session1不同的记录，但是因为使用了相同的索引，所以需要等待锁</td>
+<td style="text-align:center">select * from tab_with_index where id = 1 and name=’4’ for update<br>【阻塞】虽然是不同行，但是走的同一个索引，获取写锁失败</td>
 </tr>
 </tbody>
 </table>
-<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p><strong>对于MyISAM的表锁，主要讨论了以下几点：</strong><br>（1）共享读锁（S）之间是兼容的，但共享读锁（S）与排他写锁（X）之间，以及排他写锁（X）之间是互斥的，也就是说读和写是串行的。<br>（2）在一定条件下，MyISAM允许查询和插入并发执行，我们可以利用这一点来解决应用中对同一表查询和插入的锁争用问题。<br>（3）MyISAM默认的锁调度机制是写优先，这并不一定适合所有应用，用户可以通过设置LOW_PRIORITY_UPDATES参数，或在INSERT、UPDATE、DELETE语句中指定LOW_PRIORITY选项来调节读写锁的争用。<br>（4）由于表锁的锁定粒度大，读写之间又是串行的，因此，如果更新操作较多，MyISAM表可能会出现严重的锁等待，可以考虑采用InnoDB表来减少锁冲突。</p>
-<p><strong>对于InnoDB表，本文主要讨论了以下几项内容：</strong><br>（1）InnoDB的行锁是基于索引实现的，如果不通过索引访问数据，InnoDB会使用表锁。<br>（2）在不同的隔离级别下，InnoDB的锁机制和一致性读策略不同。</p>
-<p>在了解InnoDB锁特性后，用户可以通过设计和SQL调整等措施减少锁冲突和死锁，包括：</p>
+<h3 id="3-6-检查行锁争夺情况"><a href="#3-6-检查行锁争夺情况" class="headerlink" title="3.6 检查行锁争夺情况"></a>3.6 检查行锁争夺情况</h3><p>可以通过检查 InnoDB_row_lock 状态变量来分析系统上的行锁的争夺情况： </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'%innodb_row_lock%'</span>;</div><div class="line">+<span class="comment">-------------------------------+--------+</span></div><div class="line">| Variable_name                 | Value  |</div><div class="line">+<span class="comment">-------------------------------+--------+</span></div><div class="line">| Innodb_row_lock_current_waits | 0      |</div><div class="line">| Innodb_row_lock_time          | 212240 |</div><div class="line">| Innodb_row_lock_time_avg      | 21224  |</div><div class="line">| Innodb_row_lock_time_max      | 50761  |</div><div class="line">| Innodb_row_lock_waits         | 10     |</div><div class="line">+<span class="comment">-------------------------------+--------+</span></div></pre></td></tr></table></figure>
+<p>如果发现锁争用比较严重，如 InnoDB_row_lock_waits 和 InnoDB_row_lock_time_avg 的值比较高。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p><strong>对于 MyISAM的表锁，主要讨论了以下几点：</strong><br>（1）共享读锁（S）之间是兼容的，但共享读锁（S）与排他写锁（X）之间，以及排他写锁（X）之间是互斥的，也就是说读和写是串行的。<br>（2）在一定条件下，MyISAM 允许查询和插入并发执行，我们可以利用这一点来解决应用中对同一表查询和插入的锁争用问题。<br>（3）MyISAM 默认的锁调度机制是写优先，这并不一定适合所有应用，用户可以通过设置LOW_PRIORITY_UPDATES 参数，或在 INSERT、UPDATE、DELETE 语句中指定 LOW_PRIORITY 选项来调节读写锁的争用。<br>（4）由于表锁的锁定粒度大，读写之间又是串行的，因此，如果更新操作较多，MyISAM 表可能会出现严重的锁等待，可以考虑采用 InnoDB 表来减少锁冲突。</p>
+<p><strong>对于 InnoDB 表，本文主要讨论了以下几项内容：</strong><br>（1）InnoDB 的行锁是基于索引实现的，如果不通过索引访问数据，InnoDB 会使用表锁。<br>（2）在不同的隔离级别下，InnoDB 的锁机制和一致性读策略不同。</p>
+<p>在了解 InnoDB 锁特性后，用户可以通过设计和SQL调整等措施减少锁冲突和死锁，包括：</p>
 <ul>
 <li>尽量使用较低的隔离级别； 精心设计索引，并尽量使用索引访问数据，使加锁更精确，从而减少锁冲突的机会；</li>
 <li>选择合理的事务大小，小事务发生锁冲突的几率也更小；</li>
@@ -256,4 +275,6 @@
 <li>尽量用相等条件访问数据，这样可以避免间隙锁对并发插入的影响； 不要申请超过实际需要的锁级别；除非必须，查询时不要显示加锁；</li>
 <li>对于一些特定的事务，可以使用表锁来提高处理速度或减少死锁的可能。</li>
 </ul>
-</div><div class="tags"><a href="/tags/MySQL/">MySQL</a></div><div class="post-nav"><a class="pre" href="/2020-08-27-mysql/mysql_9_事务.html">MySql 调优(九)</a><a class="next" href="/2020-08-18-mysql/mysql_0_安装与卸载.html">MySql 安装</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IO/">IO</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LVS/">LVS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCloud/">SpringCloud</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Srping-Boot/">Srping Boot</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加解密技术/">加解密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/吉他/">吉他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/多线程/">多线程</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/无关技术/">无关技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息队列/">消息队列</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/疯狂-Java-讲义/">疯狂 Java 讲义</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计划/">计划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">4</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/SpringCloud/" style="font-size: 15px;">SpringCloud</a> <a href="/tags/计划/" style="font-size: 15px;">计划</a> <a href="/tags/SFTP/" style="font-size: 15px;">SFTP</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Samba/" style="font-size: 15px;">Samba</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/心情/" style="font-size: 15px;">心情</a> <a href="/tags/Kafka/" style="font-size: 15px;">Kafka</a> <a href="/tags/NIO/" style="font-size: 15px;">NIO</a> <a href="/tags/MQTT/" style="font-size: 15px;">MQTT</a> <a href="/tags/PGP/" style="font-size: 15px;">PGP</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/LVS/" style="font-size: 15px;">LVS</a> <a href="/tags/网络/" style="font-size: 15px;">网络</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Srping-Boot/" style="font-size: 15px;">Srping Boot</a> <a href="/tags/Eureka/" style="font-size: 15px;">Eureka</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/kafka/" style="font-size: 15px;">kafka</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/吉他/" style="font-size: 15px;">吉他</a> <a href="/tags/疯狂-Java-讲义/" style="font-size: 15px;">疯狂 Java 讲义</a> <a href="/tags/无关技术/" style="font-size: 15px;">无关技术</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a> <a href="/tags/Singleton/" style="font-size: 15px;">Singleton</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.jamespan.me/" title="小鶸の道场" target="_blank">小鶸の道场</a><ul></ul><a href="https://www.haomwei.com/" title="屠城" target="_blank">屠城</a><ul></ul><a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a><ul></ul><a href="https://www.cnblogs.com/jingmoxukong/" title="静默虚空" target="_blank">静默虚空</a><ul></ul><a href="https://blog.hushhw.cn/" title="hushhw" target="_blank">hushhw</a><ul></ul><a href="https://hasaik.com/" title="hasaik" target="_blank">hasaik</a><ul></ul><a href="https://www.imalan.cn/" title="三无计划" target="_blank">三无计划</a><ul></ul><a href="https://i-meto.com/" title="meto" target="_blank">meto</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">悟空.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<h2 id="5-问题"><a href="#5-问题" class="headerlink" title="5. 问题"></a>5. 问题</h2><p>1、表级锁不会出现死锁？</p>
+<p>2、表级锁适合查询、行级锁适合更新删除为主？</p>
+</div><div class="tags"><a href="/tags/MySQL/">MySQL</a></div><div class="post-nav"><a class="pre" href="/2020-08-27-mysql/mysql_9_事务.html">MySql 调优(九)</a><a class="next" href="/2020-08-18-mysql/mysql_0_安装与卸载.html">MySql 安装</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IO/">IO</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LVS/">LVS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCloud/">SpringCloud</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Srping-Boot/">Srping Boot</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加解密技术/">加解密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/吉他/">吉他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/多线程/">多线程</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/无关技术/">无关技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息队列/">消息队列</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/疯狂-Java-讲义/">疯狂 Java 讲义</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计划/">计划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">4</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Srping-Boot/" style="font-size: 15px;">Srping Boot</a> <a href="/tags/计划/" style="font-size: 15px;">计划</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/SFTP/" style="font-size: 15px;">SFTP</a> <a href="/tags/PGP/" style="font-size: 15px;">PGP</a> <a href="/tags/心情/" style="font-size: 15px;">心情</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/Samba/" style="font-size: 15px;">Samba</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/NIO/" style="font-size: 15px;">NIO</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/LVS/" style="font-size: 15px;">LVS</a> <a href="/tags/网络/" style="font-size: 15px;">网络</a> <a href="/tags/Kafka/" style="font-size: 15px;">Kafka</a> <a href="/tags/MQTT/" style="font-size: 15px;">MQTT</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/SpringCloud/" style="font-size: 15px;">SpringCloud</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Eureka/" style="font-size: 15px;">Eureka</a> <a href="/tags/kafka/" style="font-size: 15px;">kafka</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/吉他/" style="font-size: 15px;">吉他</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/无关技术/" style="font-size: 15px;">无关技术</a> <a href="/tags/疯狂-Java-讲义/" style="font-size: 15px;">疯狂 Java 讲义</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/Singleton/" style="font-size: 15px;">Singleton</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.jamespan.me/" title="小鶸の道场" target="_blank">小鶸の道场</a><ul></ul><a href="https://www.haomwei.com/" title="屠城" target="_blank">屠城</a><ul></ul><a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a><ul></ul><a href="https://www.cnblogs.com/jingmoxukong/" title="静默虚空" target="_blank">静默虚空</a><ul></ul><a href="https://blog.hushhw.cn/" title="hushhw" target="_blank">hushhw</a><ul></ul><a href="https://hasaik.com/" title="hasaik" target="_blank">hasaik</a><ul></ul><a href="https://www.imalan.cn/" title="三无计划" target="_blank">三无计划</a><ul></ul><a href="https://i-meto.com/" title="meto" target="_blank">meto</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">悟空.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
