@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="悟空的技术博客"><title>操作系统学习（一） | 悟空</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">操作系统学习（一）</h1><a id="logo" href="/.">悟空</a><p class="description">悟空的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tag"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">操作系统学习（一）</h1><div class="post-meta">Sep 15, 2020<span> | </span><span class="category"><a href="/categories/OS/">OS</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、相关书籍推荐"><span class="toc-text">1、相关书籍推荐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-读书原则"><span class="toc-text">1.1 读书原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-书籍推荐"><span class="toc-text">1.2 书籍推荐</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、硬件基础知识"><span class="toc-text">2、硬件基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-CPU-的制作过程"><span class="toc-text">2.1 CPU 的制作过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-CPU-的原理"><span class="toc-text">2.2 CPU 的原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-汇编执行过程"><span class="toc-text">2.3 汇编执行过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-量子计算机"><span class="toc-text">2.4 量子计算机</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、Java-相关的硬件知识"><span class="toc-text">3、Java 相关的硬件知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-CPU-的基本组成"><span class="toc-text">3.1 CPU 的基本组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-存储器层次结构"><span class="toc-text">3.2 存储器层次结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-程序局部性原理"><span class="toc-text">3.3 程序局部性原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-缓存一致性-Cache-Coherence-协议"><span class="toc-text">3.4 缓存一致性(Cache Coherence)协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-CPU-乱序执行"><span class="toc-text">3.5 CPU 乱序执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-如何让-CPU-保证有序执行"><span class="toc-text">3.6 如何让 CPU 保证有序执行</span></a></li></ol></li></ol></div></div><div class="post-content"><p>IO 学习（一）。Linux 基础。</p>
+<p>操作系统学习（一）</p>
+<ul>
+<li>CPU 基本原理</li>
+<li>汇编基本原理</li>
+<li>计算机和 CPU 的基本组成</li>
+<li>存储器层次结构</li>
+<li>程序局部性原理、缓存行、伪共享、缓存行对齐</li>
+<li>缓存一致性协议（缓存锁）</li>
+<li>总线锁</li>
+</ul>
+<a id="more"></a>
+<h2 id="1、相关书籍推荐"><a href="#1、相关书籍推荐" class="headerlink" title="1、相关书籍推荐"></a>1、相关书籍推荐</h2><h3 id="1-1-读书原则"><a href="#1-1-读书原则" class="headerlink" title="1.1 读书原则"></a>1.1 读书原则</h3><p>读书的原则：<strong>不求甚解，观其大略</strong></p>
+<p>你如果进到庐山里头，二话不说，蹲下头来，弯下腰，就对着某棵树某棵小草猛研究而不是说先把庐山的整体脉络跟那研究清楚了，那么你的学习方法肯定效率巨低而且特别痛苦，最重要的还是慢慢地还打击你的积极性，说我的学习怎么那么不happy啊，怎么那么特没劲那，因为你的学习方法错了，大体读明白，先拿来用，用着用着，很多道理你就明白了。</p>
+<h3 id="1-2-书籍推荐"><a href="#1-2-书籍推荐" class="headerlink" title="1.2 书籍推荐"></a>1.2 书籍推荐</h3><p><strong>计算机系统</strong></p>
+<ul>
+<li>《编码：隐匿在计算机软硬件背后的语言》 </li>
+<li>《深入理解计算机系统》 </li>
+</ul>
+<p><strong>高级语言</strong></p>
+<ul>
+<li>《C程序设计语言》</li>
+<li>《C Primer Plus》 </li>
+</ul>
+<p><strong>数据结构和算法-毕生的学习 </strong></p>
+<ul>
+<li>《Java数据结构与算法》《算法》 </li>
+<li>《算法导论》《计算机程序设计艺术》//难 </li>
+</ul>
+<p><strong>操作系统</strong></p>
+<ul>
+<li>《Linux内核源码解析》  </li>
+<li>《Linux内核设计与实现》 // 推荐</li>
+<li>《30天自制操作系统》</li>
+</ul>
+<p><strong>网络</strong></p>
+<ul>
+<li>机工《TCP/IP详解》卷一 翻译一般</li>
+</ul>
+<p><strong>编译原理</strong></p>
+<ul>
+<li>机工 龙书 《编译原理》 </li>
+<li>《编程语言实现模式》</li>
+</ul>
+<p><strong>数据库</strong></p>
+<ul>
+<li>《SQLite源码》</li>
+<li>Derby - JDK自带数据库</li>
+</ul>
+<h2 id="2、硬件基础知识"><a href="#2、硬件基础知识" class="headerlink" title="2、硬件基础知识"></a>2、硬件基础知识</h2><h3 id="2-1-CPU-的制作过程"><a href="#2-1-CPU-的制作过程" class="headerlink" title="2.1 CPU 的制作过程"></a>2.1 CPU 的制作过程</h3><p><strong>视频：</strong></p>
+<p> <a href="https://haokan.baidu.com/v?vid=11928468945249380709&amp;pd=bjh&amp;fr=bjhauthor&amp;type=video" target="_blank" rel="external">https://haokan.baidu.com/v?vid=11928468945249380709&amp;pd=bjh&amp;fr=bjhauthor&amp;type=</a><a href="https://haokan.baidu.com/v?vid=11928468945249380709&amp;pd=bjh&amp;fr=bjhauthor&amp;type=video" target="_blank" rel="external">video</a> </p>
+<p><strong>文字：</strong></p>
+<p><a href="https://www.sohu.com/a/255397866_468626" target="_blank" rel="external">https</a><a href="https://www.sohu.com/a/255397866_468626" target="_blank" rel="external">://www.sohu.com/a/255397866_468626</a> </p>
+<p><strong>原料：</strong>一堆沙子+一堆铜 + 一堆胶水 + 特定金属添加 + 特殊工艺</p>
+<p><strong>工艺：</strong>沙子脱氧 -&gt; 石英 -&gt; 二氧化硅 -&gt; 提纯 -&gt; 硅锭 -&gt; 切割 -&gt; 晶圆 -&gt; 涂抹光刻胶 -&gt; 光刻 -&gt; 蚀刻 -&gt; 清除光刻胶 -&gt; 电镀 -&gt; 抛光 -&gt; 铜层 -&gt; 测试  -&gt; 切片 -&gt; 封装</p>
+<h3 id="2-2-CPU-的原理"><a href="#2-2-CPU-的原理" class="headerlink" title="2.2 CPU 的原理"></a>2.2 CPU 的原理</h3><p><strong>如何代表数字？</strong></p>
+<p>计算机需要解决的最根本问题：如何代表数字</p>
+<p><strong>晶体管</strong>是如何工作的：</p>
+<p><a href="https://haokan.baidu.com/v?vid=16026741635006191272&amp;pd=bjh&amp;fr=bjhauthor&amp;type=video" target="_blank" rel="external">https://haokan.baidu.com/v?vid=16026741635006191272&amp;pd=bjh&amp;fr=bjhauthor&amp;type=</a><a href="https://haokan.baidu.com/v?vid=16026741635006191272&amp;pd=bjh&amp;fr=bjhauthor&amp;type=video" target="_blank" rel="external">video</a></p>
+<p><strong>晶体管</strong>的工作原理：</p>
+<p><a href="https://www.bilibili.com/video/av47388949?p=2" target="_blank" rel="external">https://www.bilibili.com/video/av47388949?p=2</a></p>
+<p>硅 -&gt; 加入特殊元素 -&gt; P半导体 N半导体 -&gt; PN 结 -&gt; 二极管 -&gt; 场效应晶体管 -&gt; 逻辑开关。</p>
+<p>与门、或门、非门、或非门（异或） -&gt; 基础逻辑电路</p>
+<p>加法器 累加器 锁存器</p>
+<p>实现手动计算（通电一次，运行一次位运算）</p>
+<p>加入内存，实现自动运算（每次读取内存指令，（高电低电））</p>
+<p>《编码》17章</p>
+<p><strong>CPU 工作原理：</strong>CPU 有很多针脚，这些针脚就是一些开关，每个针脚可以接收一个电信号，通电表示1，没通电表示0。通过振荡器（<strong>时钟发生器，相当于心脏，每震荡一次 CPU 进行一次计算</strong>）控制每个针脚通电断电，从而告诉 CPU 要做什么样的计算。</p>
+<p><strong>引入内存：</strong>要输入给 CPU 的数据放在哪里呢？放在内存，内存就相当于 CPU 的仓库。所以内存的本质就是存储了一些电信号，通过总线和 CPU 相连接。</p>
+<p>操作系统的位数可以动态控制，和 CPU 有关，CPU 每次读取 64 个数字就是 64 位。64 位 CPU 中每个寄存器大小 64 位，ALU 也是 64 位。</p>
+<p>让计算机看懂计算：01000010 + 00101100</p>
+<p>手工输入：纸带计算机</p>
+<p>助计符：01000010 - mov sub</p>
+<p>高级语言 -&gt; 编译器 -&gt; 机器语言</p>
+<h3 id="2-3-汇编执行过程"><a href="#2-3-汇编执行过程" class="headerlink" title="2.3 汇编执行过程"></a>2.3 汇编执行过程</h3><p>汇编语言的本质就是机器语言的助计符。所以汇编语言就是机器语言。</p>
+<p>计算机通电 -&gt; CPU 读取内存中程序(电信号输入) -&gt; 时钟发生器（目前每秒钟可以震荡 <strong>Ghz，几十亿次</strong>）不断震荡通断电 -&gt; 推动 CPU 内部一步一步执行(执行多少步取决于指令需要的时钟周期) -&gt; 计算完成 -&gt; 写回（电信号）-&gt; 写给显卡输出（sout，或者图形）</p>
+<p><strong>问</strong>：屏幕的频率是啥意思？</p>
+<p><strong>答</strong>：计算机经过计算，把结果从内存通过 DMA 走内存总线、IO 总线发送到显卡。屏幕上是一个一个的像素点，每个像素点对应显卡的一些数据。CPU 只负责把数据发送到显卡。屏幕所谓的频率比如 60HZ、144HZ，是指屏幕从显卡读取数据的频率。</p>
+<p>JVM 本身不跨平台，Java 是通过 JVM 来跨平台。比如 Windows 行 10001000 表示 add，但是 Linux 上 10001001 表示加，但是 Java 统一规定 10001000 表示 add，然后提供两个 JVM 分别处理不同平台的实现，这样就实现了跨平台。</p>
+<h3 id="2-4-量子计算机"><a href="#2-4-量子计算机" class="headerlink" title="2.4 量子计算机"></a>2.4 量子计算机</h3><p>普通比特：1bit 要么1要么0；</p>
+<p>量子比特：可以同时又是1又是0</p>
+<p><img src="../../images/os/1/量子比特.png" alt=""></p>
+<p><img src="../../images/os/1/恐怖.png" alt=""></p>
+<h2 id="3、Java-相关的硬件知识"><a href="#3、Java-相关的硬件知识" class="headerlink" title="3、Java 相关的硬件知识"></a>3、Java 相关的硬件知识</h2><p>CPU 和内存是计算机的核心。</p>
+<h3 id="3-1-CPU-的基本组成"><a href="#3-1-CPU-的基本组成" class="headerlink" title="3.1 CPU 的基本组成"></a>3.1 CPU 的基本组成</h3><p><img src="../../images/os/1/计算机的组成.png" alt=""></p>
+<p>1、PC：Program Counter 程序计数器（记录当前指令地址）</p>
+<p>2、Registers：暂时存储 CPU 计算需要用到的数据。有的 CPU 有上百个寄存器。把内存数据拷贝过来，放入寄存器方便 CPU 使用，因为内存离 CPU 太远了。</p>
+<p>3、ALU：Arithmetic &amp; Logic Unit 运算逻辑单元。比如计算 2 + 3</p>
+<ul>
+<li>CPU 把 2、3 读入 CPU 中的两个寄存器假设 AX、BX</li>
+<li>然后从 PC 中读取到的指令是 add，</li>
+<li>然后 ALU 则把 AX、BX 取出来进行一系列电路计算，结果返回到另一个寄存器假设 DX</li>
+<li>最后把 DX 数据返回内存。</li>
+</ul>
+<p>4、CU：Control Unit 控制单元。中断信号控制</p>
+<p>5、MMU：Memory Management Unit 内存管理单元</p>
+<p>6、Cache</p>
+<p><strong>超线程：一个 ALU 对应多个 PC|Registers 组合就是所谓的超线程。</strong></p>
+<p>所谓的四核八线程结构，一个 CPU 核心对应一个 ALU，但是每个核心有两组 PC|Registers，所以正常来说四核对应四个 ALU，只能同时进行四个线程的并行运算，但是这里却可以八个线程并行，这就是超线程了。</p>
+<p><img src="../../images/os/1/四核八线程.png" alt=""></p>
+<h3 id="3-2-存储器层次结构"><a href="#3-2-存储器层次结构" class="headerlink" title="3.2 存储器层次结构"></a>3.2 存储器层次结构</h3><p> 在一个典型操作系统中，可能会有几个缓存（<strong>在多核系统中，每个核心都会有自己的缓存</strong>）共享主存总线，每个相应的 <code>CPU</code> 会发出读写请求，而缓存的目的是为了<strong>减少 CPU 读写共享主存的次数</strong>。 因为 CPU 和物理内存之间的通信速度远慢于 CPU 的处理速度 ，加入多级缓存就是为了解决<strong>处理器于内存速度之间的矛盾</strong>。</p>
+<p><img src="../../images/os/1/存储器的层次结构.png" alt=""></p>
+<p><strong>六级存储结构</strong></p>
+<ul>
+<li>L0：寄存器</li>
+<li>L1：高速缓存（CPU 对应核心内部）</li>
+<li>L2：高速缓存（CPU 对应核心内部）</li>
+<li>L3：高速缓存（CPU 共享）</li>
+<li>L4：主存</li>
+<li>L5：磁盘</li>
+<li>L6：远程文件存储</li>
+</ul>
+<p><strong>CPU 到六级存储结构时间表</strong></p>
+<table>
+<thead>
+<tr>
+<th>从 CPU 到</th>
+<th>大约需要的 CPU 周期</th>
+<th>大约需要的时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registers</td>
+<td>1 cycle</td>
+<td>&lt; 1ns</td>
+</tr>
+<tr>
+<td>L1 Cache</td>
+<td>3~4 cycle</td>
+<td>约 1ns</td>
+</tr>
+<tr>
+<td>L2 Cache</td>
+<td>10 cycle</td>
+<td>约 3ns</td>
+</tr>
+<tr>
+<td>L3 Cache</td>
+<td>40~50 cycle</td>
+<td>约 15ns</td>
+</tr>
+<tr>
+<td>main memory</td>
+<td></td>
+<td>约 80ns</td>
+</tr>
+</tbody>
+</table>
+<p>从上表看出，CPU 访问 Registers 或者 L1 Cache 的速度大约是访问主存速度的 <strong>100 倍</strong>。</p>
+<p><strong>多核 CPU 的缓存结构</strong></p>
+<p>一块 CPU 有多个核心；每个核心有自己的 Registers、LI、L2 缓存；同一 CPU 的多个核心共享该 CPU 对应的 L3；所有 CPU 共享内存。</p>
+<p><img src="../../images/os/1/多核CPU缓存结构.png" alt=""></p>
+<h3 id="3-3-程序局部性原理"><a href="#3-3-程序局部性原理" class="headerlink" title="3.3 程序局部性原理"></a>3.3 程序局部性原理</h3><p>不管是从缓存读取还是从内存读取还是从磁盘读取都是<strong>按块读取</strong>。程序局部性原理，可以提高效率。充分发挥总线 CPU 针脚等一次性读取更多数据的能力。这个块对于内存来说就是内存页，对于 CPU 来说就是缓存行。</p>
+<p><strong>Cache line 的概念。缓存行对齐、伪共享。</strong></p>
+<p>缓存行：</p>
+<ul>
+<li>缓存行越大，局部性空间效率越高，但读取时间慢</li>
+<li>缓存行越小，局部性空间效率越低，但读取时间快</li>
+<li>取一个折中值，目前多用 64byte，工业实践决定。</li>
+</ul>
+<p><img src="../../images/os/1/缓存行对齐和伪共享.png" alt=""></p>
+<p><strong>伪共享</strong></p>
+<p>如何保证两个 CPU L1、L2 数据同步？<strong>缓存一致性协议</strong>。以缓存行为单位。比如 CPU1 修改了 x，缓存一致性协议会通知 CPU2，大哥你这行数据已经过时了，请重新去内存读取。这时 x、y其实就是一个<strong>伪共享</strong>的状态，看似共享，实际上由于其他 CPU 的影响，还是需要不断去内存读数据。</p>
+<p><strong>缓存行对齐</strong></p>
+<p>对于有些特别敏感的数字，会存在线程高竞争的访问，为了保证不发生伪共享，可以使用缓存行对齐的编程方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// disruptor</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">long</span> p1,p2,p3,p4,p5,p6,p7; <span class="comment">// cache line padding</span></div><div class="line"><span class="comment">// 前后均加上 7 个long，所以 cursor 肯定不会和其他数据在同一个缓存行，所以就不会有伪共享的问题了</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">long</span> cursor = INITIAL_CURSOR_VALUE;</div><div class="line"><span class="keyword">public</span> <span class="keyword">long</span> p8,p9,p10,p11,p12,p13,p14; <span class="comment">// cache line padding</span></div><div class="line"></div><div class="line"><span class="comment">// JDK7中，很多采用 long padding 提高效率。</span></div><div class="line"><span class="comment">// JDK8中，加入了 @Contended 注解（实验），需要加上JVM 参数：-XX:-RestrictContended  </span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">T05_Contended</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 需要加上以下 JVM 参数生效。</span></div><div class="line"><span class="comment">     * 增加该注解的原因是，原来前后加 7 个 long 的方式只对 intel CPU 有效</span></div><div class="line"><span class="comment">     * 对于其他 CPU 不一定有效，因为别的 CPU 缓存行不一定 64 字节，比如可能 128 字节</span></div><div class="line"><span class="comment">     * -XX:-RestrictContended</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="meta">@Contended</span></div><div class="line">    <span class="keyword">volatile</span> <span class="keyword">long</span> x;</div><div class="line">    <span class="meta">@Contended</span></div><div class="line">    <span class="keyword">volatile</span> <span class="keyword">long</span> y;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</div><div class="line">        T05_Contended t = <span class="keyword">new</span> T05_Contended();</div><div class="line">        Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; <span class="number">1_0000_0000L</span>; i++) &#123;</div><div class="line">                t.x = i;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        Thread t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; <span class="number">1_0000_0000L</span>; i++) &#123;</div><div class="line">                t.y = i;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        <span class="keyword">final</span> <span class="keyword">long</span> start = System.nanoTime();</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line">        t1.join();</div><div class="line">        t2.join();</div><div class="line">        System.out.println((System.nanoTime() - start)/<span class="number">100_0000</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-4-缓存一致性-Cache-Coherence-协议"><a href="#3-4-缓存一致性-Cache-Coherence-协议" class="headerlink" title="3.4 缓存一致性(Cache Coherence)协议"></a>3.4 缓存一致性(Cache Coherence)协议</h3><p>在多路处理器系统中，每个<strong>处理器内部(L1、L2)</strong>都有自己的高速缓存，而它们又共享同一<strong>主内存（Main Memory）</strong>，这种系统称为<strong>共享内存多核系统（Shared Memory Multiprocessors System）</strong>。</p>
+<p>当多个处理器的运算任务都涉及同一块主内存区域时，将可能导致各自的缓存数据不一致，从而引发缓存一致性问题。</p>
+<p><img src="../../images/jvm/03/处理器_高速缓存_主内存关系.png" alt=""></p>
+<p>不同 CPU 使用的缓存一致性协议有所不同。MSI、MESI、MOSI、Synapse、Firefly、Dragon 等都是缓存一致性协议。Intel 目前用的缓存一致性协议是 <strong>MESI</strong>。</p>
+<p>JVM 也有自己的内存模型，并且与这里介绍的硬件级别的内存模型有高度的可类比性。</p>
+<p>验证缓存一致性协议对性能的影响：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">T03_CacheLinePadding</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * long 8字节，数组中两个元素肯定在同一个缓存行</span></div><div class="line"><span class="comment">     * 两个不同线程分别修改数组元素，两个 CPU 去处理，两个 CPU 都会缓存这个缓存行</span></div><div class="line"><span class="comment">     * 缓存一致性协议肯定会不停的互相通知对方去内存取最新的数据</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">long</span>[] arr = <span class="keyword">new</span> <span class="keyword">long</span>[<span class="number">2</span>];</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Thread t1 = <span class="keyword">new</span> Thread(()-&gt;&#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; <span class="number">10_0000_0000L</span>; i++) &#123;</div><div class="line">                arr[<span class="number">0</span>] = i;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        Thread t2 = <span class="keyword">new</span> Thread(()-&gt;&#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; <span class="number">10_0000_0000L</span>; i++) &#123;</div><div class="line">                arr[<span class="number">1</span>] = i;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">long</span> start = System.nanoTime();</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line">        t1.join();</div><div class="line">        t2.join();</div><div class="line">        System.out.println((System.nanoTime() - start)/<span class="number">100_0000</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">T04_CacheLinePadding</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * long 8字节，0 号和 8 号元素肯定不在一个缓存行</span></div><div class="line"><span class="comment">     * 两个不同线程分别修改数组元素，两个 CPU 去处理</span></div><div class="line"><span class="comment">     * 由于数据在不同的缓存行，互不影响</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">long</span>[] arr = <span class="keyword">new</span> <span class="keyword">long</span>[<span class="number">16</span>];</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        Thread t1 = <span class="keyword">new</span> Thread(()-&gt;&#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; <span class="number">10_0000_0000L</span>; i++) &#123;</div><div class="line">                arr[<span class="number">0</span>] = i;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        Thread t2 = <span class="keyword">new</span> Thread(()-&gt;&#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">long</span> i = <span class="number">0</span>; i &lt; <span class="number">10_0000_0000L</span>; i++) &#123;</div><div class="line">                arr[<span class="number">8</span>] = i;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        <span class="keyword">final</span> <span class="keyword">long</span> start = System.nanoTime();</div><div class="line">        t1.start();</div><div class="line">        t2.start();</div><div class="line">        t1.join();</div><div class="line">        t2.join();</div><div class="line">        System.out.println((System.nanoTime() - start)/<span class="number">100_0000</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> MESI 协议细节：<a href="https://www.cnblogs.com/z00377750/p/9180644.html" target="_blank" rel="external">https://www.cnblogs.com/z00377750/p/9180644.html</a> </p>
+<p><img src="../../images/os/1/缓存一致性协议.png" alt=""></p>
+<h3 id="3-5-CPU-乱序执行"><a href="#3-5-CPU-乱序执行" class="headerlink" title="3.5 CPU 乱序执行"></a>3.5 CPU 乱序执行</h3><p>除了增加高速缓存之外，为了使处理器内部的运算单元(ALU)能尽量被充分利用，处理器可能会对输入代码进行<strong>乱序执行（Out-Of-Order Execution）优化</strong>，保证最终结果一样，但不保证执行顺序。</p>
+<p>CPU 为了提高指令执行效率，会在一条指令执行过程中（比如去内存读取数据（慢100倍）），去同时执行另一条指令，前提是<strong>两条指令没有依赖关系</strong>。</p>
+<p>CPU 乱序的根源：CPU 在<strong>读等待</strong>的时候执行其他不影响的指令；CPU 在写的同时可以进行<strong>合并写</strong>。</p>
+<p><img src="../../images/jvm/03/CPU指令重排序问题.png" alt=""></p>
+<p><strong>CPU 乱序执行证明</strong></p>
+<p><strong>CPU 合并写证明</strong></p>
+<p>CPU 有一个  WC Cache，只有四个字节，速度比一级缓存更快。WC Cache 满了直接写回 L2。所以每次处理四个字节效率更高。</p>
+<h3 id="3-6-如何让-CPU-保证有序执行"><a href="#3-6-如何让-CPU-保证有序执行" class="headerlink" title="3.6 如何让 CPU 保证有序执行"></a>3.6 如何让 CPU 保证有序执行</h3><p><strong>总线锁</strong></p>
+<p>有些无法被缓存的数据或者跨越多个缓存行的数据，缓存一致性协议无法解决一致性问题，这时需要锁总线。缓存一致性协议有时也被称为缓存锁。一旦总线锁定，这台计算机的其他 CPU 均无法访问内存，所以和缓存锁相比效率更低。</p>
+</div><div class="tags"><a href="/tags/OS/">OS</a></div><div class="post-nav"><a class="pre" href="/2020-09-16-操作系统/第二课.html">操作系统学习（二）</a><a class="next" href="/2020-09-10-mysql/mysql_14_经典面试题.html">MySql 调优(十四) 经典面试题目</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IO/">IO</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LVS/">LVS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCloud/">SpringCloud</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Srping-Boot/">Srping Boot</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加解密技术/">加解密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/吉他/">吉他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/多线程/">多线程</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/无关技术/">无关技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息队列/">消息队列</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/疯狂-Java-讲义/">疯狂 Java 讲义</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计划/">计划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">4</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Srping-Boot/" style="font-size: 15px;">Srping Boot</a> <a href="/tags/计划/" style="font-size: 15px;">计划</a> <a href="/tags/心情/" style="font-size: 15px;">心情</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/SFTP/" style="font-size: 15px;">SFTP</a> <a href="/tags/Kafka/" style="font-size: 15px;">Kafka</a> <a href="/tags/NIO/" style="font-size: 15px;">NIO</a> <a href="/tags/MQTT/" style="font-size: 15px;">MQTT</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/Samba/" style="font-size: 15px;">Samba</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/LVS/" style="font-size: 15px;">LVS</a> <a href="/tags/网络/" style="font-size: 15px;">网络</a> <a href="/tags/SpringCloud/" style="font-size: 15px;">SpringCloud</a> <a href="/tags/Eureka/" style="font-size: 15px;">Eureka</a> <a href="/tags/PGP/" style="font-size: 15px;">PGP</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/kafka/" style="font-size: 15px;">kafka</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/OS/" style="font-size: 15px;">OS</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/吉他/" style="font-size: 15px;">吉他</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/无关技术/" style="font-size: 15px;">无关技术</a> <a href="/tags/疯狂-Java-讲义/" style="font-size: 15px;">疯狂 Java 讲义</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a> <a href="/tags/Singleton/" style="font-size: 15px;">Singleton</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.jamespan.me/" title="小鶸の道场" target="_blank">小鶸の道场</a><ul></ul><a href="https://www.haomwei.com/" title="屠城" target="_blank">屠城</a><ul></ul><a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a><ul></ul><a href="https://www.cnblogs.com/jingmoxukong/" title="静默虚空" target="_blank">静默虚空</a><ul></ul><a href="https://blog.hushhw.cn/" title="hushhw" target="_blank">hushhw</a><ul></ul><a href="https://hasaik.com/" title="hasaik" target="_blank">hasaik</a><ul></ul><a href="https://www.imalan.cn/" title="三无计划" target="_blank">三无计划</a><ul></ul><a href="https://i-meto.com/" title="meto" target="_blank">meto</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">悟空.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
