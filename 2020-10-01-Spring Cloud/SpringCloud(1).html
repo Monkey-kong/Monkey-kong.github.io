@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="悟空的技术博客"><title>SpringCloud学习(一) | 悟空</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.0/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">SpringCloud学习(一)</h1><a id="logo" href="/.">悟空</a><p class="description">悟空的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tag"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">SpringCloud学习(一)</h1><div class="post-meta">Oct 1, 2020<span> | </span><span class="category"><a href="/categories/SpringCloud/">SpringCloud</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、单体应用到微服务演变"><span class="toc-text">1、单体应用到微服务演变</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-单体应用"><span class="toc-text">1.1 单体应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-SOA"><span class="toc-text">1.2 SOA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-微服务"><span class="toc-text">1.3 微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#微服务概况"><span class="toc-text">微服务概况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#微服务特性"><span class="toc-text">微服务特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#微服务组件"><span class="toc-text">微服务组件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#微服务优点"><span class="toc-text">微服务优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#微服务缺点"><span class="toc-text">微服务缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设计原则"><span class="toc-text">设计原则</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Spring-Cloud"><span class="toc-text">2、Spring Cloud</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-概念"><span class="toc-text">2.1 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-版本演进"><span class="toc-text">2.2 版本演进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-组件"><span class="toc-text">2.3 组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-整体架构图"><span class="toc-text">2.4 整体架构图</span></a></li></ol></li></ol></div></div><div class="post-content"><p>Spring Cloud 全家桶 Hoxton SR3。</p>
+<p>1、开班典礼</p>
+<p>2、微服务</p>
+<p>3、单体应用向微服务异构平台架构演变</p>
+<p>4、Spring Cloud Alibaba/Netflix</p>
+<a id="more"></a>
+<p>前置知识。Springboot + ssm 架构师前置知识7-16节课。</p>
+<p>人人都是架构师，只是缺少一个机会。</p>
+<h2 id="1、单体应用到微服务演变"><a href="#1、单体应用到微服务演变" class="headerlink" title="1、单体应用到微服务演变"></a>1、单体应用到微服务演变</h2><h3 id="1-1-单体应用"><a href="#1-1-单体应用" class="headerlink" title="1.1 单体应用"></a>1.1 单体应用</h3><ol>
+<li><p>概念：所有功能全部打包在一起。应用大部分是一个 war 包或 jar 包。我参与网约车最开始架构是：一个乘客项目中有用户、订单、消息、地图等功能。随着业务发展，项目会越来越臃肿。</p>
+</li>
+<li><p>好处：容易开发、测试、部署，适合项目初期试错</p>
+</li>
+<li><p>坏处：</p>
+<ul>
+<li>复杂性高：代码多，十万行，百万行级别。加一个小功能，会带来其他功能的隐患，因为他们是在一起的。</li>
+<li>技术债务：人员流动，不坏不修，因为不敢修</li>
+<li>持续部署困难：由于是全量应用，一个小改动就需要全部部署，会导致和这个功能无关的功能也暂停使用。编译部署上限耗时长，不敢随便部署，导致部署频率低，进而又导致两次部署之间功能修改很多，所以越不敢部署，恶心循环</li>
+<li>可靠性差：某个小问题，比如小功能出现 OOM，会导致整个应用崩溃。</li>
+<li>扩展受限：只能整体扩展，无法按照需要进行扩展，不能根据计算密集型（派单系统）和 IO 密集型（文件服务）进行合适的区分</li>
+<li>阻碍创新：单体应用是以一种技术解决所有问题，不同意引入新技术。但在高速的互联网发展过程中，适应的潮流是：用合适的语言做合适的事情。比如在单体应用中，一个项目用 Spring MVC，想换成 SpringBoot，切换成本很高，因为有可能 10 万，百万行代码都要改，而微服务可以轻松切换，因为每个服务，功能简单，代码少。</li>
+</ul>
+</li>
+</ol>
+<h3 id="1-2-SOA"><a href="#1-2-SOA" class="headerlink" title="1.2 SOA"></a>1.2 SOA</h3><p>SOA 是对单体应用的改进。引入 SOA（Service-Oriented Architecture）面向服务架构，拆分系统，用服务的流程化来实现业务的灵活性。服务间需要某些方法进行连接，面向接口等。它是一种设计方法，其中包含多个服务，服务之间通过互相依赖最终提供一系列的功能。一个服务 通常以独立的形式存在于操作系统进程中。各个服务之间 通过网络调用。但是还是需要用些方法来进行服务组合，有可能还是个单体应用。</p>
+<h3 id="1-3-微服务"><a href="#1-3-微服务" class="headerlink" title="1.3 微服务"></a>1.3 微服务</h3><p>微服务是 SOA 思想的一种具体实践。</p>
+<p>微服务架构=80%的 SOA 服务架构思想 + 100% 的组件化架构思想。</p>
+<h4 id="微服务概况"><a href="#微服务概况" class="headerlink" title="微服务概况"></a>微服务概况</h4><ul>
+<li><p>微服务是一种架构风格，将单体应用划分为小型的服务单元</p>
+</li>
+<li><p>微服务架构是一种使用一系列粒度较小的服务来开发单个应用的方式；每个服务运行在自己的进程中；服务间采用轻量级的方式进行通信(通常是HTTP API)；这些服务是基于业务逻辑和范围，通过自动化部署的机制来独立部署的，并且服务的集中管理应该是最低限度的，即每个服务可以采用不同的编程语言编写，使用不同的数据存储技术。</p>
+</li>
+<li><p>英文定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.martinfowler.com/articles/microservices.html</div></pre></td></tr></table></figure>
+</li>
+<li><p>小类比来理解微服务</p>
+<ul>
+<li>合久必分。分开后通信，独立部署，独立存储</li>
+<li>服务拆多了再合起来就叫中台</li>
+</ul>
+</li>
+</ul>
+<h4 id="微服务特性"><a href="#微服务特性" class="headerlink" title="微服务特性"></a>微服务特性</h4><ul>
+<li>独立运行在自己的进程中</li>
+<li>一系列独立服务共同构建起整个系统</li>
+<li>一个服务只关注自己的独立业务</li>
+<li>轻量的通信机制 Restful API</li>
+<li>可以使用不同的语言开发</li>
+<li>全自动部署机制</li>
+<li>可插拔</li>
+</ul>
+<h4 id="微服务组件"><a href="#微服务组件" class="headerlink" title="微服务组件"></a>微服务组件</h4><ul>
+<li><p>服务注册与发现：服务提供方将己方调用地址注册到服务注册中心，让服务调用方能够方便地找到自己；服务调用方从服务注册中心找到自己需要调用的服务的地址。Eureka、Zookeeper、Consul、Nacos等。Eureka 是基于 REST 风格的。</p>
+</li>
+<li><p>负载均衡：服务提供方一般以多实例的形式提供服务，负载均衡功能能够让服务调用方连接到合适的服务节点。并且，服务节点选择的过程对服务调用方来说是透明的。</p>
+</li>
+<li><p>服务网关：服务网关是服务调用的唯一入口，可以在这个组件中实现用户鉴权、动态路由、灰度发布、A/B测试、负载限流等功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">灰度发布（又名金丝雀发布）是指在黑与白之间，能够平滑过渡的一种发布方式。在其上可以进行A/B testing，即让一部分用户继续用产品特性A，一部分用户开始用产品特性B，如果用户对B没有什么反对意见，那么逐步扩大范围，把所有用户都迁移到B上面来。灰度发布可以保证整体系统的稳定，在初始灰度的时候就可以发现、调整问题，以保证其影响度。</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置中心：将本地化的配置信息(Properties、XML、YAML等形式)注册到配置中心，实现程序包在开发、测试、生产环境中的无差别性，方便程序包的迁移，也是无状态特性。</p>
+</li>
+<li><p>继承框架：微服务组件都以职责单一的程序包对外提供服务，集成框架以配置的形式将所有微服务组件(特别是管理端组件)集成到统一的界面框架下，让用户能够在统一的界面中使用系统。Spring Cloud 就是一个集成框架。</p>
+</li>
+<li><p>调用链监控：记录完成一次请求的先后衔接和调用关系，并将这种串行或并行的调用关系展示出来。在系统出错时，可以方便地找到出错点。</p>
+</li>
+<li><p>支撑平台：系统微服务化后，各个业务模块经过拆分变得更加细化，系统的部署、运维、监控等都比单体应用架构更加复杂，这就需要将大部分的工作自动化。现在，Docker等工具可以给微服务架构的部署带来较多的便利，例如持续集成、蓝绿发布、健康检查、性能监控等等。如果没有合适的支撑平台或工具，微服务架构就无法发挥它最大的功效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">1. 蓝绿部署是不停老版本，部署新版本然后进行测试，确认OK，将流量切到新版本，然后老版本同时也升级到新版本。</div><div class="line">2. 灰度是选择部分部署新版本，将部分流量引入到新版本，新老版本同时提供服务。等待灰度的版本OK，可全量覆盖老版本。</div><div class="line"></div><div class="line">灰度是不同版本共存，蓝绿是新旧版本切换，2种模式的出发点不一样。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="微服务优点"><a href="#微服务优点" class="headerlink" title="微服务优点"></a>微服务优点</h4><ol>
+<li>独立部署。不依赖其他服务，耦合性低，不用管其他服务的部署对自己的影响</li>
+<li>易于开发和维护：关注特定业务，所以业务清晰，代码量少，模块变得易开发、易理解、易维护。</li>
+<li>启动快：功能少，代码少，所以启动快，有需要停机维护的服务，不会长时间暂停服务</li>
+<li>局部修改容易：著需要部署相应的服务即可，适合敏捷开发</li>
+<li>技术栈不受限：java、node.js 等</li>
+<li>按需伸缩：某个服务受限，可以按需增加内存、cpu 等</li>
+<li>职责专一：专门团队负责专门业务，有利于团队分工</li>
+<li>代码复用：不需要重复写。底层实现通过接口方式提供</li>
+<li>便于团队协作：每个团队只需要提供 API 就行，定义好 API 后，可以并行开发</li>
+</ol>
+<h4 id="微服务缺点"><a href="#微服务缺点" class="headerlink" title="微服务缺点"></a>微服务缺点</h4><ol>
+<li><p>分布式固有的复杂性：容错（某个服务宕机）、网络延时、调用关系、分布式事务、分布式锁等都会带来复杂。</p>
+</li>
+<li><p>分布式事务的挑战：每个服务有自己的数据库，有点在于不同服务可以选择自身业务的数据库。订单用 MySQL，评论用 Mongodb 等。目前最理想解决方案是：柔性事务的最终一致性。</p>
+<blockquote>
+<p>刚性事务：遵循ACID原则，强一致性。<br>柔性事务：遵循BASE理论，最终一致性；与刚性事务不同，柔性事务允许一定时间内，不同节点的数据不一致，但要求最终一致。</p>
+<p>BASE 是 Basically Available(基本可用)、Soft state(软状态)和 Eventually consistent (最终一致性)三个短语的缩写。BASE理论是对CAP中AP的一个扩展，通过牺牲强一致性来获得可用性，当出现故障允许部分不可用但要保证核心功能可用，允许数据在一段时间内是不一致的，但最终达到一致状态。满足BASE理论的事务，我们称之为“柔性事务”。</p>
+</blockquote>
+</li>
+<li><p>接口调整成本高：改一个接口，调用方都要改</p>
+</li>
+<li><p>测试难度提升：一个接口的改变，所有调用方都得测。自动化测试就变得重要了。API 文档的管理也尤为重要。推荐 yapi</p>
+</li>
+<li><p>运维要求高：需要维护几十上百个服务。监控变得复杂。并且还要关注多个集群，不像原来单体应用，一个应用正常运行即可。</p>
+</li>
+<li><p>重复工作：比如 java 的工具类可以在 common.jar 中，但在多语言下行不通，C++ 无法直接使用 java 的 jar 包。</p>
+</li>
+</ol>
+<h4 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h4><ul>
+<li>单一职责原则：关注整个系统功能中单独、有界限的一部分</li>
+<li>服务自治原则：可以独立开发、测试、构建、部署、运行，与其他服务解耦</li>
+<li>轻量级通信原则：轻、跨平台、跨语言。REST、AMQP 等</li>
+<li>粒度把控：与自己实际相结合。不要追求完美，随业务进化而调整</li>
+</ul>
+<h2 id="2、Spring-Cloud"><a href="#2、Spring-Cloud" class="headerlink" title="2、Spring Cloud"></a>2、Spring Cloud</h2><h3 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h3><p>Spring Cloud是实现微服务架构的一系列框架的有机集合。</p>
+<p>是在 <strong>Spring Boot 基础上构建</strong>的，用于简化分布式系统构建的工具集。是拥有众多子项目的项目集合。利用Spring Boot的开发便利性，巧妙地<strong>简化了分布式系统基础设施</strong>（服务注册与发现、熔断机制、网关路由、配置中心、消息总线、负载均衡、链路追踪等）的开发。</p>
+<h3 id="2-2-版本演进"><a href="#2-2-版本演进" class="headerlink" title="2.2 版本演进"></a>2.2 版本演进</h3><ol>
+<li><p>版本过程：版本名.版本号。</p>
+</li>
+<li><p>版本名：伦敦地铁字母顺序。</p>
+</li>
+<li><p>版本号：M（milestone）：里程碑，</p>
+<p>​                SR（Service Releases）：稳定版，</p>
+<p>​                RC(Release Candidate)：稳定版的候选版，也就是稳定版的最后一个版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">看官网：查询每个cloud版本下面的子模块的版本。</div><div class="line">https://spring.io/projects/spring-cloud</div><div class="line">版本记录</div><div class="line">https://github.com/spring-cloud/spring-cloud-release/releases</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="2-3-组件"><a href="#2-3-组件" class="headerlink" title="2.3 组件"></a>2.3 组件</h3><ol>
+<li>服务注册与发现组件：Eureka，Zookeeper，Consul,Nacos等。Eureka基于REST风格的。</li>
+<li>服务调用组件：Hystrix(熔断降级，在出现依赖服务失效的情况下，通过隔离 系统依赖服务  的方式，防止服务级联失败，同时提供失败回滚机制，使系统能够更快地从异常中恢复)，Ribbon（客户端负载均衡，用于提供客户端的软件负载均衡算法，提供了一系列完善的配置项：连接超时、重试等），OpenFeign（优雅的封装Ribbon，是一个声明式RESTful网络请求客户端，它使编写Web服务客户端变得更加方便和快捷）。</li>
+<li>网关：路由和过滤。Zuul，Gateway。</li>
+<li>配置中心：提供了配置集中管理，动态刷新配置的功能；配置通过Git或者其他方式来存储。</li>
+<li>消息组件：Spring Cloud Stream（对分布式消息进行抽象，包括发布订阅、分组消费等功能，实现了微服务之间的异步通信）和Spring Cloud Bus（主要提供服务间的事件通信，如刷新配置）</li>
+<li>安全控制组件：Spring Cloud Security 基于OAuth2.0开放网络的安全标准，提供了单点登录、资源授权和令牌管理等功能。</li>
+<li>链路追踪组件：Spring Cloud Sleuth（收集调用链路上的数据），Zipkin（对Sleuth收集的信息，进行存储，统计，展示）。</li>
+</ol>
+<p><img src="../../images/springcloud/1/springcloud组件关系.png" alt=""></p>
+<h3 id="2-4-整体架构图"><a href="#2-4-整体架构图" class="headerlink" title="2.4 整体架构图"></a>2.4 整体架构图</h3><p><img src="../../images/springcloud/1/Spring Cloud整体架构图.png" alt=""></p>
+</div><div class="tags"><a href="/tags/SpringCloud/">SpringCloud</a></div><div class="post-nav"><a class="pre" href="/2020-10-02-Spring Cloud/SpringCloud(2).html">SpringCloud学习(四)</a><a class="next" href="/2020-09-20-操作系统/第五课.html">操作系统学习（五）</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IO/">IO</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LVS/">LVS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCloud/">SpringCloud</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Srping-Boot/">Srping Boot</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加解密技术/">加解密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/吉他/">吉他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/多线程/">多线程</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心情/">心情</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/操作系统/">操作系统</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据库/">数据库</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/无关技术/">无关技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/消息队列/">消息队列</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/疯狂-Java-讲义/">疯狂 Java 讲义</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/算法/">算法</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/计划/">计划</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">4</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/网络/" style="font-size: 15px;">网络</a> <a href="/tags/计划/" style="font-size: 15px;">计划</a> <a href="/tags/心情/" style="font-size: 15px;">心情</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/SFTP/" style="font-size: 15px;">SFTP</a> <a href="/tags/Samba/" style="font-size: 15px;">Samba</a> <a href="/tags/PGP/" style="font-size: 15px;">PGP</a> <a href="/tags/MQTT/" style="font-size: 15px;">MQTT</a> <a href="/tags/Kafka/" style="font-size: 15px;">Kafka</a> <a href="/tags/NIO/" style="font-size: 15px;">NIO</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/SpringCloud/" style="font-size: 15px;">SpringCloud</a> <a href="/tags/Srping-Boot/" style="font-size: 15px;">Srping Boot</a> <a href="/tags/LVS/" style="font-size: 15px;">LVS</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/Eureka/" style="font-size: 15px;">Eureka</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/kafka/" style="font-size: 15px;">kafka</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/多线程/" style="font-size: 15px;">多线程</a> <a href="/tags/吉他/" style="font-size: 15px;">吉他</a> <a href="/tags/OS/" style="font-size: 15px;">OS</a> <a href="/tags/无关技术/" style="font-size: 15px;">无关技术</a> <a href="/tags/疯狂-Java-讲义/" style="font-size: 15px;">疯狂 Java 讲义</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/Singleton/" style="font-size: 15px;">Singleton</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a> <a href="/tags/设计模式/" style="font-size: 15px;">设计模式</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.jamespan.me/" title="小鶸の道场" target="_blank">小鶸の道场</a><ul></ul><a href="https://www.haomwei.com/" title="屠城" target="_blank">屠城</a><ul></ul><a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a><ul></ul><a href="https://www.cnblogs.com/jingmoxukong/" title="静默虚空" target="_blank">静默虚空</a><ul></ul><a href="https://blog.hushhw.cn/" title="hushhw" target="_blank">hushhw</a><ul></ul><a href="https://hasaik.com/" title="hasaik" target="_blank">hasaik</a><ul></ul><a href="https://www.imalan.cn/" title="三无计划" target="_blank">三无计划</a><ul></ul><a href="https://i-meto.com/" title="meto" target="_blank">meto</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">悟空.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
