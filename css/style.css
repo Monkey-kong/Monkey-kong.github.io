@@ -1350,7 +1350,8 @@ figure.highlight,
 
 #toc {
   line-height: 1em;
-  float: right; }
+  position: absolute;
+  left: 40px; }
   #toc .toc {
     padding: 0;
     margin: 0.5em;
