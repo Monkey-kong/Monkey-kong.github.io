@@ -1,89 +1,2477 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="悟空的技术博客"><title>第 9 章 泛型 | 悟空</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">第 9 章 泛型</h1><a id="logo" href="/.">悟空</a><p class="description">悟空的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tag"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">第 9 章 泛型</h1><div class="post-meta">2020-01-09<span> | </span><span class="category"><a href="/categories/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/">疯狂 Java 讲义</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%E6%B3%9B%E5%9E%8B%E5%85%A5%E9%97%A8"><span class="toc-text">9.1  泛型入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-1-%E7%BC%96%E8%AF%91%E6%97%B6%E4%B8%8D%E6%A3%80%E6%9F%A5%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="toc-text">9.1.1 编译时不检查类型的异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-2-%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B"><span class="toc-text">9.1.2 使用泛型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-3-Java-9-%E5%A2%9E%E5%BC%BA%E7%9A%84%E8%8F%B1%E5%BD%A2%E8%AF%AD%E6%B3%95"><span class="toc-text">9.1.3 Java 9 增强的菱形语法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B"><span class="toc-text">9.2 深入泛型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-1-%E5%AE%9A%E4%B9%89%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3%E3%80%81%E7%B1%BB"><span class="toc-text">9.2.1 定义泛型接口、类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-2-%E4%BB%8E%E6%B3%9B%E5%9E%8B%E6%B4%BE%E7%94%9F%E5%AD%90%E7%B1%BB"><span class="toc-text">9.2.2 从泛型派生子类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-3-%E5%B9%B6%E4%B8%8D%E5%AD%98%E5%9C%A8%E6%B3%9B%E5%9E%8B%E7%B1%BB"><span class="toc-text">9.2.3 并不存在泛型类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-%E7%B1%BB%E5%9E%8B%E7%BB%9F%E9%85%8D%E7%AC%A6"><span class="toc-text">9.3 类型统配符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-1-%E4%BD%BF%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%BB%9F%E9%85%8D%E7%AC%A6"><span class="toc-text">9.3.1 使用类型统配符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-2-%E8%AE%BE%E5%AE%9A%E7%B1%BB%E5%9E%8B%E9%80%9A%E9%85%8D%E7%AC%A6%E7%9A%84%E4%B8%8A%E9%99%90"><span class="toc-text">9.3.2 设定类型通配符的上限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-3-%E8%AE%BE%E5%AE%9A%E7%B1%BB%E5%9E%8B%E9%80%9A%E9%85%8D%E7%AC%A6%E7%9A%84%E4%B8%8B%E9%99%90"><span class="toc-text">9.3.3 设定类型通配符的下限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-4-%E8%AE%BE%E5%AE%9A%E6%B3%9B%E5%9E%8B%E5%BD%A2%E5%8F%82%E7%9A%84%E4%B8%8A%E9%99%90"><span class="toc-text">9.3.4 设定泛型形参的上限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4-%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-text">9.4 泛型方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-1-%E5%AE%9A%E4%B9%89%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-text">9.4.1 定义泛型方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-2-%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95%E5%92%8C%E7%B1%BB%E5%9E%8B%E9%80%9A%E9%85%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">9.4.2 泛型方法和类型通配符的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-3-Java-7-%E7%9A%84%E8%8F%B1%E5%BD%A2%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%B3%9B%E5%9E%8B%E6%9E%84%E9%80%A0%E5%99%A8"><span class="toc-text">9.4.3 Java 7 的菱形语法与泛型构造器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-4-%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95%E4%B8%8E%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD"><span class="toc-text">9.4.4 泛型方法与方法重载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-5-Java-8-%E6%94%B9%E8%BF%9B%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD"><span class="toc-text">9.4.5 Java 8 改进的类型推断</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-5-%E6%93%A6%E9%99%A4%E5%92%8C%E8%BD%AC%E6%8D%A2"><span class="toc-text">9.5 擦除和转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-6-%E6%B3%9B%E5%9E%8B%E4%B8%8E%E6%95%B0%E7%BB%84"><span class="toc-text">9.6 泛型与数组</span></a></li></ol></div></div><div class="post-content"><p>第 9 章 泛型</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>第 9 章 泛型 | 悟空</title>
+  <meta name="keywords" content=" 疯狂 Java 讲义 ">
+  <meta name="description" content="第 9 章 泛型 | 悟空">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="悟空">
+<meta property="og:url" content="http://yoursite.com/404.html">
+<meta property="og:site_name" content="悟空">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-16T00:43:02.436Z">
+<meta property="article:modified_time" content="2019-11-08T14:02:36.972Z">
+<meta property="article:author" content="monkey-kong">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="悟空" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>monkey-kong</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/Monkey-kong" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/wukong-16" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:lixianfu1@outlook.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=1109075867&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=88151013" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(142)</small></div></li>
+    
+        
+            
+            <li><div data-rel="数据库">数据库<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="操作系统">操作系统<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="多线程">多线程<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="疯狂 Java 讲义">疯狂 Java 讲义<small>(16)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="吉他">吉他<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="加解密技术">加解密技术<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="设计模式">设计模式<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="网络">网络<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="无关技术">无关技术<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="消息队列">消息队列<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="心情">心情<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="css">css<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="IO">IO<small>(8)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JVM">JVM<small>(10)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="kafka">kafka<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Linux">Linux<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="LVS">LVS<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="mysql">mysql<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Nginx">Nginx<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="OS">OS<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Spring Cloud">Spring Cloud<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="SpringCloud">SpringCloud<small>(11)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Srping Boot">Srping Boot<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="vue">vue<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="ZooKeeper">ZooKeeper<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="142">
+<input type="hidden" id="yelog_site_word_count" value="341.6k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">全部文章</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>多线程</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>疯狂 Java 讲义</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>吉他</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>前端</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>设计模式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>网络</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>无关技术</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>心情</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Blog</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>css</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Eureka</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Hexo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>IO</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JVM</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>kafka</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Kafka</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>LVS</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>MQTT</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>MySQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Nginx</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NIO</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Observer</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Oracle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>OS</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>PGP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Proxy</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Samba</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SFTP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Singleton</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SpringCloud</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Srping Boot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>vue</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ZooKeeper</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="全部文章 css "
+           href="/2020-11-15-%E5%89%8D%E7%AB%AF/Flex%E5%B8%83%E5%B1%80%E5%AE%9E%E6%88%98.html"
+           data-tag="css"
+           data-author="" >
+            <span class="post-title" title="Flex 布局实战">Flex 布局实战</span>
+            <span class="post-date" title="2020-11-15 22:13:12">2020/11/15</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-08-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%AE%AD%E7%BB%83%E8%90%A5%E5%9F%BA%E7%A1%80/%E5%9F%BA%E7%A1%806-%E9%93%BE%E8%A1%A8%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（六）">算法基础（六）</span>
+            <span class="post-date" title="2020-11-08 23:13:12">2020/11/08</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-08-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%AE%AD%E7%BB%83%E8%90%A5%E5%9F%BA%E7%A1%80/%E5%9F%BA%E7%A1%805-%E5%89%8D%E7%BC%80%E6%A0%91_%E6%A1%B6%E6%8E%92%E5%BA%8F_%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（五）">算法基础（五）</span>
+            <span class="post-date" title="2020-11-08 22:13:12">2020/11/08</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-02-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%AE%AD%E7%BB%83%E8%90%A5%E5%9F%BA%E7%A1%80/%E5%9F%BA%E7%A1%803-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（三）">算法基础（三）</span>
+            <span class="post-date" title="2020-11-02 22:13:12">2020/11/02</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-02-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%AE%AD%E7%BB%83%E8%90%A5%E5%9F%BA%E7%A1%80/%E5%9F%BA%E7%A1%804-%E6%AF%94%E8%BE%83%E5%99%A8_%E5%A0%86%E6%8E%92%E5%BA%8F.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（四）">算法基础（四）</span>
+            <span class="post-date" title="2020-11-02 22:13:12">2020/11/02</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-10-30-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%AE%AD%E7%BB%83%E8%90%A5%E5%9F%BA%E7%A1%80/%E5%9F%BA%E7%A1%802.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（二）">算法基础（二）</span>
+            <span class="post-date" title="2020-10-30 22:13:12">2020/10/30</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-10-28-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%AE%AD%E7%BB%83%E8%90%A5%E5%9F%BA%E7%A1%80/%E5%9F%BA%E7%A1%801-%E5%A4%8D%E6%9D%82%E5%BA%A6_%E5%AF%B9%E6%95%B0%E5%99%A8_%E4%BA%8C%E5%88%86%E6%B3%95_%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（一）">算法基础（一）</span>
+            <span class="post-date" title="2020-10-28 22:13:12">2020/10/28</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-10-28-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/Untitled.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-10-28 20:05:14">2020/10/28</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-10-11-Spring%20Cloud/SpringCloud(8)-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(十)">SpringCloud学习(十)</span>
+            <span class="post-date" title="2020-10-11 23:43:12">2020/10/11</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-10-10-Spring%20Cloud/SpringCloud(7)-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(九)">SpringCloud学习(九)</span>
+            <span class="post-date" title="2020-10-10 23:43:12">2020/10/10</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-10-08-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A3%81%E7%9B%98%E6%BB%A1%E4%BA%86.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-10-08 10:32:01">2020/10/08</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-10-07-Spring%20Cloud/%E7%BD%91%E7%BA%A6%E8%BD%A6(1).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-10-07 11:57:57">2020/10/07</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-10-05-Spring%20Cloud/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(3).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-10-05 17:55:39">2020/10/05</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-10-05-Spring%20Cloud/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(2).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-10-05 08:25:31">2020/10/05</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-10-04-Spring%20Cloud/SpringCloud(6)-config.html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(八)">SpringCloud学习(八)</span>
+            <span class="post-date" title="2020-10-04 23:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-10-04-Spring%20Cloud/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(1).html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(一)">分布式会话管理(一)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-10-03-Spring%20Cloud/SpringCloud(5)-zuul.html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(七)">SpringCloud学习(七)</span>
+            <span class="post-date" title="2020-10-03 23:43:12">2020/10/03</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-10-03-Spring%20Cloud/SpringCloud(4)-Hystrix.html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(六)">SpringCloud学习(六)</span>
+            <span class="post-date" title="2020-10-03 23:33:12">2020/10/03</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-10-02-Spring%20Cloud/SpringCloud(3)-Feign.html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(五)">SpringCloud学习(五)</span>
+            <span class="post-date" title="2020-10-02 23:33:12">2020/10/02</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-10-02-Spring%20Cloud/SpringCloud(2).html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(四)">SpringCloud学习(四)</span>
+            <span class="post-date" title="2020-10-02 23:13:12">2020/10/02</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-10-01-Spring%20Cloud/SpringCloud(1).html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(一)">SpringCloud学习(一)</span>
+            <span class="post-date" title="2020-10-01 22:13:12">2020/10/01</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-20-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%BA%94%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（五）">操作系统学习（五）</span>
+            <span class="post-date" title="2020-09-20 22:13:12">2020/09/20</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-19-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E5%9B%9B%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（四）">操作系统学习（四）</span>
+            <span class="post-date" title="2020-09-19 22:13:12">2020/09/19</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-18-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%B8%89%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（三）">操作系统学习（三）</span>
+            <span class="post-date" title="2020-09-18 22:13:12">2020/09/18</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-16-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%BA%8C%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（二）">操作系统学习（二）</span>
+            <span class="post-date" title="2020-09-16 22:13:12">2020/09/16</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-15-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%B8%80%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（一）">操作系统学习（一）</span>
+            <span class="post-date" title="2020-09-15 22:13:12">2020/09/15</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-09-10-mysql/mysql_14_%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十四) 经典面试题目">MySql 调优(十四) 经典面试题目</span>
+            <span class="post-date" title="2020-09-10 23:13:12">2020/09/10</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-mysql/mysql_13_JavaSPI%E6%9C%BA%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十三) Java SPI 机制详解">MySql 调优(十三) Java SPI 机制详解</span>
+            <span class="post-date" title="2020-08-29 23:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-mysql/mysql_12_%E7%BB%8F%E5%85%B8%E7%AC%94%E8%AF%95%E9%A2%98.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十二) 经典笔试题">MySql 调优(十二) 经典笔试题</span>
+            <span class="post-date" title="2020-08-29 22:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-mysql/mysql_11_%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十一) 读写分离">MySql 调优(十一) 读写分离</span>
+            <span class="post-date" title="2020-08-29 21:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-mysql/mysql_10_%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十)">MySql 调优(十)</span>
+            <span class="post-date" title="2020-08-29 20:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-27-mysql/mysql_9_%E4%BA%8B%E5%8A%A1.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(九)">MySql 调优(九)</span>
+            <span class="post-date" title="2020-08-27 22:13:12">2020/08/27</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-26-mysql/mysql_8_%E9%94%81%E6%9C%BA%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(八)">MySql 调优(八)</span>
+            <span class="post-date" title="2020-08-26 22:13:12">2020/08/26</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-16-mysql/mysql_7_%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E5%92%8C%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(七)">MySql 调优(七)</span>
+            <span class="post-date" title="2020-08-16 22:13:12">2020/08/16</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-14-mysql/mysql_6_%E5%88%86%E5%8C%BA.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(六)">MySql 调优(六)</span>
+            <span class="post-date" title="2020-08-14 22:13:12">2020/08/14</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-13-mysql/mysql_5_%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(五)">MySql 调优(五)</span>
+            <span class="post-date" title="2020-08-13 22:13:12">2020/08/13</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-10-mysql/mysql_3_%E7%B4%A2%E5%BC%95%E5%8C%B9%E9%85%8D%E5%92%8C%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E7%9B%91%E6%8E%A7.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(三)">MySql 调优(三)</span>
+            <span class="post-date" title="2020-08-10 22:13:12">2020/08/10</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-09-mysql/mysql_2_%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%92%8C%E5%85%B3%E9%94%AE%E5%90%8D%E8%AF%8D.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(二)">MySql 调优(二)</span>
+            <span class="post-date" title="2020-08-09 22:13:12">2020/08/09</span>
+        </a>
+        
+        <a  class="全部文章 mysql "
+           href="/2020-08-05-mysql/mysql_1_%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BC%98%E5%8C%96.html"
+           data-tag="kafka"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(一)">MySql 调优(一)</span>
+            <span class="post-date" title="2020-08-05 22:13:12">2020/08/05</span>
+        </a>
+        
+        <a  class="全部文章 无关技术 "
+           href="/2020-08-05-%E6%97%A0%E5%85%B3%E6%8A%80%E6%9C%AF/%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95.html"
+           data-tag="无关技术"
+           data-author="" >
+            <span class="post-title" title="学习的方法">学习的方法</span>
+            <span class="post-date" title="2020-08-05 22:13:12">2020/08/05</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-04-mysql/mysql_0_%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 安装">MySql 安装</span>
+            <span class="post-date" title="2020-08-04 22:13:12">2020/08/04</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-07-26-jvm/jvm%E5%AD%A6%E4%B9%A011_%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-07-26 20:22:06">2020/07/26</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-24-jvm/jvm%E5%AD%A6%E4%B9%A011_jvm%E5%B8%B8%E8%A7%81%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十一）">JVM 学习（十一）</span>
+            <span class="post-date" title="2020-07-24 22:13:12">2020/07/24</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-23-jvm/jvm%E5%AD%A6%E4%B9%A0%2010_%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十）">JVM 学习（十）</span>
+            <span class="post-date" title="2020-07-23 22:13:12">2020/07/23</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-jvm/jvm%E5%AD%A6%E4%B9%A07_xx.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（七）">JVM 学习（七）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-jvm/jvm%E5%AD%A6%E4%B9%A08_%E8%B0%83%E4%BC%982.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（八）">JVM 学习（八）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-jvm/jvm%E5%AD%A6%E4%B9%A09_%E8%B0%83%E4%BC%983.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（九）">JVM 学习（九）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-19-jvm/jvm%E5%AD%A6%E4%B9%A05_%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（五）">JVM 学习（五）</span>
+            <span class="post-date" title="2020-07-19 22:13:12">2020/07/19</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-19-jvm/jvm%E5%AD%A6%E4%B9%A06_GC.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（六）">JVM 学习（六）</span>
+            <span class="post-date" title="2020-07-19 22:13:12">2020/07/19</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-16-jvm/jvm%E5%AD%A6%E4%B9%A03_4_java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（三、四）">JVM 学习（三、四）</span>
+            <span class="post-date" title="2020-07-16 22:13:12">2020/07/16</span>
+        </a>
+        
+        <a  class="全部文章 kafka "
+           href="/2020-07-08-kafka/kafka%E5%AD%A6%E4%B9%A02.html"
+           data-tag="kafka"
+           data-author="" >
+            <span class="post-title" title="Kafka学习(二)">Kafka学习(二)</span>
+            <span class="post-date" title="2020-07-08 22:13:12">2020/07/08</span>
+        </a>
+        
+        <a  class="全部文章 kafka "
+           href="/2020-07-08-kafka/kafka%E5%AD%A6%E4%B9%A01.html"
+           data-tag="kafka"
+           data-author="" >
+            <span class="post-title" title="Kafka学习(一)">Kafka学习(一)</span>
+            <span class="post-date" title="2020-07-08 22:13:12">2020/07/08</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-07-01-web/C1.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-07-01 20:11:03">2020/07/01</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-06-29-jvm/jvm%E5%AD%A6%E4%B9%A02_class%E5%8A%A0%E8%BD%BD.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（二）">JVM 学习（二）</span>
+            <span class="post-date" title="2020-06-29 22:13:12">2020/06/29</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-06-28-jvm/jvm%E5%AD%A6%E4%B9%A01_jvm%E5%9F%BA%E7%A1%80_jsf.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（一）">JVM 学习（一）</span>
+            <span class="post-date" title="2020-06-28 22:13:12">2020/06/28</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-06-27-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%8E%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%88%B0%20AOP.html"
+           data-tag="Proxy"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - 从代理模式到 Spring AOP">设计模式之 - 从代理模式到 Spring AOP</span>
+            <span class="post-date" title="2020-06-27 22:13:12">2020/06/27</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-06-22-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-factory.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-06-22 22:36:55">2020/06/22</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-21-IO/IO%E5%AD%A6%E4%B9%A07.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（七）">IO学习（七）</span>
+            <span class="post-date" title="2020-06-21 22:13:12">2020/06/21</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-21-IO/IO%E5%AD%A6%E4%B9%A08.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（八）">IO学习（八）</span>
+            <span class="post-date" title="2020-06-21 22:13:12">2020/06/21</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-16-IO/IO%E5%AD%A6%E4%B9%A05.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（五）">IO学习（五）</span>
+            <span class="post-date" title="2020-06-16 22:13:12">2020/06/16</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-16-IO/IO%E5%AD%A6%E4%B9%A06.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（六）">IO学习（六）</span>
+            <span class="post-date" title="2020-06-16 22:13:12">2020/06/16</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-14-IO/IO%E5%AD%A6%E4%B9%A03.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（三）">IO学习（三）</span>
+            <span class="post-date" title="2020-06-14 22:13:12">2020/06/14</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-06-13-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/20200613.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-06-13 14:15:08">2020/06/13</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-06-12-Spring%20Cloud/Https%E4%B9%8B%E5%AE%9E%E6%88%98.html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="Https 实战">Https 实战</span>
+            <span class="post-date" title="2020-06-12 22:13:12">2020/06/12</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-10-IO/IO%E5%AD%A6%E4%B9%A02.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（二）">IO学习（二）</span>
+            <span class="post-date" title="2020-06-10 22:13:12">2020/06/10</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-08-IO/IO%E5%AD%A6%E4%B9%A01.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（一）">IO学习（一）</span>
+            <span class="post-date" title="2020-06-08 22:13:12">2020/06/08</span>
+        </a>
+        
+        <a  class="全部文章 SpringCloud "
+           href="/2020-06-06-Spring%20Cloud/Https%E4%B9%8BSSLTLS%20%E5%8D%8F%E8%AE%AE.html"
+           data-tag="SpringCloud"
+           data-author="" >
+            <span class="post-title" title="Https 之 SSL/TLS 协议">Https 之 SSL/TLS 协议</span>
+            <span class="post-date" title="2020-06-06 22:13:12">2020/06/06</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-06-IO/IO%E5%AD%A6%E4%B9%A04.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（四）">IO学习（四）</span>
+            <span class="post-date" title="2020-06-06 22:13:12">2020/06/06</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-05-31-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%AE%AD%E7%BB%83%E8%90%A5%E4%B8%80%E6%9C%9F/Morris%E7%AE%97%E6%B3%95.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础之 Morris">算法基础之 Morris</span>
+            <span class="post-date" title="2020-05-31 22:13:12">2020/05/31</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-05-31-%E6%95%B0%E6%8D%AE%E5%BA%93/mycat/mycat_01.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-05-31 20:02:07">2020/05/31</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-05-31-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%AE%AD%E7%BB%83%E8%90%A5%E4%B8%80%E6%9C%9F/%E7%BA%BF%E6%AE%B5%E6%A0%91.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-05-31 09:10:05">2020/05/31</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-05-29-Spring%20Cloud/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(4).html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-05-29 20:14:32">2020/05/29</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-05-28-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/20200528_%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="121_买卖股票最佳时机">121_买卖股票最佳时机</span>
+            <span class="post-date" title="2020-05-28 22:13:12">2020/05/28</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-05-28-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/20200529_%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="122_买卖股票最佳时机||">122_买卖股票最佳时机||</span>
+            <span class="post-date" title="2020-05-28 22:13:12">2020/05/28</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-05-28-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/20200530_%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAIII.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="123_买卖股票最佳时机|||">123_买卖股票最佳时机|||</span>
+            <span class="post-date" title="2020-05-28 22:13:12">2020/05/28</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-05-26-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/20200526_%E7%88%AC%E6%A5%BC%E6%A2%AF.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="70_爬楼梯问题">70_爬楼梯问题</span>
+            <span class="post-date" title="2020-05-26 22:13:12">2020/05/26</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-05-26-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/20200527_%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%88%97.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="70_爬楼梯问题">70_爬楼梯问题</span>
+            <span class="post-date" title="2020-05-26 22:13:12">2020/05/26</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-05-26-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E8%AE%AD%E7%BB%83%E8%90%A5%E4%B8%80%E6%9C%9F/Manacher%E7%AE%97%E6%B3%95.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="Manacher 算法">Manacher 算法</span>
+            <span class="post-date" title="2020-05-26 22:13:12">2020/05/26</span>
+        </a>
+        
+        <a  class="全部文章 css "
+           href="/2020-05-25-%E5%89%8D%E7%AB%AF/Flex%E5%B8%83%E5%B1%80.html"
+           data-tag="css"
+           data-author="" >
+            <span class="post-title" title="Flex 布局">Flex 布局</span>
+            <span class="post-date" title="2020-05-25 22:13:12">2020/05/25</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-05-25-%E5%89%8D%E7%AB%AF/vue-todo.html"
+           data-tag="前端"
+           data-author="" >
+            <span class="post-title" title="vue 入门项目">vue 入门项目</span>
+            <span class="post-date" title="2020-05-25 22:13:12">2020/05/25</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-05-05-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-05-05 22:31:42">2020/05/05</span>
+        </a>
+        
+        <a  class="全部文章 Nginx "
+           href="/2020-04-28-nignx/Nginx%20%E5%AD%A6%E4%B9%A0(%E4%B8%80).html"
+           data-tag="Nginx"
+           data-author="" >
+            <span class="post-title" title="Nginx 学习(一)">Nginx 学习(一)</span>
+            <span class="post-date" title="2020-04-28 22:13:12">2020/04/28</span>
+        </a>
+        
+        <a  class="全部文章 vue "
+           href="/2020-04-10-%E5%89%8D%E7%AB%AF/uniapp.html"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="uni-app">uni-app</span>
+            <span class="post-date" title="2020-04-10 22:13:13">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 vue "
+           href="/2020-04-10-%E5%89%8D%E7%AB%AF/vue%E5%AD%A6%E4%B9%A0(2).html"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue 学习(二)">vue 学习(二)</span>
+            <span class="post-date" title="2020-04-10 22:13:12">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 vue "
+           href="/2020-04-10-%E5%89%8D%E7%AB%AF/vue%E5%AD%A6%E4%B9%A0(1).html"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue 学习(一)">vue 学习(一)</span>
+            <span class="post-date" title="2020-04-10 22:13:12">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 Srping Boot "
+           href="/2020-04-09-SpringBoot/SpringBoot%E5%AD%A6%E4%B9%A0(5).html"
+           data-tag="Srping Boot"
+           data-author="" >
+            <span class="post-title" title="SpringBoot学习(五)">SpringBoot学习(五)</span>
+            <span class="post-date" title="2020-04-09 22:13:16">2020/04/09</span>
+        </a>
+        
+        <a  class="全部文章 Srping Boot "
+           href="/2020-04-09-SpringBoot/SpringBoot%E5%AD%A6%E4%B9%A0(4).html"
+           data-tag="Srping Boot"
+           data-author="" >
+            <span class="post-title" title="SpringBoot学习(四)">SpringBoot学习(四)</span>
+            <span class="post-date" title="2020-04-09 22:13:15">2020/04/09</span>
+        </a>
+        
+        <a  class="全部文章 Srping Boot "
+           href="/2020-04-09-SpringBoot/SpringBoot%E5%AD%A6%E4%B9%A0(3).html"
+           data-tag="Srping Boot"
+           data-author="" >
+            <span class="post-title" title="SpringBoot学习(三)">SpringBoot学习(三)</span>
+            <span class="post-date" title="2020-04-09 22:13:14">2020/04/09</span>
+        </a>
+        
+        <a  class="全部文章 Srping Boot "
+           href="/2020-04-09-SpringBoot/SpringBoot%E5%AD%A6%E4%B9%A0(2).html"
+           data-tag="Srping Boot"
+           data-author="" >
+            <span class="post-title" title="Spring Boot学习(二)">Spring Boot学习(二)</span>
+            <span class="post-date" title="2020-04-09 22:13:13">2020/04/09</span>
+        </a>
+        
+        <a  class="全部文章 Srping Boot "
+           href="/2020-04-09-SpringBoot/SpringBoot%E5%AD%A6%E4%B9%A0(1).html"
+           data-tag="Srping Boot"
+           data-author="" >
+            <span class="post-title" title="Spring Boot学习(一)">Spring Boot学习(一)</span>
+            <span class="post-date" title="2020-04-09 22:13:12">2020/04/09</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-07-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(7).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(七)">多线程高并发学习(七)</span>
+            <span class="post-date" title="2020-04-07 22:13:12">2020/04/07</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-06-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(6).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(六)">多线程高并发学习(六)</span>
+            <span class="post-date" title="2020-04-06 22:13:12">2020/04/06</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-05-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(5).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(五)">多线程高并发学习(五)</span>
+            <span class="post-date" title="2020-04-05 22:13:12">2020/04/05</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-04-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(4).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(四)">多线程高并发学习(四)</span>
+            <span class="post-date" title="2020-04-04 22:13:12">2020/04/04</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-03-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(3).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(三)">多线程高并发学习(三)</span>
+            <span class="post-date" title="2020-04-03 22:13:12">2020/04/03</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-02-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(2).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(二)">多线程高并发学习(二)</span>
+            <span class="post-date" title="2020-04-02 22:13:12">2020/04/02</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-01-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(1).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(一)">多线程高并发学习(一)</span>
+            <span class="post-date" title="2020-04-01 22:13:12">2020/04/01</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Observer.html"
+           data-tag="Observer"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Observer">设计模式之 - Observer</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-ResponsibilityChain.html"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Responsibility Chain">设计模式之 - Responsibility Chain</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-singleton.html"
+           data-tag="Singleton"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Singleton">设计模式之 - Singleton</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 吉他 "
+           href="/2020-03-06-%E5%90%89%E4%BB%96/%E7%AC%AC%E4%B8%80%E8%AF%BE%20%E9%9F%B3%E9%98%B6.html"
+           data-tag="吉他"
+           data-author="" >
+            <span class="post-title" title="第一课 音阶">第一课 音阶</span>
+            <span class="post-date" title="2020-03-06 22:13:12">2020/03/06</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-03-06-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="leetcode 每日一题">leetcode 每日一题</span>
+            <span class="post-date" title="2020-03-06 22:13:12">2020/03/06</span>
+        </a>
+        
+        <a  class="全部文章 ZooKeeper "
+           href="/2020-03-05-%E7%BD%91%E7%BB%9C%E5%88%B0%E5%88%86%E5%B8%83%E5%BC%8F/zookeeper%E5%AD%A6%E4%B9%A0(%E4%B8%89).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(三)">ZooKeeper学习(三)</span>
+            <span class="post-date" title="2020-03-05 22:13:12">2020/03/05</span>
+        </a>
+        
+        <a  class="全部文章 ZooKeeper "
+           href="/2020-03-02-%E7%BD%91%E7%BB%9C%E5%88%B0%E5%88%86%E5%B8%83%E5%BC%8F/zookeeper%E5%AD%A6%E4%B9%A0(%E4%B8%80).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(一)">ZooKeeper学习(一)</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 ZooKeeper "
+           href="/2020-03-02-%E7%BD%91%E7%BB%9C%E5%88%B0%E5%88%86%E5%B8%83%E5%BC%8F/zookeeper%E5%AD%A6%E4%B9%A0(%E4%BA%8C).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(二)">ZooKeeper学习(二)</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 Spring Cloud "
+           href="/2020-03-02-Spring%20Cloud/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E6%88%98C3_%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86.html"
+           data-tag="Eureka"
+           data-author="" >
+            <span class="post-title" title="服务治理：Spring Cloud Eureka">服务治理：Spring Cloud Eureka</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 数据库 "
+           href="/2020-03-01-202002/Redis%20%E5%AD%A6%E4%B9%A0(%E4%BA%94)-%E9%9D%A2%E8%A7%86%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(五)-面试常见问题">Redis 学习(五)-面试常见问题</span>
+            <span class="post-date" title="2020-03-01 22:13:12">2020/03/01</span>
+        </a>
+        
+        <a  class="全部文章 "
+           href="/2020-03-01-202002/Redis%E5%AD%A6%E4%B9%A0(%E5%85%AD)-%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3.html"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2020-03-01 21:50:32">2020/03/01</span>
+        </a>
+        
+        <a  class="全部文章 Linux "
+           href="/2020-02-28-202002/Linux%20%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%AE%80%E8%A6%81%E6%AD%A5%E9%AA%A4.html"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux 系统安装简要步骤">Linux 系统安装简要步骤</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 Nginx "
+           href="/2020-02-28-202002/Typecho+Tengine%E5%BB%BA%E7%AB%99.html"
+           data-tag="Nginx,Blog"
+           data-author="" >
+            <span class="post-title" title="Typecho+Tengine 搭建个人主页">Typecho+Tengine 搭建个人主页</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 LVS "
+           href="/2020-02-28-202002/%E9%AB%98%E5%B9%B6%E5%8F%91%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.html"
+           data-tag="LVS,网络"
+           data-author="" >
+            <span class="post-title" title="高并发负载均衡">高并发负载均衡</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 网络 "
+           href="/2020-02-22-202002/NIO%E5%8E%9F%E7%90%86.html"
+           data-tag="NIO"
+           data-author="" >
+            <span class="post-title" title="NIO 原理">NIO 原理</span>
+            <span class="post-date" title="2020-02-22 22:13:12">2020/02/22</span>
+        </a>
+        
+        <a  class="全部文章 数据库 "
+           href="/2020-02-21-202002/Redis%20%E5%AD%A6%E4%B9%A0(%E5%9B%9B)-%E9%9B%86%E7%BE%A4.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(四)-主从复制、高可用、集群">Redis 学习(四)-主从复制、高可用、集群</span>
+            <span class="post-date" title="2020-02-21 22:13:12">2020/02/21</span>
+        </a>
+        
+        <a  class="全部文章 数据库 "
+           href="/2020-02-20-202002/Redis%20%E5%AD%A6%E4%B9%A0(%E4%B8%89)-%E6%8C%81%E4%B9%85%E5%8C%96.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(三)-持久化">Redis 学习(三)-持久化</span>
+            <span class="post-date" title="2020-02-20 22:13:12">2020/02/20</span>
+        </a>
+        
+        <a  class="全部文章 数据库 "
+           href="/2020-02-19-202002/Redis%20%E5%AD%A6%E4%B9%A0(%E4%BA%8C)-%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(二)-管道、发布/订阅、事务、modules、过期">Redis 学习(二)-管道、发布/订阅、事务、modules、过期</span>
+            <span class="post-date" title="2020-02-19 22:13:12">2020/02/19</span>
+        </a>
+        
+        <a  class="全部文章 数据库 "
+           href="/2020-02-18-202002/Redis%20%E5%AD%A6%E4%B9%A0(%E4%B8%80)-%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(一)-概述、安装、类型、指令">Redis 学习(一)-概述、安装、类型、指令</span>
+            <span class="post-date" title="2020-02-18 22:13:12">2020/02/18</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-18-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C18.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 18 章 类加载机制与反射">第 18 章 类加载机制与反射</span>
+            <span class="post-date" title="2020-01-18 22:13:12">2020/01/18</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-17-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C17.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 17 章 网络编程">第 17 章 网络编程</span>
+            <span class="post-date" title="2020-01-17 23:13:12">2020/01/17</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-16-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C16.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 16 章 多线程">第 16 章 多线程</span>
+            <span class="post-date" title="2020-01-16 22:13:12">2020/01/16</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-15-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C15.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 15 章 输入、输出">第 15 章 输入、输出</span>
+            <span class="post-date" title="2020-01-15 22:13:12">2020/01/15</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-14-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C14.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 14 章 注解">第 14 章 注解</span>
+            <span class="post-date" title="2020-01-14 22:13:12">2020/01/14</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-13-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C13.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 13 章 MySQL 数据库与 JDBC 编程">第 13 章 MySQL 数据库与 JDBC 编程</span>
+            <span class="post-date" title="2020-01-13 22:13:12">2020/01/13</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-10-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C10.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 10 章 异常处理">第 10 章 异常处理</span>
+            <span class="post-date" title="2020-01-10 22:13:12">2020/01/10</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-09-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C9.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 9 章 泛型">第 9 章 泛型</span>
+            <span class="post-date" title="2020-01-09 22:13:12">2020/01/09</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-08-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C8.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 8 章 Java 集合">第 8 章 Java 集合</span>
+            <span class="post-date" title="2020-01-08 22:13:12">2020/01/08</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-07-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C7.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 7 章 Java 基础类库">第 7 章 Java 基础类库</span>
+            <span class="post-date" title="2020-01-07 22:13:12">2020/01/07</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-06-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C6.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 6 章 面向对象（下）">第 6 章 面向对象（下）</span>
+            <span class="post-date" title="2020-01-06 22:13:12">2020/01/06</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-05-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C5.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 5 章 面向对象（上）">第 5 章 面向对象（上）</span>
+            <span class="post-date" title="2020-01-05 22:13:12">2020/01/05</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-04-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C4.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 4 章 流程控制与数组">第 4 章 流程控制与数组</span>
+            <span class="post-date" title="2020-01-04 22:13:12">2020/01/04</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-03-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C3.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 3 章 数据类型和运算符">第 3 章 数据类型和运算符</span>
+            <span class="post-date" title="2020-01-03 22:13:12">2020/01/03</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-02-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C2.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 2 章 理解面向对象">第 2 章 理解面向对象</span>
+            <span class="post-date" title="2020-01-02 22:13:12">2020/01/02</span>
+        </a>
+        
+        <a  class="全部文章 疯狂 Java 讲义 "
+           href="/2020-01-01-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C1.html"
+           data-tag="疯狂 Java 讲义"
+           data-author="" >
+            <span class="post-title" title="第 1 章 Java 语言概述与开发环境">第 1 章 Java 语言概述与开发环境</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
+        <a  class="全部文章 消息队列 "
+           href="/2019-11-09-201911/2019-11-09_Kafka%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89.html"
+           data-tag="Kafka"
+           data-author="" >
+            <span class="post-title" title="Kafka 学习笔记（一）">Kafka 学习笔记（一）</span>
+            <span class="post-date" title="2019-11-09 00:00:00">2019/11/09</span>
+        </a>
+        
+        <a  class="全部文章 消息队列 "
+           href="/2019-11-09-201911/2019-11-09_mqtt%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"
+           data-tag="MQTT"
+           data-author="" >
+            <span class="post-title" title="mqtt 学习笔记">mqtt 学习笔记</span>
+            <span class="post-date" title="2019-11-09 00:00:00">2019/11/09</span>
+        </a>
+        
+        <a  class="全部文章 操作系统 "
+           href="/2019-11-07-201911/2019-11-07_%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8.html"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="云服务器的使用">云服务器的使用</span>
+            <span class="post-date" title="2019-11-07 00:00:00">2019/11/07</span>
+        </a>
+        
+        <a  class="全部文章 心情 "
+           href="/2019-03-09-201609/2016-09-17_%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2.html"
+           data-tag="Hexo"
+           data-author="" >
+            <span class="post-title" title="使用Hexo搭建个人技术博客">使用Hexo搭建个人技术博客</span>
+            <span class="post-date" title="2019-03-09 23:50:38">2019/03/09</span>
+        </a>
+        
+        <a  class="全部文章 操作系统 "
+           href="/2018-03-25-201803/2018-03-25_Linux%20%E5%9F%BA%E7%A1%80.html"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux 基础">Linux 基础</span>
+            <span class="post-date" title="2018-03-25 00:00:00">2018/03/25</span>
+        </a>
+        
+        <a  class="全部文章 操作系统 "
+           href="/2018-03-25-201803/2018-03-25_Samba%20%E5%85%A5%E9%97%A8.html"
+           data-tag="Linux,Samba"
+           data-author="" >
+            <span class="post-title" title="Samba 入门">Samba 入门</span>
+            <span class="post-date" title="2018-03-25 00:00:00">2018/03/25</span>
+        </a>
+        
+        <a  class="全部文章 数据库 "
+           href="/2018-03-25-201803/2018-03-25_Oracle%20%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89.html"
+           data-tag="Oracle"
+           data-author="" >
+            <span class="post-title" title="Oracle 基础">Oracle 基础</span>
+            <span class="post-date" title="2018-03-25 00:00:00">2018/03/25</span>
+        </a>
+        
+        <a  class="全部文章 操作系统 "
+           href="/2018-03-05-201803/2018-03-05_%E4%BD%BF%E7%94%A8%20jsch-0.1.54%20%E5%AE%9E%E7%8E%B0%20SFTP%20%E7%9A%84%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD.html"
+           data-tag="SFTP"
+           data-author="" >
+            <span class="post-title" title="使用 jsch-0.1.54 实现 SFTP 的上传和下载">使用 jsch-0.1.54 实现 SFTP 的上传和下载</span>
+            <span class="post-date" title="2018-03-05 00:00:00">2018/03/05</span>
+        </a>
+        
+        <a  class="全部文章 加解密技术 "
+           href="/2017-10-18-201710/2017-10-18_%E4%BD%BF%E7%94%A8PGP%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%94%9F%E6%88%90%E5%85%AC%E9%92%A5%E7%A7%98%E9%92%A5.html"
+           data-tag="PGP"
+           data-author="" >
+            <span class="post-title" title="使用PGP客户端生成公钥秘钥">使用PGP客户端生成公钥秘钥</span>
+            <span class="post-date" title="2017-10-18 22:46:13">2017/10/18</span>
+        </a>
+        
+        <a  class="全部文章 心情 "
+           href="/2017-10-10-201710/2017-10-10_%E4%B8%BA%E6%97%B6%E4%B8%8D%E6%99%9A.html"
+           data-tag="心情"
+           data-author="" >
+            <span class="post-title" title="为时不晚">为时不晚</span>
+            <span class="post-date" title="2017-10-10 18:49:40">2017/10/10</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-疯狂Java讲义/疯狂Java讲义C9" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">第 9 章 泛型</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="疯狂 Java 讲义">疯狂 Java 讲义</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color1">疯狂 Java 讲义</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2020-05-24 21:48:43'>2020-01-09 22:13</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:3.6k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%E6%B3%9B%E5%9E%8B%E5%85%A5%E9%97%A8"><span class="toc-text">9.1  泛型入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-1-%E7%BC%96%E8%AF%91%E6%97%B6%E4%B8%8D%E6%A3%80%E6%9F%A5%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="toc-text">9.1.1 编译时不检查类型的异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-2-%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B"><span class="toc-text">9.1.2 使用泛型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-3-Java-9-%E5%A2%9E%E5%BC%BA%E7%9A%84%E8%8F%B1%E5%BD%A2%E8%AF%AD%E6%B3%95"><span class="toc-text">9.1.3 Java 9 增强的菱形语法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B"><span class="toc-text">9.2 深入泛型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-1-%E5%AE%9A%E4%B9%89%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3%E3%80%81%E7%B1%BB"><span class="toc-text">9.2.1 定义泛型接口、类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-2-%E4%BB%8E%E6%B3%9B%E5%9E%8B%E6%B4%BE%E7%94%9F%E5%AD%90%E7%B1%BB"><span class="toc-text">9.2.2 从泛型派生子类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-3-%E5%B9%B6%E4%B8%8D%E5%AD%98%E5%9C%A8%E6%B3%9B%E5%9E%8B%E7%B1%BB"><span class="toc-text">9.2.3 并不存在泛型类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-%E7%B1%BB%E5%9E%8B%E7%BB%9F%E9%85%8D%E7%AC%A6"><span class="toc-text">9.3 类型统配符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-1-%E4%BD%BF%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%BB%9F%E9%85%8D%E7%AC%A6"><span class="toc-text">9.3.1 使用类型统配符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-2-%E8%AE%BE%E5%AE%9A%E7%B1%BB%E5%9E%8B%E9%80%9A%E9%85%8D%E7%AC%A6%E7%9A%84%E4%B8%8A%E9%99%90"><span class="toc-text">9.3.2 设定类型通配符的上限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-3-%E8%AE%BE%E5%AE%9A%E7%B1%BB%E5%9E%8B%E9%80%9A%E9%85%8D%E7%AC%A6%E7%9A%84%E4%B8%8B%E9%99%90"><span class="toc-text">9.3.3 设定类型通配符的下限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-4-%E8%AE%BE%E5%AE%9A%E6%B3%9B%E5%9E%8B%E5%BD%A2%E5%8F%82%E7%9A%84%E4%B8%8A%E9%99%90"><span class="toc-text">9.3.4 设定泛型形参的上限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4-%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-text">9.4 泛型方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-1-%E5%AE%9A%E4%B9%89%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-text">9.4.1 定义泛型方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-2-%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95%E5%92%8C%E7%B1%BB%E5%9E%8B%E9%80%9A%E9%85%8D%E7%AC%A6%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">9.4.2 泛型方法和类型通配符的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-3-Java-7-%E7%9A%84%E8%8F%B1%E5%BD%A2%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%B3%9B%E5%9E%8B%E6%9E%84%E9%80%A0%E5%99%A8"><span class="toc-text">9.4.3 Java 7 的菱形语法与泛型构造器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-4-%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95%E4%B8%8E%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD"><span class="toc-text">9.4.4 泛型方法与方法重载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-5-Java-8-%E6%94%B9%E8%BF%9B%E7%9A%84%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD"><span class="toc-text">9.4.5 Java 8 改进的类型推断</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-5-%E6%93%A6%E9%99%A4%E5%92%8C%E8%BD%AC%E6%8D%A2"><span class="toc-text">9.5 擦除和转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-6-%E6%B3%9B%E5%9E%8B%E4%B8%8E%E6%95%B0%E7%BB%84"><span class="toc-text">9.6 泛型与数组</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第 9 章 泛型</p>
 <a id="more"></a>
 
 <h2 id="9-1-泛型入门"><a href="#9-1-泛型入门" class="headerlink" title="9.1  泛型入门"></a>9.1  泛型入门</h2><h3 id="9-1-1-编译时不检查类型的异常"><a href="#9-1-1-编译时不检查类型的异常" class="headerlink" title="9.1.1 编译时不检查类型的异常"></a>9.1.1 编译时不检查类型的异常</h3><p>不使用泛型，容易引发类型转换异常。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListErr</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个只想保存字符串的 List</span></span><br><span class="line">        List strList = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        strList.add(<span class="string">&quot;111&quot;</span>);</span><br><span class="line">        strList.add(<span class="string">&quot;222&quot;</span>);</span><br><span class="line">        <span class="comment">// 不小心把一个 Integer 对象丢进了集合</span></span><br><span class="line">        strList.add(<span class="number">333</span>);</span><br><span class="line">        <span class="comment">// 引发 ClassCastException</span></span><br><span class="line">        strList.forEach(str -&gt; System.out.println(((String)str).length()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">public class ListErr &#123;
+    public static void main(String[] args) &#123;
+        // 创建一个只想保存字符串的 List
+        List strList = new ArrayList();
+        strList.add(&quot;111&quot;);
+        strList.add(&quot;222&quot;);
+        // 不小心把一个 Integer 对象丢进了集合
+        strList.add(333);
+        // 引发 ClassCastException
+        strList.forEach(str -&gt; System.out.println(((String)str).length()));
+    &#125;
+&#125;</code></pre>
 <h3 id="9-1-2-使用泛型"><a href="#9-1-2-使用泛型" class="headerlink" title="9.1.2 使用泛型"></a>9.1.2 使用泛型</h3><p>使用泛型后，如果不符合类型要求直接编译报错。</p>
 <p><code>List&lt;String&gt; strList = new ArrayList&lt;String&gt;();</code></p>
-<h3 id="9-1-3-Java-9-增强的菱形语法"><a href="#9-1-3-Java-9-增强的菱形语法" class="headerlink" title="9.1.3 Java 9 增强的菱形语法"></a>9.1.3 Java 9 增强的菱形语法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Foo</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnoymousTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Java 7 开始，后面可以省略等号右边尖括号内容</span></span><br><span class="line">        List&lt;String&gt; strList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        Map&lt;String, List&lt;String&gt;&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Java 9 开始，创建匿名内部类时使用菱形语法</span></span><br><span class="line">        <span class="comment">// 指定 Foo 类中泛型为 String</span></span><br><span class="line">        Foo&lt;String&gt; f = <span class="keyword">new</span> Foo&lt;&gt;()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;test 方法的 s 参数为：&quot;</span> + s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">// 使用泛型通配符，此时相当于通配符的上限为 Object</span></span><br><span class="line">        Foo&lt;?&gt; fo = <span class="keyword">new</span> Foo&lt;&gt;()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;test 方法的 o 参数为：&quot;</span> + o);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">// 使用泛型通配符，通配符的上限为 Number。</span></span><br><span class="line">        <span class="comment">// ? 为 Number 的子类，所以是上限</span></span><br><span class="line">        Foo&lt;? extends Number&gt; fn = <span class="keyword">new</span> Foo&lt;&gt;()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Number number)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;test 方法的 Number 参数为：&quot;</span> + number);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="9-1-3-Java-9-增强的菱形语法"><a href="#9-1-3-Java-9-增强的菱形语法" class="headerlink" title="9.1.3 Java 9 增强的菱形语法"></a>9.1.3 Java 9 增强的菱形语法</h3><pre><code class="java">interface Foo&lt;T&gt;&#123;
+    void test(T t);
+&#125;
+public class AnnoymousTest &#123;
+    public static void main(String[] args) &#123;
+        // Java 7 开始，后面可以省略等号右边尖括号内容
+        List&lt;String&gt; strList = new ArrayList&lt;&gt;();
+        Map&lt;String, List&lt;String&gt;&gt; map = new HashMap&lt;&gt;();
 
+        // Java 9 开始，创建匿名内部类时使用菱形语法
+        // 指定 Foo 类中泛型为 String
+        Foo&lt;String&gt; f = new Foo&lt;&gt;()&#123;
+            @Override
+            public void test(String s) &#123;
+                System.out.println(&quot;test 方法的 s 参数为：&quot; + s);
+            &#125;
+        &#125;;
+        // 使用泛型通配符，此时相当于通配符的上限为 Object
+        Foo&lt;?&gt; fo = new Foo&lt;&gt;()&#123;
+            @Override
+            public void test(Object o) &#123;
+                System.out.println(&quot;test 方法的 o 参数为：&quot; + o);
+            &#125;
+        &#125;;
+        // 使用泛型通配符，通配符的上限为 Number。
+        // ? 为 Number 的子类，所以是上限
+        Foo&lt;? extends Number&gt; fn = new Foo&lt;&gt;()&#123;
+            @Override
+            public void test(Number number) &#123;
+                System.out.println(&quot;test 方法的 Number 参数为：&quot; + number);
+            &#125;
+        &#125;;
+    &#125;
+&#125;</code></pre>
 <h2 id="9-2-深入泛型"><a href="#9-2-深入泛型" class="headerlink" title="9.2 深入泛型"></a>9.2 深入泛型</h2><p>所谓泛型，就是允许在定义类、接口、方法时使用<strong>类型形参</strong>，这个类型形参（或叫泛型）将在<strong>声明变量、创建对象、调用方法</strong>时动态地指定（即传入实际的类型参数，也可称为类型实参）。</p>
 <p>Java 5 改写了集合框架中的全部接口和类，为这些接口、类增加了泛型支持，从而可以在声明集合变量、创建集合对象时传入类型实参，这就是在前面程序中看到的 List<String> 和 ArrayList<String> 两种类型。</p>
 <h3 id="9-2-1-定义泛型接口、类"><a href="#9-2-1-定义泛型接口、类" class="headerlink" title="9.2.1 定义泛型接口、类"></a>9.2.1 定义泛型接口、类</h3><p>类型形参、类型实参。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义接口时指定一个泛型形参，该形参名为 E</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 在该接口里，E 可作为类型使用</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(E x)</span></span>;</span><br><span class="line">    <span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定义该接口时，指定了两个泛型形参，其形参名为 K、V</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function">Set&lt;K&gt; <span class="title">keySet</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">V <span class="title">put</span><span class="params">(K key, V value)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">// 定义接口时指定一个泛型形参，该形参名为 E
+public interface List&lt;E&gt;&#123;
+    // 在该接口里，E 可作为类型使用
+    void add(E x);
+    Iterator&lt;E&gt; iterator();
+&#125;
+// 定义该接口时，指定了两个泛型形参，其形参名为 K、V
+public interface Map&lt;K,V&gt;&#123;
+    Set&lt;K&gt; keySet();
+    V put(K key, V value);
+&#125;</code></pre>
 <p>可以为任何类、接口增加泛型声明，并不是只有集合才可以使用泛型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义 Apple 类时使用了泛型声明</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// 使用 T 类型定义实例bianl</span></span><br><span class="line">    <span class="keyword">private</span> T info;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="comment">// 使用 T 类型类定义构造器</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(T info)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.info = info;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> info;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInfo</span><span class="params">(T info)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.info = info;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 由于传给 T 形参的是 String，所以构造器参数只能是 String</span></span><br><span class="line">        Apple&lt;String&gt; a1 = <span class="keyword">new</span> Apple&lt;&gt;(<span class="string">&quot;苹果&quot;</span>);</span><br><span class="line">        System.out.println(a1.getInfo());</span><br><span class="line">        <span class="comment">// 只能是 Double 或 double</span></span><br><span class="line">        Apple&lt;Double&gt; a2 = <span class="keyword">new</span> Apple&lt;&gt;(<span class="number">5.67</span>);</span><br><span class="line">        System.out.println(a2.getInfo());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">// 定义 Apple 类时使用了泛型声明
+public class Apple&lt;T&gt; &#123;
+    // 使用 T 类型定义实例bianl
+    private T info;
+    public Apple()&#123;&#125;
+    // 使用 T 类型类定义构造器
+    public Apple(T info)&#123;
+        this.info = info;
+    &#125;
+    public T getInfo() &#123;
+        return info;
+    &#125;
+    public void setInfo(T info) &#123;
+        this.info = info;
+    &#125;
 
+    public static void main(String[] args) &#123;
+        // 由于传给 T 形参的是 String，所以构造器参数只能是 String
+        Apple&lt;String&gt; a1 = new Apple&lt;&gt;(&quot;苹果&quot;);
+        System.out.println(a1.getInfo());
+        // 只能是 Double 或 double
+        Apple&lt;Double&gt; a2 = new Apple&lt;&gt;(5.67);
+        System.out.println(a2.getInfo());
+    &#125;
+&#125;</code></pre>
 <h3 id="9-2-2-从泛型派生子类"><a href="#9-2-2-从泛型派生子类" class="headerlink" title="9.2.2 从泛型派生子类"></a>9.2.2 从泛型派生子类</h3><p>使用父类或者接口时，不能再包含形参，必须给定实参或者默认 Object 类型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A1</span> <span class="keyword">extends</span> <span class="title">Apple</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// 正确重写了父类的方法，返回值</span></span><br><span class="line">    <span class="comment">// 与父类Apple&lt;String&gt;的返回值完全相同</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;子类&quot;</span> + <span class="keyword">super</span>.getInfo();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 编译报错，重写父类方法时，返回值不一致</span></span><br><span class="line"><span class="comment">//    @Override</span></span><br><span class="line"><span class="comment">//    public Object getInfo() &#123;</span></span><br><span class="line"><span class="comment">//        return &quot;子类&quot;;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">A2</span> <span class="keyword">extends</span> <span class="title">Apple</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// super.getIno() 方法返回值是 Object 类型</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getInfo().toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">public class A1 extends Apple&lt;String&gt; &#123;
+    // 正确重写了父类的方法，返回值
+    // 与父类Apple&lt;String&gt;的返回值完全相同
+    @Override
+    public String getInfo() &#123;
+        return &quot;子类&quot; + super.getInfo();
+    &#125;
 
+    // 编译报错，重写父类方法时，返回值不一致
+//    @Override
+//    public Object getInfo() &#123;
+//        return &quot;子类&quot;;
+//    &#125;
+&#125;
+
+public class A2 extends Apple &#123;
+    @Override
+    public String getInfo() &#123;
+        // super.getIno() 方法返回值是 Object 类型
+        return super.getInfo().toString();
+    &#125;
+&#125;</code></pre>
 <h3 id="9-2-3-并不存在泛型类"><a href="#9-2-3-并不存在泛型类" class="headerlink" title="9.2.3 并不存在泛型类"></a>9.2.3 并不存在泛型类</h3><p>前面提到可以把 ArrayList&lt; String&gt; 类当成 ArrayList 的子类， 事实上， ArrayList<String> 类也确实像一种特殊的 ArrayLi st 类但实际上， 系统并没有为ArrayList<S tring> 生成新的 cl ass 文件，而且也不会把 ArrayLi st&lt; String&gt; 当成新类来处理。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoClassExits</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; l1 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; l2 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">// 并不存在泛型类，都是List 类型。true</span></span><br><span class="line">        System.out.println(l1.getClass() == l2.getClass());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">public class NoClassExits &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; l1 = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; l2 = new ArrayList&lt;&gt;();
+        // 并不存在泛型类，都是List 类型。true
+        System.out.println(l1.getClass() == l2.getClass());
+    &#125;
+&#125;</code></pre>
 <p>不管为泛型形参传入哪一种类型实参， 对于 Java 来说， 它们依然被当成同一个类处理，在内存中也只占用一块内存空间，因此在<strong>静态方法、静态初始化块或者静态变量的声明和初始化</strong>中不允许使用泛型形参。</p>
 <p>如何理解？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticTest</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// 下面代码错误，不能在静态变量声明中使用泛型形参</span></span><br><span class="line">    <span class="comment">// static T info;</span></span><br><span class="line">    T age;</span><br><span class="line">    <span class="comment">// 下面代码错误，不能再静态方法声明中使用泛型形参</span></span><br><span class="line">    <span class="comment">// public static void bar(T msg)&#123;&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">public class StaticTest&lt;T&gt; &#123;
+    // 下面代码错误，不能在静态变量声明中使用泛型形参
+    // static T info;
+    T age;
+    // 下面代码错误，不能再静态方法声明中使用泛型形参
+    // public static void bar(T msg)&#123;&#125;
+&#125;</code></pre>
 <h2 id="9-3-类型统配符"><a href="#9-3-类型统配符" class="headerlink" title="9.3 类型统配符"></a>9.3 类型统配符</h2><p>当使用一个泛型类时（声明变量、创建对象），都应该为这个泛型类传入一个类型实参，否则编译器会提示泛型警告。假设现在要定义一个方法，该方法的一个集合形参的类型不确定，应该如何定义呢？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(List&lt;Object&gt; c)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;c.size(); i++)&#123;</span><br><span class="line">        System.out.println(c.get(i));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">List&lt;String&gt; strList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="comment">// 直接编译报错，可以看出：List&lt;String&gt; 对象不能被当成 List&lt;Object&gt; 子类</span></span><br><span class="line">test(strList);</span><br><span class="line"></span><br><span class="line">Integer[] ia = neww Integer[<span class="number">5</span>];</span><br><span class="line"><span class="comment">// 编译正常</span></span><br><span class="line">Number[] na = ia;</span><br><span class="line"><span class="comment">// 报错，因为 0.5 不是 Integer</span></span><br><span class="line">na[<span class="number">0</span>] = <span class="number">0.5</span>;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">public void test(List&lt;Object&gt; c)&#123;
+    for(int i=0; i&lt;c.size(); i++)&#123;
+        System.out.println(c.get(i));
+    &#125;
+&#125;
+List&lt;String&gt; strList = new ArrayList&lt;&gt;();
+// 直接编译报错，可以看出：List&lt;String&gt; 对象不能被当成 List&lt;Object&gt; 子类
+test(strList);
 
+Integer[] ia = neww Integer[5];
+// 编译正常
+Number[] na = ia;
+// 报错，因为 0.5 不是 Integer
+na[0] = 0.5;</code></pre>
 <p>泛型的设计原则是，只要代码在编译时没有出现警告，就不会遇到运行时 ClassCastException 异常。所以数组之后出现的泛型，不允许上面数组那样直接赋值。</p>
 <h3 id="9-3-1-使用类型统配符"><a href="#9-3-1-使用类型统配符" class="headerlink" title="9.3.1 使用类型统配符"></a>9.3.1 使用类型统配符</h3><p>List&lt;?&gt; ：意思是元素类型未知的 List，这个问号就是通配符。</p>
 <p>所以上面方法可以改写为：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(List&lt;?&gt; c)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;c.size(); i++)&#123;</span><br><span class="line">        System.out.println(c.get(i));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">public void test(List&lt;?&gt; c)&#123;
+    for(int i=0; i&lt;c.size(); i++)&#123;
+        System.out.println(c.get(i));
+    &#125;
+&#125;</code></pre>
 <p>注意：这种带通配符的 List 仅表示他是各种泛型 List 的父类，并不能把元素加入到其中。例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;?&gt; c = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line"><span class="comment">// 编译报错，因为程序无法确定 c 中元素类型，所以不能添加元素</span></span><br><span class="line">c.add(<span class="keyword">new</span> Object());</span><br></pre></td></tr></table></figure>
+<pre><code class="java">List&lt;?&gt; c = new ArrayList&lt;String&gt;();
+// 编译报错，因为程序无法确定 c 中元素类型，所以不能添加元素
+c.add(new Object());</code></pre>
+<h3 id="9-3-2-设定类型通配符的上限"><a href="#9-3-2-设定类型通配符的上限" class="headerlink" title="9.3.2 设定类型通配符的上限"></a>9.3.2 设定类型通配符的上限</h3><pre><code class="java">// 定义一个抽象类 Shape
+abstract class Shape&#123;
+    abstract void draw(Canvas c);
+&#125;
+class Circle extends Shape&#123;
+    @Override
+    void draw(Canvas c) &#123;
+        System.out.println(&quot;在画布&quot; + c + &quot;上画了一个圆&quot;);
+    &#125;
+&#125;
+class Rectangle extends Shape&#123;
+    @Override
+    void draw(Canvas c) &#123;
+        System.out.println(&quot;在画布&quot; + c + &quot;上画了一个矩形&quot;);
+    &#125;
+&#125;
+public class Canvas &#123;
+    // 同时画多个形状
+    public void drawAll(List&lt;? extends Shape&gt; shapes)&#123;
+        for(Shape s : shapes)&#123;
+            s.draw(this);
+        &#125;
+    &#125;
 
-<h3 id="9-3-2-设定类型通配符的上限"><a href="#9-3-2-设定类型通配符的上限" class="headerlink" title="9.3.2 设定类型通配符的上限"></a>9.3.2 设定类型通配符的上限</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个抽象类 Shape</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas c)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas c)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;在画布&quot;</span> + c + <span class="string">&quot;上画了一个圆&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">extends</span> <span class="title">Shape</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(Canvas c)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;在画布&quot;</span> + c + <span class="string">&quot;上画了一个矩形&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Canvas</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 同时画多个形状</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawAll</span><span class="params">(List&lt;? extends Shape&gt; shapes)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(Shape s : shapes)&#123;</span><br><span class="line">            s.draw(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 同样，使用泛型上限后，无法添加元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addRectangle</span><span class="params">(List&lt;? extends Shape&gt; shapes)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 编译报错</span></span><br><span class="line">        <span class="comment">// shapes.add(0, new Rectangle());</span></span><br><span class="line">        <span class="comment">// 正常</span></span><br><span class="line">        shapes.add(<span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Circle&gt; circleList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        circleList.add(<span class="keyword">new</span> Circle());</span><br><span class="line">        Canvas c = <span class="keyword">new</span> Canvas();</span><br><span class="line">        <span class="comment">// 如果不用泛型上线，编译报错。改写后正常</span></span><br><span class="line">         c.drawAll(circleList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    // 同样，使用泛型上限后，无法添加元素
+    public void addRectangle(List&lt;? extends Shape&gt; shapes)&#123;
+        // 编译报错
+        // shapes.add(0, new Rectangle());
+        // 正常
+        shapes.add(0, null);
+    &#125;
 
+    public static void main(String[] args) &#123;
+        List&lt;Circle&gt; circleList = new ArrayList&lt;&gt;();
+        circleList.add(new Circle());
+        Canvas c = new Canvas();
+        // 如果不用泛型上线，编译报错。改写后正常
+         c.drawAll(circleList);
+    &#125;
+&#125;</code></pre>
 <p>注意：没法添加元素。只出不进。</p>
 <h3 id="9-3-3-设定类型通配符的下限"><a href="#9-3-3-设定类型通配符的下限" class="headerlink" title="9.3.3 设定类型通配符的下限"></a>9.3.3 设定类型通配符的下限</h3><p>可以添加元素。但是取出的元素全部被当成 Object 处理。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyUtils</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">copy</span><span class="params">(Collection&lt;? <span class="keyword">super</span> T&gt; dest, Collection&lt;T&gt; src)</span></span>&#123;</span><br><span class="line">        T last = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">for</span>(T ele : src)&#123;</span><br><span class="line">            last = ele;</span><br><span class="line">            <span class="comment">// 逆变的泛型集合添加元素是安全的</span></span><br><span class="line">            dest.add(ele);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> last;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Number&gt; ln = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; li = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        li.add(<span class="number">5</span>);</span><br><span class="line">        Integer last = copy(ln, li);</span><br><span class="line">        System.out.println(ln);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">public class MyUtils &#123;
+    public static &lt;T&gt; T copy(Collection&lt;? super T&gt; dest, Collection&lt;T&gt; src)&#123;
+        T last = null;
+        for(T ele : src)&#123;
+            last = ele;
+            // 逆变的泛型集合添加元素是安全的
+            dest.add(ele);
+        &#125;
+        return last;
+    &#125;
 
+    public static void main(String[] args) &#123;
+        List&lt;Number&gt; ln = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; li = new ArrayList&lt;&gt;();
+        li.add(5);
+        Integer last = copy(ln, li);
+        System.out.println(ln);
+    &#125;
+&#125;</code></pre>
 <h3 id="9-3-4-设定泛型形参的上限"><a href="#9-3-4-设定泛型形参的上限" class="headerlink" title="9.3.4 设定泛型形参的上限"></a>9.3.4 设定泛型形参的上限</h3><p>定义泛型形参时也可以设置上限。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Number</span>&gt; </span>&#123;</span><br><span class="line">    T col;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Apple&lt;Integer&gt; ai = <span class="keyword">new</span> Apple&lt;&gt;();</span><br><span class="line">        Apple&lt;Double&gt; ad = <span class="keyword">new</span> Apple&lt;&gt;();</span><br><span class="line">        <span class="comment">// 编译报错，String 不是 Number 的子类</span></span><br><span class="line">        <span class="comment">//Apple&lt;String&gt; as = new Apple&lt;&gt;();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">public class Apple&lt;T extends Number&gt; &#123;
+    T col;
+    public static void main(String[] args)&#123;
+        Apple&lt;Integer&gt; ai = new Apple&lt;&gt;();
+        Apple&lt;Double&gt; ad = new Apple&lt;&gt;();
+        // 编译报错，String 不是 Number 的子类
+        //Apple&lt;String&gt; as = new Apple&lt;&gt;();
+    &#125;
+&#125;</code></pre>
 <p>可以设置多个上限：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Number</span> &amp; <span class="title">Serializable</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">public class Apple&lt;T extends Number &amp; Serializable&gt;</code></pre>
 <h2 id="9-4-泛型方法"><a href="#9-4-泛型方法" class="headerlink" title="9.4 泛型方法"></a>9.4 泛型方法</h2><p>定义类、接口时没有使用泛型形参，但定义方法时想自己定义泛型形参这也是可以的。</p>
-<h3 id="9-4-1-定义泛型方法"><a href="#9-4-1-定义泛型方法" class="headerlink" title="9.4.1 定义泛型方法"></a>9.4.1 定义泛型方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericMethodTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">fromArrayToCollection</span><span class="params">(T[] a, Collection&lt;T&gt; c)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(T o : a)&#123;</span><br><span class="line">            c.add(o);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(Collection&lt;T&gt; from, Collection&lt;T&gt; to)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (T ele : from)&#123;</span><br><span class="line">            to.add(ele);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">test1</span><span class="params">(Collection&lt;? extends T&gt; from, Collection&lt;T&gt; to)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (T ele : from)&#123;</span><br><span class="line">            to.add(ele);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Object[] oa = <span class="keyword">new</span> Object[<span class="number">100</span>];</span><br><span class="line">        Collection&lt;Object&gt; co = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">// T:Object</span></span><br><span class="line">        fromArrayToCollection(oa, co);</span><br><span class="line"></span><br><span class="line">        String[] sa = <span class="keyword">new</span> String[<span class="number">100</span>];</span><br><span class="line">        Collection&lt;String&gt; cs = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">// T:String</span></span><br><span class="line">        fromArrayToCollection(sa, cs);</span><br><span class="line">        <span class="comment">// T:Object？？</span></span><br><span class="line">        fromArrayToCollection(sa, co);</span><br><span class="line"></span><br><span class="line">        List&lt;Object&gt; ao = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;String&gt; as = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">// 编译报错？</span></span><br><span class="line">        <span class="comment">// test(as, ao);</span></span><br><span class="line">        <span class="comment">// 正常</span></span><br><span class="line">        test1(as, ao);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="9-4-1-定义泛型方法"><a href="#9-4-1-定义泛型方法" class="headerlink" title="9.4.1 定义泛型方法"></a>9.4.1 定义泛型方法</h3><pre><code class="java">public class GenericMethodTest &#123;
+    static &lt;T&gt; void fromArrayToCollection(T[] a, Collection&lt;T&gt; c)&#123;
+        for(T o : a)&#123;
+            c.add(o);
+        &#125;
+    &#125;
 
+    static &lt;T&gt; void test(Collection&lt;T&gt; from, Collection&lt;T&gt; to)&#123;
+        for (T ele : from)&#123;
+            to.add(ele);
+        &#125;
+    &#125;
+
+    static &lt;T&gt; void test1(Collection&lt;? extends T&gt; from, Collection&lt;T&gt; to)&#123;
+        for (T ele : from)&#123;
+            to.add(ele);
+        &#125;
+    &#125;
+
+    public static void main(String[] args) &#123;
+        Object[] oa = new Object[100];
+        Collection&lt;Object&gt; co = new ArrayList&lt;&gt;();
+        // T:Object
+        fromArrayToCollection(oa, co);
+
+        String[] sa = new String[100];
+        Collection&lt;String&gt; cs = new ArrayList&lt;&gt;();
+        // T:String
+        fromArrayToCollection(sa, cs);
+        // T:Object？？
+        fromArrayToCollection(sa, co);
+
+        List&lt;Object&gt; ao = new ArrayList&lt;&gt;();
+        List&lt;String&gt; as = new ArrayList&lt;&gt;();
+        // 编译报错？
+        // test(as, ao);
+        // 正常
+        test1(as, ao);
+    &#125;
+&#125;</code></pre>
 <h3 id="9-4-2-泛型方法和类型通配符的区别"><a href="#9-4-2-泛型方法和类型通配符的区别" class="headerlink" title="9.4.2 泛型方法和类型通配符的区别"></a>9.4.2 泛型方法和类型通配符的区别</h3><p>类型通配符既可以在方法签名中定义形参的类型，也可以用于定义变量的类型；但泛型方法中的泛型形参必须在对应方法中显式声明。</p>
 <p>如果某个方法中一个形参( a) 的类型或返回值的类型依赖于另一个形参( b )的类型，则形参( b )的类型声明不应该使用通配符一因为形参( a) 或返回值的类型依赖于该形参( b )的类型，如果形参( b ) 的类型无法确定，程序就无法定义形参( a) 的类型。在这种情况下，只能考虑使用在方法签名中声明泛型一一也就是泛型方法。</p>
 <h3 id="9-4-3-Java-7-的菱形语法与泛型构造器"><a href="#9-4-3-Java-7-的菱形语法与泛型构造器" class="headerlink" title="9.4.3 Java 7 的菱形语法与泛型构造器"></a>9.4.3 Java 7 的菱形语法与泛型构造器</h3><p>许在构造器签名中声明泛型形参。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; Foo(T t)&#123;</span><br><span class="line">        System.out.println(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericConstructor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Foo(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">        <span class="keyword">new</span> Foo(<span class="number">200</span>);</span><br><span class="line">        <span class="keyword">new</span> &lt;String&gt; Foo(<span class="string">&quot;bbbb&quot;</span>);</span><br><span class="line">        <span class="comment">// 报错</span></span><br><span class="line">        <span class="comment">// new &lt;String&gt; Foo(12.3);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">class Foo&#123;
+    public &lt;T&gt; Foo(T t)&#123;
+        System.out.println(t);
+    &#125;
+&#125;
+public class GenericConstructor &#123;
+    public static void main(String[] args) &#123;
+        new Foo(&quot;aaa&quot;);
+        new Foo(200);
+        new &lt;String&gt; Foo(&quot;bbbb&quot;);
+        // 报错
+        // new &lt;String&gt; Foo(12.3);
+    &#125;
+&#125;</code></pre>
 <p>如果程序显式指定了泛型构造器中声明的泛型形参的实际类型，则不可以使用”菱形”语法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>&lt;<span class="title">E</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; MyClass(T t)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;t参数的值为：&quot;</span> + t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericDiarnondTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// E:String T:Integer</span></span><br><span class="line">        MyClass&lt;String&gt; mc1 = <span class="keyword">new</span> MyClass&lt;&gt;(<span class="number">5</span>);</span><br><span class="line">        <span class="comment">// 显示指定 E T</span></span><br><span class="line">        MyClass&lt;String&gt; mc2 = <span class="keyword">new</span> &lt;Integer&gt;MyClass&lt;String&gt;(<span class="number">5</span>);</span><br><span class="line">        <span class="comment">// 如果显示指定泛型构造器形参，此时不可使用形参，编译报错。</span></span><br><span class="line">        <span class="comment">// MyClass&lt;String&gt; mc3 = new &lt;Integer&gt;MyClass&lt;&gt;(5);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">class MyClass&lt;E&gt;&#123;
+    public &lt;T&gt; MyClass(T t)&#123;
+        System.out.println(&quot;t参数的值为：&quot; + t);
+    &#125;
+&#125;
+public class GenericDiarnondTest &#123;
+    public static void main(String[] args) &#123;
+        // E:String T:Integer
+        MyClass&lt;String&gt; mc1 = new MyClass&lt;&gt;(5);
+        // 显示指定 E T
+        MyClass&lt;String&gt; mc2 = new &lt;Integer&gt;MyClass&lt;String&gt;(5);
+        // 如果显示指定泛型构造器形参，此时不可使用形参，编译报错。
+        // MyClass&lt;String&gt; mc3 = new &lt;Integer&gt;MyClass&lt;&gt;(5);
+    &#125;
+&#125;</code></pre>
 <p>为何？</p>
 <h3 id="9-4-4-泛型方法与方法重载"><a href="#9-4-4-泛型方法与方法重载" class="headerlink" title="9.4.4 泛型方法与方法重载"></a>9.4.4 泛型方法与方法重载</h3><p>有可能导致定义时正常，但是调用时报错。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">copy</span><span class="params">(Collection&lt;? <span class="keyword">super</span> T&gt; dest, Collection&lt;T&gt; src)</span></span>&#123;</span><br><span class="line">    T last = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">for</span>(T ele : src)&#123;</span><br><span class="line">        last = ele;</span><br><span class="line">        <span class="comment">// 逆变的泛型集合添加元素是安全的</span></span><br><span class="line">        dest.add(ele);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">copy</span><span class="params">(Collection&lt;T&gt; dest, Collection&lt;? extends T&gt; src)</span></span>&#123;</span><br><span class="line">    T last = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">for</span>(T ele : src)&#123;</span><br><span class="line">        last = ele;</span><br><span class="line">        <span class="comment">// 逆变的泛型集合添加元素是安全的</span></span><br><span class="line">        dest.add(ele);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">    public static &lt;T&gt; T copy(Collection&lt;? super T&gt; dest, Collection&lt;T&gt; src)&#123;
+        T last = null;
+        for(T ele : src)&#123;
+            last = ele;
+            // 逆变的泛型集合添加元素是安全的
+            dest.add(ele);
+        &#125;
+        return last;
+    &#125;
 
+    public static &lt;T&gt; T copy(Collection&lt;T&gt; dest, Collection&lt;? extends T&gt; src)&#123;
+        T last = null;
+        for(T ele : src)&#123;
+            last = ele;
+            // 逆变的泛型集合添加元素是安全的
+            dest.add(ele);
+        &#125;
+        return last;
+    &#125;</code></pre>
 <h3 id="9-4-5-Java-8-改进的类型推断"><a href="#9-4-5-Java-8-改进的类型推断" class="headerlink" title="9.4.5 Java 8 改进的类型推断"></a>9.4.5 Java 8 改进的类型推断</h3><p>类型推断方法：</p>
 <ul>
 <li>通过调用方法的上下文来推断泛型的目标类型</li>
 <li>在方法调用链中，将推断得到的泛型传递到最后一个方法</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyUtil</span>&lt;<span class="title">E</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;Z&gt; <span class="function">MyUtil&lt;Z&gt; <span class="title">nil</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;Z&gt; <span class="function">MyUtil&lt;Z&gt; <span class="title">cons</span><span class="params">(Z head, MyUtil&lt;Z&gt; tail)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">E <span class="title">head</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InferenceTes</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MyUtil&lt;String&gt; ls = MyUtil.nil();</span><br><span class="line">        MyUtil&lt;String&gt; mu = MyUtil.&lt;String&gt;nil();</span><br><span class="line">        MyUtil.cons(<span class="number">42</span>, MyUtil.nil());</span><br><span class="line">        MyUtil.cons(<span class="number">42</span>, MyUtil.&lt;Integer&gt;nil());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 报错，推断不是万能的</span></span><br><span class="line">        <span class="comment">// String s = MyUtil.nil().head();</span></span><br><span class="line">        String s = MyUtil.&lt;String&gt;nil().head();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">class MyUtil&lt;E&gt;&#123;
+    public static &lt;Z&gt; MyUtil&lt;Z&gt; nil()&#123;
+        return null;
+    &#125;
+    public static &lt;Z&gt; MyUtil&lt;Z&gt; cons(Z head, MyUtil&lt;Z&gt; tail)&#123;
+        return null;
+    &#125;
+    E head()&#123;
+        return null;
+    &#125;
+&#125;
+public class InferenceTes &#123;
+    public static void main(String[] args) &#123;
+        MyUtil&lt;String&gt; ls = MyUtil.nil();
+        MyUtil&lt;String&gt; mu = MyUtil.&lt;String&gt;nil();
+        MyUtil.cons(42, MyUtil.nil());
+        MyUtil.cons(42, MyUtil.&lt;Integer&gt;nil());
 
+        // 报错，推断不是万能的
+        // String s = MyUtil.nil().head();
+        String s = MyUtil.&lt;String&gt;nil().head();
+    &#125;
+&#125;</code></pre>
 <h2 id="9-5-擦除和转换"><a href="#9-5-擦除和转换" class="headerlink" title="9.5 擦除和转换"></a>9.5 擦除和转换</h2><p>当把一个具有泛型信息的对象赋给另一个没有泛型信息的变量时，所有在尖括号之间的类型信息都将被扔掉。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Apple</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Number</span>&gt;</span>&#123;</span><br><span class="line">    T size;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(T size)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.size = size;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSize</span><span class="params">(T size)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.size = size;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getSize</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErasureTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Apple&lt;Integer&gt; a = <span class="keyword">new</span> Apple&lt;&gt;(<span class="number">6</span>);</span><br><span class="line">        Integer as = a.getSize();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 丢失尖括号信息</span></span><br><span class="line">        Apple b = a;</span><br><span class="line">        Number size1 = b.getSize();</span><br><span class="line">        <span class="comment">// 编译报错</span></span><br><span class="line">        <span class="comment">// Integer size2 = b.getSize();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">class Apple&lt;T extends Number&gt;&#123;
+    T size;
+    public Apple()&#123;&#125;
+    public Apple(T size)&#123;
+        this.size = size;
+    &#125;
+    public void setSize(T size)&#123;
+        this.size = size;
+    &#125;
+    public T getSize()&#123;
+        return this.size;
+    &#125;
+&#125;
+public class ErasureTest &#123;
+    public static void main(String[] args) &#123;
+        Apple&lt;Integer&gt; a = new Apple&lt;&gt;(6);
+        Integer as = a.getSize();
 
+        // 丢失尖括号信息
+        Apple b = a;
+        Number size1 = b.getSize();
+        // 编译报错
+        // Integer size2 = b.getSize();
+    &#125;
+&#125;</code></pre>
 <p>从逻辑上来看， List&lt; String&gt;是List 的子类，如果直接把一个List 对象赋给一个List<String>对象应该引起编译错误，但实际上不会。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErasureTest2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; li = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        li.add(<span class="number">6</span>);</span><br><span class="line">        li.add(<span class="number">9</span>);</span><br><span class="line">        List list = li;</span><br><span class="line">        <span class="comment">// 只是警告，运行时完全正常</span></span><br><span class="line">        List&lt;String&gt; ls = list;</span><br><span class="line">        <span class="comment">// 但是访问元素时会引发运行时异常。</span></span><br><span class="line">        System.out.println(ls.get(<span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">public class ErasureTest2 &#123;
+    public static void main(String[] args) &#123;
+        List&lt;Integer&gt; li = new ArrayList&lt;&gt;();
+        li.add(6);
+        li.add(9);
+        List list = li;
+        // 只是警告，运行时完全正常
+        List&lt;String&gt; ls = list;
+        // 但是访问元素时会引发运行时异常。
+        System.out.println(ls.get(0));
+    &#125;
+&#125;</code></pre>
 <h2 id="9-6-泛型与数组"><a href="#9-6-泛型与数组" class="headerlink" title="9.6 泛型与数组"></a>9.6 泛型与数组</h2><p>数组元素的类型不能包含泛型变量或泛型形参，除非是无上限的类型通配符。</p>
 <p>但可以声明元素类型包含泛型变量或泛型形参的数组。</p>
 <p>也就是说， 只能声明List<String>[]形式的数组， 但不能创建ArrayList<String>[1 0]这样的数组对象。</p>
 <p>假设可以创建这样的数组：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实际上会编译报错</span></span><br><span class="line">List&lt;String&gt;[] lsa = <span class="keyword">new</span> ArrayList&lt;String&gt;[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 这样是允许的，但是会有警告</span></span><br><span class="line">List&lt;String&gt;[] lsa = <span class="keyword">new</span> ArrayList[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 向上转型</span></span><br><span class="line">Object[] oa = lsa;</span><br><span class="line">List&lt;Integer&gt; li = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">li.add(<span class="number">3</span>);</span><br><span class="line">oa[<span class="number">1</span>] = li;</span><br><span class="line"><span class="comment">// 没有任何警告，但是将引发异常</span></span><br><span class="line">String s = lsa[<span class="number">1</span>].get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">// 实际上会编译报错
+List&lt;String&gt;[] lsa = new ArrayList&lt;String&gt;[10];
+// 这样是允许的，但是会有警告
+List&lt;String&gt;[] lsa = new ArrayList[10];
+// 向上转型
+Object[] oa = lsa;
+List&lt;Integer&gt; li = new ArrayList&lt;&gt;();
+li.add(3);
+oa[1] = li;
+// 没有任何警告，但是将引发异常
+String s = lsa[1].get(0);</code></pre>
 <p>Java 允许创建无上限的通配符泛型数组，例如new AηayList&lt;?&gt;[ 1 0] ， 因此也可以将第一段代码改为使用无上限的通配符泛型数组，在这种情况下，程序不得不进行强制类型转换。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericAndArray2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;?&gt;[] lsa = <span class="keyword">new</span> ArrayList&lt;?&gt;[<span class="number">10</span>];</span><br><span class="line">        Object[] oa = lsa;</span><br><span class="line">        List&lt;Integer&gt; li = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        li.add(<span class="number">3</span>);</span><br><span class="line">        oa[<span class="number">1</span>] = li;</span><br><span class="line">        Object target = lsa[<span class="number">1</span>].get(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span>((target <span class="keyword">instanceof</span> String))&#123;</span><br><span class="line">            <span class="comment">// 下面代码安全了</span></span><br><span class="line">            String s = (String) target;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">//    &lt;T&gt; T[] makeArray(Collection&lt;T&gt; coll)&#123;</span></span><br><span class="line"><span class="comment">//        // 编译报错</span></span><br><span class="line"><span class="comment">//        return new T[coll.size()];</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">public class GenericAndArray2 &#123;
+    public static void main(String[] args) &#123;
+        List&lt;?&gt;[] lsa = new ArrayList&lt;?&gt;[10];
+        Object[] oa = lsa;
+        List&lt;Integer&gt; li = new ArrayList&lt;&gt;();
+        li.add(3);
+        oa[1] = li;
+        Object target = lsa[1].get(0);
+        if((target instanceof String))&#123;
+            // 下面代码安全了
+            String s = (String) target;
+        &#125;
+    &#125;
 
-</div><div class="tags"><a href="/tags/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/"><i class="fa fa-tag"></i>疯狂 Java 讲义</a></div><div class="post-nav"><a class="pre" href="/2020-01-10-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C10.html">第 10 章 异常处理</a><a class="next" href="/2020-01-08-%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C8.html">第 8 章 Java 集合</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IO/">IO</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LVS/">LVS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCloud/">SpringCloud</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Srping-Boot/">Srping Boot</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%8A%80%E6%9C%AF/">加解密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%89%E4%BB%96/">吉他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E6%83%85/">心情</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E5%85%B3%E6%8A%80%E6%9C%AF/">无关技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/">疯狂 Java 讲义</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">4</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/%E5%BF%83%E6%83%85/" style="font-size: 15px;">心情</a> <a href="/tags/PGP/" style="font-size: 15px;">PGP</a> <a href="/tags/SFTP/" style="font-size: 15px;">SFTP</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Samba/" style="font-size: 15px;">Samba</a> <a href="/tags/Kafka/" style="font-size: 15px;">Kafka</a> <a href="/tags/NIO/" style="font-size: 15px;">NIO</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/SpringCloud/" style="font-size: 15px;">SpringCloud</a> <a href="/tags/Srping-Boot/" style="font-size: 15px;">Srping Boot</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/kafka/" style="font-size: 15px;">kafka</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/%E5%90%89%E4%BB%96/" style="font-size: 15px;">吉他</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15px;">多线程</a> <a href="/tags/OS/" style="font-size: 15px;">OS</a> <a href="/tags/%E6%97%A0%E5%85%B3%E6%8A%80%E6%9C%AF/" style="font-size: 15px;">无关技术</a> <a href="/tags/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/" style="font-size: 15px;">疯狂 Java 讲义</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 15px;">算法</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15px;">设计模式</a> <a href="/tags/Singleton/" style="font-size: 15px;">Singleton</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/MQTT/" style="font-size: 15px;">MQTT</a> <a href="/tags/LVS/" style="font-size: 15px;">LVS</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">网络</a> <a href="/tags/Eureka/" style="font-size: 15px;">Eureka</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 15px;">前端</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.jamespan.me/" title="小鶸の道场" target="_blank">小鶸の道场</a><ul></ul><a href="https://www.haomwei.com/" title="屠城" target="_blank">屠城</a><ul></ul><a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a><ul></ul><a href="https://www.cnblogs.com/jingmoxukong/" title="静默虚空" target="_blank">静默虚空</a><ul></ul><a href="https://blog.hushhw.cn/" title="hushhw" target="_blank">hushhw</a><ul></ul><a href="https://hasaik.com/" title="hasaik" target="_blank">hasaik</a><ul></ul><a href="https://www.imalan.cn/" title="三无计划" target="_blank">三无计划</a><ul></ul><a href="https://i-meto.com/" title="meto" target="_blank">meto</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">悟空.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+//    &lt;T&gt; T[] makeArray(Collection&lt;T&gt; coll)&#123;
+//        // 编译报错
+//        return new T[coll.size()];
+//    &#125;
+&#125;</code></pre>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
