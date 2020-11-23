@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="悟空的技术博客"><title>Https 实战 | 悟空</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Https 实战</h1><a id="logo" href="/.">悟空</a><p class="description">悟空的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tag"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Https 实战</h1><div class="post-meta">2020-06-12<span> | </span><span class="category"><a href="/categories/SpringCloud/">SpringCloud</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-OPenSSL-%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90%E3%80%81%E8%87%AA%E5%BB%BA-CA"><span class="toc-text">1. OPenSSL 证书生成、自建 CA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-OPenSSL-%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90"><span class="toc-text">1.1 OPenSSL 证书生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E8%87%AA%E5%BB%BA-CA"><span class="toc-text">1.2 自建 CA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-xca-%E5%9B%BE%E5%BD%A2%E5%8C%96%E5%B7%A5%E5%85%B7%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6"><span class="toc-text">1.3 xca 图形化工具生成证书</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-nginx-%E9%85%8D%E7%BD%AE%E8%87%AA%E7%AD%BE%E5%90%8D-https"><span class="toc-text">2. nginx 配置自签名 https</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%9C%9F%E5%AE%9E%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E5%88%B0-VPS-%E5%B9%B6%E9%85%8D%E7%BD%AE-https-%E8%AE%BF%E9%97%AE"><span class="toc-text">3. 真实域名解析到 VPS 并配置 https 访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E8%B4%AD%E4%B9%B0%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88VPS%EF%BC%89"><span class="toc-text">3.1 购买线上服务器（VPS）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="toc-text">3.2 线上服务器域名解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E5%99%A8-SSL-%E5%85%8D%E8%B4%B9%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E4%BB%A5%E5%8F%8A%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="toc-text">3.3 线上服务器 SSL 免费证书申请以及认证过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%AE%89%E8%A3%85-nginx-%E5%B9%B6%E9%85%8D%E7%BD%AE-https"><span class="toc-text">3.4 安装 nginx 并配置 https</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-OpenResty"><span class="toc-text">安装 OpenResty:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-443-%E7%AB%AF%E5%8F%A3%E5%92%8C-80-%E7%AB%AF%E5%8F%A3%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">3.5 443 端口和 80 端口的关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-SS-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BB%A5%E5%8F%8A%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85"><span class="toc-text">4. SS 服务端以及客户端安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%AE%89%E8%A3%85%E8%B0%B7%E6%AD%8C-BBR-%E5%8A%A0%E9%80%9F"><span class="toc-text">4.1 安装谷歌 BBR 加速</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%AE%89%E8%A3%85-SS-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">4.2 安装 SS 服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%AE%89%E8%A3%85-SS-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">4.3 安装 SS 客户端</span></a></li></ol></li></ol></div></div><div class="post-content"><ul>
+<li>自建 CA 签名，配置 https</li>
+<li>免费浏览器认可的 CA 签名，配置 https</li>
+<li>SS 搭建</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="1-OPenSSL-证书生成、自建-CA"><a href="#1-OPenSSL-证书生成、自建-CA" class="headerlink" title="1. OPenSSL 证书生成、自建 CA"></a>1. OPenSSL 证书生成、自建 CA</h2><h3 id="1-1-OPenSSL-证书生成"><a href="#1-1-OPenSSL-证书生成" class="headerlink" title="1.1 OPenSSL 证书生成"></a>1.1 OPenSSL 证书生成</h3><ul>
+<li>生成私钥<ul>
+<li><code>.\openssl.exe genrsa -des3 -out d:/dev/server.key</code></li>
+</ul>
+</li>
+<li>由私钥创建待签名证书<ul>
+<li><code> .\openssl.exe req -new -key D:\dev\server.key -out D:\dev\server.csr</code></li>
+</ul>
+</li>
+<li>查看证书中内容<ul>
+<li><code> .\openssl.exe req -text -in D:\dev\server.csr</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-自建-CA"><a href="#1-2-自建-CA" class="headerlink" title="1.2 自建 CA"></a>1.2 自建 CA</h3><ul>
+<li>创建 CA 私钥<ul>
+<li><code> .\openssl.exe genrsa -out D:\dev\myca.key 2048</code></li>
+</ul>
+</li>
+<li>生成 CA 证书<ul>
+<li><code> .\openssl.exe req -new -key D:\dev\myca.key -out D:\dev\myca.csr</code></li>
+</ul>
+</li>
+<li>生成 CA 根证书<ul>
+<li><code> .\openssl.exe x509 -req -in D:\dev\myca.csr -extensions v3_ca -signkey D:\dev\myca.key -out D:\dev\mycat.crt</code></li>
+</ul>
+</li>
+<li>对服务器证书签名<ul>
+<li><code> .\openssl.exe x509 -days 365 -req -in D:\dev\server.csr -extensions v3_req -CAkey D:\dev\myca.key -CA D:\dev\mycat.crt -CAcreateserial -out D:\dev\server.crt</code></li>
+</ul>
+</li>
+<li>查看系统预置的证书<ul>
+<li><code>certmgr.msc</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-xca-图形化工具生成证书"><a href="#1-3-xca-图形化工具生成证书" class="headerlink" title="1.3 xca 图形化工具生成证书"></a>1.3 xca 图形化工具生成证书</h3><p>生成证书的图形工具。</p>
+<h2 id="2-nginx-配置自签名-https"><a href="#2-nginx-配置自签名-https" class="headerlink" title="2. nginx 配置自签名 https"></a>2. nginx 配置自签名 https</h2><ul>
+<li><p>把服务器私钥（server.key）和自签名证书(server.crt)上传到服务器</p>
+</li>
+<li><p>修改 nginx 配置</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"> #</span><span class="bash"> HTTPS server</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       443 ssl;</span><br><span class="line">    server_name  monkeykong.com;</span><br><span class="line">    # 配置证书</span><br><span class="line">    ssl_certificate     /data/server.crt; # cert.pem;</span><br><span class="line">    # 配置私钥</span><br><span class="line">    ssl_certificate_key /data/server.key; # cert.key;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">    ssl_session_cache    shared:SSL:1m;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">    ssl_session_timeout  5m;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">    ssl_ciphers  HIGH:!aNULL:!MD5;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">    ssl_prefer_server_ciphers  on;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">    location / &#123;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">        root   html;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">        index  index.html index.htm;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>重启 nginx。<code>service nginx restart</code></p>
+<ul>
+<li>这时需要输入私钥密码验证</li>
+<li><code>lsof -i:443</code>：验证 443 端口是否处于监听状态</li>
+</ul>
+</li>
+<li><p>使用 https 访问网站：<a href="https://192.168.238.66/">https://192.168.238.66/</a>。提示无法访问网站。原因是没有开放 443 端口。</p>
+<ul>
+<li><code>vi /etc/sysconfig/iptables</code></li>
+<li><code>-A INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT</code></li>
+<li><code>service iptables restart</code></li>
+</ul>
+</li>
+<li><p>开放端口后，可以访问了，但是提示不是私密连接，如下图。原因是服务器的待签名证书是用我们自己的 CA 来签名的，浏览器不认可你这个 CA，所以提示不安全。必须要点击高级中的继续访问。</p>
+</li>
+</ul>
+<p><img src="../../images/springcloud/session/%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6.png"></p>
+<ul>
+<li>怎么去掉这个中间页呢？很简单，把我们自己的 CA 根证书安装到本机就可以了。</li>
+</ul>
+<p><img src="../../images/springcloud/session/%E5%AE%89%E8%A3%85CA%E6%A0%B9%E8%AF%81%E4%B9%A6.png"></p>
+<ul>
+<li>重启浏览器，再次访问<code>&lt;https://192.168.238.66/&gt;</code>，不再提示不安全，因为自己的 CA 根证书已经被本机信任。但是这个访问还是不安全的，因为这个证书只是你自己信任了，但是浏览器并没有信任该证书，浏览器只信任公认的大的 CA 机构的证书。</li>
+</ul>
+<p><img src="../../images/springcloud/session/%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.png"></p>
+<h2 id="3-真实域名解析到-VPS-并配置-https-访问"><a href="#3-真实域名解析到-VPS-并配置-https-访问" class="headerlink" title="3. 真实域名解析到 VPS 并配置 https 访问"></a>3. 真实域名解析到 VPS 并配置 https 访问</h2><h3 id="3-1-购买线上服务器（VPS）"><a href="#3-1-购买线上服务器（VPS）" class="headerlink" title="3.1 购买线上服务器（VPS）"></a>3.1 购买线上服务器（VPS）</h3><p>购买 VPS：</p>
+<ul>
+<li><p><a href="https://www.gigsgigscloud.com/">https://www.gigsgigscloud.com/</a></p>
+</li>
+<li><p><a href="https://my.vultr.com/">https://my.vultr.com/</a></p>
+</li>
+</ul>
+<p>CN2 GIA 和普通 CN2 区别？</p>
+<h3 id="3-2-线上服务器域名解析"><a href="#3-2-线上服务器域名解析" class="headerlink" title="3.2 线上服务器域名解析"></a>3.2 线上服务器域名解析</h3><ul>
+<li>购买域名</li>
+<li>域名解析，将域名绑定到刚刚买的 VPS 主机</li>
+</ul>
+<p><img src="../../images/springcloud/session/%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90.png"></p>
+<ul>
+<li>验证能否正常访问域名：<code>ping jingjing5201314.top</code></li>
+</ul>
+<h3 id="3-3-线上服务器-SSL-免费证书申请以及认证过程"><a href="#3-3-线上服务器-SSL-免费证书申请以及认证过程" class="headerlink" title="3.3 线上服务器 SSL 免费证书申请以及认证过程"></a>3.3 线上服务器 SSL 免费证书申请以及认证过程</h3><ul>
+<li><p>生成 key 和 crt</p>
+</li>
+<li><p>免费签名：<a href="https://freessl.cn/">https://freessl.cn</a></p>
+</li>
+</ul>
+<h3 id="3-4-安装-nginx-并配置-https"><a href="#3-4-安装-nginx-并配置-https" class="headerlink" title="3.4 安装 nginx 并配置 https"></a>3.4 安装 nginx 并配置 https</h3><h4 id="安装-OpenResty"><a href="#安装-OpenResty" class="headerlink" title="安装 OpenResty:"></a>安装 OpenResty:</h4><ul>
+<li><p>安装：<a href="http://openresty.org/en/installation.html">http://openresty.org/en/installation.html</a></p>
+</li>
+<li><p>上传服务器密钥和证书到 /data 目录</p>
+</li>
+<li><p>配置 https：</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       443 ssl;</span><br><span class="line">    server_name  jingjing5201314.top;</span><br><span class="line">    ssl_certificate      /data/full_chain.pem;</span><br><span class="line">    ssl_certificate_key  /data/ukvps.key;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动：<code>sbin/nginx</code></li>
+<li>访问域名验证：<code>&lt;https://jingjing5201314.top/&gt;</code></li>
+</ul>
+<p><img src="../../images/springcloud/session/VPS-https.png"></p>
+<ul>
+<li>关闭：<code>sbin/nginx -s stop</code></li>
+</ul>
+<h3 id="3-5-443-端口和-80-端口的关系"><a href="#3-5-443-端口和-80-端口的关系" class="headerlink" title="3.5 443 端口和 80 端口的关系"></a>3.5 443 端口和 80 端口的关系</h3><p>http 协议默认走 80 端口；ssl 协议默认走 443 端口；</p>
+<p>nginx 配置启动 443 后，既可以通过 http 80 端口直接访问服务器资源也可以通过 https 443 端口访问服务器资源。</p>
+<p>他们是两个不用的进程，没有什么必然联系，即使把 80 端口禁用，还是可以通过 443 端口正常访问资源。</p>
+<p>实际使用过程中，一般都是把 80 的请求通过 302、307 跳转到 443 上进行安全访问。</p>
+<h2 id="4-SS-服务端以及客户端安装"><a href="#4-SS-服务端以及客户端安装" class="headerlink" title="4. SS 服务端以及客户端安装"></a>4. SS 服务端以及客户端安装</h2><h3 id="4-1-安装谷歌-BBR-加速"><a href="#4-1-安装谷歌-BBR-加速" class="headerlink" title="4.1 安装谷歌 BBR 加速"></a>4.1 安装谷歌 BBR 加速</h3><p><code>wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh</code></p>
+<p>重启 VPS 后，<code>lsmod | grep bbr</code> 验证 bbr 是否已经启动</p>
+<h3 id="4-2-安装-SS-服务端"><a href="#4-2-安装-SS-服务端" class="headerlink" title="4.2 安装 SS 服务端"></a>4.2 安装 SS 服务端</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget — no-check-certificate -O shadowsocks.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br><span class="line">chmod +x shadowsocks.sh</span><br><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</span><br></pre></td></tr></table></figure>
+
+<p>启动完成后就可以看到连接信息啦。</p>
+<p>查看运行状态：<code>service shadowsocks status</code></p>
+<h3 id="4-3-安装-SS-客户端"><a href="#4-3-安装-SS-客户端" class="headerlink" title="4.3 安装 SS 客户端"></a>4.3 安装 SS 客户端</h3><ul>
+<li><p><strong>安卓：</strong><a href="https://github.com/shadowsocks/shadowsocks-android/releases?utm_source=textarea.com&utm_medium=textarea.com&utm_campaign=article"><strong>shadowsocks-android</strong> </a></p>
+</li>
+<li><p><strong>Windows：</strong><a href="https://github.com/shadowsocks/shadowsocks-windows/releases?utm_source=textarea.com&utm_medium=textarea.com&utm_campaign=article"><strong>shadowsocks-windows</strong></a></p>
+</li>
+</ul>
+</div><div class="tags"><a href="/tags/SpringCloud/"><i class="fa fa-tag"></i>SpringCloud</a></div><div class="post-nav"><a class="pre" href="/2020-06-13-%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/20200613.html"></a><a class="next" href="/2020-06-10-IO/IO%E5%AD%A6%E4%B9%A02.html">IO学习（二）</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IO/">IO</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LVS/">LVS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCloud/">SpringCloud</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Srping-Boot/">Srping Boot</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%8A%80%E6%9C%AF/">加解密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%89%E4%BB%96/">吉他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E6%83%85/">心情</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E5%85%B3%E6%8A%80%E6%9C%AF/">无关技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/">疯狂 Java 讲义</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">4</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/%E5%BF%83%E6%83%85/" style="font-size: 15px;">心情</a> <a href="/tags/PGP/" style="font-size: 15px;">PGP</a> <a href="/tags/SFTP/" style="font-size: 15px;">SFTP</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Samba/" style="font-size: 15px;">Samba</a> <a href="/tags/Kafka/" style="font-size: 15px;">Kafka</a> <a href="/tags/NIO/" style="font-size: 15px;">NIO</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/SpringCloud/" style="font-size: 15px;">SpringCloud</a> <a href="/tags/Srping-Boot/" style="font-size: 15px;">Srping Boot</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/kafka/" style="font-size: 15px;">kafka</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/%E5%90%89%E4%BB%96/" style="font-size: 15px;">吉他</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15px;">多线程</a> <a href="/tags/OS/" style="font-size: 15px;">OS</a> <a href="/tags/%E6%97%A0%E5%85%B3%E6%8A%80%E6%9C%AF/" style="font-size: 15px;">无关技术</a> <a href="/tags/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/" style="font-size: 15px;">疯狂 Java 讲义</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 15px;">算法</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15px;">设计模式</a> <a href="/tags/Singleton/" style="font-size: 15px;">Singleton</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/MQTT/" style="font-size: 15px;">MQTT</a> <a href="/tags/LVS/" style="font-size: 15px;">LVS</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">网络</a> <a href="/tags/Eureka/" style="font-size: 15px;">Eureka</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 15px;">前端</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.jamespan.me/" title="小鶸の道场" target="_blank">小鶸の道场</a><ul></ul><a href="https://www.haomwei.com/" title="屠城" target="_blank">屠城</a><ul></ul><a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a><ul></ul><a href="https://www.cnblogs.com/jingmoxukong/" title="静默虚空" target="_blank">静默虚空</a><ul></ul><a href="https://blog.hushhw.cn/" title="hushhw" target="_blank">hushhw</a><ul></ul><a href="https://hasaik.com/" title="hasaik" target="_blank">hasaik</a><ul></ul><a href="https://www.imalan.cn/" title="三无计划" target="_blank">三无计划</a><ul></ul><a href="https://i-meto.com/" title="meto" target="_blank">meto</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">悟空.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

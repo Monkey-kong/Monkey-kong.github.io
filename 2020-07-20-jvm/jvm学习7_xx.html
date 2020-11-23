@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="悟空的技术博客"><title>JVM 学习（七） | 悟空</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">JVM 学习（七）</h1><a id="logo" href="/.">悟空</a><p class="description">悟空的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tag"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">JVM 学习（七）</h1><div class="post-meta">2020-07-20<span> | </span><span class="category"><a href="/categories/JVM/">JVM</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%B8%B8%E8%A7%81%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E7%BB%84%E5%90%88%E5%8F%82%E6%95%B0%E8%AE%BE%E5%AE%9A%EF%BC%881-8%EF%BC%89"><span class="toc-text">1. 常见垃圾回收器组合参数设定（1.8）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-JVM-%E8%B0%83%E4%BC%98%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%8C%E4%BA%86%E8%A7%A3-JVM-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="toc-text">2. JVM 调优第一步，了解 JVM 常用命令行参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%B8%80%E4%B8%AA%E5%B0%8F%E4%BE%8B%E5%AD%90"><span class="toc-text">2.1 一个小例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-PS-GC-%E6%97%A5%E5%BF%97%E8%AF%A6%E8%A7%A3"><span class="toc-text">3. PS GC 日志详解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%B0%83%E4%BC%98%E4%B9%8B%E5%89%8D%E7%9A%84%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-text">4. 调优之前的基础概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BB%80%E4%B9%88%E6%98%AF%E8%B0%83%E4%BC%98"><span class="toc-text">5. 什么是调优</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%B0%83%E4%BC%98%EF%BC%8C%E4%BB%8E%E8%A7%84%E5%88%92%E5%BC%80%E5%A7%8B"><span class="toc-text">6. 调优，从规划开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E4%BC%98%E5%8C%96%E7%8E%AF%E5%A2%83"><span class="toc-text">7. 优化环境</span></a></li></ol></div></div><div class="post-content"><p>JVM 调优（一）</p>
+<a id="more"></a>
+
+<h2 id="1-常见垃圾回收器组合参数设定（1-8）"><a href="#1-常见垃圾回收器组合参数设定（1-8）" class="headerlink" title="1. 常见垃圾回收器组合参数设定（1.8）"></a>1. 常见垃圾回收器组合参数设定（1.8）</h2><ul>
+<li>-XX:+UseSerialGC = Serial New(DefNew) + Serial Old<ul>
+<li>小型程序。默认情况下不会是这种选项，HotSpot 会根据计算及配置和 JDK 版本自动选择收集器。</li>
+</ul>
+</li>
+<li>-XX:+UseParNewGC = ParNew + SerialOld<ul>
+<li>这个组合已经很少用（在某些版本中已经废弃）</li>
+</ul>
+</li>
+<li>-XX:+UseConc(urrent)MarkSweepGC = ParNew + CMS + Serial Old</li>
+<li>-XX:+UseParallelGC = Parallel Scavenge + Parallel Old(1.8 默认) 【PS + SerialOld】</li>
+<li>-XX:+UseParallelOldGC = Parallel Scavenge + Parallel Old</li>
+<li>-XX:+UseG1GC = G1</li>
+<li>Linux 中没有找到默认 GC 的查看方法，而 Windows 中会打印 UseParallelGC<ul>
+<li>java -XX:+PrintCommandLineFlags -version</li>
+<li>通过 GC 的日志来分辨</li>
+</ul>
+</li>
+<li>Linux 下 1.8 版本默认的垃圾回收器到底是什么？<ul>
+<li>1.8.0——181 默认（看不出来） Copy MarkCompact</li>
+<li>1.8.0_222 默认 PS+PO</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-JVM-调优第一步，了解-JVM-常用命令行参数"><a href="#2-JVM-调优第一步，了解-JVM-常用命令行参数" class="headerlink" title="2. JVM 调优第一步，了解 JVM 常用命令行参数"></a>2. JVM 调优第一步，了解 JVM 常用命令行参数</h2><ul>
+<li><p>JVM 的命令行参数参考：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html</a></p>
+</li>
+<li><p>HotSpot 参数分类</p>
+<blockquote>
+<p>标准：- 开头，所有 HotSpot 都支持</p>
+<p>非标准： -X 开头，特定版本 HotSpot 支持特定命令</p>
+<p>不稳定：-XX 开头，下个版本可能取消</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-1-一个小例子"><a href="#2-1-一个小例子" class="headerlink" title="2.1 一个小例子"></a>2.1 一个小例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloGC</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello GC&quot;</span>);</span><br><span class="line">        List list = <span class="keyword">new</span> LinkedList();</span><br><span class="line">        <span class="keyword">for</span>(;;) &#123;</span><br><span class="line">            <span class="comment">// 1M</span></span><br><span class="line">            <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span> * <span class="number">1024</span>];</span><br><span class="line">            list.add(b);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>区分概念：内存泄漏 memory leak，内存溢出 out of memory</p>
+</li>
+<li><p>java -XX:+PrintCommandLineFlags HelloGC</p>
+<blockquote>
+<p>初始堆大小 最大堆大小 压缩头指针 压缩普通指针</p>
+<p>-XX:InitialHeapSize=30113152 -XX:MaxHeapSize=481810432 -XX:+PrintCommandLineFlags -XX:ReservedCodeCacheSize=251658240 -XX:+SegmentedCodeCache -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseSerialGC<br>Hello GC<br>Exception in thread “main” java.lang.OutOfMemoryError: Java heap space</p>
+<pre><code>at HelloGC.main(HelloGC.java:8)</code></pre>
+</blockquote>
+</li>
+<li><p>java -Xmn10M -Xms40M -Xmx60M -XX:+PrintCommandLineFlags -XX:+PrintGC HelloGC</p>
+<p>可以看到自定义了NewSize，初始堆大小，最大堆大小。</p>
+<p>可以看到 GC 执行信息。由于测试程序数据都在一个链表，都不能被回收，最后导致内存溢出。</p>
+<p><img src="../../images/jvm/07/%E6%9F%A5%E7%9C%8BGC%E4%BF%A1%E6%81%AF.png"></p>
+<p>PrintGCDetails PrintGCTimeStamps PrintGCCauses</p>
+</li>
+<li><p>java -XX:+UseConcMarkSweepGC -XX:+PrintCommandLineFlags -XX:+PrintGC HelloGC</p>
+<p>可以看到 CMS 各个阶段信息</p>
+</li>
+<li><p>java -XX:+PrintFlagsInitial 默认参数值</p>
+</li>
+<li><p>java -XX:+PrintFlagsFinal 最终参数值</p>
+</li>
+<li><p>java -XX:+PrintFlagsFinal | grep xxx 找到对应的参数</p>
+</li>
+<li><p>java -XX:+PrintFlagsFinal -version | grep GC</p>
+</li>
+</ol>
+<h2 id="3-PS-GC-日志详解"><a href="#3-PS-GC-日志详解" class="headerlink" title="3. PS GC 日志详解"></a>3. PS GC 日志详解</h2><p>正常 GC 日志。</p>
+<p><img src="../../images/jvm/07/GC%E6%97%A5%E5%BF%97.png"></p>
+<p>GC 产生堆溢出时，会打印当前堆信息。</p>
+<p><img src="../../images/jvm/07/GC%E6%97%A5%E5%BF%972.png"></p>
+<p>total = eden + 1个survivor</p>
+<h2 id="4-调优之前的基础概念"><a href="#4-调优之前的基础概念" class="headerlink" title="4. 调优之前的基础概念"></a>4. 调优之前的基础概念</h2><p><strong>吞吐量</strong> = 用户代码执行时间/(用户代码执行时间+垃圾收集执行时间)</p>
+<p><strong>响应时间</strong>=用户线程停顿的时间短。STW 越短，响应时间越好</p>
+<p>确定调优之前，应该确定到底是哪个优先，是计算型任务还是响应型任务。还是在满足一定的响应时间的情况下，要求达到多大的吞吐量。</p>
+<p>问题：</p>
+<p>吞吐量：科学计算，吞吐量。数据挖掘，throughput。吞吐量优先的一般：PS + PO</p>
+<p>响应时间：网站 GUI API （1.8 选 G1）</p>
+<h2 id="5-什么是调优"><a href="#5-什么是调优" class="headerlink" title="5. 什么是调优"></a>5. 什么是调优</h2><ol>
+<li>根据需求进行 JVM <strong>规划和预调优</strong></li>
+<li>优化运行 JVM 运行环境（慢、卡顿怎么优化）</li>
+<li>解决 JVM 运行过程中出现的各种问题（比如 OOM）</li>
+</ol>
+<h2 id="6-调优，从规划开始"><a href="#6-调优，从规划开始" class="headerlink" title="6. 调优，从规划开始"></a>6. 调优，从规划开始</h2><p>淘宝历年最高并发 54W。12306 号称比淘宝还高。</p>
+<ul>
+<li><p>调优，从业务场景开始，没有业务场景的调优都是耍流氓</p>
+</li>
+<li><p>无监控（压测，能看到结果），不调优</p>
+</li>
+<li><p>步骤</p>
+<ol>
+<li>熟悉业务场景（没有最好的垃圾回收器，只有最适合的）<ol>
+<li>响应时间、停顿时间【CMS G1 ZGC】</li>
+<li>吞吐量 【PS】</li>
+</ol>
+</li>
+<li>选择回收器组合</li>
+<li>计算内存需求（其实不好计算，内存小，可能 GC 频繁一些，但是可能也没问题，内存大 GC 频度小一些。经验值 1.5G 16G）</li>
+<li>选定 CPU （越高越好，越好核心数越多，处理更快，GC 就更快，节省内存，两者相辅相成）</li>
+<li>设定年代大小、升级年龄</li>
+<li>设定日志参数<ol>
+<li>-Xloggc:/opt/xxx/logs/xxx-xxx-gc-%t.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=20M -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCCause  五个日志文件循环使用</li>
+<li>或者每天产生一个日志文件</li>
+</ol>
+</li>
+<li>观察日志情况</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>预调优案例1：垂直电商，最高每日百万订单，处理订单系统需要什么样的服务器配置？</p>
+<blockquote>
+<p>这个问题比较业余，因为很多不同的服务器配置都能支撑（1.5G，16G）</p>
+<p>1 小时 360000 订单，集中时间段，100 个订单/秒（找一小时内的高峰期，也有可能是 1000 订单/秒）。即你的架构要要能支撑 1000 个订单每秒。</p>
+<p>即使这样，内存也很难预测，一般都是根据经验值，然后进行压测分析。</p>
+<p>非要计算：一个订单产生需要多少内存？ 512k * 1000 = 500M 内存。所以 500M 就足够，但是也可以设置得更小，只要响应时间够快，比如一秒钟 250 个订单全部进来，不到一秒后台把对象全部回收完了，也是 OK 的。</p>
+<p>所以专业一点儿问法：比如要求响应时间 100ms</p>
+<p>  压测</p>
+</blockquote>
+</li>
+<li><p>案例2：12306 遭遇春节大规模抢票应该如何支撑？</p>
+<blockquote>
+<p>12306 应该是中国并发量最大的秒杀网站：</p>
+<p>号称并发量 100w 最高</p>
+<p>CDN -&gt; LVS -&gt; NGINX -&gt; 业务系统 -&gt; 每台机器 1W 并发 （单机10K问题）100 台机器</p>
+<p>普通电商订单 -&gt; 下单 -&gt; 订单系统（IO）减库存-&gt;等待用户付款</p>
+<p>12306 的一种可能的模型：下单-&gt;减库存 和订单(redis kafka)同时异步进行-&gt;等付款</p>
+<p>减库存最后还会把压力压到一台服务器上</p>
+<p>可以做分布式本地库存 + 单独服务器做库存均衡</p>
+<p>大流量的处理方法：分而治之</p>
+</blockquote>
+</li>
+<li><p>怎么得到一个事务会消耗多少内存？</p>
+<blockquote>
+<ol>
+<li>弄台机器，看能承受多少 TPS？是不是达到目标？扩容或调优，让它达到</li>
+<li>用压测来确定</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h2 id="7-优化环境"><a href="#7-优化环境" class="headerlink" title="7. 优化环境"></a>7. 优化环境</h2><ol>
+<li><p>有一个 50万 PV 的资料类网站（从磁盘提取文档到内存）原服务器 32 位，1.5G 的堆，用户反馈网站比较慢（），因此公司决定升级，新的服务器为 64 位， 16G 的堆内存，结果用户反馈卡顿十分严重，反而比以前效率更低了</p>
+<ol>
+<li><p>为什么原网站慢？</p>
+<p>很多用户浏览数据，很多数据 load 到内存，内存不足，频繁 GC，STW 长，响应时间慢</p>
+</li>
+<li><p>为什么会更卡顿？</p>
+<p>内存越大，FGC 时间越长。虽然 GC 频率变慢了，但是 STW 更长了。</p>
+</li>
+<li><p>咋办？</p>
+<p>PS -&gt; PN + CMS 或者 G1</p>
+</li>
+</ol>
+</li>
+<li><p>系统 CPU 经常 100%，如何调优？（面试高频）</p>
+<p>CPU100% 那么一定有线程在占用系统资源</p>
+<ol>
+<li>找出哪个进程 CPU 高（top）</li>
+<li>该进程中的哪个线程 CPU 高（top -Hp）</li>
+<li>导出该线程的堆栈(jstack)</li>
+<li>查找哪个方法（栈帧）消耗时间（jstack）</li>
+<li>工作线程占比高、垃圾回收线程占比高</li>
+</ol>
+</li>
+<li><p>系统内存飙高，如何查找问题？（面试高频）</p>
+<ol>
+<li>导出堆内存（jmap）</li>
+<li>分析（jhat jvisualvm mat jprofiler …）</li>
+</ol>
+</li>
+<li><p>如何监控 JVM</p>
+<ol>
+<li>jstat jvisualvm jprofiler arthas top</li>
+</ol>
+</li>
+</ol>
+<p>​    </p>
+</div><div class="tags"><a href="/tags/JVM/"><i class="fa fa-tag"></i>JVM</a></div><div class="post-nav"><a class="pre" href="/2020-07-23-jvm/jvm%E5%AD%A6%E4%B9%A0%2010_%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95.html">JVM 学习（十）</a><a class="next" href="/2020-07-20-jvm/jvm%E5%AD%A6%E4%B9%A08_%E8%B0%83%E4%BC%982.html">JVM 学习（八）</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IO/">IO</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LVS/">LVS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCloud/">SpringCloud</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Srping-Boot/">Srping Boot</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%8A%80%E6%9C%AF/">加解密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%89%E4%BB%96/">吉他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E6%83%85/">心情</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E5%85%B3%E6%8A%80%E6%9C%AF/">无关技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/">疯狂 Java 讲义</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">4</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/%E5%BF%83%E6%83%85/" style="font-size: 15px;">心情</a> <a href="/tags/PGP/" style="font-size: 15px;">PGP</a> <a href="/tags/SFTP/" style="font-size: 15px;">SFTP</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Samba/" style="font-size: 15px;">Samba</a> <a href="/tags/Kafka/" style="font-size: 15px;">Kafka</a> <a href="/tags/NIO/" style="font-size: 15px;">NIO</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/SpringCloud/" style="font-size: 15px;">SpringCloud</a> <a href="/tags/Srping-Boot/" style="font-size: 15px;">Srping Boot</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/kafka/" style="font-size: 15px;">kafka</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/%E5%90%89%E4%BB%96/" style="font-size: 15px;">吉他</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15px;">多线程</a> <a href="/tags/OS/" style="font-size: 15px;">OS</a> <a href="/tags/%E6%97%A0%E5%85%B3%E6%8A%80%E6%9C%AF/" style="font-size: 15px;">无关技术</a> <a href="/tags/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/" style="font-size: 15px;">疯狂 Java 讲义</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 15px;">算法</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15px;">设计模式</a> <a href="/tags/Singleton/" style="font-size: 15px;">Singleton</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/MQTT/" style="font-size: 15px;">MQTT</a> <a href="/tags/LVS/" style="font-size: 15px;">LVS</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">网络</a> <a href="/tags/Eureka/" style="font-size: 15px;">Eureka</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 15px;">前端</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.jamespan.me/" title="小鶸の道场" target="_blank">小鶸の道场</a><ul></ul><a href="https://www.haomwei.com/" title="屠城" target="_blank">屠城</a><ul></ul><a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a><ul></ul><a href="https://www.cnblogs.com/jingmoxukong/" title="静默虚空" target="_blank">静默虚空</a><ul></ul><a href="https://blog.hushhw.cn/" title="hushhw" target="_blank">hushhw</a><ul></ul><a href="https://hasaik.com/" title="hasaik" target="_blank">hasaik</a><ul></ul><a href="https://www.imalan.cn/" title="三无计划" target="_blank">三无计划</a><ul></ul><a href="https://i-meto.com/" title="meto" target="_blank">meto</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">悟空.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="悟空的技术博客"><title>IO学习（一） | 悟空</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">IO学习（一）</h1><a id="logo" href="/.">悟空</a><p class="description">悟空的技术博客</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/tags/"><i class="fa fa-tag"> 标签</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">IO学习（一）</h1><div class="post-meta">2020-06-08<span> | </span><span class="category"><a href="/categories/IO/">IO</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-df%E3%80%81mount%E3%80%81ln"><span class="toc-text">1.1 df、mount、ln</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-dd%E3%80%81losetup%E3%80%81mke2fs"><span class="toc-text">1.2 dd、losetup、mke2fs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-lsof-%E5%92%8C%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-text">1.3 lsof 和文件描述符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-socket"><span class="toc-text">1.4 socket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">1.5 重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-%E7%AE%A1%E9%81%93%EF%BC%88%E5%89%8D%E9%9D%A2%E7%9A%84%E8%BE%93%E5%87%BA%E4%BD%9C%E4%B8%BA%E5%90%8E%E9%9D%A2%E7%9A%84%E8%BE%93%E5%85%A5%EF%BC%89"><span class="toc-text">1.6 管道（前面的输出作为后面的输入）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-7-%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB"><span class="toc-text">1.7 进程的父子关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-8-%E8%AF%81%E6%98%8E%E7%AE%A1%E9%81%93%E5%AD%90%E8%BF%9B%E7%A8%8B%E6%9C%BA%E5%88%B6"><span class="toc-text">1.8 证明管道子进程机制</span></a></li></ol></div></div><div class="post-content"><p>IO 学习（一）。Linux 基础。</p>
+<ul>
+<li>df、mount、ln</li>
+<li>dd、losetup、mke2fs</li>
+<li>lsof 和文件描述符</li>
+<li>socket</li>
+<li>重定向</li>
+<li>管道（前面的输出作为后面的输入）</li>
+<li>进程的父子关系</li>
+<li>证明管道子进程机制</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="1-1-df、mount、ln"><a href="#1-1-df、mount、ln" class="headerlink" title="1.1 df、mount、ln"></a>1.1 df、mount、ln</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看文件系统（磁盘）用量和各个文件设备的挂载目录</span></span><br><span class="line">df -h</span><br><span class="line"><span class="meta">#</span><span class="bash"> 卸载</span></span><br><span class="line">umount /boot</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重新挂载</span></span><br><span class="line">mount /dev/sda1 /boot</span><br><span class="line"><span class="meta">#</span><span class="bash"> 硬链接(相当于 Java 引用)</span></span><br><span class="line">ln /root/1.txt /root/2.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 软链接（相当于 Windows 快捷方式）</span></span><br><span class="line">ln -s /root/1.txt /root/3.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>VFS 虚拟文件系统。树结构。</p>
+</li>
+<li><p>df -h 命令，查看文件系统挂载情况和使用情况</p>
+<ul>
+<li>系统先挂载根目录（/），再挂载（/boot）目录，会覆盖目录下的（/boot）。其实当我们数据增大，硬盘不够用，我们可以增加新硬盘挂载到指定目录。</li>
+</ul>
+<p><img src="../../images/io/%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%8C%82%E8%BD%BD.png"></p>
+</li>
+</ul>
+<ul>
+<li><p>冯诺伊曼计算机系统：计算器、控制器、主存储器、输入输出设备（I/0）。抽象出<strong>一切皆文件</strong>的概念。有了文件就可以通过输入输出流来和 I/O 设备来交换数据。</p>
+</li>
+<li><p>文件类型：</p>
+<ul>
+<li><p>-：普通文件（可执行、图片、文本）</p>
+</li>
+<li><p>d：目录</p>
+</li>
+<li><p>l：硬链接（ln）</p>
+<ul>
+<li><p>修改任意一方，另外一方跟随变化。</p>
+</li>
+<li><p><code>ln /root/linktest.txt /root/linktest2.txt</code>；相当于是两个变量名指向了同一个物理文件，文件只有一份。</p>
+</li>
+<li><p><code>rm -f linktest.txt</code> 另一个文件变量还在。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="../../images/io/%E9%93%BE%E6%8E%A5.png"></p>
+<ul>
+<li>l：软链接（ln -s）<ul>
+<li>修改任意一方，另外一方跟随变化。</li>
+<li>相当于 windows 的快捷方式</li>
+<li><code>rm -f linktest.txt</code> 另一个文件标红，说明链接失效，软连接无法访问。</li>
+</ul>
+</li>
+</ul>
+<p><img src="../../images/io/%E8%BD%AF%E9%93%BE%E6%8E%A5.png"></p>
+</li>
+</ul>
+<h2 id="1-2-dd、losetup、mke2fs"><a href="#1-2-dd、losetup、mke2fs" class="headerlink" title="1.2 dd、losetup、mke2fs"></a>1.2 dd、losetup、mke2fs</h2><ul>
+<li>b：块设备（硬盘）</li>
+<li>c：字符设备（键盘）</li>
+<li>s：socket</li>
+<li>p：pipeline</li>
+<li>[eventpoll]</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> dd 可以把数据块从一个地方复制到另一个地方</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> dd: 创建文件；<span class="keyword">if</span>：input file of：output file bs：block size count：bs size</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 就是创建了一个 mydisk.img 文件，大小为 1M * 100 = 100M，文件用 0 填充。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 相当于创建了一个软盘</span></span><br><span class="line">dd if=/dev/zero of=mydisk.img bs=1048576 count=100</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 mydisk.img 挂载到 /dev/loop0 设备上</span></span><br><span class="line">losetup /dev/loop0 mydisk.img</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 格式化为 ext2 文件类型</span></span><br><span class="line">mke2fs /dev/loop0</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 loop0 挂载到虚拟目录上</span></span><br><span class="line">mount -t ext2 /dev/loop0 /mnt/ooxx/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 从 df 可以看出，未来人或程序访问操作系统 /mnt/ooxx 目录的时候，这个目录再也不是访问曾经在 sda3 分区创建的 /mnt/ooxx 目录，而是访问 loop0 挂载的虚拟文件里去了。</span></span><br><span class="line">df -h</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 把 bash 程序拷贝到 /mnt/ooxx/bin</span></span><br><span class="line">mkdir bin</span><br><span class="line">cp /bin/bash bin</span><br></pre></td></tr></table></figure>
+
+<p><img src="../../images/io/%E4%B8%80%E8%84%B8%E6%87%B5%E9%80%BC1.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 分析 bash 的动态链接库有哪些，并把这些库拷贝过来</span></span><br><span class="line">ldd bash</span><br><span class="line">mkdir lib64</span><br><span class="line">cp /lib64/&#123;libtinfo.so.5,libdl.so.2,libc.so.6,ld-linux-x86-64.so.2&#125; ./lib64/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 根目录切换到当前目录</span></span><br><span class="line">chroot ./</span><br><span class="line"><span class="meta">#</span><span class="bash"> 当前程序进程号</span></span><br><span class="line">echo $$</span><br><span class="line"><span class="meta">#</span><span class="bash"> 并没有 ls 命令</span></span><br><span class="line">ls</span><br><span class="line"><span class="meta">#</span><span class="bash"> 虚拟文件系统根目录下创建 alvin.txt 文件</span></span><br><span class="line">echo &quot;hello alvin&quot; &gt; /alvin.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出当前程序</span></span><br><span class="line">exit</span><br><span class="line"><span class="meta">#</span><span class="bash"> / 目录下并没有 alvin.txt</span></span><br><span class="line">cd /</span><br><span class="line">ll</span><br></pre></td></tr></table></figure>
+
+<p><img src="../../images/io/%E4%B8%80%E8%84%B8%E6%87%B5%E9%80%BC2.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 找到文件</span></span><br><span class="line">cd /mnt/ooxx/</span><br><span class="line">ll</span><br><span class="line"><span class="meta">#</span><span class="bash"> 实际上，最终文件 alvin.txt 是存在 mydisk.img 中</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 卸载挂载目录，alvin.txt 文件不见了</span></span><br><span class="line">umount /mnt/ooxx/</span><br><span class="line">cd /mnt/ooxx/</span><br><span class="line">ll</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 实际上文件还在 mydisk.img 中，如果重新挂载还是可以看到</span></span><br><span class="line">mount -t ext2 /dev/loop0 /mnt/oooo/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这个 mydisk.img 和 docker 类似</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="../../images/io/%E4%B8%80%E8%84%B8%E6%87%B5%E9%80%BC3.png"></p>
+<h2 id="1-3-lsof-和文件描述符"><a href="#1-3-lsof-和文件描述符" class="headerlink" title="1.3 lsof 和文件描述符"></a>1.3 lsof 和文件描述符</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> lsof 可以查看进程打开了哪些文件</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 比如当前 bash 进程</span></span><br><span class="line">lsof -p $$</span><br></pre></td></tr></table></figure>
+
+<p><img src="../../images/io/lsof.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建文件描述符 8，用来读取 linktest.txt 的输入</span></span><br><span class="line">exec 8&lt; linktest.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看当前进程描述符信息</span></span><br><span class="line">cd /proc/$$/fd</span><br><span class="line">lsof -op $$</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看文件状态</span></span><br><span class="line">stat ~/linktest.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 读取 8 这个文件描述符的内容放入到 a 这个变量</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">read</span> 读取到换行符停止</span></span><br><span class="line">read a 0&lt;&amp; 8</span><br><span class="line">echo $a</span><br><span class="line"><span class="meta">#</span><span class="bash"> 再看文件描述符，发现偏移量已经变化</span></span><br><span class="line">lsof -op $$</span><br></pre></td></tr></table></figure>
+
+<p><img src="../../images/io/%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6.png"></p>
+<p>文件描述符就是描述了打开的文件的信息，比如名称、偏移、NODE 号。</p>
+<p>系统多个进程可以同时打开一个文件，用不同的文件描述符分别记录各个进程对该文件的信息。如下例子，重新打开一个 bash，同样创建 linktest.txt 文件文件描述符，发现偏移量是 0。</p>
+<p><img src="../../images/io/%E5%8F%AF%E4%BB%A5%E6%89%93%E5%BC%80%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建文件描述符 9，用于写入 write.txt 文件</span></span><br><span class="line">exec 9&gt; ~/write.txt</span><br><span class="line">lsof -op $$</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看系统脏页</span></span><br><span class="line">cat /proc/vmstat | grep dirty</span><br><span class="line">echo &quot;alalalala&quot; &gt;&amp; 9</span><br><span class="line">cat /proc/vmstat | grep dirty</span><br><span class="line">cat ~/write.txt</span><br><span class="line">cat /proc/vmstat | grep dirty</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看脏页预值</span></span><br><span class="line">sysctl -a | grep dirty</span><br><span class="line">	vm.dirty_background_ratio = 10</span><br><span class="line">    vm.dirty_background_bytes = 0</span><br><span class="line">    vm.dirty_ratio = 20</span><br><span class="line">    vm.dirty_bytes = 0</span><br><span class="line">    vm.dirty_writeback_centisecs = 500</span><br><span class="line">    vm.dirty_expire_centisecs = 3000</span><br></pre></td></tr></table></figure>
+
+<p><img src="../../images/io/%E8%84%8F%E9%A1%B5.png"></p>
+<h2 id="1-4-socket"><a href="#1-4-socket" class="headerlink" title="1.4 socket"></a>1.4 socket</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 创建一个输入输出文件描述符 8，指向百度 80 端口</span></span><br><span class="line">exec 8&lt;&gt; /dev/tcp/www.baidu.com/80</span><br></pre></td></tr></table></figure>
+
+<p><img src="../../images/io/socket.png"></p>
+<h2 id="1-5-重定向"><a href="#1-5-重定向" class="headerlink" title="1.5 重定向"></a>1.5 重定向</h2><ul>
+<li><p>/proc ：开机后，进程的一些变量和属性映射在这里。开机前这个目录是没有东西的。</p>
+</li>
+<li><p>$$：当前 bash 的 pid。$BASHPID 也是</p>
+</li>
+<li><p>/proc/$$/fd：当前进程的文件描述符</p>
+</li>
+<li><p>lsof -op $$：查看文件描述符细节</p>
+</li>
+<li><p>重定向：不是命令而是一种机制。输入（&lt;）、输出（&gt;）</p>
+<ul>
+<li><p> ls 标准输出默认指向屏幕，重定向为指定文件.<code>ls -l 1&gt; ~/ls.txt</code></p>
+</li>
+<li><p>cat 标准输入输出到指定文件。<code>cat 0&lt; ~/ls.txt 1&gt; ~/cat.txt</code></p>
+</li>
+<li><p>read 标准输入默认为键盘，重定向到指定文件。<code>read a 0&lt; ~/cat.txt</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="../../images/io/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA.png"></p>
+<ul>
+<li><p>文件描述符重定向到文件描述符</p>
+<ul>
+<li>标准输出和错误输出分别指向不同文件<ul>
+<li><code>ls ./ /lalal 1&gt; 1.txt 2&gt; 2.txt</code></li>
+</ul>
+</li>
+<li>指向同一个文件，会覆盖<ul>
+<li><code>ls ./ /lalal 1&gt; 3.txt 2&gt; 3.txt</code></li>
+</ul>
+</li>
+<li>指向另外一个文件描述符<ul>
+<li><code>ls ./ /lalal 1&gt; 5.txt 2&gt;&amp; 1</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="../../images/io/%E9%87%8D%E5%AE%9A%E5%90%91.png"></p>
+</li>
+</ul>
+<h2 id="1-6-管道（前面的输出作为后面的输入）"><a href="#1-6-管道（前面的输出作为后面的输入）" class="headerlink" title="1.6 管道（前面的输出作为后面的输入）"></a>1.6 管道（前面的输出作为后面的输入）</h2><ul>
+<li>head 读取文件前多少行。<code>head -n</code></li>
+<li>tail 读物文件末尾多少行。<code>tail -n</code></li>
+<li>读取文件第八行？</li>
+</ul>
+<p><img src="../../images/io/headtail.png"></p>
+<h2 id="1-7-进程的父子关系"><a href="#1-7-进程的父子关系" class="headerlink" title="1.7 进程的父子关系"></a>1.7 进程的父子关系</h2><ul>
+<li>查看进程树。<code>pstree</code></li>
+<li>查看指定 pid 父子进程关系。<code>ps -ef | grep 6996</code></li>
+</ul>
+<p><img src="../../images/io/%E7%88%B6%E5%AD%90%E8%BF%9B%E7%A8%8B.png"></p>
+<ul>
+<li>子进程无法读取父进程变量</li>
+<li>父进程导出变量为环境变量后，子进程可以读取</li>
+<li>所以我们安装软件时，比如 JDK，都需要再 <code>/etc/profile</code> export 环境变量。</li>
+</ul>
+<p><img src="../../images/io/%E8%BF%9B%E7%A8%8B%E9%9A%94%E7%A6%BB.png"></p>
+<h2 id="1-8-证明管道子进程机制"><a href="#1-8-证明管道子进程机制" class="headerlink" title="1.8 证明管道子进程机制"></a>1.8 证明管道子进程机制</h2><ul>
+<li>执行指令块：<code>&#123; echo &quot;123&quot;; echo &quot;456&quot;; &#125;</code></li>
+<li>管道命令会新开两个子进程来处理两边命令</li>
+</ul>
+<p><img src="../../images/io/%E7%AE%A1%E9%81%93%E4%B8%8E%E5%AD%90%E8%BF%9B%E7%A8%8B.png"></p>
+<ul>
+<li>进一步证明管道子进程机制和 pipe<ul>
+<li>左边输出作为右边 cat 输入：<code>&#123; echo $BASHPID; read x; &#125; | &#123; cat; echo $BASHPID; read y; &#125;</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="../../images/io/PIPE.png"></p>
+</div><div class="tags"><a href="/tags/IO/"><i class="fa fa-tag"></i>IO</a></div><div class="post-nav"><a class="pre" href="/2020-06-10-IO/IO%E5%AD%A6%E4%B9%A02.html">IO学习（二）</a><a class="next" href="/2020-06-06-Spring%20Cloud/Https%E4%B9%8BSSLTLS%20%E5%8D%8F%E8%AE%AE.html">Https 之 SSL/TLS 协议</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/IO/">IO</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JVM/">JVM</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/LVS/">LVS</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MySQL/">MySQL</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-Cloud/">Spring Cloud</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SpringCloud/">SpringCloud</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Srping-Boot/">Srping Boot</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ZooKeeper/">ZooKeeper</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/css/">css</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mysql/">mysql</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%8A%80%E6%9C%AF/">加解密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%89%E4%BB%96/">吉他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BF%83%E6%83%85/">心情</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A0%E5%85%B3%E6%8A%80%E6%9C%AF/">无关技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/">疯狂 Java 讲义</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a><span class="category-list-count">4</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/%E5%BF%83%E6%83%85/" style="font-size: 15px;">心情</a> <a href="/tags/PGP/" style="font-size: 15px;">PGP</a> <a href="/tags/SFTP/" style="font-size: 15px;">SFTP</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/Samba/" style="font-size: 15px;">Samba</a> <a href="/tags/Kafka/" style="font-size: 15px;">Kafka</a> <a href="/tags/NIO/" style="font-size: 15px;">NIO</a> <a href="/tags/Redis/" style="font-size: 15px;">Redis</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/IO/" style="font-size: 15px;">IO</a> <a href="/tags/SpringCloud/" style="font-size: 15px;">SpringCloud</a> <a href="/tags/Srping-Boot/" style="font-size: 15px;">Srping Boot</a> <a href="/tags/JVM/" style="font-size: 15px;">JVM</a> <a href="/tags/kafka/" style="font-size: 15px;">kafka</a> <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/css/" style="font-size: 15px;">css</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/%E5%90%89%E4%BB%96/" style="font-size: 15px;">吉他</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 15px;">多线程</a> <a href="/tags/OS/" style="font-size: 15px;">OS</a> <a href="/tags/%E6%97%A0%E5%85%B3%E6%8A%80%E6%9C%AF/" style="font-size: 15px;">无关技术</a> <a href="/tags/%E7%96%AF%E7%8B%82-Java-%E8%AE%B2%E4%B9%89/" style="font-size: 15px;">疯狂 Java 讲义</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 15px;">算法</a> <a href="/tags/ZooKeeper/" style="font-size: 15px;">ZooKeeper</a> <a href="/tags/Observer/" style="font-size: 15px;">Observer</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 15px;">设计模式</a> <a href="/tags/Singleton/" style="font-size: 15px;">Singleton</a> <a href="/tags/Proxy/" style="font-size: 15px;">Proxy</a> <a href="/tags/Oracle/" style="font-size: 15px;">Oracle</a> <a href="/tags/MQTT/" style="font-size: 15px;">MQTT</a> <a href="/tags/LVS/" style="font-size: 15px;">LVS</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">网络</a> <a href="/tags/Eureka/" style="font-size: 15px;">Eureka</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 15px;">前端</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://blog.jamespan.me/" title="小鶸の道场" target="_blank">小鶸の道场</a><ul></ul><a href="https://www.haomwei.com/" title="屠城" target="_blank">屠城</a><ul></ul><a href="http://www.ruanyifeng.com/home.html" title="阮一峰" target="_blank">阮一峰</a><ul></ul><a href="https://www.cnblogs.com/jingmoxukong/" title="静默虚空" target="_blank">静默虚空</a><ul></ul><a href="https://blog.hushhw.cn/" title="hushhw" target="_blank">hushhw</a><ul></ul><a href="https://hasaik.com/" title="hasaik" target="_blank">hasaik</a><ul></ul><a href="https://www.imalan.cn/" title="三无计划" target="_blank">三无计划</a><ul></ul><a href="https://i-meto.com/" title="meto" target="_blank">meto</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">悟空.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
