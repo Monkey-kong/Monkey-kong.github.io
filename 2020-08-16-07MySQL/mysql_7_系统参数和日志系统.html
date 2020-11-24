@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>MySql 调优(七) | 悟空</title>
+  <meta name="keywords" content=" MySQL ">
+  <meta name="description" content="MySql 调优(七) | 悟空">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="悟空">
+<meta property="og:url" content="http://yoursite.com/404.html">
+<meta property="og:site_name" content="悟空">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-16T00:43:02.436Z">
+<meta property="article:modified_time" content="2019-11-08T14:02:36.972Z">
+<meta property="article:author" content="悟空">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="悟空" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>悟空</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/Monkey-kong" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/wukong-16" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:lixianfu1@outlook.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=1109075867&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(104)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Java基础">Java基础<small>(16)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JVM">JVM<small>(11)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="多线程">多线程<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="OS">OS<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="IO">IO<small>(9)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="高并发">高并发<small>(9)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="分布式">分布式<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="设计模式">设计模式<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="其他">其他<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="/photo">相册</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://wiki.monkey-kong.cn/">悟空</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/Monkey-kong">github</a>
+    
+    </div>
+    <div><a  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="104">
+<input type="hidden" id="yelog_site_word_count" value="301k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">全部文章</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>多线程</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式会话</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>网络</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Blog</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Eureka</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>flex</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>https</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>IO</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Java讲义</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JVM</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>LVS</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>MySQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Nginx</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NIO</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Observer</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>OS</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Proxy</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RSC</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Singleton</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Spring Cloud</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>uni-app</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>vue</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>webpack</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ZooKeeper</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="全部文章 前端 "
+           href="/2020-11-15-11%E5%89%8D%E7%AB%AF/Flex%E5%B8%83%E5%B1%80%E5%AE%9E%E6%88%98.html"
+           data-tag="flex"
+           data-author="" >
+            <span class="post-title" title="Flex 布局实战">Flex 布局实战</span>
+            <span class="post-date" title="2020-11-15 22:13:12">2020/11/15</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-08-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%806-%E9%93%BE%E8%A1%A8%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（六）">算法基础（六）</span>
+            <span class="post-date" title="2020-11-08 23:13:12">2020/11/08</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-08-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%805-%E5%89%8D%E7%BC%80%E6%A0%91_%E6%A1%B6%E6%8E%92%E5%BA%8F_%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（五）">算法基础（五）</span>
+            <span class="post-date" title="2020-11-08 22:13:12">2020/11/08</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-02-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%803-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（三）">算法基础（三）</span>
+            <span class="post-date" title="2020-11-02 22:13:12">2020/11/02</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-02-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%804-%E6%AF%94%E8%BE%83%E5%99%A8_%E5%A0%86%E6%8E%92%E5%BA%8F.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（四）">算法基础（四）</span>
+            <span class="post-date" title="2020-11-02 22:13:12">2020/11/02</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-10-30-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%802.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（二）">算法基础（二）</span>
+            <span class="post-date" title="2020-10-30 22:13:12">2020/10/30</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-10-28-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%801-%E5%A4%8D%E6%9D%82%E5%BA%A6_%E5%AF%B9%E6%95%B0%E5%99%A8_%E4%BA%8C%E5%88%86%E6%B3%95_%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（一）">算法基础（一）</span>
+            <span class="post-date" title="2020-10-28 22:13:12">2020/10/28</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-11-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(8)-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(八)">Spring Cloud学习(八)</span>
+            <span class="post-date" title="2020-10-11 23:43:12">2020/10/11</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-10-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(7)-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(七)">Spring Cloud学习(七)</span>
+            <span class="post-date" title="2020-10-10 23:43:12">2020/10/10</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(6)-config.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(六)">Spring Cloud学习(六)</span>
+            <span class="post-date" title="2020-10-04 23:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(1).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(一)">分布式会话管理(一)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(3).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(三)">分布式会话管理(三)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(4).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(四)">分布式会话管理(四)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(2).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(二)">分布式会话管理(二)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-03-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(5)-zuul.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(五)">Spring Cloud学习(五)</span>
+            <span class="post-date" title="2020-10-03 23:43:12">2020/10/03</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-03-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(4)-Hystrix.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(四)">Spring Cloud学习(四)</span>
+            <span class="post-date" title="2020-10-03 23:33:12">2020/10/03</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-02-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(3)-Feign.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(三)">SpringCloud学习(三)</span>
+            <span class="post-date" title="2020-10-02 23:33:12">2020/10/02</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-02-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(2).html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(二)">Spring Cloud学习(二)</span>
+            <span class="post-date" title="2020-10-02 23:13:12">2020/10/02</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-01-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(1).html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(一)">Spring Cloud学习(一)</span>
+            <span class="post-date" title="2020-10-01 22:13:12">2020/10/01</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-20-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%BA%94%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（五）">操作系统学习（五）</span>
+            <span class="post-date" title="2020-09-20 22:13:12">2020/09/20</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-19-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E5%9B%9B%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（四）">操作系统学习（四）</span>
+            <span class="post-date" title="2020-09-19 22:13:12">2020/09/19</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-18-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%B8%89%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（三）">操作系统学习（三）</span>
+            <span class="post-date" title="2020-09-18 22:13:12">2020/09/18</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-16-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%BA%8C%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（二）">操作系统学习（二）</span>
+            <span class="post-date" title="2020-09-16 22:13:12">2020/09/16</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-15-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%B8%80%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（一）">操作系统学习（一）</span>
+            <span class="post-date" title="2020-09-15 22:13:12">2020/09/15</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-09-10-07MySQL/mysql_14_%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十四) 经典面试题目">MySql 调优(十四) 经典面试题目</span>
+            <span class="post-date" title="2020-09-10 23:13:12">2020/09/10</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_13_JavaSPI%E6%9C%BA%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十三) Java SPI 机制详解">MySql 调优(十三) Java SPI 机制详解</span>
+            <span class="post-date" title="2020-08-29 23:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_12_%E7%BB%8F%E5%85%B8%E7%AC%94%E8%AF%95%E9%A2%98.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十二) 经典笔试题">MySql 调优(十二) 经典笔试题</span>
+            <span class="post-date" title="2020-08-29 22:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_11_%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十一) 读写分离">MySql 调优(十一) 读写分离</span>
+            <span class="post-date" title="2020-08-29 21:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_10_%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十)">MySql 调优(十)</span>
+            <span class="post-date" title="2020-08-29 20:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-27-07MySQL/mysql_9_%E4%BA%8B%E5%8A%A1.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(九)">MySql 调优(九)</span>
+            <span class="post-date" title="2020-08-27 22:13:12">2020/08/27</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-26-07MySQL/mysql_8_%E9%94%81%E6%9C%BA%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(八)">MySql 调优(八)</span>
+            <span class="post-date" title="2020-08-26 22:13:12">2020/08/26</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-16-07MySQL/mysql_7_%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E5%92%8C%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(七)">MySql 调优(七)</span>
+            <span class="post-date" title="2020-08-16 22:13:12">2020/08/16</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-14-07MySQL/mysql_6_%E5%88%86%E5%8C%BA.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(六)">MySql 调优(六)</span>
+            <span class="post-date" title="2020-08-14 22:13:12">2020/08/14</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-13-07MySQL/mysql_5_%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(五)">MySql 调优(五)</span>
+            <span class="post-date" title="2020-08-13 22:13:12">2020/08/13</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-10-07MySQL/mysql_3_%E7%B4%A2%E5%BC%95%E5%8C%B9%E9%85%8D%E5%92%8C%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E7%9B%91%E6%8E%A7.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(三)">MySql 调优(三)</span>
+            <span class="post-date" title="2020-08-10 22:13:12">2020/08/10</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-09-07MySQL/mysql_2_%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%92%8C%E5%85%B3%E9%94%AE%E5%90%8D%E8%AF%8D.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(二)">MySql 调优(二)</span>
+            <span class="post-date" title="2020-08-09 22:13:12">2020/08/09</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-05-07MySQL/mysql_1_%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BC%98%E5%8C%96.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(一)">MySql 调优(一)</span>
+            <span class="post-date" title="2020-08-05 22:13:12">2020/08/05</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-04-07MySQL/mysql_0_%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 安装">MySql 安装</span>
+            <span class="post-date" title="2020-08-04 22:13:12">2020/08/04</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-24-02JVM/jvm%E5%AD%A6%E4%B9%A011_jvm%E5%B8%B8%E8%A7%81%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十一）">JVM 学习（十一）</span>
+            <span class="post-date" title="2020-07-24 22:13:12">2020/07/24</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-24-02JVM/jvm%E5%AD%A6%E4%B9%A012_%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十二）">JVM 学习（十二）</span>
+            <span class="post-date" title="2020-07-24 22:13:12">2020/07/24</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-23-02JVM/jvm%E5%AD%A6%E4%B9%A0%2010_%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十）">JVM 学习（十）</span>
+            <span class="post-date" title="2020-07-23 22:13:12">2020/07/23</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-02JVM/jvm%E5%AD%A6%E4%B9%A07_xx.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（七）">JVM 学习（七）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-02JVM/jvm%E5%AD%A6%E4%B9%A08_%E8%B0%83%E4%BC%982.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（八）">JVM 学习（八）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-02JVM/jvm%E5%AD%A6%E4%B9%A09_%E8%B0%83%E4%BC%983.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（九）">JVM 学习（九）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-19-02JVM/jvm%E5%AD%A6%E4%B9%A05_%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（五）">JVM 学习（五）</span>
+            <span class="post-date" title="2020-07-19 22:13:12">2020/07/19</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-19-02JVM/jvm%E5%AD%A6%E4%B9%A06_GC.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（六）">JVM 学习（六）</span>
+            <span class="post-date" title="2020-07-19 22:13:12">2020/07/19</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-16-02JVM/jvm%E5%AD%A6%E4%B9%A03_4_java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（三、四）">JVM 学习（三、四）</span>
+            <span class="post-date" title="2020-07-16 22:13:12">2020/07/16</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-06-29-02JVM/jvm%E5%AD%A6%E4%B9%A02_class%E5%8A%A0%E8%BD%BD.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（二）">JVM 学习（二）</span>
+            <span class="post-date" title="2020-06-29 22:13:12">2020/06/29</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-06-28-02JVM/jvm%E5%AD%A6%E4%B9%A01_jvm%E5%9F%BA%E7%A1%80_jsf.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（一）">JVM 学习（一）</span>
+            <span class="post-date" title="2020-06-28 22:13:12">2020/06/28</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-06-27-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%8E%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%88%B0%20AOP.html"
+           data-tag="Proxy"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - 从代理模式到 Spring AOP">设计模式之 - 从代理模式到 Spring AOP</span>
+            <span class="post-date" title="2020-06-27 22:13:12">2020/06/27</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-21-05IO/IO%E5%AD%A6%E4%B9%A07.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（七）">IO学习（七）</span>
+            <span class="post-date" title="2020-06-21 22:13:12">2020/06/21</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-21-05IO/IO%E5%AD%A6%E4%B9%A08.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（八）">IO学习（八）</span>
+            <span class="post-date" title="2020-06-21 22:13:12">2020/06/21</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-16-05IO/IO%E5%AD%A6%E4%B9%A05.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（五）">IO学习（五）</span>
+            <span class="post-date" title="2020-06-16 22:13:12">2020/06/16</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-16-05IO/IO%E5%AD%A6%E4%B9%A06.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（六）">IO学习（六）</span>
+            <span class="post-date" title="2020-06-16 22:13:12">2020/06/16</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-14-05IO/IO%E5%AD%A6%E4%B9%A03.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（三）">IO学习（三）</span>
+            <span class="post-date" title="2020-06-14 22:13:12">2020/06/14</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-06-12-08%E5%88%86%E5%B8%83%E5%BC%8F/Https%E4%B9%8B%E5%AE%9E%E6%88%98.html"
+           data-tag="https"
+           data-author="" >
+            <span class="post-title" title="Https 实战">Https 实战</span>
+            <span class="post-date" title="2020-06-12 22:13:12">2020/06/12</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-10-05IO/IO%E5%AD%A6%E4%B9%A02.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（二）">IO学习（二）</span>
+            <span class="post-date" title="2020-06-10 22:13:12">2020/06/10</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-08-05IO/IO%E5%AD%A6%E4%B9%A01.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（一）">IO学习（一）</span>
+            <span class="post-date" title="2020-06-08 22:13:12">2020/06/08</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-06-06-08%E5%88%86%E5%B8%83%E5%BC%8F/Https%E4%B9%8BSSLTLS%20%E5%8D%8F%E8%AE%AE.html"
+           data-tag="https"
+           data-author="" >
+            <span class="post-title" title="Https 之 SSL/TLS 协议">Https 之 SSL/TLS 协议</span>
+            <span class="post-date" title="2020-06-06 22:13:12">2020/06/06</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-06-05IO/IO%E5%AD%A6%E4%B9%A04.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（四）">IO学习（四）</span>
+            <span class="post-date" title="2020-06-06 22:13:12">2020/06/06</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-05-25-11%E5%89%8D%E7%AB%AF/Flex%E5%B8%83%E5%B1%80.html"
+           data-tag="flex"
+           data-author="" >
+            <span class="post-title" title="Flex 布局">Flex 布局</span>
+            <span class="post-date" title="2020-05-25 22:13:12">2020/05/25</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-05-25-11%E5%89%8D%E7%AB%AF/vue-todo.html"
+           data-tag="vue,webpack"
+           data-author="" >
+            <span class="post-title" title="vue 入门项目">vue 入门项目</span>
+            <span class="post-date" title="2020-05-25 22:13:12">2020/05/25</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-04-10-11%E5%89%8D%E7%AB%AF/uniapp.html"
+           data-tag="uni-app"
+           data-author="" >
+            <span class="post-title" title="uni-app">uni-app</span>
+            <span class="post-date" title="2020-04-10 22:13:13">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-04-10-11%E5%89%8D%E7%AB%AF/vue%E5%AD%A6%E4%B9%A0(2).html"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue 学习(二)">vue 学习(二)</span>
+            <span class="post-date" title="2020-04-10 22:13:12">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-04-10-11%E5%89%8D%E7%AB%AF/vue%E5%AD%A6%E4%B9%A0(1).html"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue 学习(一)">vue 学习(一)</span>
+            <span class="post-date" title="2020-04-10 22:13:12">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-07-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(7).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(七)">多线程高并发学习(七)</span>
+            <span class="post-date" title="2020-04-07 22:13:12">2020/04/07</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-06-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(6).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(六)">多线程高并发学习(六)</span>
+            <span class="post-date" title="2020-04-06 22:13:12">2020/04/06</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-05-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(5).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(五)">多线程高并发学习(五)</span>
+            <span class="post-date" title="2020-04-05 22:13:12">2020/04/05</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-04-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(4).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(四)">多线程高并发学习(四)</span>
+            <span class="post-date" title="2020-04-04 22:13:12">2020/04/04</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-03-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(3).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(三)">多线程高并发学习(三)</span>
+            <span class="post-date" title="2020-04-03 22:13:12">2020/04/03</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-02-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(2).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(二)">多线程高并发学习(二)</span>
+            <span class="post-date" title="2020-04-02 22:13:12">2020/04/02</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-01-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(1).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(一)">多线程高并发学习(一)</span>
+            <span class="post-date" title="2020-04-01 22:13:12">2020/04/01</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Observer.html"
+           data-tag="Observer"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Observer">设计模式之 - Observer</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-ResponsibilityChain.html"
+           data-tag="RSC"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Responsibility Chain">设计模式之 - Responsibility Chain</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-singleton.html"
+           data-tag="Singleton"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Singleton">设计模式之 - Singleton</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-05-06%E9%AB%98%E5%B9%B6%E5%8F%91/zookeeper%E5%AD%A6%E4%B9%A0(%E4%B8%89).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(三)">ZooKeeper学习(三)</span>
+            <span class="post-date" title="2020-03-05 22:13:12">2020/03/05</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-02-06%E9%AB%98%E5%B9%B6%E5%8F%91/zookeeper%E5%AD%A6%E4%B9%A0(%E4%B8%80).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(一)">ZooKeeper学习(一)</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-02-06%E9%AB%98%E5%B9%B6%E5%8F%91/zookeeper%E5%AD%A6%E4%B9%A0(%E4%BA%8C).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(二)">ZooKeeper学习(二)</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-03-02-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E6%88%98C3_%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86.html"
+           data-tag="Eureka"
+           data-author="" >
+            <span class="post-title" title="第三章 服务治理">第三章 服务治理</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-01-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%BA%94)-%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(五)-面试常见问题">Redis 学习(五)-面试常见问题</span>
+            <span class="post-date" title="2020-03-01 22:13:12">2020/03/01</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-02-28-06%E9%AB%98%E5%B9%B6%E5%8F%91/Linux%20%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%AE%80%E8%A6%81%E6%AD%A5%E9%AA%A4.html"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux 系统安装简要步骤">Linux 系统安装简要步骤</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-02-28-06%E9%AB%98%E5%B9%B6%E5%8F%91/Typecho+Tengine%E5%BB%BA%E7%AB%99.html"
+           data-tag="Nginx,Blog"
+           data-author="" >
+            <span class="post-title" title="Typecho+Tengine 搭建个人主页">Typecho+Tengine 搭建个人主页</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-28-06%E9%AB%98%E5%B9%B6%E5%8F%91/%E9%AB%98%E5%B9%B6%E5%8F%91%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.html"
+           data-tag="LVS,网络"
+           data-author="" >
+            <span class="post-title" title="高并发负载均衡">高并发负载均衡</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-02-22-05IO/IO%E5%AD%A6%E4%B9%A09.html"
+           data-tag="NIO"
+           data-author="" >
+            <span class="post-title" title="NIO 原理">NIO 原理</span>
+            <span class="post-date" title="2020-02-22 22:13:12">2020/02/22</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-21-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E5%9B%9B)-%E9%9B%86%E7%BE%A4.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(四)-主从复制、高可用、集群">Redis 学习(四)-主从复制、高可用、集群</span>
+            <span class="post-date" title="2020-02-21 22:13:12">2020/02/21</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-20-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%B8%89)-%E6%8C%81%E4%B9%85%E5%8C%96.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(三)-持久化">Redis 学习(三)-持久化</span>
+            <span class="post-date" title="2020-02-20 22:13:12">2020/02/20</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-19-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%BA%8C)-%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(二)-管道、发布/订阅、事务、modules、过期">Redis 学习(二)-管道、发布/订阅、事务、modules、过期</span>
+            <span class="post-date" title="2020-02-19 22:13:12">2020/02/19</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-18-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%B8%80)-%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(一)-概述、安装、类型、指令">Redis 学习(一)-概述、安装、类型、指令</span>
+            <span class="post-date" title="2020-02-18 22:13:12">2020/02/18</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-18-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C18.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 18 章 类加载机制与反射">第 18 章 类加载机制与反射</span>
+            <span class="post-date" title="2020-01-18 22:13:12">2020/01/18</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-17-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C17.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 17 章 网络编程">第 17 章 网络编程</span>
+            <span class="post-date" title="2020-01-17 23:13:12">2020/01/17</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-16-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C16.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 16 章 多线程">第 16 章 多线程</span>
+            <span class="post-date" title="2020-01-16 22:13:12">2020/01/16</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-15-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C15.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 15 章 输入、输出">第 15 章 输入、输出</span>
+            <span class="post-date" title="2020-01-15 22:13:12">2020/01/15</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-14-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C14.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 14 章 注解">第 14 章 注解</span>
+            <span class="post-date" title="2020-01-14 22:13:12">2020/01/14</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-13-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C13.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 13 章 MySQL 数据库与 JDBC 编程">第 13 章 MySQL 数据库与 JDBC 编程</span>
+            <span class="post-date" title="2020-01-13 22:13:12">2020/01/13</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-10-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C10.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 10 章 异常处理">第 10 章 异常处理</span>
+            <span class="post-date" title="2020-01-10 22:13:12">2020/01/10</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-09-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C9.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 9 章 泛型">第 9 章 泛型</span>
+            <span class="post-date" title="2020-01-09 22:13:12">2020/01/09</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-08-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C8.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 8 章 Java 集合">第 8 章 Java 集合</span>
+            <span class="post-date" title="2020-01-08 22:13:12">2020/01/08</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-07-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C7.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 7 章 Java 基础类库">第 7 章 Java 基础类库</span>
+            <span class="post-date" title="2020-01-07 22:13:12">2020/01/07</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-06-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C6.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 6 章 面向对象（下）">第 6 章 面向对象（下）</span>
+            <span class="post-date" title="2020-01-06 22:13:12">2020/01/06</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-05-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C5.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 5 章 面向对象（上）">第 5 章 面向对象（上）</span>
+            <span class="post-date" title="2020-01-05 22:13:12">2020/01/05</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-04-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C4.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 4 章 流程控制与数组">第 4 章 流程控制与数组</span>
+            <span class="post-date" title="2020-01-04 22:13:12">2020/01/04</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-03-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C3.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 3 章 数据类型和运算符">第 3 章 数据类型和运算符</span>
+            <span class="post-date" title="2020-01-03 22:13:12">2020/01/03</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-02-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C2.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 2 章 理解面向对象">第 2 章 理解面向对象</span>
+            <span class="post-date" title="2020-01-02 22:13:12">2020/01/02</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-01-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C1.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 1 章 Java 语言概述与开发环境">第 1 章 Java 语言概述与开发环境</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-07MySQL/mysql_7_系统参数和日志系统" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">MySql 调优(七)</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="MySQL">MySQL</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color1">MySQL</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2020-09-11 22:05:33'>2020-08-16 22:13</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:3.7k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-MySQL-%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0"><span class="toc-text">1. MySQL 系统参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-text">1.1 参数说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E6%9F%A5%E7%9C%8B%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98%E7%8A%B6%E6%80%81"><span class="toc-text">1.2 查看查询缓存状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%9F%A5%E7%9C%8B%E7%BA%BF%E7%A8%8B%E7%BC%93%E5%AD%98%E7%8A%B6%E6%80%81"><span class="toc-text">1.3 查看线程缓存状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-MySQL-%E6%97%A5%E5%BF%97"><span class="toc-text">2. MySQL 日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%97%A5%E5%BF%97%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">2.1 日志的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-WAL-%E6%9C%BA%E5%88%B6"><span class="toc-text">2.2 WAL 机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%A0%B8%E5%BF%83%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97"><span class="toc-text">2.3 核心日志模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E5%81%9A%E6%97%A5%E5%BF%97-redo-log"><span class="toc-text">重做日志 redo log</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%BB%9A%E6%97%A5%E5%BF%97-undo-log"><span class="toc-text">回滚日志 undo log</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%92%E6%A1%A3%E6%97%A5%E5%BF%97-binlog"><span class="toc-text">归档日志 binlog</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#binlog-%E5%92%8C-redo-log-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">binlog 和 redo log 的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E4%B8%89%E4%B8%AA%E6%97%A5%E5%BF%97%E9%83%BD%E5%BF%85%E9%A1%BB%E5%BC%80%E5%90%AF%E5%90%97%EF%BC%9F"><span class="toc-text">2.4 三个日志都必须开启吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4"><span class="toc-text">2.5 两阶段提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E7%BB%84%E6%8F%90%E4%BA%A4"><span class="toc-text">2.6 组提交</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%EF%BC%88prepare-%E9%98%B6%E6%AE%B5%EF%BC%89"><span class="toc-text">第一阶段（prepare 阶段）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%EF%BC%88commit-%E9%98%B6%E6%AE%B5%EF%BC%89"><span class="toc-text">第二阶段（commit 阶段）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-text">优势</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D%E6%B5%81%E7%A8%8B"><span class="toc-text">2.7 数据恢复流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E4%B8%A4%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="toc-text">2.7 两个参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#sync-binlog%EF%BC%8C%E6%8E%A7%E5%88%B6-binlog-%E5%88%B7%E7%9B%98%EF%BC%8C%E9%BB%98%E8%AE%A41"><span class="toc-text">sync_binlog，控制 binlog 刷盘，默认1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#innodb-flush-log-at-trx-commit%EF%BC%8C%E6%8E%A7%E5%88%B6-redo-log-%E5%88%B7%E7%9B%98%EF%BC%8C%E9%BB%98%E8%AE%A4-1"><span class="toc-text">innodb_flush_log_at_trx_commit，控制 redo log 刷盘，默认 1</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>服务器参数设置。</li>
+<li>日志系统</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="1-MySQL-系统参数"><a href="#1-MySQL-系统参数" class="headerlink" title="1. MySQL 系统参数"></a>1. MySQL 系统参数</h2><h3 id="1-1-参数说明"><a href="#1-1-参数说明" class="headerlink" title="1.1 参数说明"></a>1.1 参数说明</h3><pre><code class="properties">vim /etc/my.cnf
+
+[mysqld]
+## general 参数
+# mysql 安装目录
+basedir=/usr/local/mysql
+# 数据文件目录
+datadir=/usr/local/mysql/data
+# mysql.socket表示server和client在同一台服务器，并且使用localhost进行连接，就会使用socket进行连接
+# socket=/usr/local/mysql/mysql.sock
+# pid 文件目录
+#pid_file=/usr/local/mysql/mysql.pid
+# 端口
+port=3306
+# 默认存储引擎
+default_storage_engine=InnoDB
+# 跳过密码登录
+#skip-grant-tables=ON
+# 用户
+user=mysql
+
+## 字符集相关参数
+# server 端字符集
+character_set_server=utf8
+# client 端字符集
+# character_set_client=utf8
+# 数据库默认字符集
+# character_set_database=utf8
+# mysql 发送给客户端的结果集所用的字符集
+# character_set_results=utf8
+# mysql处理客户端发来的信息时，会把这些数据转换成连接的字符集格式
+# character_set_connection=utf8
+# character_set_system=utf8
+
+
+## connection 相关参数
+# mysql 的最大连接数,如果数据库的并发连接请求比较大,应该调高该值
+max_connections=200
+# 限制每个用户的连接个数
+max_user_connections=10
+# mysql 能够暂存的连接数,当mysql的线程在一个很短时间内得到非常多的连接请求时就会起作用
+# 如果mysql的连接数量达到max_connections时,新的请求会放入一个堆栈中,以等待某一个连接的释放
+# 如果等待连接的数量超过back_log,则不再接收连接资源
+back_log=50
+# mysql在关闭一个非交互(noninteractive connection)的连接之前需要等待的时长。短连接。比如jdbc 默认 28800（8小时）
+wait_timeout=43200
+# mysql在关闭一个交互连接之前需要等待的时长。长连接。比如连接池、命令行。
+# 但是连接池中的连接有时长限制，连接池会定时关闭长期没用到的连接。
+# 所以这个定时关闭连接的间隔最好小于 wait_timeout
+interactive_timeout=43200
+
+
+## log相关参数
+# 错误日志，用于记录当mysqld启动和停止时
+# 以及服务器在运行中发生任何严重错误的相关信息
+log_error=/usr/local/mysql/logs/log_error.log
+
+### binlog 设置
+# 指定 binlog 路径和名称
+log-bin=/usr/local/mysql/logs/log_bin.log
+# 指定log-bin参数后，无需指定log_bin，log-bin相当于一个快速设置方式。log_bin表示是否启动bin log
+# 神坑，必须要 server_id
+# If you specify the --log-bin option without also specifying the server_id system variable, the server
+# is not allowed to start. (Bug #11763963, Bug #56739) 
+server_id=1
+# 指定哪些数据库需要将更新记录到二进制日志中。
+# 其他所有没有显示指定的数据库将忽略，不记录日志
+# SHOW MASTER STATUS 可以查看binlog源的状态信息
+binlog_do_db=sakila
+# 指定哪些数据库不需要记录日志
+# binlog_ignore_db=
+# binlog 刷盘机制
+# 0-不控制,让OS控制刷盘
+# 1-每次提交事务,刷盘
+# N-指定多少次提交事务后同步磁盘
+sync_binlog=2
+
+### redo log 设置
+# redo log 日志文件大小(64M)，默认（50331648-&gt;48M）
+innodb_log_file_size=67108864
+# redo log 日志个数
+innodb_log_files_in_group=3
+# redo log 日志路径
+innodb_log_group_home_dir=/usr/local/mysql/logs/
+# redo log 刷盘机制,刷盘系统调用:fsync
+# 0-事务提交数据写入InnoDB LogBuffer,然后每秒写入OS cache page并刷盘
+# 1-事务提交立即刷盘
+# 2-事务提交数据写入OS cache page,每秒刷盘
+innodb_flush_log_at_trx_commit=1
+
+### undo log 设置
+# 回滚日志位置一般设置到不同的存储设备
+innodb_undo_directory=/usr/local/mysql/logs/
+# 回滚段的数量
+innodb_rollback_segments=256
+# undo tablespaces 的数量,初始化后不可修改,否则会导致服务无法启动
+# innodb_undo_tablespaces=2
+
+### general log 设置
+# 是否开启查询日志记录
+general_log=ON
+general_log_file=/usr/local/mysql/logs/general_log.log
+
+### slow log 设置
+# 是否开启慢日志
+slow_query_log=ON
+slow_query_log_file=/usr/local/mysql/logs/slow_query_log.log
+long_query_time=2
+log_slow_admin_statements=ON
+
+## 缓存相关参数
+# 索引缓冲区的大小(只对 MyISAM 表起作用),默认(8M=&gt;16M)
+key_buffer_size=16777216
+
+### 查询缓存 5.7.20 被弃用,8 被移除
+# 查询缓存的大小,默认(1M=&gt;4M)
+query_cache_size=4194304
+# 缓存类型
+# 0-禁用
+# 1-缓存所有查询结果,除非显示指定 sql_no_cache
+# 2-只缓存 sql_cache 指定的查询
+query_cache_type=2
+# 缓存块最小大小(默认 4K=&gt;0.25K)
+query_cache_min_res_unit=256
+# 超过此大小的查询不缓存(默认 1M=&gt;2M)
+query_cache_limit=2097152
+
+# 每个需要排序的线程分派缓冲区的大小(默认 256K=&gt;1M)
+# 可根据引擎设置:innodb_sort_buffer_size、myisam_sort_buffer_size
+sort_buffer_size=1048576
+# MySQL server 接收的最大数据包大小(4M=&gt;32M)
+max_allowed_packet=33554432
+# 设置关联缓冲的大小(256K=&gt;2M)
+join_buffer_size=2097152
+# 服务器线程缓存数量，当断开连接时，客户端的线程被放到缓存中以响应下一个客户而不是销毁
+# 如果线程重新被请求，那么请求将从缓存中读取
+# 如果缓存中是空的或者是新的请求，这个线程将被重新请求和创建
+# 如果有很多新的线程，增加这个值即可（10=&gt;5）
+thread_cache_size=5
+
+## InnoDB 相关参数
+# 缓存数据和索引的内存大小，最大可设置物理内存的 80%（128M=&gt;64M）
+innodb_buffer_pool_size=67108864
+# 设置 InnoDB 线程的并发数，0 表示不限制
+# 如果设置一般为服务器的核心数或者核心数的两倍(0=&gt;8)
+innodb_thread_concurrency=8
+# (16M=&gt;64M)
+innodb_log_buffer_size=67108864
+# 读入缓冲区大小(128K=&gt;256K)
+# 对表进行顺序扫描的请求将分配到一个读入缓冲区
+read_buffer_size=262144
+# MySQL 随机读缓冲区大小（256K=&gt;512K）
+read_rnd_buffer_size=524288
+# 是否为每张表分配一个新的文件
+innodb_file_per_table=ON
+
+[mysqld_safe]
+#log_error=/usr/local/mysql/logs/log_error.log
+#pid-file=/var/run/mysqld/mysqld.pid
+
+[client]
+default-character-set=utf8
+# client 端字符集
+#character_set_client=utf8</code></pre>
+<h3 id="1-2-查看查询缓存状态"><a href="#1-2-查看查询缓存状态" class="headerlink" title="1.2 查看查询缓存状态"></a>1.2 查看查询缓存状态</h3><pre><code class="sql">show status like &#39;%Qcache%&#39;;</code></pre>
+<ul>
+<li>Qcache_free_blocks：缓存中相邻内存块的个数，如果值比较大说明查询缓存中碎片比较多</li>
+<li>Qcache_free_memory：查询缓存中剩余的内存大小</li>
+<li>Qcache_hits：表示有多少查询命中缓存</li>
+<li>Qcache_inserts：多少次未命中而插入</li>
+<li>Qcache_lowmem_prunes：多少条查询因为内存不足而被移除 cache</li>
+<li>Qcache_queries_in_cache：当前 cache 中缓存的查询条数</li>
+<li>Qcache_total_blocks：当前 cache 中 block 的数量</li>
+</ul>
+<h3 id="1-3-查看线程缓存状态"><a href="#1-3-查看线程缓存状态" class="headerlink" title="1.3 查看线程缓存状态"></a>1.3 查看线程缓存状态</h3><pre><code class="sql">show status like &#39;%Threads%&#39;;</code></pre>
+<ul>
+<li>Threads_cached：当前线程缓存中有多少空闲线程</li>
+<li>Threads_connected：当前已建立连接的数量</li>
+<li>Threads_created：最近一次启动服务，已创建线程的数量</li>
+<li>Threads_running：当前激活的线程数</li>
+</ul>
+<h2 id="2-MySQL-日志"><a href="#2-MySQL-日志" class="headerlink" title="2. MySQL 日志"></a>2. MySQL 日志</h2><h3 id="2-1-日志的作用"><a href="#2-1-日志的作用" class="headerlink" title="2.1 日志的作用"></a>2.1 日志的作用</h3><p>保证数据不丢失，主要体现在两个方面</p>
+<ol>
+<li>能够恢复到任何时间点的状态。通过 binlog 实现</li>
+<li>任何时候 MySQL 突然崩溃,重启之后之前已经提交的记录不会丢失。redolog undolog 实现。<ul>
+<li>已提交的数据不会丢失</li>
+<li>未提交完整的数据自动回滚</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-2-WAL-机制"><a href="#2-2-WAL-机制" class="headerlink" title="2.2 WAL 机制"></a>2.2 WAL 机制</h3><p>为什么不直接更改磁盘中的数据，而要在内存中更改，然后还需要写日志，最后再落盘这么复杂？</p>
+<p>主要是性能问题。直接写磁盘是<strong>随机写</strong>，开销很大，没办法满足 MySQL 性能要求。所以设计成先在内存中对数据进行更改，再异步落盘。但是内存总是不可靠，万一断电重启，还没来得及落盘的内存数据就会丢失，所以还需要加上写日志这个步骤。虽然写日志也是写磁盘，但是写日志是<strong>顺序写</strong>。</p>
+<h3 id="2-3-核心日志模块"><a href="#2-3-核心日志模块" class="headerlink" title="2.3 核心日志模块"></a>2.3 核心日志模块</h3><h4 id="重做日志-redo-log"><a href="#重做日志-redo-log" class="headerlink" title="重做日志 redo log"></a>重做日志 redo log</h4><p>InnoDB 存储引擎产生，记录数据库中每个页的修改，而不是某一行或者某几行修改成怎样，可以用来恢复提交后的物理数据页（所以只能恢复到最后一次提交的位置）。</p>
+<p>redo log 就是 WAL 的典型应用，MySQL 在有事务提交时，只会在内存中修改对应的数据页和记录 redo log 日志，完成后即表示事务提交成功，至于磁盘数据文件的更新则由后台线程异步处理。</p>
+<p>redo log 保证了 MySQL 数据<strong>一致性和持久性</strong>（MySQL 崩溃了，重启后仍然可以通过 redo log 里的记录进行重放，重新刷盘）。</p>
+<p>redo log 大小固定，循环写入，相当于一个环形，所以是顺序写。当 redo log 满了，就需要对旧的记录进行擦除，擦除之前必须确保被擦除的记录在内存中的数据页都已刷到磁盘中了。在 redo log 满了到擦除旧记录之前，是不能再接收新的更新请求的，所以有可能导致 MySQL 卡顿。所以针对并发量大的系统，<strong>适当设置 redo log 的文件大小</strong>非常重要。</p>
+<h4 id="回滚日志-undo-log"><a href="#回滚日志-undo-log" class="headerlink" title="回滚日志 undo log"></a>回滚日志 undo log</h4><p>主要提供回滚的作用，另外一个作用就是多个行版本控制（MVCC），保证事务的<strong>原子性</strong>。在数据修改的流程中，会记录一条与当前操作相反的逻辑日志到 undo log 中。</p>
+<h4 id="归档日志-binlog"><a href="#归档日志-binlog" class="headerlink" title="归档日志 binlog"></a>归档日志 binlog</h4><p>binlog 在 MySQL 的 server 产生，不属于任何引擎，主要记录用户对数据库操作的 SQL 语句（除了查询语句）。之所以叫做归档日志，因为 binlog 不会像 redo log 一样擦除旧日志，而是追加，操作 <code>max_binlog_size </code>  就新起一个文件。</p>
+<p>日志可能是基于事务来记录的（如 InnoDB），而事务是绝对不可能也不应该跨文件记录的，所以 <code>max_binlog_size </code> 和实际的 binlog 日志大小不一定相等。</p>
+<h4 id="binlog-和-redo-log-的区别"><a href="#binlog-和-redo-log-的区别" class="headerlink" title="binlog 和 redo log 的区别"></a>binlog 和 redo log 的区别</h4><ul>
+<li>redolog 是 innodb 独有的，binlog 是所有 engine 都可以使用的</li>
+<li>redolog 是物理日志，记录的是在某个数据页上做了什么修改；binlog 是逻辑日志，记录的是这个语句的原始逻辑。物理日志：记录内存地址上存的啥；逻辑日志：记录 sql 语句。</li>
+<li>redolog 是循环写的，空间会用完（存在内存的缓冲区中，肯定小）；binlog 是可以追加的，不会覆盖之前的日志信息。</li>
+</ul>
+<h3 id="2-4-三个日志都必须开启吗？"><a href="#2-4-三个日志都必须开启吗？" class="headerlink" title="2.4 三个日志都必须开启吗？"></a>2.4 三个日志都必须开启吗？</h3><ul>
+<li>redo log 保证数据的持久性，必不可少。如果没有 MySQL 肯定不能认为修改了内存数据就表示操作成功。</li>
+<li>undo log 保证事务原子性，必不可少。为啥必不可少？如果我知道哪个事务有问题，我把这个事务的 redo log 做一遍相反的操作不也可以实现吗？</li>
+<li>binlog <ul>
+<li>主从模式必不可少，因为从库的数据同步依赖的就是 binlog</li>
+<li>单机模式如果不考虑数据库基于某个时间点还原，那么 binlog 就不是必须的。redo log 就可以保证 crash-safe 了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-5-两阶段提交"><a href="#2-5-两阶段提交" class="headerlink" title="2.5 两阶段提交"></a>2.5 两阶段提交</h3><p>问题：为什么 redo log 要分两步写，中间再穿插写 binlog 呢？</p>
+<p>redo log 影响主库数据，binlog 影响从库数据，所以 redo log 和 binlog 必须保持一致才能保证主从数据一致，这个是需要两阶段提交的前提。</p>
+<p>redo log 和 binlog 其实就是很典型的分布式事务场景，因为两者本身就是两个独立的个体，要想保持一致，就必须使用分布式事务解决方案来处理。而将 redo log 分成两步，其实就是使用了两阶段提交协议（2PC）。</p>
+<p><img src="../../images/mysql/7/%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4.png"></p>
+<p>所以将 redo log 分成两步写，中间插入 binlog 才能保证 redo log 和 binlog 内容一致，从而保证主从数据一致。</p>
+<h3 id="2-6-组提交"><a href="#2-6-组提交" class="headerlink" title="2.6 组提交"></a>2.6 组提交</h3><pre><code>T1 (--prepare--binlog---------------------commit)
+T2 (-----prepare-----binlog----commit)
+T3 (--------prepare-------binlog------commit)
+
+解析：
+    redo log prepare的顺序：T1 --》T2 --》T3
+    binlog的写入顺序：T1 --》 T2 --》T3
+    redo log commit的顺序：T2 --》 T3 --》T1
+
+结论：由于binlog写入的顺序和redo log提交结束的顺序不一致，导致binlog和redo log所记录的事务提交结束的顺序不一样，最终导致的结果就是主从数据不一致。binlog 记录的是：i=1;i=2;i=3;redo log 记录的是：i=2;i=3;i=1</code></pre>
+<ul>
+<li>两阶段提交没法保证多个事务的提交顺序，所以还需要再加一个锁来保证提交的原子性，从而保证多事务情况下，两个日志的提交顺序一致。 prepare_commit_mutex 锁保证一个事务获取到锁后才能进入 prepare，一直到 commit 结束才能释放锁。并发量大时，会导致锁争用，性能不好。</li>
+<li>两阶段提交还有一个问题就是每个事务提交都会进行两次 fsync（写磁盘）</li>
+</ul>
+<p>MySQL 5.6 引入了 binlog 组提交，即 BLGC。基本思想是引入队列机制保证 InnoDB commit 顺序 binlog 落盘顺序一致，并将事务分组，组内的 binlog 刷盘动作交给一个事务进行，实现组提交的目的。</p>
+<p>组提交图</p>
+<h4 id="第一阶段（prepare-阶段）"><a href="#第一阶段（prepare-阶段）" class="headerlink" title="第一阶段（prepare 阶段）"></a>第一阶段（prepare 阶段）</h4><p>持有 prepare_commit_mutex，并且 write/fsync redo log 到磁盘，设置为 prepared 状态，完成后就释放 prepare_commit_mutex，binlog 不做任何操作。</p>
+<h4 id="第二阶段（commit-阶段）"><a href="#第二阶段（commit-阶段）" class="headerlink" title="第二阶段（commit 阶段）"></a>第二阶段（commit 阶段）</h4><ol>
+<li>Flush Stage（写入 binlog 缓存）<ul>
+<li>持有 Lock_log mutex（leader 持有，follower 等待）</li>
+<li>获取队列中的一组 binlog（队列中的所有事务）</li>
+<li>写入 binlog 缓存</li>
+</ul>
+</li>
+<li>Sync Stage（将 binlog 落盘）<ul>
+<li>释放 Lock_log mutex，持有 Lock_sync mutex（leader 持有，follower 等待）</li>
+<li>将一组 binlog 落盘（fsync 动作，最耗时，假设 sync_binlog 为 1</li>
+</ul>
+</li>
+<li>Commit Stage（InnoDB commit，清除 undo 信息）<ul>
+<li>释放 Lock_sync mutex，持有 Lock_commit mutex（leader 持有，follower 等待）</li>
+<li>遍历队列中的事务，逐一进行 InnoDB commit</li>
+<li>释放 Lock_commit mutex</li>
+</ul>
+</li>
+</ol>
+<p>每个队列各自有 mutex 保护，同一个组队列之间是顺序的（flush-&gt;sync-&gt;commit）</p>
+<p>组之间队列可以并发执行，即当一组事务在进行 commit 阶段时，其他新事务可以进行 flush 阶段，实现真正意义上的组提交，大幅度降低磁盘的 IOPS 消耗。（没太懂。。。）</p>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ul>
+<li>锁粒度更小，2PC 锁 prepare 到 commit 整个事务流程，组提交拆分为四个小阶段上锁</li>
+<li>组提交是批量刷盘，相比之前的单条记录都要刷盘，能大幅降低磁盘的 IO 消耗</li>
+</ul>
+<h3 id="2-7-数据恢复流程"><a href="#2-7-数据恢复流程" class="headerlink" title="2.7 数据恢复流程"></a>2.7 数据恢复流程</h3><p>MySQL 重启后，提供服务前会先做的事 – 数据恢复流程：</p>
+<p><img src="../../images/mysql/7/Mysql%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D%E6%B5%81%E7%A8%8B.png"></p>
+<h3 id="2-7-两个参数"><a href="#2-7-两个参数" class="headerlink" title="2.7 两个参数"></a>2.7 两个参数</h3><h4 id="sync-binlog，控制-binlog-刷盘，默认1"><a href="#sync-binlog，控制-binlog-刷盘，默认1" class="headerlink" title="sync_binlog，控制 binlog 刷盘，默认1"></a>sync_binlog，控制 binlog 刷盘，默认1</h4><ul>
+<li>0：MySQL 不控制，让操作系统控制。性能最好，但是最可能丢失 binlog</li>
+<li>1：每次事务提交前，刷盘。性能最差，只有 prepared 状态的事务会丢失，这可以借助 undo log 自动回滚，所以不会丢失任何事务</li>
+<li>N：提交 N 次事务组后，刷盘。该值越高，性能越好，风险也越大。</li>
+</ul>
+<h4 id="innodb-flush-log-at-trx-commit，控制-redo-log-刷盘，默认-1"><a href="#innodb-flush-log-at-trx-commit，控制-redo-log-刷盘，默认-1" class="headerlink" title="innodb_flush_log_at_trx_commit，控制 redo log 刷盘，默认 1"></a>innodb_flush_log_at_trx_commit，控制 redo log 刷盘，默认 1</h4><p>ACID 特性和性能之间的一个权衡。</p>
+<ul>
+<li>0：每次事务提交，先写入 log buffer，然后每秒写入 OS cache page，然后刷盘</li>
+<li>1：每次事务提交，日志刷盘</li>
+<li>2：每次事务提交，写入 OS cache page，然后每秒刷盘</li>
+</ul>
+<p><img src="../../images/mysql/7/redolog.png"></p>
+<p>reference： <a href="https://blog.csdn.net/wenyiCodeDog/article/details/106581741">https://blog.csdn.net/wenyiCodeDog/article/details/106581741</a> </p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '8b4bf9e725fa9e5652a9',
+            clientSecret: 'bfc996b7a7d84a81599a9af4ca153637bd05b9f3',
+            repo: 'gitalk',
+            owner: 'monkey-kong',
+            admin: ['monkey-kong'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 562px;
+    }
+    .nav.fullscreen {
+        margin-left: -562px;
+    }
+    .nav-left {
+        width: 140px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="/photo">相册</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://wiki.monkey-kong.cn/">悟空</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/Monkey-kong">github</a>
+    
+</div>
+
+
+<div id="musicMouseDrag" style="position:fixed; z-index: 9999; bottom: 0; right: 0;">
+    <div id="musicDragArea" style="position: absolute; top: 0; left: 0; width: 100%;height: 10px;cursor: move; z-index: 10;"></div>
+	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=500665328&auto=1&height=66"></iframe>
+</div>
+</html>

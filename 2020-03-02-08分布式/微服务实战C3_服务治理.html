@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>第三章 服务治理 | 悟空</title>
+  <meta name="keywords" content=" Eureka ">
+  <meta name="description" content="第三章 服务治理 | 悟空">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="悟空">
+<meta property="og:url" content="http://yoursite.com/404.html">
+<meta property="og:site_name" content="悟空">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-16T00:43:02.436Z">
+<meta property="article:modified_time" content="2019-11-08T14:02:36.972Z">
+<meta property="article:author" content="悟空">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="悟空" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>悟空</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/Monkey-kong" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/wukong-16" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:lixianfu1@outlook.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=1109075867&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(104)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Java基础">Java基础<small>(16)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JVM">JVM<small>(11)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="多线程">多线程<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="OS">OS<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="IO">IO<small>(9)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="高并发">高并发<small>(9)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="分布式">分布式<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="设计模式">设计模式<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="其他">其他<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="/photo">相册</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://wiki.monkey-kong.cn/">悟空</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/Monkey-kong">github</a>
+    
+    </div>
+    <div><a  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="104">
+<input type="hidden" id="yelog_site_word_count" value="301k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">全部文章</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>多线程</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式会话</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>网络</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Blog</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Eureka</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>flex</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>https</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>IO</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Java讲义</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JVM</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>LVS</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>MySQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Nginx</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NIO</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Observer</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>OS</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Proxy</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RSC</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Singleton</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Spring Cloud</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>uni-app</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>vue</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>webpack</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ZooKeeper</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="全部文章 前端 "
+           href="/2020-11-15-11%E5%89%8D%E7%AB%AF/Flex%E5%B8%83%E5%B1%80%E5%AE%9E%E6%88%98.html"
+           data-tag="flex"
+           data-author="" >
+            <span class="post-title" title="Flex 布局实战">Flex 布局实战</span>
+            <span class="post-date" title="2020-11-15 22:13:12">2020/11/15</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-08-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%806-%E9%93%BE%E8%A1%A8%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（六）">算法基础（六）</span>
+            <span class="post-date" title="2020-11-08 23:13:12">2020/11/08</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-08-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%805-%E5%89%8D%E7%BC%80%E6%A0%91_%E6%A1%B6%E6%8E%92%E5%BA%8F_%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（五）">算法基础（五）</span>
+            <span class="post-date" title="2020-11-08 22:13:12">2020/11/08</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-02-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%803-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（三）">算法基础（三）</span>
+            <span class="post-date" title="2020-11-02 22:13:12">2020/11/02</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-02-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%804-%E6%AF%94%E8%BE%83%E5%99%A8_%E5%A0%86%E6%8E%92%E5%BA%8F.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（四）">算法基础（四）</span>
+            <span class="post-date" title="2020-11-02 22:13:12">2020/11/02</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-10-30-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%802.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（二）">算法基础（二）</span>
+            <span class="post-date" title="2020-10-30 22:13:12">2020/10/30</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-10-28-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%801-%E5%A4%8D%E6%9D%82%E5%BA%A6_%E5%AF%B9%E6%95%B0%E5%99%A8_%E4%BA%8C%E5%88%86%E6%B3%95_%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（一）">算法基础（一）</span>
+            <span class="post-date" title="2020-10-28 22:13:12">2020/10/28</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-11-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(8)-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(八)">Spring Cloud学习(八)</span>
+            <span class="post-date" title="2020-10-11 23:43:12">2020/10/11</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-10-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(7)-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(七)">Spring Cloud学习(七)</span>
+            <span class="post-date" title="2020-10-10 23:43:12">2020/10/10</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(6)-config.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(六)">Spring Cloud学习(六)</span>
+            <span class="post-date" title="2020-10-04 23:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(1).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(一)">分布式会话管理(一)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(3).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(三)">分布式会话管理(三)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(4).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(四)">分布式会话管理(四)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(2).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(二)">分布式会话管理(二)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-03-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(5)-zuul.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(五)">Spring Cloud学习(五)</span>
+            <span class="post-date" title="2020-10-03 23:43:12">2020/10/03</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-03-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(4)-Hystrix.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(四)">Spring Cloud学习(四)</span>
+            <span class="post-date" title="2020-10-03 23:33:12">2020/10/03</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-02-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(3)-Feign.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(三)">SpringCloud学习(三)</span>
+            <span class="post-date" title="2020-10-02 23:33:12">2020/10/02</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-02-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(2).html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(二)">Spring Cloud学习(二)</span>
+            <span class="post-date" title="2020-10-02 23:13:12">2020/10/02</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-01-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(1).html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(一)">Spring Cloud学习(一)</span>
+            <span class="post-date" title="2020-10-01 22:13:12">2020/10/01</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-20-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%BA%94%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（五）">操作系统学习（五）</span>
+            <span class="post-date" title="2020-09-20 22:13:12">2020/09/20</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-19-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E5%9B%9B%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（四）">操作系统学习（四）</span>
+            <span class="post-date" title="2020-09-19 22:13:12">2020/09/19</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-18-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%B8%89%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（三）">操作系统学习（三）</span>
+            <span class="post-date" title="2020-09-18 22:13:12">2020/09/18</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-16-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%BA%8C%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（二）">操作系统学习（二）</span>
+            <span class="post-date" title="2020-09-16 22:13:12">2020/09/16</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-15-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%B8%80%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（一）">操作系统学习（一）</span>
+            <span class="post-date" title="2020-09-15 22:13:12">2020/09/15</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-09-10-07MySQL/mysql_14_%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十四) 经典面试题目">MySql 调优(十四) 经典面试题目</span>
+            <span class="post-date" title="2020-09-10 23:13:12">2020/09/10</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_13_JavaSPI%E6%9C%BA%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十三) Java SPI 机制详解">MySql 调优(十三) Java SPI 机制详解</span>
+            <span class="post-date" title="2020-08-29 23:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_12_%E7%BB%8F%E5%85%B8%E7%AC%94%E8%AF%95%E9%A2%98.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十二) 经典笔试题">MySql 调优(十二) 经典笔试题</span>
+            <span class="post-date" title="2020-08-29 22:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_11_%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十一) 读写分离">MySql 调优(十一) 读写分离</span>
+            <span class="post-date" title="2020-08-29 21:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_10_%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十)">MySql 调优(十)</span>
+            <span class="post-date" title="2020-08-29 20:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-27-07MySQL/mysql_9_%E4%BA%8B%E5%8A%A1.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(九)">MySql 调优(九)</span>
+            <span class="post-date" title="2020-08-27 22:13:12">2020/08/27</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-26-07MySQL/mysql_8_%E9%94%81%E6%9C%BA%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(八)">MySql 调优(八)</span>
+            <span class="post-date" title="2020-08-26 22:13:12">2020/08/26</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-16-07MySQL/mysql_7_%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E5%92%8C%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(七)">MySql 调优(七)</span>
+            <span class="post-date" title="2020-08-16 22:13:12">2020/08/16</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-14-07MySQL/mysql_6_%E5%88%86%E5%8C%BA.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(六)">MySql 调优(六)</span>
+            <span class="post-date" title="2020-08-14 22:13:12">2020/08/14</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-13-07MySQL/mysql_5_%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(五)">MySql 调优(五)</span>
+            <span class="post-date" title="2020-08-13 22:13:12">2020/08/13</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-10-07MySQL/mysql_3_%E7%B4%A2%E5%BC%95%E5%8C%B9%E9%85%8D%E5%92%8C%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E7%9B%91%E6%8E%A7.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(三)">MySql 调优(三)</span>
+            <span class="post-date" title="2020-08-10 22:13:12">2020/08/10</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-09-07MySQL/mysql_2_%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%92%8C%E5%85%B3%E9%94%AE%E5%90%8D%E8%AF%8D.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(二)">MySql 调优(二)</span>
+            <span class="post-date" title="2020-08-09 22:13:12">2020/08/09</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-05-07MySQL/mysql_1_%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BC%98%E5%8C%96.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(一)">MySql 调优(一)</span>
+            <span class="post-date" title="2020-08-05 22:13:12">2020/08/05</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-04-07MySQL/mysql_0_%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 安装">MySql 安装</span>
+            <span class="post-date" title="2020-08-04 22:13:12">2020/08/04</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-24-02JVM/jvm%E5%AD%A6%E4%B9%A011_jvm%E5%B8%B8%E8%A7%81%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十一）">JVM 学习（十一）</span>
+            <span class="post-date" title="2020-07-24 22:13:12">2020/07/24</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-24-02JVM/jvm%E5%AD%A6%E4%B9%A012_%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十二）">JVM 学习（十二）</span>
+            <span class="post-date" title="2020-07-24 22:13:12">2020/07/24</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-23-02JVM/jvm%E5%AD%A6%E4%B9%A0%2010_%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十）">JVM 学习（十）</span>
+            <span class="post-date" title="2020-07-23 22:13:12">2020/07/23</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-02JVM/jvm%E5%AD%A6%E4%B9%A07_xx.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（七）">JVM 学习（七）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-02JVM/jvm%E5%AD%A6%E4%B9%A08_%E8%B0%83%E4%BC%982.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（八）">JVM 学习（八）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-02JVM/jvm%E5%AD%A6%E4%B9%A09_%E8%B0%83%E4%BC%983.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（九）">JVM 学习（九）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-19-02JVM/jvm%E5%AD%A6%E4%B9%A05_%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（五）">JVM 学习（五）</span>
+            <span class="post-date" title="2020-07-19 22:13:12">2020/07/19</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-19-02JVM/jvm%E5%AD%A6%E4%B9%A06_GC.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（六）">JVM 学习（六）</span>
+            <span class="post-date" title="2020-07-19 22:13:12">2020/07/19</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-16-02JVM/jvm%E5%AD%A6%E4%B9%A03_4_java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（三、四）">JVM 学习（三、四）</span>
+            <span class="post-date" title="2020-07-16 22:13:12">2020/07/16</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-06-29-02JVM/jvm%E5%AD%A6%E4%B9%A02_class%E5%8A%A0%E8%BD%BD.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（二）">JVM 学习（二）</span>
+            <span class="post-date" title="2020-06-29 22:13:12">2020/06/29</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-06-28-02JVM/jvm%E5%AD%A6%E4%B9%A01_jvm%E5%9F%BA%E7%A1%80_jsf.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（一）">JVM 学习（一）</span>
+            <span class="post-date" title="2020-06-28 22:13:12">2020/06/28</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-06-27-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%8E%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%88%B0%20AOP.html"
+           data-tag="Proxy"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - 从代理模式到 Spring AOP">设计模式之 - 从代理模式到 Spring AOP</span>
+            <span class="post-date" title="2020-06-27 22:13:12">2020/06/27</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-21-05IO/IO%E5%AD%A6%E4%B9%A07.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（七）">IO学习（七）</span>
+            <span class="post-date" title="2020-06-21 22:13:12">2020/06/21</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-21-05IO/IO%E5%AD%A6%E4%B9%A08.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（八）">IO学习（八）</span>
+            <span class="post-date" title="2020-06-21 22:13:12">2020/06/21</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-16-05IO/IO%E5%AD%A6%E4%B9%A05.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（五）">IO学习（五）</span>
+            <span class="post-date" title="2020-06-16 22:13:12">2020/06/16</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-16-05IO/IO%E5%AD%A6%E4%B9%A06.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（六）">IO学习（六）</span>
+            <span class="post-date" title="2020-06-16 22:13:12">2020/06/16</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-14-05IO/IO%E5%AD%A6%E4%B9%A03.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（三）">IO学习（三）</span>
+            <span class="post-date" title="2020-06-14 22:13:12">2020/06/14</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-06-12-08%E5%88%86%E5%B8%83%E5%BC%8F/Https%E4%B9%8B%E5%AE%9E%E6%88%98.html"
+           data-tag="https"
+           data-author="" >
+            <span class="post-title" title="Https 实战">Https 实战</span>
+            <span class="post-date" title="2020-06-12 22:13:12">2020/06/12</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-10-05IO/IO%E5%AD%A6%E4%B9%A02.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（二）">IO学习（二）</span>
+            <span class="post-date" title="2020-06-10 22:13:12">2020/06/10</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-08-05IO/IO%E5%AD%A6%E4%B9%A01.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（一）">IO学习（一）</span>
+            <span class="post-date" title="2020-06-08 22:13:12">2020/06/08</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-06-06-08%E5%88%86%E5%B8%83%E5%BC%8F/Https%E4%B9%8BSSLTLS%20%E5%8D%8F%E8%AE%AE.html"
+           data-tag="https"
+           data-author="" >
+            <span class="post-title" title="Https 之 SSL/TLS 协议">Https 之 SSL/TLS 协议</span>
+            <span class="post-date" title="2020-06-06 22:13:12">2020/06/06</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-06-05IO/IO%E5%AD%A6%E4%B9%A04.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（四）">IO学习（四）</span>
+            <span class="post-date" title="2020-06-06 22:13:12">2020/06/06</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-05-25-11%E5%89%8D%E7%AB%AF/Flex%E5%B8%83%E5%B1%80.html"
+           data-tag="flex"
+           data-author="" >
+            <span class="post-title" title="Flex 布局">Flex 布局</span>
+            <span class="post-date" title="2020-05-25 22:13:12">2020/05/25</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-05-25-11%E5%89%8D%E7%AB%AF/vue-todo.html"
+           data-tag="vue,webpack"
+           data-author="" >
+            <span class="post-title" title="vue 入门项目">vue 入门项目</span>
+            <span class="post-date" title="2020-05-25 22:13:12">2020/05/25</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-04-10-11%E5%89%8D%E7%AB%AF/uniapp.html"
+           data-tag="uni-app"
+           data-author="" >
+            <span class="post-title" title="uni-app">uni-app</span>
+            <span class="post-date" title="2020-04-10 22:13:13">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-04-10-11%E5%89%8D%E7%AB%AF/vue%E5%AD%A6%E4%B9%A0(2).html"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue 学习(二)">vue 学习(二)</span>
+            <span class="post-date" title="2020-04-10 22:13:12">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-04-10-11%E5%89%8D%E7%AB%AF/vue%E5%AD%A6%E4%B9%A0(1).html"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue 学习(一)">vue 学习(一)</span>
+            <span class="post-date" title="2020-04-10 22:13:12">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-07-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(7).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(七)">多线程高并发学习(七)</span>
+            <span class="post-date" title="2020-04-07 22:13:12">2020/04/07</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-06-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(6).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(六)">多线程高并发学习(六)</span>
+            <span class="post-date" title="2020-04-06 22:13:12">2020/04/06</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-05-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(5).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(五)">多线程高并发学习(五)</span>
+            <span class="post-date" title="2020-04-05 22:13:12">2020/04/05</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-04-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(4).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(四)">多线程高并发学习(四)</span>
+            <span class="post-date" title="2020-04-04 22:13:12">2020/04/04</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-03-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(3).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(三)">多线程高并发学习(三)</span>
+            <span class="post-date" title="2020-04-03 22:13:12">2020/04/03</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-02-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(2).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(二)">多线程高并发学习(二)</span>
+            <span class="post-date" title="2020-04-02 22:13:12">2020/04/02</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-01-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(1).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(一)">多线程高并发学习(一)</span>
+            <span class="post-date" title="2020-04-01 22:13:12">2020/04/01</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Observer.html"
+           data-tag="Observer"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Observer">设计模式之 - Observer</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-ResponsibilityChain.html"
+           data-tag="RSC"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Responsibility Chain">设计模式之 - Responsibility Chain</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-singleton.html"
+           data-tag="Singleton"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Singleton">设计模式之 - Singleton</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-05-06%E9%AB%98%E5%B9%B6%E5%8F%91/zookeeper%E5%AD%A6%E4%B9%A0(%E4%B8%89).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(三)">ZooKeeper学习(三)</span>
+            <span class="post-date" title="2020-03-05 22:13:12">2020/03/05</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-02-06%E9%AB%98%E5%B9%B6%E5%8F%91/zookeeper%E5%AD%A6%E4%B9%A0(%E4%B8%80).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(一)">ZooKeeper学习(一)</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-02-06%E9%AB%98%E5%B9%B6%E5%8F%91/zookeeper%E5%AD%A6%E4%B9%A0(%E4%BA%8C).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(二)">ZooKeeper学习(二)</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-03-02-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E6%88%98C3_%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86.html"
+           data-tag="Eureka"
+           data-author="" >
+            <span class="post-title" title="第三章 服务治理">第三章 服务治理</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-01-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%BA%94)-%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(五)-面试常见问题">Redis 学习(五)-面试常见问题</span>
+            <span class="post-date" title="2020-03-01 22:13:12">2020/03/01</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-02-28-06%E9%AB%98%E5%B9%B6%E5%8F%91/Linux%20%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%AE%80%E8%A6%81%E6%AD%A5%E9%AA%A4.html"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux 系统安装简要步骤">Linux 系统安装简要步骤</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-02-28-06%E9%AB%98%E5%B9%B6%E5%8F%91/Typecho+Tengine%E5%BB%BA%E7%AB%99.html"
+           data-tag="Nginx,Blog"
+           data-author="" >
+            <span class="post-title" title="Typecho+Tengine 搭建个人主页">Typecho+Tengine 搭建个人主页</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-28-06%E9%AB%98%E5%B9%B6%E5%8F%91/%E9%AB%98%E5%B9%B6%E5%8F%91%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.html"
+           data-tag="LVS,网络"
+           data-author="" >
+            <span class="post-title" title="高并发负载均衡">高并发负载均衡</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-02-22-05IO/IO%E5%AD%A6%E4%B9%A09.html"
+           data-tag="NIO"
+           data-author="" >
+            <span class="post-title" title="NIO 原理">NIO 原理</span>
+            <span class="post-date" title="2020-02-22 22:13:12">2020/02/22</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-21-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E5%9B%9B)-%E9%9B%86%E7%BE%A4.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(四)-主从复制、高可用、集群">Redis 学习(四)-主从复制、高可用、集群</span>
+            <span class="post-date" title="2020-02-21 22:13:12">2020/02/21</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-20-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%B8%89)-%E6%8C%81%E4%B9%85%E5%8C%96.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(三)-持久化">Redis 学习(三)-持久化</span>
+            <span class="post-date" title="2020-02-20 22:13:12">2020/02/20</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-19-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%BA%8C)-%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(二)-管道、发布/订阅、事务、modules、过期">Redis 学习(二)-管道、发布/订阅、事务、modules、过期</span>
+            <span class="post-date" title="2020-02-19 22:13:12">2020/02/19</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-18-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%B8%80)-%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(一)-概述、安装、类型、指令">Redis 学习(一)-概述、安装、类型、指令</span>
+            <span class="post-date" title="2020-02-18 22:13:12">2020/02/18</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-18-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C18.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 18 章 类加载机制与反射">第 18 章 类加载机制与反射</span>
+            <span class="post-date" title="2020-01-18 22:13:12">2020/01/18</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-17-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C17.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 17 章 网络编程">第 17 章 网络编程</span>
+            <span class="post-date" title="2020-01-17 23:13:12">2020/01/17</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-16-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C16.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 16 章 多线程">第 16 章 多线程</span>
+            <span class="post-date" title="2020-01-16 22:13:12">2020/01/16</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-15-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C15.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 15 章 输入、输出">第 15 章 输入、输出</span>
+            <span class="post-date" title="2020-01-15 22:13:12">2020/01/15</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-14-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C14.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 14 章 注解">第 14 章 注解</span>
+            <span class="post-date" title="2020-01-14 22:13:12">2020/01/14</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-13-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C13.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 13 章 MySQL 数据库与 JDBC 编程">第 13 章 MySQL 数据库与 JDBC 编程</span>
+            <span class="post-date" title="2020-01-13 22:13:12">2020/01/13</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-10-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C10.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 10 章 异常处理">第 10 章 异常处理</span>
+            <span class="post-date" title="2020-01-10 22:13:12">2020/01/10</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-09-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C9.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 9 章 泛型">第 9 章 泛型</span>
+            <span class="post-date" title="2020-01-09 22:13:12">2020/01/09</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-08-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C8.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 8 章 Java 集合">第 8 章 Java 集合</span>
+            <span class="post-date" title="2020-01-08 22:13:12">2020/01/08</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-07-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C7.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 7 章 Java 基础类库">第 7 章 Java 基础类库</span>
+            <span class="post-date" title="2020-01-07 22:13:12">2020/01/07</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-06-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C6.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 6 章 面向对象（下）">第 6 章 面向对象（下）</span>
+            <span class="post-date" title="2020-01-06 22:13:12">2020/01/06</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-05-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C5.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 5 章 面向对象（上）">第 5 章 面向对象（上）</span>
+            <span class="post-date" title="2020-01-05 22:13:12">2020/01/05</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-04-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C4.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 4 章 流程控制与数组">第 4 章 流程控制与数组</span>
+            <span class="post-date" title="2020-01-04 22:13:12">2020/01/04</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-03-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C3.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 3 章 数据类型和运算符">第 3 章 数据类型和运算符</span>
+            <span class="post-date" title="2020-01-03 22:13:12">2020/01/03</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-02-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C2.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 2 章 理解面向对象">第 2 章 理解面向对象</span>
+            <span class="post-date" title="2020-01-02 22:13:12">2020/01/02</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-01-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C1.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 1 章 Java 语言概述与开发环境">第 1 章 Java 语言概述与开发环境</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-08分布式/微服务实战C3_服务治理" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">第三章 服务治理</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="分布式">分布式</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color2">Eureka</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2020-11-24 22:44:26'>2020-03-02 22:13</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:3.9k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="toc-text">1. 搭建服务注册中心</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-text">1.1 引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-text">1.2 基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%A2%9E%E5%8A%A0%E6%B3%A8%E8%A7%A3"><span class="toc-text">1.3 增加注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="toc-text">2. 注册服务提供者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-text">2.1 引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-text">2.2 基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%A2%9E%E5%8A%A0%E6%B3%A8%E8%A7%A3"><span class="toc-text">2.3 增加注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E9%AA%8C%E8%AF%81"><span class="toc-text">2.4 验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%AB%98%E5%8F%AF%E7%94%A8%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="toc-text">3. 高可用注册中心</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-text">3.1 基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E4%BF%AE%E6%94%B9-DNS"><span class="toc-text">3.2 修改 DNS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%90%AF%E5%8A%A8"><span class="toc-text">3.3 启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E9%97%AE%E9%A2%98"><span class="toc-text">3.4 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EMERGENCY-EUREKA-MAY-BE-INCORRECTLY-CLAIMING-INSTANCES-ARE-UP-WHEN-THEY%E2%80%99RE-NOT-RENEWALS-ARE-LESSER-THAN-THRESHOLD-AND-HENCE-THE-INSTANCES-ARE-NOT-BEING-EXPIRED-JUST-TO-BE-SAFE"><span class="toc-text">EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY’RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E4%B8%8E%E6%B6%88%E8%B4%B9"><span class="toc-text">4. 服务发现与消费</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%90%AF%E5%8A%A8%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%92%8C%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="toc-text">4.1 启动注册中心和服务提供者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%88%9B%E5%BB%BA%E6%B6%88%E8%B4%B9%E8%80%85%E6%9C%8D%E5%8A%A1"><span class="toc-text">4.2 创建消费者服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E5%BC%95%E5%85%A5"><span class="toc-text">依赖引入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-text">开启客户端负载均衡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="toc-text">配置注册中心</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%9C%8D%E5%8A%A1%E5%90%8D%E7%A7%B0%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE"><span class="toc-text">通过服务名称直接访问</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Eureka-%E8%AF%A6%E8%A7%A3"><span class="toc-text">5. Eureka 详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84"><span class="toc-text">5.1 基础架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-text">5.2 服务治理机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%8F%90%E4%BE%9B%E8%80%85"><span class="toc-text">服务提供者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%B6%88%E8%B4%B9%E8%80%85"><span class="toc-text">服务消费者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="toc-text">服务注册中心</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-eureka-%E9%9B%86%E7%BE%A4%E5%90%8C%E6%AD%A5%E5%8E%9F%E7%90%86"><span class="toc-text">5.3 eureka 集群同步原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-text">6. 源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-Eureka-Client"><span class="toc-text">6.1 Eureka Client</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Eureka-Server"><span class="toc-text">6.2 Eureka Server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E8%87%AA%E6%88%91%E4%BF%9D%E6%8A%A4"><span class="toc-text">6.3 自我保护</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E6%88%91%E4%BF%9D%E6%8A%A4%E8%A7%A6%E5%8F%91"><span class="toc-text">自我保护触发</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3"><span class="toc-text">7. 配置详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%B1%BB%E9%85%8D%E7%BD%AE"><span class="toc-text">7.1 服务注册类配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B%E7%B1%BB%E9%85%8D%E7%BD%AE"><span class="toc-text">7.2 服务实例类配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Eureka-%E7%AB%AF%E7%82%B9"><span class="toc-text">8. Eureka 端点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E5%85%83%E6%95%B0%E6%8D%AE%E4%BF%A1%E6%81%AF"><span class="toc-text">9. 元数据信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Eureka-%E7%9B%91%E6%8E%A7%E6%A3%80%E6%9F%A5"><span class="toc-text">10. Eureka 监控检查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-%E4%B8%BB%E5%8A%A8%E4%B8%8A%E6%8A%A5%E5%81%A5%E5%BA%B7%E4%BF%A1%E6%81%AF"><span class="toc-text">10.1 主动上报健康信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE-Spring-Security"><span class="toc-text">11. 安全配置(Spring Security)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-1-Eureka-Server-%E9%85%8D%E7%BD%AE"><span class="toc-text">11.1 Eureka Server 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-Eureka-Client-%E9%85%8D%E7%BD%AE"><span class="toc-text">11.2 Eureka Client 配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-Eureka%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6"><span class="toc-text">12 Eureka监听事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-Eureka-%E7%BC%BA%E9%99%B7"><span class="toc-text">13 Eureka 缺陷</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Eureka 入门</p>
+<a id="more"></a>
+
+<h2 id="1-搭建服务注册中心"><a href="#1-搭建服务注册中心" class="headerlink" title="1. 搭建服务注册中心"></a>1. 搭建服务注册中心</h2><h3 id="1-1-引入依赖"><a href="#1-1-引入依赖" class="headerlink" title="1.1 引入依赖"></a>1.1 引入依赖</h3><pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<h3 id="1-2-基本配置"><a href="#1-2-基本配置" class="headerlink" title="1.2 基本配置"></a>1.2 基本配置</h3><pre><code class="yml">server:
+  port: 7900
+spring:
+  application:
+    name: eureka
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # 本服务是否注册到注册中心
+    register-with-eureka: false
+    # 本服务是否从注册中心获取服务列表
+    # 注册中心的职责是维护服务实例，不需要检索服务
+    fetch-registry: false
+    service-url:
+      defaultZone: http://$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</code></pre>
+<h3 id="1-3-增加注解"><a href="#1-3-增加注解" class="headerlink" title="1.3 增加注解"></a>1.3 增加注解</h3><p>通过<code>@EnableEurekaServer</code>启动注册中心。</p>
+<h2 id="2-注册服务提供者"><a href="#2-注册服务提供者" class="headerlink" title="2. 注册服务提供者"></a>2. 注册服务提供者</h2><h3 id="2-1-引入依赖"><a href="#2-1-引入依赖" class="headerlink" title="2.1 引入依赖"></a>2.1 引入依赖</h3><pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<h3 id="2-2-基本配置"><a href="#2-2-基本配置" class="headerlink" title="2.2 基本配置"></a>2.2 基本配置</h3><pre><code class="yml">server:
+  port: 1111
+spring:
+  application:
+    name: hello-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7900/eureka/</code></pre>
+<h3 id="2-3-增加注解"><a href="#2-3-增加注解" class="headerlink" title="2.3 增加注解"></a>2.3 增加注解</h3><p>通过<code>@EnableDiscoveryClient</code>注解，向注册中心注册。</p>
+<h3 id="2-4-验证"><a href="#2-4-验证" class="headerlink" title="2.4 验证"></a>2.4 验证</h3><pre><code class="java">@RestController
+public class HelloController &#123;
+    @Autowired
+    private DiscoveryClient client;
+
+    @RequestMapping(value = &quot;/hello&quot;,method = RequestMethod.GET)
+    public String index()&#123;
+        List&lt;String&gt; services = client.getServices();
+        services.stream().forEach(s -&gt; &#123;
+            System.out.println(s);
+        &#125;);
+        List&lt;ServiceInstance&gt; instances = client.getInstances(&quot;hello-service&quot;);
+        instances.stream().forEach(i-&gt;&#123;
+            System.out.println(&quot;host:&quot;+i.getHost()+&quot;;instanceId:&quot;+i.getInstanceId()
+                    +&quot;;serviceId:&quot;+i.getServiceId()+&quot;;port:&quot;+i.getPort());
+        &#125;);
+        return &quot;Hello World&quot;;
+    &#125;
+&#125;</code></pre>
+<h2 id="3-高可用注册中心"><a href="#3-高可用注册中心" class="headerlink" title="3. 高可用注册中心"></a>3. 高可用注册中心</h2><h3 id="3-1-基本配置"><a href="#3-1-基本配置" class="headerlink" title="3.1 基本配置"></a>3.1 基本配置</h3><p>application-peer1.yml</p>
+<pre><code class="yml">server:
+  port: 1111
+spring:
+  application:
+    name: eureka-server
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://peer2:1112/eureka/</code></pre>
+<p>application-peer2.yml</p>
+<pre><code class="yml">server:
+  port: 1112
+spring:
+  application:
+    name: eureka-server
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://peer1:1111/eureka/</code></pre>
+<h3 id="3-2-修改-DNS"><a href="#3-2-修改-DNS" class="headerlink" title="3.2 修改 DNS"></a>3.2 修改 DNS</h3><pre><code class="properties">127.0.0.1 peer1
+127.0.0.1 peer2</code></pre>
+<h3 id="3-3-启动"><a href="#3-3-启动" class="headerlink" title="3.3 启动"></a>3.3 启动</h3><pre><code class="properties">--spring.profiles.active=peer1
+--spring.profiles.active=peer2</code></pre>
+<h3 id="3-4-问题"><a href="#3-4-问题" class="headerlink" title="3.4 问题"></a>3.4 问题</h3><ol>
+<li><p>手动停止 peer2 后，peer1 显示 peer2 还是可用的？</p>
+<p>Eureka 保护机制。</p>
+</li>
+<li><h4 id="EMERGENCY-EUREKA-MAY-BE-INCORRECTLY-CLAIMING-INSTANCES-ARE-UP-WHEN-THEY’RE-NOT-RENEWALS-ARE-LESSER-THAN-THRESHOLD-AND-HENCE-THE-INSTANCES-ARE-NOT-BEING-EXPIRED-JUST-TO-BE-SAFE"><a href="#EMERGENCY-EUREKA-MAY-BE-INCORRECTLY-CLAIMING-INSTANCES-ARE-UP-WHEN-THEY’RE-NOT-RENEWALS-ARE-LESSER-THAN-THRESHOLD-AND-HENCE-THE-INSTANCES-ARE-NOT-BEING-EXPIRED-JUST-TO-BE-SAFE" class="headerlink" title="EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY’RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE."></a>EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY’RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.</h4><p>同样是 Eureka 保护机制。开发环境关闭就行。</p>
+</li>
+</ol>
+<h2 id="4-服务发现与消费"><a href="#4-服务发现与消费" class="headerlink" title="4. 服务发现与消费"></a>4. 服务发现与消费</h2><h3 id="4-1-启动注册中心和服务提供者"><a href="#4-1-启动注册中心和服务提供者" class="headerlink" title="4.1 启动注册中心和服务提供者"></a>4.1 启动注册中心和服务提供者</h3><pre><code class="properties"># 启动注册中心高可用集群
+--spring.profiles.active=peer1
+--spring.profiles.active=peer2
+
+# 启动两份 hello-service
+--server.port=8001
+--server.port=8002</code></pre>
+<h3 id="4-2-创建消费者服务"><a href="#4-2-创建消费者服务" class="headerlink" title="4.2 创建消费者服务"></a>4.2 创建消费者服务</h3><h4 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h4><pre><code class="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-ribbon&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+<h4 id="开启客户端负载均衡"><a href="#开启客户端负载均衡" class="headerlink" title="开启客户端负载均衡"></a>开启客户端负载均衡</h4><pre><code class="java">@Bean
+@LoadBalanced // 开启客户端负载均衡
+RestTemplate restTemplate()&#123;
+    return new RestTemplate();
+&#125;</code></pre>
+<h4 id="配置注册中心"><a href="#配置注册中心" class="headerlink" title="配置注册中心"></a>配置注册中心</h4><pre><code class="yml">server:
+  port: 9001
+spring:
+  application:
+    name: ribbon-consumer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1111/eureka/</code></pre>
+<h4 id="通过服务名称直接访问"><a href="#通过服务名称直接访问" class="headerlink" title="通过服务名称直接访问"></a>通过服务名称直接访问</h4><pre><code class="java">@RestController
+public class ConsumerController &#123;
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    @RequestMapping(value = &quot;/ribbon-consumer&quot;, method = RequestMethod.GET)
+    public String helloConsumer() &#123;
+        return restTemplate.getForEntity(&quot;http://HELLO-SERVICE/hello&quot;,
+                String.class).getBody();
+    &#125;
+&#125;</code></pre>
+<p>访问：<a href="http://localhost:9001/ribbon-consumer">http://localhost:9001/ribbon-consumer</a></p>
+<h2 id="5-Eureka-详解"><a href="#5-Eureka-详解" class="headerlink" title="5. Eureka 详解"></a>5. Eureka 详解</h2><h3 id="5-1-基础架构"><a href="#5-1-基础架构" class="headerlink" title="5.1 基础架构"></a>5.1 基础架构</h3><ul>
+<li>服务注册中心（Eureka Server）</li>
+<li>服务提供者（Eureka Client）</li>
+<li>服务消费者（Eureka Client）</li>
+</ul>
+<h3 id="5-2-服务治理机制"><a href="#5-2-服务治理机制" class="headerlink" title="5.2 服务治理机制"></a>5.2 服务治理机制</h3><p><img src="../../images/eureka/%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E6%9C%BA%E5%88%B6.png"></p>
+<p><img src="../../images/springcloud/2/Eureka%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg"></p>
+<h4 id="服务提供者"><a href="#服务提供者" class="headerlink" title="服务提供者"></a>服务提供者</h4><ol>
+<li><p>服务注册(Register)</p>
+<p>服务提供者启动时会发送 REST 请求，将自己注册到 Eureka Server 上，同时带上了自己服务的一些元数据信息。</p>
+</li>
+<li><p>触发-服务同步</p>
+<p>由于注册中心之间互相注册，当服务提供者发送注册信息到一个注册中心时，他会将该请求<strong>转发给集群中其他注册中心</strong>，从而实现服务同步。</p>
+<p>Time Lag 是指同步延迟。Eureka 客户端的所有操作可能需要一段时间才能反应到 Eureka 服务端。</p>
+</li>
+<li><p>服务续约(Renew)</p>
+<p>服务提供者会维护一个心跳来持续告诉注册中心【我还活着】，防止注册中心的“剔除任务”将该服务实例剔除。</p>
+</li>
+<li><p>服务下线(Cancel)</p>
+<p>在客户端程序中，当服务实例进行正常关闭操作时，它会触发一个服务下线的 Rest 请求给 Eureka Server，告诉注册中心自己下线了。</p>
+<pre><code class="properties"># 服务续约任务的调用间隔时间
+eureka.instance.lease-renewal-interval-in-seconds=30
+# 服务失效时间
+eureka.instalce.lease-expiration-duration-in-seconds=90</code></pre>
+</li>
+</ol>
+<h4 id="服务消费者"><a href="#服务消费者" class="headerlink" title="服务消费者"></a>服务消费者</h4><ol>
+<li><p>获取服务(Fetch Registry)</p>
+<p>启动服务消费者时，它会发送一个 REST 请求给注册中心来获取服务清单。为了性能考虑，注册中心会维护一份<strong>只读</strong>清单返回给客户端，该缓存清单每 30 秒更新一次。对于 api-gateway，如果要迅速获取服务注册状态，可以缩小该值，比如5秒。</p>
+<p><code>eureka.client.registry-fetch-interval-second=30</code></p>
+</li>
+<li><p>服务调用</p>
+<p>获取服务后，<strong>通过服务名</strong>可以获得具体提供服务的<strong>实例名</strong>和该<strong>实例的元数据信息</strong>，然后就可以决定调用哪个实例了。</p>
+<p>对于访问实例的选择，Eureka 中有 Region 和 Zone 的概念，在进行服务调用时，优先访问处于同一个 Zone 中的服务提供方。</p>
+</li>
+</ol>
+<h4 id="服务注册中心"><a href="#服务注册中心" class="headerlink" title="服务注册中心"></a>服务注册中心</h4><ol>
+<li><p>失效剔除</p>
+<p>有时服务不一定正常下线，可能由于内存溢出、网络故障等原因使得服务不能正常工作，而注册中心并未收到下线请求。所以注册中心会创建一个定时任务，默认每隔一段时间（60秒）将当前清单中超时（90秒）没有续约的服务剔除出去。</p>
+</li>
+<li><p>自我保护</p>
+<p>注册中心会统计心跳失败的比例在 15 分钟之内是否低于 85%，如果出现低于的情况，注册中心会将当前的实例注册信息保护起来，让这些实例不会过期，<strong>尽可能保护这些注册信息</strong>。</p>
+<p>这样客户端很容易拿到已经不存在的实例，<strong>所以客户端必须要有容错机制</strong>，比如可以使用请求重试、断路器等机制。</p>
+<pre><code class="properties"># 关闭自我保护
+euraka.server.enable-self-preservation=false
+# 失效服务间隔
+eureka.server.eviction-interval-timer-in-ms=3000</code></pre>
+</li>
+</ol>
+<h3 id="5-3-eureka-集群同步原理"><a href="#5-3-eureka-集群同步原理" class="headerlink" title="5.3 eureka 集群同步原理"></a>5.3 eureka 集群同步原理</h3><pre><code>问题：eureka server间 设置peer。A-&gt;B,B-&gt;C,C-&gt;A，结果注册信息并不同步。
+看例子:
+依次启动7901,7902,7903。
+启动成功，注册api-driver -&gt;7901
+发现只有7901和7902有 api-driver而 7903没有。
+
+简单说：api-driver 向 7901注册，7902 将api-driver同步到 7902，但是不会同步到 7903。后面源码会讲到。
+
+多节点建议：设置A-&gt;B,A-&gt;C其他类似。尽量不要跨 eureka 节点。一对多，面面对到。
+
+讲解下图。前置概念peer。清除流程。
+
+功能点：
+peer启动：
+1、拉取它的peer的注册表。
+2、把自己注册到peer上。
+3、完成2之后，2中的peer会把它同步到，2中peer的peer。
+
+7901 会不断尝试把自己注册到 7902，并且会尝试不断把自己的注册表同步到 7902</code></pre>
+<h2 id="6-源码分析"><a href="#6-源码分析" class="headerlink" title="6. 源码分析"></a>6. 源码分析</h2><h3 id="6-1-Eureka-Client"><a href="#6-1-Eureka-Client" class="headerlink" title="6.1 Eureka Client"></a>6.1 Eureka Client</h3><p>![](../../images/springcloud/2/Eureka Client工作流程图.jpg)<strong>功能点</strong></p>
+<ul>
+<li>服务注册</li>
+<li>服务下线</li>
+<li>服务拉取</li>
+<li>服务调用（自身业务）</li>
+<li>服务续约（定时任务）：定时发送心跳到 eureka server，维持服务租约</li>
+<li>缓存刷新（定时任务）：定时更新本地缓存</li>
+<li>健康检查（定时任务）：监控自身变化（一方面自检、一方面监听状态变化），按需重新注册</li>
+</ul>
+<p>三个定时任务相关配置：</p>
+<pre><code class="properties"># EurekaClient 缓存刷新定时任务间隔
+eureka.client.registry-fetch-interval-seconds=5
+# EurekaClient 发送心跳定时任务间隔
+eureka.instance.lease-renewal-interval-in-seconds=30
+# EurekaClient 断气时间
+eureka.instance.lease-expiration-duration-in-seconds=90
+# EurekaClient 按需注册定时任务间隔
+eureka.client.instance-info-replication-interval-seconds=30</code></pre>
+<h3 id="6-2-Eureka-Server"><a href="#6-2-Eureka-Server" class="headerlink" title="6.2 Eureka Server"></a>6.2 Eureka Server</h3><p>需要注意的是，Eureka Server 同时也是一个 Eureka Client，在不禁止 Eureka Server 的客户端行为时，它会向它配置文件中的其他 Eureka Server 进行拉取注册表、服务注册和发送心跳等操作。</p>
+<p><strong>功能点</strong></p>
+<ul>
+<li><p>接受服务注册</p>
+</li>
+<li><p>接受服务下线</p>
+</li>
+<li><p>接受服务拉取：获取注册表中服务实例信息</p>
+</li>
+<li><p>接受服务心跳</p>
+</li>
+<li><p>服务剔除（定时任务）：默认60秒执行一次。延时60秒，间隔60秒 </p>
+<ul>
+<li>自我保护期间不清除</li>
+<li>分批次清除</li>
+<li>服务是逐个随机剔除，剔除均匀分布在所有应用中，防止在同一时间内同一服务集群中的服务全部过期被剔除，造成在大量剔除服务时，并在进行自我保护时，促使程序崩溃。</li>
+</ul>
+</li>
+<li><p>集群同步</p>
+<ul>
+<li>启动时：从相邻的eureka 节点复制注册表</li>
+<li>每次对本地注册表进行操作时，同时会将操作同步到它的peer节点中</li>
+</ul>
+</li>
+</ul>
+<pre><code class="properties"># EurekaServer 服务剔除定时任务间隔
+eureka.server.eviction-interval-timer-in-ms=60000</code></pre>
+<h3 id="6-3-自我保护"><a href="#6-3-自我保护" class="headerlink" title="6.3 自我保护"></a>6.3 自我保护</h3><p>Eureka 在 CAP 理论当中是属于AP ， 也就说当产生网络分区时，Eureka 保证系统的可用性，但不保证系统里面数据的一致性。</p>
+<p>自我保护机制是服务器端容错的一种方式，即短时间心跳不到达仍不剔除服务列表里的节点，默认开启。</p>
+<pre><code>EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY&#39;RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.</code></pre>
+<p>默认情况下，Eureka Server 在一定时间内，没有接收到某个微服务心跳，会将某个微服务注销（90S）。但是当网络故障时，微服务与 Eureka Server 之间无法正常通信，上述行为就非常危险，因为微服务正常，不应该注销。</p>
+<p>Eureka Server 通过自我保护模式来解决整个问题，当 Eureka Server 在短时间内丢失过多客户端时，那么Eureka  Server会进入自我保护模式，会保护注册表中的微服务不被注销掉。当网络故障恢复后，退出自我保护模式。</p>
+<p><strong>思想：宁可保留健康的和不健康的，也不盲目注销任何健康的服务。</strong></p>
+<h4 id="自我保护触发"><a href="#自我保护触发" class="headerlink" title="自我保护触发"></a>自我保护触发</h4><p><strong>客户端每分钟续约数量小于客户端总数的85%时会触发保护机制</strong></p>
+<p>自我保护机制的触发条件：</p>
+<ul>
+<li>eureka.server.enable-self-preservation = true</li>
+<li>renewsLastMin &lt; numberOfRenewsPerMinThreshold<ul>
+<li>renewsLastMin：每分钟心跳次数</li>
+<li>numberOfRenewsPerMinThreshold = expectedNumberOfRenewsPerMin * 续租百分比</li>
+<li>expectedNumberOfRenewsPerMin = 当前注册的应用实例数 * 2</li>
+<li>默认情况下，注册的应用实例每半分钟续租一次，那么一分钟心跳两次，因此 * 2 。</li>
+<li>续租百分比：eureka.server.renewalPercentThreshold, 默认0.85</li>
+</ul>
+</li>
+</ul>
+<p>例如服务实例数：10个，期望每分钟续约数：10 * 2=20，期望阈值：20*0.85=17，自我保护少于 17 时 触发。</p>
+<h2 id="7-配置详解"><a href="#7-配置详解" class="headerlink" title="7. 配置详解"></a>7. 配置详解</h2><h3 id="7-1-服务注册类配置"><a href="#7-1-服务注册类配置" class="headerlink" title="7.1 服务注册类配置"></a>7.1 服务注册类配置</h3><pre><code class="java">// 配置类
+org.springframework.cloud.netflix.eureka.EurekaClientConfigBean
+// 前缀
+eureka.client</code></pre>
+<pre><code class="properties">eureka.client.serviceUrl.defaultZone=http://&lt;username&gt;:&lt;password&gt;@localhost:1111/eureka
+eureka.client.enabled=ture</code></pre>
+<p><img src="../../images/eureka/%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E7%B1%BB%E9%85%8D%E7%BD%AE.png"></p>
+<h3 id="7-2-服务实例类配置"><a href="#7-2-服务实例类配置" class="headerlink" title="7.2 服务实例类配置"></a>7.2 服务实例类配置</h3><pre><code class="java">// 配置类
+org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean
+// 前缀
+eureka.instance</code></pre>
+<pre><code class="properties"># 元数据配置
+eureka.instance.metadataMap.zone=shanghai
+# 实例名配置
+eureka.instance.instanceId=$&#123;spring.application.name&#125;:&#123;random.int&#125;
+# 端点配置
+eureka.instance.statusPageUrlPath=/appInfo
+eureka.instance.healthCheckUrlPath=/checkHealth</code></pre>
+<p><img src="../../images/eureka/%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B%E7%B1%BB%E9%85%8D%E7%BD%AE.png"></p>
+<h2 id="8-Eureka-端点"><a href="#8-Eureka-端点" class="headerlink" title="8. Eureka 端点"></a>8. Eureka 端点</h2><p>官网说明：<a href="https://github.com/Netflix/eureka/wiki/Eureka-REST-operations">https://github.com/Netflix/eureka/wiki/Eureka-REST-operations</a></p>
+<p>默认返回的是 xml 格式数据，需要返回 JSON 格式数据在请求头加上 <code>Accept:application/json</code></p>
+<ul>
+<li><p>查看所有实例：<a href="http://peer1:1111/eureka/apps">http://peer1:1111/eureka/apps</a> </p>
+</li>
+<li><p>根据服务查询： <a href="http://peer1:1111/eureka/apps/HELLO-SERVICE">http://peer1:1111/eureka/apps/HELLO-SERVICE</a> </p>
+</li>
+<li><p>根据instanceId查询： <a href="http://peer1:1111/eureka/apps/HELLO-SERVICE/localhost:hello-service:8002">http://peer1:1111/eureka/apps/HELLO-SERVICE/localhost:hello-service:8002</a> </p>
+</li>
+<li><p>注册服务： <a href="http://peer1:1111/eureka/apps/EUREKA-custom-test">http://peer1:1111/eureka/apps/EUREKA-custom-test</a> </p>
+<pre><code class="xml">&lt;instance&gt;
+    &lt;instanceId&gt;instanceid-test&lt;/instanceId&gt;
+    &lt;hostName&gt;eureka-1900&lt;/hostName&gt;
+    &lt;app&gt;EUREKA-custom-test&lt;/app&gt;
+    &lt;ipAddr&gt;127.0.0.1&lt;/ipAddr&gt;
+    &lt;status&gt;UP&lt;/status&gt;
+    &lt;overriddenstatus&gt;UNKNOWN&lt;/overriddenstatus&gt;
+    &lt;port enabled=&quot;true&quot;&gt;1900&lt;/port&gt;
+    &lt;securePort enabled=&quot;false&quot;&gt;443&lt;/securePort&gt;
+    &lt;countryId&gt;1&lt;/countryId&gt;
+    &lt;dataCenterInfo class=&quot;com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo&quot;&gt;
+        &lt;name&gt;MyOwn&lt;/name&gt;
+    &lt;/dataCenterInfo&gt;
+&lt;/instance&gt;</code></pre>
+</li>
+<li><p>删除服务：DELETE  <a href="http://peer1:1111/eureka/apps/EUREKA-CUSTOM-TEST">http://peer1:1111/eureka/apps/EUREKA-CUSTOM-TEST</a> </p>
+</li>
+<li><p>服务状态：<a href="http://peer1:1111/eureka/status">http://peer1:1111/eureka/status</a></p>
+</li>
+</ul>
+<h2 id="9-元数据信息"><a href="#9-元数据信息" class="headerlink" title="9. 元数据信息"></a>9. 元数据信息</h2><p>Eureka 的元数据有两种：标准元数据和自定义元数据。<br><strong>标准元数据</strong>：主机名、IP地址、端口号、状态页和健康检查等信息，这些信息都会被发布在服务注册表中，用于服务之间的调用。<br><strong>自定义元数据</strong>：可以使用 eureka.instance.metadata-map 配置，这些元数据可以在远程客户端中访问，但是一般不改变客户端行为，除非客户端知道该元数据的含义。</p>
+<p>可以在配置文件中对当前服务设置自定义元数据，可后期用户个性化使用</p>
+<p>元数据可以配置在 eureka 服务器和 eureka 的客户端上。</p>
+<pre><code class="json"># 查看对应实例信息可以看到自定义的元数据
+&quot;metadata&quot;: &#123;
+    &quot;name&quot;: &quot;eureka-client&quot;,
+    &quot;management.port&quot;: &quot;8001&quot;,
+    &quot;desc&quot;: &quot;test meta data&quot;
+&#125;</code></pre>
+<h2 id="10-Eureka-监控检查"><a href="#10-Eureka-监控检查" class="headerlink" title="10. Eureka 监控检查"></a>10. Eureka 监控检查</h2><p>由于 server 和 client 通过心跳保持服务状态，而只有状态为 UP 的服务才能被访问。看 eureka 界面中的status。比如心跳一直正常，服务一直 UP，但是此服务 DB  连不上了，无法正常提供服务。<strong>服务心跳正常，不带表可以提供正常的服务。</strong></p>
+<p>此时，我们需要将微服务的健康状态也同步到 server。只需要启动 eureka 的健康检查就行。这样微服务就会将自己的健康状态同步到 eureka。配置如下即可。</p>
+<h3 id="10-1-主动上报健康信息"><a href="#10-1-主动上报健康信息" class="headerlink" title="10.1 主动上报健康信息"></a>10.1 主动上报健康信息</h3><p>由于 Eureka 自我保护机制，服务不会轻易被 Eureka Server 剔除。所以当某个服务确定不可用或出现异常时，服务可以主动上报监控状态。比如发送短信服务达到条数上限，比如程序 catch 主了异常等，就可以主动上报，让 Eureka Server 把自己剔除。</p>
+<p>在client端配置：将自己真正的健康状态传播到server。</p>
+<pre><code class="yml">eureka:
+  client:
+    healthcheck:
+      enabled: true</code></pre>
+<p><strong>开启 actuator</strong></p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<p>改变健康状态的 service</p>
+<pre><code class="java">@Service
+public class HealthStatusService implements HealthIndicator &#123;
+    private Boolean status = true;
+
+    @Override
+    public Health health() &#123;
+        if (status) &#123;
+            return new Health.Builder().up().build();
+        &#125; else &#123;
+            return new Health.Builder().down().build();
+        &#125;
+    &#125;
+
+    public String getStatus() &#123;
+        return status.toString();
+    &#125;
+
+    public void setStatus(Boolean status) &#123;
+        this.status = status;
+    &#125;
+&#125;</code></pre>
+<p>测试 Controller</p>
+<pre><code class="java">@RequestMapping(value = &quot;/health&quot;)
+public String health(@RequestParam(&quot;status&quot;) Boolean status) &#123;
+    statusService.setStatus(status);
+    return statusService.getStatus();
+&#125;</code></pre>
+<h2 id="11-安全配置-Spring-Security"><a href="#11-安全配置-Spring-Security" class="headerlink" title="11. 安全配置(Spring Security)"></a>11. 安全配置(Spring Security)</h2><h3 id="11-1-Eureka-Server-配置"><a href="#11-1-Eureka-Server-配置" class="headerlink" title="11.1 Eureka Server 配置"></a>11.1 Eureka Server 配置</h3><p>引入依赖</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+<p>配置用户名和密码</p>
+<pre><code class="yml">spring:
+  security:
+    user:
+      name: alvin
+      password: pass9876</code></pre>
+<p>允许跨域，否则会报下面错误</p>
+<pre><code>Root name &#39;timestamp&#39; does not match expected (&#39;instance&#39;) for type [simple</code></pre>
+<pre><code class="java">@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter &#123;
+    @Override
+    protected void configure(HttpSecurity http) throws Exception &#123;
+        // TODO Auto-generated method stub
+        http.csrf().disable();
+        super.configure(http);
+    &#125;
+&#125;</code></pre>
+<h3 id="11-2-Eureka-Client-配置"><a href="#11-2-Eureka-Client-配置" class="headerlink" title="11.2 Eureka Client 配置"></a>11.2 Eureka Client 配置</h3><p>注册时增加用户名和密码</p>
+<pre><code class="yml">eureka:
+  client:
+    service-url:
+      # 单节点 Eureka 服务，直接配置一个
+      defaultZone: http://alvin:pass9876@localhost:8761/eureka/</code></pre>
+<h2 id="12-Eureka监听事件"><a href="#12-Eureka监听事件" class="headerlink" title="12 Eureka监听事件"></a>12 Eureka监听事件</h2><p>EurekaInstanceCanceledEvent 服务下线事件</p>
+<p>EurekaInstanceRegisteredEvent 服务注册事件</p>
+<p>EurekaInstanceRenewedEvent 服务续约事件</p>
+<p>EurekaRegistryAvailableEvent 注册中心可用事件</p>
+<p>EurekaServerStartedEvent  注册中心启动</p>
+<pre><code class="java">@Component
+public class CustomEvent &#123;
+    @EventListener
+    public void listen(EurekaInstanceCanceledEvent e) &#123;
+        System.out.println(e.getServerId()+&quot;下线事件&quot;);
+    &#125;
+&#125;</code></pre>
+<h2 id="13-Eureka-缺陷"><a href="#13-Eureka-缺陷" class="headerlink" title="13 Eureka 缺陷"></a>13 Eureka 缺陷</h2><p>由于集群间的同步复制是通过 HTTP 的方式进行，基于网络的不可靠性，集群中的 Eureka Server 间的注册表信息难免存在不同步的时间节点，不满足 CAP 中的 C (数据一致性)。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '8b4bf9e725fa9e5652a9',
+            clientSecret: 'bfc996b7a7d84a81599a9af4ca153637bd05b9f3',
+            repo: 'gitalk',
+            owner: 'monkey-kong',
+            admin: ['monkey-kong'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 562px;
+    }
+    .nav.fullscreen {
+        margin-left: -562px;
+    }
+    .nav-left {
+        width: 140px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="/photo">相册</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://wiki.monkey-kong.cn/">悟空</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/Monkey-kong">github</a>
+    
+</div>
+
+
+<div id="musicMouseDrag" style="position:fixed; z-index: 9999; bottom: 0; right: 0;">
+    <div id="musicDragArea" style="position: absolute; top: 0; left: 0; width: 100%;height: 10px;cursor: move; z-index: 10;"></div>
+	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=500665328&auto=1&height=66"></iframe>
+</div>
+</html>

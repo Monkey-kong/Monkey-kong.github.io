@@ -1,0 +1,2760 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>第 8 章 Java 集合 | 悟空</title>
+  <meta name="keywords" content=" Java讲义 ">
+  <meta name="description" content="第 8 章 Java 集合 | 悟空">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="悟空">
+<meta property="og:url" content="http://yoursite.com/404.html">
+<meta property="og:site_name" content="悟空">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-16T00:43:02.436Z">
+<meta property="article:modified_time" content="2019-11-08T14:02:36.972Z">
+<meta property="article:author" content="悟空">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/darcula.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="悟空" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>悟空</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/Monkey-kong" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/wukong-16" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:lixianfu1@outlook.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=1109075867&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(104)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Java基础">Java基础<small>(16)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="JVM">JVM<small>(11)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="多线程">多线程<small>(7)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="OS">OS<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="IO">IO<small>(9)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="高并发">高并发<small>(9)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="MySQL">MySQL<small>(14)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="分布式">分布式<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="设计模式">设计模式<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="算法">算法<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="前端">前端<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="其他">其他<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="/photo">相册</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://wiki.monkey-kong.cn/">悟空</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/Monkey-kong">github</a>
+    
+    </div>
+    <div><a  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="104">
+<input type="hidden" id="yelog_site_word_count" value="301k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">全部文章</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" />
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>多线程</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式会话</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>网络</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Blog</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Eureka</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>flex</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>https</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>IO</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Java讲义</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>JVM</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>LVS</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>MySQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Nginx</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NIO</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Observer</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>OS</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Proxy</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RSC</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Singleton</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Spring Cloud</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>uni-app</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>vue</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>webpack</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ZooKeeper</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="全部文章 前端 "
+           href="/2020-11-15-11%E5%89%8D%E7%AB%AF/Flex%E5%B8%83%E5%B1%80%E5%AE%9E%E6%88%98.html"
+           data-tag="flex"
+           data-author="" >
+            <span class="post-title" title="Flex 布局实战">Flex 布局实战</span>
+            <span class="post-date" title="2020-11-15 22:13:12">2020/11/15</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-08-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%806-%E9%93%BE%E8%A1%A8%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（六）">算法基础（六）</span>
+            <span class="post-date" title="2020-11-08 23:13:12">2020/11/08</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-08-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%805-%E5%89%8D%E7%BC%80%E6%A0%91_%E6%A1%B6%E6%8E%92%E5%BA%8F_%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（五）">算法基础（五）</span>
+            <span class="post-date" title="2020-11-08 22:13:12">2020/11/08</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-02-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%803-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%E5%92%8C%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（三）">算法基础（三）</span>
+            <span class="post-date" title="2020-11-02 22:13:12">2020/11/02</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-11-02-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%804-%E6%AF%94%E8%BE%83%E5%99%A8_%E5%A0%86%E6%8E%92%E5%BA%8F.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（四）">算法基础（四）</span>
+            <span class="post-date" title="2020-11-02 22:13:12">2020/11/02</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-10-30-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%802.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（二）">算法基础（二）</span>
+            <span class="post-date" title="2020-10-30 22:13:12">2020/10/30</span>
+        </a>
+        
+        <a  class="全部文章 算法 "
+           href="/2020-10-28-10%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%801-%E5%A4%8D%E6%9D%82%E5%BA%A6_%E5%AF%B9%E6%95%B0%E5%99%A8_%E4%BA%8C%E5%88%86%E6%B3%95_%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97.html"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="算法基础（一）">算法基础（一）</span>
+            <span class="post-date" title="2020-10-28 22:13:12">2020/10/28</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-11-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(8)-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(八)">Spring Cloud学习(八)</span>
+            <span class="post-date" title="2020-10-11 23:43:12">2020/10/11</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-10-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(7)-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(七)">Spring Cloud学习(七)</span>
+            <span class="post-date" title="2020-10-10 23:43:12">2020/10/10</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(6)-config.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(六)">Spring Cloud学习(六)</span>
+            <span class="post-date" title="2020-10-04 23:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(1).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(一)">分布式会话管理(一)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(3).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(三)">分布式会话管理(三)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(4).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(四)">分布式会话管理(四)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-04-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86(2).html"
+           data-tag="分布式会话"
+           data-author="" >
+            <span class="post-title" title="分布式会话管理(二)">分布式会话管理(二)</span>
+            <span class="post-date" title="2020-10-04 20:43:12">2020/10/04</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-03-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(5)-zuul.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(五)">Spring Cloud学习(五)</span>
+            <span class="post-date" title="2020-10-03 23:43:12">2020/10/03</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-03-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(4)-Hystrix.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(四)">Spring Cloud学习(四)</span>
+            <span class="post-date" title="2020-10-03 23:33:12">2020/10/03</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-02-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(3)-Feign.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="SpringCloud学习(三)">SpringCloud学习(三)</span>
+            <span class="post-date" title="2020-10-02 23:33:12">2020/10/02</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-02-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(2).html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(二)">Spring Cloud学习(二)</span>
+            <span class="post-date" title="2020-10-02 23:13:12">2020/10/02</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-01-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(1).html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(一)">Spring Cloud学习(一)</span>
+            <span class="post-date" title="2020-10-01 22:13:12">2020/10/01</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-20-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%BA%94%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（五）">操作系统学习（五）</span>
+            <span class="post-date" title="2020-09-20 22:13:12">2020/09/20</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-19-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E5%9B%9B%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（四）">操作系统学习（四）</span>
+            <span class="post-date" title="2020-09-19 22:13:12">2020/09/19</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-18-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%B8%89%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（三）">操作系统学习（三）</span>
+            <span class="post-date" title="2020-09-18 22:13:12">2020/09/18</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-16-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%BA%8C%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（二）">操作系统学习（二）</span>
+            <span class="post-date" title="2020-09-16 22:13:12">2020/09/16</span>
+        </a>
+        
+        <a  class="全部文章 OS "
+           href="/2020-09-15-04%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%AC%AC%E4%B8%80%E8%AF%BE.html"
+           data-tag="OS"
+           data-author="" >
+            <span class="post-title" title="操作系统学习（一）">操作系统学习（一）</span>
+            <span class="post-date" title="2020-09-15 22:13:12">2020/09/15</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-09-10-07MySQL/mysql_14_%E7%BB%8F%E5%85%B8%E9%9D%A2%E8%AF%95%E9%A2%98.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十四) 经典面试题目">MySql 调优(十四) 经典面试题目</span>
+            <span class="post-date" title="2020-09-10 23:13:12">2020/09/10</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_13_JavaSPI%E6%9C%BA%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十三) Java SPI 机制详解">MySql 调优(十三) Java SPI 机制详解</span>
+            <span class="post-date" title="2020-08-29 23:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_12_%E7%BB%8F%E5%85%B8%E7%AC%94%E8%AF%95%E9%A2%98.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十二) 经典笔试题">MySql 调优(十二) 经典笔试题</span>
+            <span class="post-date" title="2020-08-29 22:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_11_%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十一) 读写分离">MySql 调优(十一) 读写分离</span>
+            <span class="post-date" title="2020-08-29 21:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-29-07MySQL/mysql_10_%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(十)">MySql 调优(十)</span>
+            <span class="post-date" title="2020-08-29 20:13:12">2020/08/29</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-27-07MySQL/mysql_9_%E4%BA%8B%E5%8A%A1.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(九)">MySql 调优(九)</span>
+            <span class="post-date" title="2020-08-27 22:13:12">2020/08/27</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-26-07MySQL/mysql_8_%E9%94%81%E6%9C%BA%E5%88%B6.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(八)">MySql 调优(八)</span>
+            <span class="post-date" title="2020-08-26 22:13:12">2020/08/26</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-16-07MySQL/mysql_7_%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E5%92%8C%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(七)">MySql 调优(七)</span>
+            <span class="post-date" title="2020-08-16 22:13:12">2020/08/16</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-14-07MySQL/mysql_6_%E5%88%86%E5%8C%BA.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(六)">MySql 调优(六)</span>
+            <span class="post-date" title="2020-08-14 22:13:12">2020/08/14</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-13-07MySQL/mysql_5_%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(五)">MySql 调优(五)</span>
+            <span class="post-date" title="2020-08-13 22:13:12">2020/08/13</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-10-07MySQL/mysql_3_%E7%B4%A2%E5%BC%95%E5%8C%B9%E9%85%8D%E5%92%8C%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E7%9B%91%E6%8E%A7.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(三)">MySql 调优(三)</span>
+            <span class="post-date" title="2020-08-10 22:13:12">2020/08/10</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-09-07MySQL/mysql_2_%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%92%8C%E5%85%B3%E9%94%AE%E5%90%8D%E8%AF%8D.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(二)">MySql 调优(二)</span>
+            <span class="post-date" title="2020-08-09 22:13:12">2020/08/09</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-05-07MySQL/mysql_1_%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BC%98%E5%8C%96.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 调优(一)">MySql 调优(一)</span>
+            <span class="post-date" title="2020-08-05 22:13:12">2020/08/05</span>
+        </a>
+        
+        <a  class="全部文章 MySQL "
+           href="/2020-08-04-07MySQL/mysql_0_%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD.html"
+           data-tag="MySQL"
+           data-author="" >
+            <span class="post-title" title="MySql 安装">MySql 安装</span>
+            <span class="post-date" title="2020-08-04 22:13:12">2020/08/04</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-24-02JVM/jvm%E5%AD%A6%E4%B9%A011_jvm%E5%B8%B8%E8%A7%81%E5%8F%82%E6%95%B0%E6%80%BB%E7%BB%93.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十一）">JVM 学习（十一）</span>
+            <span class="post-date" title="2020-07-24 22:13:12">2020/07/24</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-24-02JVM/jvm%E5%AD%A6%E4%B9%A012_%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十二）">JVM 学习（十二）</span>
+            <span class="post-date" title="2020-07-24 22:13:12">2020/07/24</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-23-02JVM/jvm%E5%AD%A6%E4%B9%A0%2010_%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（十）">JVM 学习（十）</span>
+            <span class="post-date" title="2020-07-23 22:13:12">2020/07/23</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-02JVM/jvm%E5%AD%A6%E4%B9%A07_xx.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（七）">JVM 学习（七）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-02JVM/jvm%E5%AD%A6%E4%B9%A08_%E8%B0%83%E4%BC%982.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（八）">JVM 学习（八）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-20-02JVM/jvm%E5%AD%A6%E4%B9%A09_%E8%B0%83%E4%BC%983.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（九）">JVM 学习（九）</span>
+            <span class="post-date" title="2020-07-20 22:13:12">2020/07/20</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-19-02JVM/jvm%E5%AD%A6%E4%B9%A05_%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（五）">JVM 学习（五）</span>
+            <span class="post-date" title="2020-07-19 22:13:12">2020/07/19</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-19-02JVM/jvm%E5%AD%A6%E4%B9%A06_GC.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（六）">JVM 学习（六）</span>
+            <span class="post-date" title="2020-07-19 22:13:12">2020/07/19</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-07-16-02JVM/jvm%E5%AD%A6%E4%B9%A03_4_java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（三、四）">JVM 学习（三、四）</span>
+            <span class="post-date" title="2020-07-16 22:13:12">2020/07/16</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-06-29-02JVM/jvm%E5%AD%A6%E4%B9%A02_class%E5%8A%A0%E8%BD%BD.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（二）">JVM 学习（二）</span>
+            <span class="post-date" title="2020-06-29 22:13:12">2020/06/29</span>
+        </a>
+        
+        <a  class="全部文章 JVM "
+           href="/2020-06-28-02JVM/jvm%E5%AD%A6%E4%B9%A01_jvm%E5%9F%BA%E7%A1%80_jsf.html"
+           data-tag="JVM"
+           data-author="" >
+            <span class="post-title" title="JVM 学习（一）">JVM 学习（一）</span>
+            <span class="post-date" title="2020-06-28 22:13:12">2020/06/28</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-06-27-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%8E%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%88%B0%20AOP.html"
+           data-tag="Proxy"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - 从代理模式到 Spring AOP">设计模式之 - 从代理模式到 Spring AOP</span>
+            <span class="post-date" title="2020-06-27 22:13:12">2020/06/27</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-21-05IO/IO%E5%AD%A6%E4%B9%A07.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（七）">IO学习（七）</span>
+            <span class="post-date" title="2020-06-21 22:13:12">2020/06/21</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-21-05IO/IO%E5%AD%A6%E4%B9%A08.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（八）">IO学习（八）</span>
+            <span class="post-date" title="2020-06-21 22:13:12">2020/06/21</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-16-05IO/IO%E5%AD%A6%E4%B9%A05.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（五）">IO学习（五）</span>
+            <span class="post-date" title="2020-06-16 22:13:12">2020/06/16</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-16-05IO/IO%E5%AD%A6%E4%B9%A06.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（六）">IO学习（六）</span>
+            <span class="post-date" title="2020-06-16 22:13:12">2020/06/16</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-14-05IO/IO%E5%AD%A6%E4%B9%A03.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（三）">IO学习（三）</span>
+            <span class="post-date" title="2020-06-14 22:13:12">2020/06/14</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-06-12-08%E5%88%86%E5%B8%83%E5%BC%8F/Https%E4%B9%8B%E5%AE%9E%E6%88%98.html"
+           data-tag="https"
+           data-author="" >
+            <span class="post-title" title="Https 实战">Https 实战</span>
+            <span class="post-date" title="2020-06-12 22:13:12">2020/06/12</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-10-05IO/IO%E5%AD%A6%E4%B9%A02.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（二）">IO学习（二）</span>
+            <span class="post-date" title="2020-06-10 22:13:12">2020/06/10</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-08-05IO/IO%E5%AD%A6%E4%B9%A01.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（一）">IO学习（一）</span>
+            <span class="post-date" title="2020-06-08 22:13:12">2020/06/08</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-06-06-08%E5%88%86%E5%B8%83%E5%BC%8F/Https%E4%B9%8BSSLTLS%20%E5%8D%8F%E8%AE%AE.html"
+           data-tag="https"
+           data-author="" >
+            <span class="post-title" title="Https 之 SSL/TLS 协议">Https 之 SSL/TLS 协议</span>
+            <span class="post-date" title="2020-06-06 22:13:12">2020/06/06</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-06-06-05IO/IO%E5%AD%A6%E4%B9%A04.html"
+           data-tag="IO"
+           data-author="" >
+            <span class="post-title" title="IO学习（四）">IO学习（四）</span>
+            <span class="post-date" title="2020-06-06 22:13:12">2020/06/06</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-05-25-11%E5%89%8D%E7%AB%AF/Flex%E5%B8%83%E5%B1%80.html"
+           data-tag="flex"
+           data-author="" >
+            <span class="post-title" title="Flex 布局">Flex 布局</span>
+            <span class="post-date" title="2020-05-25 22:13:12">2020/05/25</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-05-25-11%E5%89%8D%E7%AB%AF/vue-todo.html"
+           data-tag="vue,webpack"
+           data-author="" >
+            <span class="post-title" title="vue 入门项目">vue 入门项目</span>
+            <span class="post-date" title="2020-05-25 22:13:12">2020/05/25</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-04-10-11%E5%89%8D%E7%AB%AF/uniapp.html"
+           data-tag="uni-app"
+           data-author="" >
+            <span class="post-title" title="uni-app">uni-app</span>
+            <span class="post-date" title="2020-04-10 22:13:13">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-04-10-11%E5%89%8D%E7%AB%AF/vue%E5%AD%A6%E4%B9%A0(2).html"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue 学习(二)">vue 学习(二)</span>
+            <span class="post-date" title="2020-04-10 22:13:12">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 前端 "
+           href="/2020-04-10-11%E5%89%8D%E7%AB%AF/vue%E5%AD%A6%E4%B9%A0(1).html"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue 学习(一)">vue 学习(一)</span>
+            <span class="post-date" title="2020-04-10 22:13:12">2020/04/10</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-07-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(7).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(七)">多线程高并发学习(七)</span>
+            <span class="post-date" title="2020-04-07 22:13:12">2020/04/07</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-06-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(6).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(六)">多线程高并发学习(六)</span>
+            <span class="post-date" title="2020-04-06 22:13:12">2020/04/06</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-05-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(5).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(五)">多线程高并发学习(五)</span>
+            <span class="post-date" title="2020-04-05 22:13:12">2020/04/05</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-04-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(4).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(四)">多线程高并发学习(四)</span>
+            <span class="post-date" title="2020-04-04 22:13:12">2020/04/04</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-03-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(3).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(三)">多线程高并发学习(三)</span>
+            <span class="post-date" title="2020-04-03 22:13:12">2020/04/03</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-02-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(2).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(二)">多线程高并发学习(二)</span>
+            <span class="post-date" title="2020-04-02 22:13:12">2020/04/02</span>
+        </a>
+        
+        <a  class="全部文章 多线程 "
+           href="/2020-04-01-03%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%AB%98%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%AB%98%E5%B9%B6%E5%8F%91%E5%AD%A6%E4%B9%A0(1).html"
+           data-tag="多线程"
+           data-author="" >
+            <span class="post-title" title="多线程高并发学习(一)">多线程高并发学习(一)</span>
+            <span class="post-date" title="2020-04-01 22:13:12">2020/04/01</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Observer.html"
+           data-tag="Observer"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Observer">设计模式之 - Observer</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-ResponsibilityChain.html"
+           data-tag="RSC"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Responsibility Chain">设计模式之 - Responsibility Chain</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 设计模式 "
+           href="/2020-03-20-09%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-singleton.html"
+           data-tag="Singleton"
+           data-author="" >
+            <span class="post-title" title="设计模式之 - Singleton">设计模式之 - Singleton</span>
+            <span class="post-date" title="2020-03-20 22:13:12">2020/03/20</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-05-06%E9%AB%98%E5%B9%B6%E5%8F%91/zookeeper%E5%AD%A6%E4%B9%A0(%E4%B8%89).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(三)">ZooKeeper学习(三)</span>
+            <span class="post-date" title="2020-03-05 22:13:12">2020/03/05</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-02-06%E9%AB%98%E5%B9%B6%E5%8F%91/zookeeper%E5%AD%A6%E4%B9%A0(%E4%B8%80).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(一)">ZooKeeper学习(一)</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-02-06%E9%AB%98%E5%B9%B6%E5%8F%91/zookeeper%E5%AD%A6%E4%B9%A0(%E4%BA%8C).html"
+           data-tag="ZooKeeper"
+           data-author="" >
+            <span class="post-title" title="ZooKeeper学习(二)">ZooKeeper学习(二)</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-03-02-08%E5%88%86%E5%B8%83%E5%BC%8F/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E6%88%98C3_%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86.html"
+           data-tag="Eureka"
+           data-author="" >
+            <span class="post-title" title="第三章 服务治理">第三章 服务治理</span>
+            <span class="post-date" title="2020-03-02 22:13:12">2020/03/02</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-03-01-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%BA%94)-%E9%9D%A2%E8%AF%95%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(五)-面试常见问题">Redis 学习(五)-面试常见问题</span>
+            <span class="post-date" title="2020-03-01 22:13:12">2020/03/01</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-02-28-06%E9%AB%98%E5%B9%B6%E5%8F%91/Linux%20%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%AE%80%E8%A6%81%E6%AD%A5%E9%AA%A4.html"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux 系统安装简要步骤">Linux 系统安装简要步骤</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-02-28-06%E9%AB%98%E5%B9%B6%E5%8F%91/Typecho+Tengine%E5%BB%BA%E7%AB%99.html"
+           data-tag="Nginx,Blog"
+           data-author="" >
+            <span class="post-title" title="Typecho+Tengine 搭建个人主页">Typecho+Tengine 搭建个人主页</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-28-06%E9%AB%98%E5%B9%B6%E5%8F%91/%E9%AB%98%E5%B9%B6%E5%8F%91%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1.html"
+           data-tag="LVS,网络"
+           data-author="" >
+            <span class="post-title" title="高并发负载均衡">高并发负载均衡</span>
+            <span class="post-date" title="2020-02-28 22:13:12">2020/02/28</span>
+        </a>
+        
+        <a  class="全部文章 IO "
+           href="/2020-02-22-05IO/IO%E5%AD%A6%E4%B9%A09.html"
+           data-tag="NIO"
+           data-author="" >
+            <span class="post-title" title="NIO 原理">NIO 原理</span>
+            <span class="post-date" title="2020-02-22 22:13:12">2020/02/22</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-21-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E5%9B%9B)-%E9%9B%86%E7%BE%A4.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(四)-主从复制、高可用、集群">Redis 学习(四)-主从复制、高可用、集群</span>
+            <span class="post-date" title="2020-02-21 22:13:12">2020/02/21</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-20-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%B8%89)-%E6%8C%81%E4%B9%85%E5%8C%96.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(三)-持久化">Redis 学习(三)-持久化</span>
+            <span class="post-date" title="2020-02-20 22:13:12">2020/02/20</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-19-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%BA%8C)-%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(二)-管道、发布/订阅、事务、modules、过期">Redis 学习(二)-管道、发布/订阅、事务、modules、过期</span>
+            <span class="post-date" title="2020-02-19 22:13:12">2020/02/19</span>
+        </a>
+        
+        <a  class="全部文章 高并发 "
+           href="/2020-02-18-06%E9%AB%98%E5%B9%B6%E5%8F%91/Redis%20%E5%AD%A6%E4%B9%A0(%E4%B8%80)-%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4.html"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis 学习(一)-概述、安装、类型、指令">Redis 学习(一)-概述、安装、类型、指令</span>
+            <span class="post-date" title="2020-02-18 22:13:12">2020/02/18</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-18-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C18.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 18 章 类加载机制与反射">第 18 章 类加载机制与反射</span>
+            <span class="post-date" title="2020-01-18 22:13:12">2020/01/18</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-17-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C17.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 17 章 网络编程">第 17 章 网络编程</span>
+            <span class="post-date" title="2020-01-17 23:13:12">2020/01/17</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-16-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C16.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 16 章 多线程">第 16 章 多线程</span>
+            <span class="post-date" title="2020-01-16 22:13:12">2020/01/16</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-15-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C15.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 15 章 输入、输出">第 15 章 输入、输出</span>
+            <span class="post-date" title="2020-01-15 22:13:12">2020/01/15</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-14-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C14.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 14 章 注解">第 14 章 注解</span>
+            <span class="post-date" title="2020-01-14 22:13:12">2020/01/14</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-13-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C13.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 13 章 MySQL 数据库与 JDBC 编程">第 13 章 MySQL 数据库与 JDBC 编程</span>
+            <span class="post-date" title="2020-01-13 22:13:12">2020/01/13</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-10-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C10.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 10 章 异常处理">第 10 章 异常处理</span>
+            <span class="post-date" title="2020-01-10 22:13:12">2020/01/10</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-09-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C9.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 9 章 泛型">第 9 章 泛型</span>
+            <span class="post-date" title="2020-01-09 22:13:12">2020/01/09</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-08-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C8.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 8 章 Java 集合">第 8 章 Java 集合</span>
+            <span class="post-date" title="2020-01-08 22:13:12">2020/01/08</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-07-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C7.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 7 章 Java 基础类库">第 7 章 Java 基础类库</span>
+            <span class="post-date" title="2020-01-07 22:13:12">2020/01/07</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-06-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C6.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 6 章 面向对象（下）">第 6 章 面向对象（下）</span>
+            <span class="post-date" title="2020-01-06 22:13:12">2020/01/06</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-05-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C5.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 5 章 面向对象（上）">第 5 章 面向对象（上）</span>
+            <span class="post-date" title="2020-01-05 22:13:12">2020/01/05</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-04-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C4.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 4 章 流程控制与数组">第 4 章 流程控制与数组</span>
+            <span class="post-date" title="2020-01-04 22:13:12">2020/01/04</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-03-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C3.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 3 章 数据类型和运算符">第 3 章 数据类型和运算符</span>
+            <span class="post-date" title="2020-01-03 22:13:12">2020/01/03</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-02-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C2.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 2 章 理解面向对象">第 2 章 理解面向对象</span>
+            <span class="post-date" title="2020-01-02 22:13:12">2020/01/02</span>
+        </a>
+        
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-01-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89C1.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="第 1 章 Java 语言概述与开发环境">第 1 章 Java 语言概述与开发环境</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-01疯狂Java讲义/疯狂Java讲义C8" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">第 8 章 Java 集合</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Java基础">Java基础</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color2">Java讲义</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2020-11-24 23:14:32'>2020-01-08 22:13</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:8.8k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-Java-%E9%9B%86%E5%90%88%E6%A6%82%E8%BF%B0"><span class="toc-text">8.1 Java 集合概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-Collection-%E5%92%8C-Iterator-%E6%8E%A5%E5%8F%A3"><span class="toc-text">8.2 Collection 和 Iterator 接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-1-%E4%BD%BF%E7%94%A8-Lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88"><span class="toc-text">8.2.1 使用 Lambda 表达式遍历集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-2-Java-8-%E5%A2%9E%E5%BC%BA%E7%9A%84-Iterator-%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88"><span class="toc-text">8.2.2 Java 8 增强的 Iterator 遍历集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-3-%E4%BD%BF%E7%94%A8-Lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E9%81%8D%E5%8E%86-Iterator"><span class="toc-text">8.2.3 使用 Lambda 表达式遍历 Iterator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-4-%E4%BD%BF%E7%94%A8-foreach-%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88"><span class="toc-text">8.2.4 使用 foreach 遍历集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-5-Java8-%E6%96%B0%E5%A2%9E%E7%9A%84-Predicate-%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88"><span class="toc-text">8.2.5 Java8 新增的 Predicate 操作集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-6-Java8-%E6%96%B0%E5%A2%9E%E7%9A%84-Stream-%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88"><span class="toc-text">8.2.6 Java8 新增的 Stream 操作集合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-Set-%E9%9B%86%E5%90%88"><span class="toc-text">8.3 Set 集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-1-HashSet-%E7%B1%BB"><span class="toc-text">8.3.1 HashSet 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-2-LinkedHashSet-%E7%B1%BB"><span class="toc-text">8.3.2 LinkedHashSet 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-3-TreeSet-%E7%B1%BB"><span class="toc-text">8.3.3 TreeSet 类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%87%AA%E7%84%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">1. 自然排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AE%9A%E5%88%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">2. 定制排序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-4-EnumSet-%E7%B1%BB"><span class="toc-text">8.3.4 EnumSet 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-5-%E5%90%84-Set-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-text">8.3.5 各 Set 实现类性能分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-4-List-%E9%9B%86%E5%90%88"><span class="toc-text">8.4 List 集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-1-Java8-%E6%94%B9%E8%BF%9B%E7%9A%84-List-%E6%8E%A5%E5%8F%A3%E5%92%8C-ListIterator-%E6%8E%A5%E5%8F%A3"><span class="toc-text">8.4.1 Java8 改进的 List 接口和 ListIterator 接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-2-ArrayList-%E5%92%8C-Vector-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.4.2 ArrayList 和 Vector 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-3-%E5%9B%BA%E5%AE%9A%E9%95%BF%E5%BA%A6%E7%9A%84-List"><span class="toc-text">8.4.3 固定长度的 List</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-5-Queue-%E9%9B%86%E5%90%88"><span class="toc-text">8.5 Queue 集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-1-PriorityQueue-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.5.1 PriorityQueue 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-2-Deque-%E6%8E%A5%E5%8F%A3%E4%B8%8E-ArrayDeque-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.5.2 Deque 接口与 ArrayDeque 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-3-LinkedList-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.5.3 LinkedList 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-4-%E5%90%84%E7%A7%8D%E7%BA%BF%E6%80%A7%E8%A1%A8%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-text">8.5.4 各种线性表性能分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-6-Java8-%E5%A2%9E%E5%BC%BA%E7%9A%84-Map-%E9%9B%86%E5%90%88"><span class="toc-text">8.6 Java8 增强的 Map 集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-1-Java8-%E4%B8%BA-Map-%E6%96%B0%E5%A2%9E%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">8.6.1 Java8 为 Map 新增的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-2-Java8-%E6%94%B9%E8%BF%9B%E7%9A%84-HashMap-%E5%92%8C-Hashtable-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.6.2 Java8 改进的 HashMap 和 Hashtable 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-3-LinkedHashMap-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.6.3 LinkedHashMap 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-4-%E4%BD%BF%E7%94%A8-Properties-%E8%AF%BB%E5%86%99%E5%B1%9E%E6%80%A7%E6%96%87%E4%BB%B6"><span class="toc-text">8.6.4 使用 Properties 读写属性文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-5-SortedMap-%E6%8E%A5%E5%8F%A3%E5%92%8C-TreeMap-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.6.5 SortedMap 接口和 TreeMap 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-6-WeakHashMap-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.6.6 WeakHashMap 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-7-IdentityHashMap-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.6.7 IdentityHashMap 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-8-EnumMap-%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">8.6.8 EnumMap 实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-9-%E5%90%84-Map-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-text">8.6.9 各 Map 实现类性能分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-7-HashSet-%E5%92%8C-HashMap-%E7%9A%84%E6%80%A7%E8%83%BD%E9%80%89%E9%A1%B9"><span class="toc-text">8.7 HashSet 和 HashMap 的性能选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-8-%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E5%B7%A5%E5%85%B7%E7%B1%BB%EF%BC%9ACollections"><span class="toc-text">8.8 操作集合工具类：Collections</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-8-1-%E6%8E%92%E5%BA%8F%E6%93%8D%E4%BD%9C"><span class="toc-text">8.8.1 排序操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-8-2-%E6%9F%A5%E6%89%BE%E3%80%81%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">8.8.2 查找、替换操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-8-3-%E5%90%8C%E6%AD%A5%E6%93%8D%E4%BD%9C"><span class="toc-text">8.8.3 同步操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-8-4-%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%8F%AF%E5%8F%98%E9%9B%86%E5%90%88"><span class="toc-text">8.8.4 设置不可变集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-8-5-Java9-%E6%96%B0%E5%A2%9E%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%8F%98%E9%9B%86%E5%90%88"><span class="toc-text">8.8.5 Java9 新增的不可变集合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-9-%E7%B9%81%E7%90%90%E7%9A%84%E6%8E%A5%E5%8F%A3%EF%BC%9AEnumeration"><span class="toc-text">8.9 繁琐的接口：Enumeration</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第 8 章 Java 集合</p>
+<a id="more"></a>
+
+<h2 id="8-1-Java-集合概述"><a href="#8-1-Java-集合概述" class="headerlink" title="8.1 Java 集合概述"></a>8.1 Java 集合概述</h2><p>可以使用数组来保存多个对象，但数组的<strong>长度不可变化</strong>，同时数组也没法保存具有映射关系的数据。</p>
+<p>数组元素既可以是基本类型的值也可以是对象（实际上是对象的引用）；而集合里只能保存对象。</p>
+<p>Java 的集合类主要由两个接口派生而成：Collection、Map</p>
+<p><img src="../../images/java/c8/Collection%E4%BD%93%E7%B3%BB%E7%BB%A7%E6%89%BF%E6%A0%91.png"></p>
+<p><img src="../../images/java/c8/Map%E4%BD%93%E7%B3%BB%E7%BB%A7%E6%89%BF%E6%A0%91.png"></p>
+<h2 id="8-2-Collection-和-Iterator-接口"><a href="#8-2-Collection-和-Iterator-接口" class="headerlink" title="8.2 Collection 和 Iterator 接口"></a>8.2 Collection 和 Iterator 接口</h2><p>Collection 是 List、Set、Queue 接口的父接口，所有它定义的方法，其他三类集合均可使用。</p>
+<ul>
+<li>boolean add(Object o)</li>
+<li>boolean addAll(Cllection c)</li>
+<li>void clear()</li>
+<li>boolean contains(Object o)</li>
+<li>boolean containsAll(Collection c)</li>
+<li>boolean isEmpty()</li>
+<li><strong>Iterator iterator()</strong></li>
+<li>boolean remove(Object o)：包含多个 o 时，只删除第一个</li>
+<li>boolean removeAll(Collection c)</li>
+<li>**boolean retainAll(Collection c)**：删除 c 中不包含的元素</li>
+<li>int size()</li>
+<li>Object[] toArray()</li>
+</ul>
+<h3 id="8-2-1-使用-Lambda-表达式遍历集合"><a href="#8-2-1-使用-Lambda-表达式遍历集合" class="headerlink" title="8.2.1 使用 Lambda 表达式遍历集合"></a>8.2.1 使用 Lambda 表达式遍历集合</h3><p>Java8 为 Iterable 接口新增了 forEach(Consumer action) 默认方法，Iterable是 Collection 的父接口。</p>
+<pre><code class="java">public class CollectionEach &#123;
+    public static void main(String[] args) &#123;
+        Collection books = new HashSet();
+        books.add(&quot;疯狂 Java 讲义&quot;);
+        books.add(&quot;Spring 实战&quot;);
+        books.add(&quot;轻量级 Java EE 企业应用实战&quot;);
+
+        // TODO: 理解函数式编程
+        books.forEach(obj -&gt; System.out.println(obj));
+    &#125;
+&#125;</code></pre>
+<h3 id="8-2-2-Java-8-增强的-Iterator-遍历集合"><a href="#8-2-2-Java-8-增强的-Iterator-遍历集合" class="headerlink" title="8.2.2 Java 8 增强的 Iterator 遍历集合"></a>8.2.2 Java 8 增强的 Iterator 遍历集合</h3><p>Iterator 主要用于遍历 Collection 元素，也称之为迭代器。</p>
+<ul>
+<li>boolean hasNext()</li>
+<li>Object next()</li>
+<li>void remove()：删除集合里上次 next 返回的元素</li>
+<li>void forEachRemaining(Consumer action)：Java8 新增，可用 Lambda 遍历</li>
+</ul>
+<pre><code class="java">Iterator it = books.iterator();
+while (it.hasNext())&#123;
+    String book = (String)it.next();
+    System.out.println(book);
+    if(book.equalsIgnoreCase(&quot;疯狂 Java 讲义&quot;))&#123;
+        it.remove();
+        // ConcurrentModificationException 异常
+        // SDK12 不报错了
+        books.remove(book);
+    &#125;
+    // 不会改变集合元素本身
+    // 可以看出：遍历时，不是把集合元素本身传递给迭代变量
+    book = &quot;测试。。。&quot;;
+&#125;
+System.out.println(books);</code></pre>
+<h3 id="8-2-3-使用-Lambda-表达式遍历-Iterator"><a href="#8-2-3-使用-Lambda-表达式遍历-Iterator" class="headerlink" title="8.2.3 使用 Lambda 表达式遍历 Iterator"></a>8.2.3 使用 Lambda 表达式遍历 Iterator</h3><pre><code class="java">Iterator it2 = books.iterator();
+it2.forEachRemaining(obj -&gt; System.out.println(obj));</code></pre>
+<h3 id="8-2-4-使用-foreach-遍历集合"><a href="#8-2-4-使用-foreach-遍历集合" class="headerlink" title="8.2.4 使用 foreach 遍历集合"></a>8.2.4 使用 foreach 遍历集合</h3><pre><code class="java">for (Object obj : books)&#123;
+    // 此处 book 也不是集合元素本身
+    String book = (String)obj;
+    System.out.println(book);
+    if(book.equals(&quot;Spring 实战&quot;))&#123;
+        // ConcurrentModificationException 异常
+        books.remove(book);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-2-5-Java8-新增的-Predicate-操作集合"><a href="#8-2-5-Java8-新增的-Predicate-操作集合" class="headerlink" title="8.2.5 Java8 新增的 Predicate 操作集合"></a>8.2.5 Java8 新增的 Predicate 操作集合</h3><p>Java 8 为 Collection 新增了一个 removeIf(Predicate filter) 方法，用来批量删除符合 filter 的所有元素。Predicate 也是函数式接口，可以用 Lambda</p>
+<pre><code class="java">// 删除长度小于 10 的元素
+books.removeIf(ele -&gt; ((String)ele).length() &lt; 10);</code></pre>
+<p>使用 Predicate 可以充分简化集合的运算。</p>
+<ul>
+<li>统计书名中出现“Java”字符串的数量</li>
+<li>统计书名长度大于10的数量</li>
+</ul>
+<pre><code class="java">static int callAll(Collection books, Predicate predicate)&#123;
+    int count = 0;
+    for (Object obj : books)&#123;
+        if(predicate.test(obj))&#123;
+            count++;
+        &#125;
+    &#125;
+    System.out.println(count);
+    return count;
+&#125;
+
+// 包含 Java 的数量
+callAll(books, ele -&gt; ((String)ele).contains(&quot;Java&quot;));
+// 长度大于10的数量
+callAll(books, ele -&gt; ((String)ele).length() &gt; 10);</code></pre>
+<h3 id="8-2-6-Java8-新增的-Stream-操作集合"><a href="#8-2-6-Java8-新增的-Stream-操作集合" class="headerlink" title="8.2.6 Java8 新增的 Stream 操作集合"></a>8.2.6 Java8 新增的 Stream 操作集合</h3><p>Java 8 还新增了 Stream、IntStream、LongStream、DoubleStream 等流式 API。</p>
+<p>Java 8 为每个流式 API 提供了对应的 Builder，用于创建对应的流。</p>
+<p>独立使用 Stream 步骤：</p>
+<ol>
+<li>Stream.builder 创建对应的 Builder</li>
+<li>Builder 的 add() 向流中加入元素</li>
+<li>Builder 的 build()  获取对应的流</li>
+<li>调用 Stream 的聚集方法</li>
+</ol>
+<pre><code class="java">public class IntStreamTest &#123;
+    public static void main(String[] args) &#123;
+        IntStream is = IntStream.builder()
+                .add(20)
+                .add(13)
+                .add(-2)
+                .add(18)
+                .build();
+        // 下面调用聚集方法的代码每次只能执行一行
+        //System.out.println(String.format(&quot;最大值：[%s]&quot;, is.max().getAsInt()));
+        //System.out.println(String.format(&quot;最小值：[%s]&quot;, is.min().getAsInt()));
+        //System.out.println(String.format(&quot;是否所有元素的平方都大于20：[%s]&quot;,
+        //       is.allMatch(ele -&gt; ele * ele &gt; 20)));
+        // 映射成一个新的 stream
+        IntStream newIs = is.map(ele -&gt; ele * 2);
+        newIs.forEach(System.out::println);
+    &#125;
+&#125;</code></pre>
+<p>Stream 提供了大量的方法进行聚集操作，既有中间操作也有末端操作。</p>
+<ul>
+<li>中间方法：允许流保持打开状态，并允许调用后续方法。中间方法的返回值是另外一个流。<ul>
+<li>filter(Predicate predicate)</li>
+<li>mapToXxx(ToXxxFunction mapper)</li>
+<li>peek(Consumer action)</li>
+<li>distinct()：有状态方法</li>
+<li>sorted()：有状态方法</li>
+<li>limit(long maxSize)：有状态、短路方法</li>
+</ul>
+</li>
+<li>末端方法：对流的最终操作，执行后流将会被消耗。<ul>
+<li>forEach(Consumerr action)</li>
+<li>toArray()</li>
+<li><strong>reduce()：通过某种操作来合并流中的元素</strong></li>
+<li>min()</li>
+<li>max()</li>
+<li>count()</li>
+<li>anyMatch(Predicate predicate)</li>
+<li>allMatch(Predicate predicate)</li>
+<li>noneMatch(Predicate predicate)</li>
+<li>findFirst()</li>
+<li>findAny()</li>
+</ul>
+</li>
+<li>有状态方法：给流增加一些新的属性，比如元素唯一性、元素排序等，往往需要更大的性能开销</li>
+<li>短路方法：尽早结束对流的操作，不必检查所有元素</li>
+</ul>
+<pre><code class="java">// 包含 Java 的个数
+System.out.println(books.stream()
+                   .filter(ele -&gt; ((String)ele).contains(&quot;Java&quot;))
+                   .count());
+// 长度大于 10 的个数
+System.out.println(books.stream()
+                   .filter(ele -&gt; ((String)ele).length() &gt; 10)
+                   .count());
+books.stream().mapToInt(ele -&gt; ((String)ele).length())
+    .forEach(System.out::println);
+&#125;</code></pre>
+<h2 id="8-3-Set-集合"><a href="#8-3-Set-集合" class="headerlink" title="8.3 Set 集合"></a>8.3 Set 集合</h2><h3 id="8-3-1-HashSet-类"><a href="#8-3-1-HashSet-类" class="headerlink" title="8.3.1 HashSet 类"></a>8.3.1 HashSet 类</h3><ul>
+<li>不保证元素顺序</li>
+<li>不同步，多个线程同时修改 HashSet 时，必须通过代码来保证同步</li>
+<li>元素可以为 null</li>
+<li>equals()、hashCode() 返回值都相等时，判定元素重复</li>
+</ul>
+<pre><code class="java">class A &#123;
+    // 没有重写 hashCode，导致可以加进去相同对象
+    public boolean equals(Object obj) &#123;
+        return true;
+    &#125;
+&#125;
+class B &#123;
+    // 没有重写 equals，导致需要在同一个位置存储多个对象，会采用链式结构，导致性能下降
+    public int hashCode() &#123;
+        return 1;
+    &#125;
+&#125;
+class C &#123;
+    @Override
+    public boolean equals(Object obj) &#123;
+        return true;
+    &#125;
+    @Override
+    public int hashCode() &#123;
+        return 2;
+    &#125;
+&#125;
+public class HashSetTest &#123;
+    public static void main(String[] args) &#123;
+        HashSet books = new HashSet();
+        // 加进去两
+        books.add(new A());
+        books.add(new A());
+        // 加进去两
+        books.add(new B());
+        books.add(new B());
+        // 只加进去一个
+        books.add(new C());
+        books.add(new C());
+        System.out.println(books);
+    &#125;
+&#125;</code></pre>
+<p>从上边例子可以看出：当把一个对象放入 HashSet 中时，如果需要重写该对象对应订单 equals 方法，则也应该重写其 hashCode 方法。规则是，如果 equals 相等，hashCode 也应该相等。</p>
+<p>hash 算法的价值在于速度。hash 算法可以直接根据元素的 hashCode 值计算出该元素的存储位置，从而快速定位该元素。数组是所有能存储一组元素里最快的数据结构，直接根据索引计算元素在内存里的存储位置。不用数组的原因是数组元素的索引是连续的，而且数组长度是固定的。所以可以把 hash 结构理解为一种特殊的数组，hashCode 方法的返回值就是索引，并且长度不固定。</p>
+<p>重写 hashCode 方法的基本规则：</p>
+<ul>
+<li>同一个对象多次调用返回值应该相同</li>
+<li>两个对象 equals 为 true 时，hashCode 返回值应该相等</li>
+<li>对象中用作 equals 比较标准的<strong>实例变量</strong>，都应该用于计算 hashCode 值</li>
+</ul>
+<p>当向 HashSet 中添加可变对象时，必须十分小心，如果修改 HashSet 集合中的对象，有可能导致该对象与集合中的其他对象相等，从而导致 HashSet 无法准确访问该对象。</p>
+<pre><code class="java">class R &#123;
+    int count;
+    public R(int count)&#123;
+        this.count = count;
+    &#125;
+    public String toString() &#123;
+        return &quot;R[count:&quot;+count+&quot;]&quot;;
+    &#125;
+    public boolean equals(Object obj) &#123;
+        if(this == obj)
+            return true;
+        if(obj != null &amp;&amp; obj.getClass() == R.class)&#123;
+            R r = (R)obj;
+            return this.count == r.count;
+        &#125;
+        return false;
+    &#125;
+&#125;
+public class HashSetTest2 &#123;
+    public static void main(String[] args) &#123;
+        HashSet hs = new HashSet();
+        hs.add(new R(5));
+        hs.add(new R(-3));
+        hs.add(new R(9));
+        hs.add(new R(-2));
+        System.out.println(hs);
+        Iterator it = hs.iterator();
+        R first = (R)it.next();
+        first.count = -3;
+        // 此时发现集合中有重复元素
+        System.out.println(hs);
+        System.out.println(hs.remove(new R(-3)));
+        // 可以看到被删除了一个R元素
+        System.out.println(hs);
+        // false
+        System.out.println(&quot;hs 是否包含-3：&quot; + hs.contains(new R(-3)));
+        // false
+        System.out.println(&quot;hs 是否包含-2：&quot; + hs.contains(new R(-2)));
+    &#125;
+&#125;</code></pre>
+<p>感觉 remove、contains 都出问题了，怎么解决呢？如果不重写 hashCode 方法，Java 是如何计算的？</p>
+<h3 id="8-3-2-LinkedHashSet-类"><a href="#8-3-2-LinkedHashSet-类" class="headerlink" title="8.3.2 LinkedHashSet 类"></a>8.3.2 LinkedHashSet 类</h3><p>HashSet 有一个子类 LinkedHashSet，LinkedHashSet 也是根据元素的 hashCode 值来决定元素的存储位置，但它同时使用<strong>链表</strong>维护元素的次序，这样使得元素看起来是以插入的顺序保存的。插入性能变低，迭代访问全部元素时性能更好。</p>
+<pre><code class="java">public class LinkedHashSetTest &#123;
+    public static void main(String[] args) &#123;
+        HashSet hs = new LinkedHashSet();
+        hs.add(&quot;test&quot;);
+        hs.add(&quot;疯狂 Java 讲义&quot;);
+        System.out.println(hs);
+        hs.remove(&quot;test&quot;);
+        hs.add(&quot;test&quot;);
+        // false, set 集合不允许重复
+        System.out.println(hs.add(&quot;test&quot;));
+        System.out.println(hs);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-3-3-TreeSet-类"><a href="#8-3-3-TreeSet-类" class="headerlink" title="8.3.3 TreeSet 类"></a>8.3.3 TreeSet 类</h3><p>TreeSet 是 SortedSet 接口的实现类。TreeSet 可以确保集合元素处于排序状态。TreeSet 采用<strong>红黑树</strong>的数据结构来存储集合元素。</p>
+<ul>
+<li>Comparator comparator()：如果采用定制排序，返回定制排序的 Comparator；如果采用自然排序，返回 null</li>
+<li>Object first()</li>
+<li>Object last()</li>
+<li>Object lower(Object e)：返回指定元素之前的元素，参考元素不需要是 TreeSet 中的元素</li>
+<li>Object higher(Object e)</li>
+<li>SortedSet subSet(Object from, Object to)：返回 Set 子集合，左闭右开</li>
+<li>SortedSet headSet(Object to)：小于 to</li>
+<li>SortedSet tailSet(Object from)：大于等于 from</li>
+</ul>
+<pre><code class="java">public class TreeSetTest &#123;
+    public static void main(String[] args) &#123;
+        TreeSet nums = new TreeSet();
+        // 向 TreeSet 添加四个 Integer 对象
+        nums.add(5);
+        nums.add(2);
+        nums.add(10);
+        nums.add(-9);
+        // 输出是排序的
+        System.out.println(nums);
+        System.out.println(nums.first());
+        // 输出小于5的子集
+        System.out.println(nums.headSet(5));
+        // 输出大于等于5的子集
+        System.out.println(nums.tailSet(5));
+        // 2=&lt; x &lt; 5
+        System.out.println(nums.subSet(2, 5));
+    &#125;
+&#125;</code></pre>
+<h4 id="1-自然排序"><a href="#1-自然排序" class="headerlink" title="1. 自然排序"></a>1. 自然排序</h4><p>TreeSet 会调用集合元素的 compareTo(Object obj) 方法来比较元素之间的大小关系，然后将集合元素按<strong>升序</strong>排列，这就是自然排序。</p>
+<p>TreeSet 中的元素必须实现 Comparable 接口，否则会抛出异常。以下常用类已经实现：</p>
+<ul>
+<li>BigDecimal、BigInteger、所有数值类型的包装类</li>
+<li>Character：按字符 UNICODE 值进行比较</li>
+<li>Boolean：true &gt; false</li>
+<li>String：按字符 UNICODE 值进行比较</li>
+<li>Date、Time：后面时间、日期大于前面</li>
+</ul>
+<p>TreeSet 元素必须实现 Comparable 接口</p>
+<pre><code class="java">class Err &#123;&#125;
+public class TreeSetErrorTest &#123;
+    public static void main(String[] args) &#123;
+        TreeSet ts = new TreeSet();
+        // 添加失败， Err 没有实现 Comparable 接口
+        ts.add(new Err());
+    &#125;
+&#125;</code></pre>
+<p>TreeSet 元素必须是同一个类的实例。</p>
+<pre><code class="java">public class TreeSetErrorTest2 &#123;
+    public static void main(String[] args) &#123;
+        TreeSet ts = new TreeSet();
+        ts.add(new String(&quot;test&quot;));
+        // 报错，TreeSet 元素要求为同一个类的实例
+        ts.add(new Date());
+    &#125;
+&#125;</code></pre>
+<p>TreeSet 元素<strong>不和</strong>已经存在的元素相等时才可以成功加入。判断相等的标准是 compareTo 返回 0。</p>
+<pre><code class="java">class Z implements Comparable&#123;
+    int age;
+    public Z(int age)&#123;
+        this.age = age;
+    &#125;
+    public boolean equals(Object obj) &#123;
+        return true;
+    &#125;
+    public int compareTo(Object o) &#123;
+        return 1;
+    &#125;
+    public String toString() &#123;
+        return String.format(&quot;Z[%s]&quot;, age);
+    &#125;
+&#125;
+public class TreeSetTest2 &#123;
+    public static void main(String[] args) &#123;
+        TreeSet set = new TreeSet();
+        Z z1 = new Z(6);
+        set.add(z1);
+        // 再次添加 z1 还是成功，因为 compareTo 没有返回 0
+        System.out.println(set.add(z1));
+        System.out.println(set);
+        ((Z)set.first()).age = 9;
+        // 发现两个元素全部变为了 9
+        System.out.println(set);
+    &#125;
+&#125;</code></pre>
+<p>TODO: 该程序堆内存、栈内存示意图</p>
+<p>TreeSet 元素，<strong>compareTo 返回 0，但是 equals 返回 false，添加将失败</strong>。按照 set 集合原则，equals 返回 false 应该可以加进去才对。所以，两个对象 equals 返回 true 时，compareTo 应该返回 0。</p>
+<p>TreeSet 元素，添加可变对象，后边修改该可变对象的实例变量后，可能导致大小顺序发生变化，但 TreeSet 不会再次调整他们的顺序。这。。。。</p>
+<pre><code class="java">class T implements Comparable &#123;
+    int count;
+    public T(int count)&#123;
+        this.count = count;
+    &#125;
+    public String toString()&#123;
+        return &quot;T[count:&quot;+count+&quot;]&quot;;
+    &#125;
+    public boolean equals(Object obj)&#123;
+        if(this == obj)
+            return true;
+        if(obj != null &amp;&amp; obj.getClass() == T.class)&#123;
+            T r = (T)obj;
+            return r.count == this.count;
+        &#125;
+        return false;
+    &#125;
+    public int compareTo(Object obj)&#123;
+        T r = (T)obj;
+        return count &gt; r.count ? 1 :
+                count &lt; r.count ? -1 : 0;
+    &#125;
+&#125;
+
+/**
+ * 1. 修改可变元素后，排序可能变化，但是不会重新调整位置
+ * 2. 实例变量被改变后，元素无法删除；但是没被改变并且没有重复的元素可以正常删除
+ * 3. 为了程序健壮，推荐不要修改放入 HashSet 和 TreeSet 中元素的关键实例变量
+ */
+public class TreeSetTest3 &#123;
+    public static void main(String[] args) &#123;
+        TreeSet ts = new TreeSet();
+        ts.add(new T(5));
+        ts.add(new T(-3));
+        ts.add(new T(9));
+        ts.add(new T(-2));
+        // 输出是有序的
+        System.out.println(ts);
+        // 取出第一个元素，并重新赋值
+        ((T)ts.first()).count = 20;
+        // 取出最后一个员，并重新赋值（值和第二个元素相同）
+        ((T)ts.last()).count = -2;
+        // 输出是无序的，并且有重复元素
+        System.out.println(ts);
+        // 删除实例变量被改变的元素，删除失败
+        System.out.println(ts.remove(new T(-2)));
+        System.out.println(ts);
+        // 删除实例变量没有被改变的元素，删除成功
+        System.out.println(ts.remove(new T(5)));
+        System.out.println(ts);
+    &#125;
+&#125;</code></pre>
+<h4 id="2-定制排序"><a href="#2-定制排序" class="headerlink" title="2. 定制排序"></a>2. 定制排序</h4><p>通过构造器传入 Comparator 实现定制排序。</p>
+<pre><code class="java">class M &#123;
+    int age;
+    public M(int age)&#123;
+        this.age = age;
+    &#125;
+    public String toString()&#123;
+        return &quot;M[age:&quot; + age + &quot;]&quot;;
+    &#125;
+&#125;
+
+/**
+ * 定制排序，构造器给出 Comparator 的实现
+ */
+public class TreeSetTest4 &#123;
+    public static void main(String[] args) &#123;
+        TreeSet ts = new TreeSet((o1, o2) -&gt; &#123;
+            M m1 = (M)o1;
+            M m2 = (M)o2;
+            // age 越大， M 对象越小
+            return m1.age &gt; m2.age ? -1
+                    : m1.age &lt; m2.age ? 1 : 0;
+        &#125;);
+        ts.add(new M(5));
+        ts.add(new M(-3));
+        ts.add(new M(9));
+        System.out.println(ts);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-3-4-EnumSet-类"><a href="#8-3-4-EnumSet-类" class="headerlink" title="8.3.4 EnumSet 类"></a>8.3.4 EnumSet 类</h3><p>EnumSet 的元素也是有序的，就是 Enum 中定义的顺序。</p>
+<p>EnumSet 内部以位向量的形式存储，这种存储形式非常紧凑、高效，因此占用内存小，效率高。</p>
+<p>EnumSet 不允许加入 null 元素。</p>
+<p>EnumSet 没有暴露任何构造器，只能通过它的类方法来创新 EnumSet 对象。</p>
+<ul>
+<li>EnumSet allOf(Class type)</li>
+<li>EnumSet complementOf(EnumSet s)：刨除 s</li>
+<li>EnumSet copyOf(Collenction c)</li>
+<li>EnumSet copyOf(EnumSet s)</li>
+<li>EnumSet noneOf(Class type)</li>
+<li>EnumSet of(E first, E…rest)</li>
+<li>EnumSet range(E from, E to)</li>
+</ul>
+<pre><code class="java">enum Season &#123;
+    SPRING,SUMMER,FALL,WINNER
+&#125;
+public class EnumSetTest &#123;
+    public static void main(String[] args) &#123;
+        EnumSet es = EnumSet.allOf(Season.class);
+        // 四个
+        System.out.println(es);
+        EnumSet&lt;Season&gt; es2 = EnumSet.noneOf(Season.class);
+        // 空
+        System.out.println(es2);
+        es2.add(Season.WINNER);
+        es2.add(Season.SPRING);
+        // 输出有序结果
+        System.out.println(es2);
+        // 刨除 es2 后剩下的值
+        EnumSet&lt;Season&gt; es3 = EnumSet.complementOf(es2);
+        System.out.println(es3);
+
+        Collection c = new HashSet();
+        c.add(Season.FALL);
+        c.add(Season.SPRING);
+        // 赋值，要求集合中都是同一个枚举中的值
+        EnumSet enumSet = EnumSet.copyOf(c);
+        System.out.println(enumSet);
+        c.add(&quot;test&quot;);
+        // 报错
+        // EnumSet enumSet1 = EnumSet.copyOf(c);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-3-5-各-Set-实现类性能分析"><a href="#8-3-5-各-Set-实现类性能分析" class="headerlink" title="8.3.5 各 Set 实现类性能分析"></a>8.3.5 各 Set 实现类性能分析</h3><p>HashSet 性能总是比 TreeSet 好，因为 TreeSet 需要额外的红黑树算法来维护元素的次序。只有当需要一个保持排序的 Set 时采用 TreeSet，其他都用 HashSet。</p>
+<p>LinkedHashSet：插入、删除比 HashSet 略微慢一点，因为要维护链表，但是遍历更快。</p>
+<p>EnumSet 是所有 Set 实现中性能最好的，但是只能保存同一个枚举类的枚举值。</p>
+<p>HashSet、TreeSet、EnumSet 都是线程不安全的。如果有多个线程同时访问一个 Set，并且有超过一个线程修改了该 Set，则必须手动保证该 Set 的同步性。</p>
+<p><strong>问题：</strong>既然已经有了 LinkedHashSet 并且性能比 TreeSet 好，为啥还要使用 TreeSet？</p>
+<h2 id="8-4-List-集合"><a href="#8-4-List-集合" class="headerlink" title="8.4 List 集合"></a>8.4 List 集合</h2><h3 id="8-4-1-Java8-改进的-List-接口和-ListIterator-接口"><a href="#8-4-1-Java8-改进的-List-接口和-ListIterator-接口" class="headerlink" title="8.4.1 Java8 改进的 List 接口和 ListIterator 接口"></a>8.4.1 Java8 改进的 List 接口和 ListIterator 接口</h3><p>除了 Collection 中方法，List 中还有一些根据索引来操作集合的方法：</p>
+<ul>
+<li>void add(int index, Object element)</li>
+<li>boolean addAll(int index, Collection c)</li>
+<li>Object get(int index)</li>
+<li>int indexOf(Object 0)</li>
+<li>Object remove(int index)</li>
+<li>Object set(int index, Object element)</li>
+<li>List subList(int from, int to)：左闭右开</li>
+<li>void replaceAll(UnaryOperator operator)：根据 operator 指定的计算规则重新设置 List 的所有元素</li>
+<li>void sort(Comparator c)：重新排序</li>
+</ul>
+<p>indexOf 方法根据 equals 判断相等；</p>
+<p>add/set 只能是有效索引，否则数组越界；</p>
+<pre><code class="java">public class ListTest &#123;
+    public static void main(String[] args) &#123;
+        List books = new ArrayList();
+        books.add(new String(&quot;test1&quot;));
+        books.add(new String(&quot;test2&quot;));
+        books.add(new String(&quot;test3&quot;));
+
+        // 将新字符串对象插入到第二个位置
+        books.add(1, &quot;new test2&quot;);
+        // 发现变为4个元素了
+        for (int i = 0; i &lt; books.size(); i++) &#123;
+            System.out.println(books.get(i));
+        &#125;
+        // 删除第三个元素
+        books.remove(2);
+        System.out.println(books);
+        // 输出1，表明位于第二位
+        // 虽然是new的对象，但是List是根据 equals 判断相等的
+        System.out.println(books.indexOf(new String(&quot;new test2&quot;)));
+        // 将第二个元素替换回来
+        books.set(1, new String(&quot;test2&quot;));
+        System.out.println(books);
+        // 0 =&lt; x &lt; 1
+        System.out.println(books.subList(0,1));
+
+        System.out.println(&quot;=========&quot;);
+        // add/set 只能是有效索引，否则数组越界
+        // books.set(10, &quot;aaa&quot;);
+        // books.add(10, &quot;aaa&quot;);
+    &#125;
+&#125;</code></pre>
+<p><strong>List 根据 equals 判断相等</strong></p>
+<pre><code class="java">class A &#123;
+    public boolean equals(Object o)&#123;
+        return true;
+    &#125;
+&#125;
+public class ListTest2 &#123;
+    public static void main(String[] args) &#123;
+        List books = new ArrayList();
+        books.add(&quot;test1&quot;);
+        books.add(&quot;test2&quot;);
+        books.add(&quot;test3&quot;);
+        System.out.println(books);
+        // 删除集合中的 A 对象，导致第一个元素被删除
+        books.remove(new A());
+        // 再次删除集合中的第一个元素
+        books.remove(new A());
+        System.out.println(books);
+    &#125;
+&#125;</code></pre>
+<p>Java 新增的排序和替换</p>
+<pre><code class="java">public class ListTest3 &#123;
+    public static void main(String[] args) &#123;
+        List books = new ArrayList();
+        books.add(&quot;1&quot;);
+        books.add(&quot;111&quot;);
+        books.add(&quot;11&quot;);
+        books.add(&quot;11111&quot;);
+
+        // Comparator
+        books.sort((o1,o2) -&gt;((String)o1).length() - ((String)o2).length());
+        System.out.println(books);
+        // UnaryOperator
+        books.replaceAll(ele -&gt; ((String)ele).length());
+        System.out.println(books);
+
+    &#125;
+&#125;</code></pre>
+<p>除了 iteretor() 方法，List 还额外提供了一个 listIterator() 方法，返回 ListIterator</p>
+<ul>
+<li>boolean hasPrevious()</li>
+<li>Object previous()</li>
+<li>void add(Object o)：真的加进去了吗？</li>
+</ul>
+<pre><code class="java">public class ListlteratorTest &#123;
+    public static void main(String[] args) &#123;
+        List books = new ArrayList();
+        books.add(&quot;test1&quot;);
+        books.add(&quot;test2&quot;);
+        books.add(&quot;test3&quot;);
+        books.add(&quot;test4&quot;);
+
+        ListIterator lit = books.listIterator();
+        while (lit.hasNext())&#123;
+            System.out.println(lit.next());
+            // iterator 只有remove
+            lit.add(&quot;---------aaa----------&quot;);
+        &#125;
+        System.out.println(&quot;==============&quot;);
+        while (lit.hasPrevious())&#123;
+            System.out.println(lit.previous());
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h3 id="8-4-2-ArrayList-和-Vector-实现类"><a href="#8-4-2-ArrayList-和-Vector-实现类" class="headerlink" title="8.4.2 ArrayList 和 Vector 实现类"></a>8.4.2 ArrayList 和 Vector 实现类</h3><p>ArrayList 和 Vector 类都是<strong>基于数组</strong>实现的 List 类，所以 ArrayList 和 Vector 类封装了一个动态的、允许再分配的 Object[] 数组。ArrayList 或 Vector 对象使用 <strong>initialCapacity</strong> 参数来设置该数组的长度， 当向 ArrayList 或 Vector 中添加元素超出了该数组的长度时，它们的 initialCapacity 会自动增加。</p>
+<p>如果开始就知道 ArrayList 或 Vector 集合需要保存多少个元素，则可以在创建它们时就指定initialCapacity 大小。如果创建空的 ArrayList 或 Vector 集合时不指定initialCapacity 参数，则 Object[] 数组的长度默认为 10 。</p>
+<ul>
+<li>void ensureCapacity(int minCapacity)：长度增加到大于等于 minCpacity</li>
+<li>void trimToSize()</li>
+</ul>
+<p>ArrayList 线程不安全；Vector 线程安全，但也不推荐使用。</p>
+<h3 id="8-4-3-固定长度的-List"><a href="#8-4-3-固定长度的-List" class="headerlink" title="8.4.3 固定长度的 List"></a>8.4.3 固定长度的 List</h3><p>Arrays.ArrayList 是一个固定长度的 List 集合，程序只能遍历访问该集合里的元素，不可增加、删除该集合里的元素</p>
+<pre><code class="java">public class FixedSizeList &#123;
+    public static void main(String[] args) &#123;
+        List&lt;String&gt; list = Arrays.asList(&quot;test1&quot;, &quot;test2&quot;);
+        // 实现类：Arrays$ArrayList
+        System.out.println(list.getClass());
+        list.forEach(System.out::println);
+        // 试图增加、删除都会抛出 UnsupportedOperationException 异常
+        list.add(&quot;test3&quot;);
+        list.remove(&quot;test1&quot;);
+    &#125;
+&#125;</code></pre>
+<h2 id="8-5-Queue-集合"><a href="#8-5-Queue-集合" class="headerlink" title="8.5 Queue 集合"></a>8.5 Queue 集合</h2><p>FIFO 容器。<strong>新元素插入(offer)到队列的尾部，访问元素(poll)返回队列头部的元素</strong>。出头插尾</p>
+<ul>
+<li>boolean add(Object e)：加入队列尾部</li>
+<li>boolean offer(Object e)：加入队列尾部，队列容量有限时，通城比 add 好</li>
+<li>Object element()：获取头部元素，不删除。如果队列为空，NoSuchElementException</li>
+<li>Object peek()：获取头部元素，不删除。如果队列为空，返回 null</li>
+<li>Object poll()：获取头部元素，并删除。如果队列为空，返回null</li>
+<li>Object remove()：获取头部元素，并删除。如果队列为空，NoSuchElementException</li>
+</ul>
+<p>Queue 接口有一个 PriorityQueue 实现类。</p>
+<p>Queue 接口有一个 Deque 接口，表示<strong>双端队列</strong>，因此 Deque 既可以当成队列使用也可以当成栈使用。Deque 有 ArrayDeque、LinkedList 两个实现类。</p>
+<h3 id="8-5-1-PriorityQueue-实现类"><a href="#8-5-1-PriorityQueue-实现类" class="headerlink" title="8.5.1 PriorityQueue 实现类"></a>8.5.1 PriorityQueue 实现类</h3><p>比较标准的队列实现类，不是绝对标准，因为不是 FIFO，而是<strong>根据大小排序</strong>。</p>
+<pre><code class="java">public class PriorityQueueTest &#123;
+    public static void main(String[] args) &#123;
+        PriorityQueue pq = new PriorityQueue();
+        pq.offer(6);
+        pq.offer(-3);
+        pq.offer(20);
+        pq.offer(18);
+        // PriorityQueue 不可有 null
+        // pq.offer(null);
+        // 输出不是按照加入顺序，而是按照大小
+        // 显示没有准确按照大小是因为 toString 的影响
+        System.out.println(pq);
+        // 获取并删除第一个元素
+        System.out.println(pq.poll());
+        System.out.println(pq);
+    &#125;
+&#125;</code></pre>
+<p>和 TreeSet 一样， PriorityQueue 的元素有两种排序方式</p>
+<ul>
+<li>自然排序：元素必须实现了 Comparable 接口，而且是同一个类实例</li>
+<li>定制排序：创建 PriorityQueue 时，传入一个 Comparator 对象。定制排序时不要求元素实现 Comparable 接口</li>
+</ul>
+<h3 id="8-5-2-Deque-接口与-ArrayDeque-实现类"><a href="#8-5-2-Deque-接口与-ArrayDeque-实现类" class="headerlink" title="8.5.2 Deque 接口与 ArrayDeque 实现类"></a>8.5.2 Deque 接口与 ArrayDeque 实现类</h3><ul>
+<li>void addFirst(Object o)：插入双端队列开头</li>
+<li>void addLast(Object 0)</li>
+<li>boolean offerFirst(Object o)</li>
+<li>boolean offerLast(Object o)</li>
+<li>Iterator descendingIterator()：逆向迭代器</li>
+<li>Object getFirst()：获取第一个元素，不删除</li>
+<li>Object getLast()：获取最后一个元素，不删除</li>
+<li>Object peekFisrt()：获取第一个元素，不删除；如队列为空，返回null</li>
+<li>Object peekLast()：获取最后一个元素，不删除；如队列为空，返回null</li>
+<li>Object pollFisrt()：获取第一个元素，并删除；如队列为空，返回null</li>
+<li>Object pollLast()：获取最后一个元素，并删除；如队列为空，返回null</li>
+<li>Object removeFirst()：获取第一个元素，并删除；如队列为空，NoSuchElementException</li>
+<li>Object removeLast()：获取最后一个元素，并删除；如队列为空，NoSuchElementException</li>
+<li>Object removeFirstOccurrence(Object 0)：获取第一次出现的元素o，并删除</li>
+<li>Object removeLastOccurrence(Object 0)：获取最后一次出现的元素o，并删除</li>
+<li>Object pop()：栈方法。出栈，相当于 removeFirst()</li>
+<li>void  pust(Object o)：栈方法。入栈，相当于 addFirst()</li>
+</ul>
+<p>ArrayDeque 基于数组实现，创建 Deque 时同样可以指定一个 numElements,用于指定 Object[] 长度，Deque 底层数组长度为 16。</p>
+<p>作为栈使用。尽量使用 ArrayDeque，不要使用 Stack，Stack 是古老的集合，性能较差。</p>
+<pre><code class="java">public class ArrayDequeStack &#123;
+    public static void main(String[] args) &#123;
+        ArrayDeque stack = new ArrayDeque(10);
+        // 入栈
+        stack.push(&quot;test1&quot;);
+        stack.push(&quot;test2&quot;);
+        stack.push(&quot;test3&quot;);
+        System.out.println(stack);
+        // 访问第一个元素 test3
+        System.out.println(stack.peek());
+        // 出栈 test3
+        System.out.println(stack.pop());
+        System.out.println(stack);
+    &#125;
+&#125;</code></pre>
+<p>作为队列使用</p>
+<pre><code class="java">public class ArrayDequeQueue &#123;
+    public static void main(String[] args) &#123;
+        ArrayDeque queue = new ArrayDeque();
+        // 入队
+        queue.offer(&quot;test1&quot;);
+        queue.offer(&quot;test2&quot;);
+        queue.offer(&quot;test3&quot;);
+        // test1 test2 test3
+        System.out.println(queue);
+        // 访问第一个元素 test1
+        System.out.println(queue.peek());
+        // 出队 test1
+        System.out.println(queue.poll());
+        System.out.println(queue);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-5-3-LinkedList-实现类"><a href="#8-5-3-LinkedList-实现类" class="headerlink" title="8.5.3 LinkedList 实现类"></a>8.5.3 LinkedList 实现类</h3><p>LinkedList 是 List 实现类，所以是一个 List 集合，可以根据索引来随机访问元素。</p>
+<p>LinkedList 还实现了 Deque 接口，因此既可以当成队列来使用也可以当成栈来使用。</p>
+<pre><code class="java">public class LinkedListTest &#123;
+    public static void main(String[] args) &#123;
+        LinkedList books = new LinkedList();
+        // 加入队列尾部
+        books.offer(&quot;test1&quot;);
+        // 加入栈顶部
+        books.push(&quot;test2&quot;);
+        // 加入队列头部（相当于栈顶部）
+        books.offerFirst(&quot;test3&quot;);
+        // 以 List 方式遍历集合 test3 test2 test1
+        for (int i = 0; i &lt; books.size(); i++) &#123;
+            System.out.println(&quot;遍历中：&quot; + books.get(i));
+        &#125;
+        // 访问栈顶元素 test3
+        System.out.println(books.peekFirst());
+        // 访问队列最后一个元素 test1
+        System.out.println(books.peekLast());
+        // 出栈 test3
+        System.out.println(books.pop());
+        // test2 test1
+        System.out.println(books);
+        // 删除最后一个 test1
+        System.out.println(books.pollLast());
+        // test2
+        System.out.println(books);
+    &#125;
+&#125;</code></pre>
+<p>ArrayList 、ArrayDeque 内部以<strong>数组</strong>的形式来保存集合中的元素， 因此<strong>随机访问</strong>集合元素时有较好的性能；而 LinkedList 内部以<strong>链表</strong>的形式来保存集合中的元素，因此随机访问集合元素时性能较差，但在<strong>插入、删除</strong>元素时性能比较出色(只需改变指针所指的地址即可)</p>
+<h3 id="8-5-4-各种线性表性能分析"><a href="#8-5-4-各种线性表性能分析" class="headerlink" title="8.5.4 各种线性表性能分析"></a>8.5.4 各种线性表性能分析</h3><p>List 就是一个线性表接口，而 ArrayList、LinkedList 又是线性表的两种典型实现：基于数组的线性表和基于链表的线性表。</p>
+<p>一般来说，数组以一块连续内存区来保存所有元素，所有数组随机访问性能最好；而链表在执行插入、删除操作时性能较好。总体来说 ArrayList 性能比 LinkedList 好。</p>
+<ul>
+<li>对于遍历 List 集合：ArrayList、Vector 应该使用随机访问方法（get）；LinkedList 集合，应该采用迭代器（Iterator）来遍历</li>
+<li>需要经常执行插入、删除操作来改变包含大量数据的 List，可以考虑使用 LinkedList。使用 ArrayList、Vector 可能需要经常重新分配内部数组大小。</li>
+<li>List 集合线程不安全。可以用 Collections 将集合包装成线程安全集合。</li>
+</ul>
+<h2 id="8-6-Java8-增强的-Map-集合"><a href="#8-6-Java8-增强的-Map-集合" class="headerlink" title="8.6 Java8 增强的 Map 集合"></a>8.6 Java8 增强的 Map 集合</h2><ul>
+<li>void clear()</li>
+<li>boolean containsKey(Object key)</li>
+<li>boolean containsValue(Object value)</li>
+<li>Set entrySet()</li>
+<li>Set keySet()</li>
+<li>Collection values()</li>
+<li>Object get(Object key)</li>
+<li>boolean isEmpty()</li>
+<li>Object put(Object key, Object value)：key 已经存在则覆盖</li>
+<li>void putAll(Map m)</li>
+<li>Object remove(Object key)</li>
+<li>int size()</li>
+</ul>
+<p>Map.Entry</p>
+<ul>
+<li>Object getKey()</li>
+<li>Object getValue()</li>
+<li>Object setValue()</li>
+</ul>
+<pre><code class="java">public class MapTest &#123;
+    public static void main(String[] args) &#123;
+        Map map = new HashMap();
+        map.put(&quot;test1&quot;, 1);
+        map.put(&quot;test2&quot;, 2);
+        map.put(&quot;test3&quot;, 3);
+        map.put(&quot;test4&quot;, 4);
+
+        // 插入新值，返回原来的值
+        System.out.println(map.put(&quot;test2&quot;, 22));
+        System.out.println(map);
+        System.out.println(map.containsKey(&quot;test3&quot;));
+        System.out.println(map.containsValue(22));
+        // 遍历
+        for(Object e : map.entrySet())&#123;
+            Map.Entry entry = (Map.Entry)e;
+            System.out.println(entry.getKey() + &quot; == &quot; + entry.getValue());
+        &#125;
+        // 删除 test2
+        System.out.println(map.remove(&quot;test2&quot;));
+        System.out.println(map);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-6-1-Java8-为-Map-新增的方法"><a href="#8-6-1-Java8-为-Map-新增的方法" class="headerlink" title="8.6.1 Java8 为 Map 新增的方法"></a>8.6.1 Java8 为 Map 新增的方法</h3><ul>
+<li>Object compute(Object key, BiFunction f)：使用 f 算一个新 value。新 value 不为 null，就覆盖；原 value 不为 null，新 value 为 null，删除 key；都为 null，不做操作，返回 null</li>
+<li>Object computeIfAbsent(Object key, Function f)：key 不存在或者对应 value 为null，用 f 计算结果插入或替换 </li>
+<li>Object computeIfPresent(Object key, Function f)：key 的 value 不为 null，则用 f 计算结果替换或者<strong>删除</strong></li>
+<li>void forEach(BiConsumer action)</li>
+<li>Object getOrDefault(Object key, V v)</li>
+<li>Object merge(Object key, Object value, BiFunction f)：key 不存在或者对应 value 为 null，直接用 value 参数插入或覆盖；否则用 f 计算结果覆盖</li>
+<li>Object putIfAbsent(Object key, Object value)：value 为 null，则替换</li>
+<li>Object replace(Object key, Object value)：替换 value，如果不存在返回null，不会插入新 key</li>
+<li>replaceAll(BiFunction function)：f 执行结果替换 value</li>
+</ul>
+<pre><code class="java">public class MapTest2 &#123;
+    public static void main(String[] args) &#123;
+        Map map = new HashMap();
+        map.put(&quot;test1&quot;, 1);
+        map.put(&quot;test2&quot;, 2);
+        map.put(&quot;test3&quot;, 3);
+        map.put(&quot;test4&quot;, 4);
+        // test5 不存在，不做任何改变
+        map.replace(&quot;test5&quot;, 5);
+        System.out.println(map);
+        // merge
+        map.merge(&quot;test2&quot;, 22,
+                (oldVal, param) -&gt; (Integer)oldVal + (Integer)param);
+        // 24
+        System.out.println(map.get(&quot;test2&quot;));
+        // computeIfAbsent 5
+        map.computeIfAbsent(&quot;test5&quot;,
+                (key) -&gt; ((String)key).length());
+        System.out.println(map.get(&quot;test5&quot;));
+        map.computeIfPresent(&quot;test5&quot;,
+                (key, value) -&gt; (Integer)value * (Integer)value);
+        System.out.println(map);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-6-2-Java8-改进的-HashMap-和-Hashtable-实现类"><a href="#8-6-2-Java8-改进的-HashMap-和-Hashtable-实现类" class="headerlink" title="8.6.2 Java8 改进的 HashMap 和 Hashtable 实现类"></a>8.6.2 Java8 改进的 HashMap 和 Hashtable 实现类</h3><p>区别：</p>
+<ul>
+<li>HashTable 线程安全，HashMap 线程不安全</li>
+<li>HashTable 不允许使用 null 作为 key 和value，HashMap 可以</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>key 对象必须实现 hashCode、equals 方法</li>
+<li>所有自定义类作为 key 时，应该保证 hashCode、equals 结果一致</li>
+<li>不能保证顺序</li>
+<li>判断key相等标准：和 HashSet 一样，key 的 equals、hashCode 都相等</li>
+<li>判断value相等标准：value equals 相等</li>
+</ul>
+<pre><code class="java">class A &#123;
+    int count;
+    public A(int count)&#123;
+        this.count = count;
+    &#125;
+    public boolean equals(Object o)&#123;
+        if(o == this) return true;
+        if(o != null &amp;&amp; o.getClass() == A.class)&#123;
+            A a = (A)o;
+            return this.count == a.count;
+        &#125;
+        return false;
+    &#125;
+    public int hashCode()&#123;
+        return this.count;
+    &#125;
+&#125;
+class B &#123;
+    public boolean equals(Object o) &#123;
+        return true;
+    &#125;
+&#125;
+public class HashTableTest &#123;
+    public static void main(String[] args) &#123;
+        Hashtable ht = new Hashtable();
+        ht.put(new A(60000), &quot;疯狂 Java 讲义&quot;);
+        ht.put(new A(87563), &quot;请量级&quot;);
+        ht.put(new A(1232), new B());
+        System.out.println(ht);
+        // value：只要 equals 相等即可 true
+        System.out.println(ht.containsValue(&quot;test&quot;));
+        // key：需要 equals 和 hashCode 都相等 true
+        System.out.println(ht.containsKey(new A(87563)));
+        // 删除最后一个entry
+        ht.remove(new A(1232));
+        System.out.println(ht);
+    &#125;
+&#125;</code></pre>
+<p>与 HashSet 类似的是，如果使用可变对象作为 HashMap 、Hashtable 的 key，并且程序修改了作为 key 的可变对象，则也可能出现与 HashSet 类似的情形：程序再也无法准确访问到Map 中被修改过的 key 。</p>
+<pre><code class="java">public class HashMapErrorTest &#123;
+    public static void main(String[] args) &#123;
+        HashMap ht = new HashMap();
+        ht.put(new A(60000), &quot;test1&quot;);
+        ht.put(new A(87563), &quot;test2&quot;);
+        Iterator it = ht.keySet().iterator();
+        // 取出 Map 中第一个 key，并修改 count
+        A first = (A)it.next();
+        first.count = 1;
+        System.out.println(ht);
+        // 只能删除没有被修改过的 key
+        ht.remove(new A(87563));
+        System.out.println(ht);
+        // 无法获取被修改过的 key null
+        System.out.println(ht.get(new A(1)));
+        System.out.println(ht.get(new A(60000)));
+    &#125;
+&#125;</code></pre>
+<h3 id="8-6-3-LinkedHashMap-实现类"><a href="#8-6-3-LinkedHashMap-实现类" class="headerlink" title="8.6.3 LinkedHashMap 实现类"></a>8.6.3 LinkedHashMap 实现类</h3><p>HashSet 有一个子类 LinkedHashSet；HashMap 也有一个子类 LinkedHashMap，也是用双向链表来维护顺序。顺序就是添加顺序。</p>
+<pre><code class="java">public class LinkedHashMapTest &#123;
+    public static void main(String[] args) &#123;
+        LinkedHashMap scores = new LinkedHashMap();
+        // HashMap scores = new HashMap();
+        scores.put(&quot;语文&quot;, 80);
+        scores.put(&quot;英文&quot;, 82);
+        scores.put(&quot;数学&quot;, 76);
+
+        scores.forEach((key, value) -&gt; System.out.println(key+&quot;--&gt;&quot;+value));
+    &#125;
+&#125;</code></pre>
+<h3 id="8-6-4-使用-Properties-读写属性文件"><a href="#8-6-4-使用-Properties-读写属性文件" class="headerlink" title="8.6.4 使用 Properties 读写属性文件"></a>8.6.4 使用 Properties 读写属性文件</h3><p>Properties 相当于一个 key、value 都是 String 类型的 Map</p>
+<ul>
+<li>String getProperty(String key)</li>
+<li>String getProperty(String key, String defaultValue)</li>
+<li>Object setProperty(String key, String value)</li>
+<li>void load(InputStream inStream)</li>
+<li>void store(OutputStream out, String comments)</li>
+</ul>
+<pre><code class="java">public class PropertiesTest &#123;
+    public static void main(String[] args) throws IOException &#123;
+        Properties props = new Properties();
+        props.setProperty(&quot;username&quot;, &quot;admin&quot;);
+        props.setProperty(&quot;password&quot;, &quot;pass9876&quot;);
+        // 保存到 a.ini 文件
+        props.store(new FileOutputStream(&quot;a.ini&quot;), &quot;comment line&quot;);
+        props.storeToXML(new FileOutputStream(&quot;a.xml&quot;), &quot;comment line&quot;);
+
+        Properties props2 = new Properties();
+        props2.setProperty(&quot;gender&quot;, &quot;male&quot;);
+        props2.load(new FileInputStream(&quot;a.ini&quot;));
+        System.out.println(props2);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-6-5-SortedMap-接口和-TreeMap-实现类"><a href="#8-6-5-SortedMap-接口和-TreeMap-实现类" class="headerlink" title="8.6.5 SortedMap 接口和 TreeMap 实现类"></a>8.6.5 SortedMap 接口和 TreeMap 实现类</h3><p>数据结构、排序方式、判断相等的标准和 TreeSet 一样。</p>
+<ul>
+<li>Map.Entry firstEntry()</li>
+<li>Object firstKey()</li>
+<li>Map.Entry lastEntry()</li>
+<li>Object lastKey()</li>
+<li>Map.Entry higherEntry(Object key)</li>
+<li>Object higherKey(Object key)</li>
+<li>Map.Entry lowerEntry(Object key)</li>
+<li>Object lowerKey(Object key)</li>
+<li>NavigableMap subMap(Object from, boolean fromIn, Object to, boolean toIn)</li>
+<li>SortedMap subMap(Object from, Object to)：左闭右开</li>
+<li>SortedMap tailMap(Object from)：包含 from</li>
+<li>NavigableMap tailMap(Object from, boolean fromIn)</li>
+<li>SortedMap headMap(Object to)：不包含 to</li>
+<li>NavigableMap headMap(Object to, boolean toIn)</li>
+</ul>
+<pre><code class="java">class R implements Comparable&#123;
+    int count;
+    public R(int count)&#123;
+        this.count = count;
+    &#125;
+    public String toString()&#123;
+        return &quot;R[count:&quot;+count+&quot;]&quot;;
+    &#125;
+    public boolean equals(Object o)&#123;
+        if(this == o) return true;
+        if(o != null &amp;&amp; o.getClass() == R.class)&#123;
+            R r = (R)o;
+            return r.count == this.count;
+        &#125;
+        return false;
+    &#125;
+    public int compareTo(Object o)&#123;
+        R r = (R)o;
+        return count &gt; r.count ? 1 : count &lt; r.count ? -1 : 0;
+    &#125;
+&#125;
+public class TreeMapTest &#123;
+    public static void main(String[] args) &#123;
+        TreeMap tm = new TreeMap();
+        tm.put(new R(3), &quot;test3&quot;);
+        tm.put(new R(-5), &quot;test-5&quot;);
+        tm.put(new R(9), &quot;test9&quot;);
+        System.out.println(tm);
+        // 取出第一个 entry -5
+        System.out.println(tm.firstEntry());
+        // 取出最后一个 key 9
+        System.out.println(tm.lastKey());
+        // 取出大于2的一个 key 3
+        System.out.println(tm.higherKey(new R(2)));
+        // 取出小于2的一个 entry -5
+        System.out.println(tm.lowerEntry(new R(2)));
+        // -5 =&lt; x &lt; 9 -5 3
+        System.out.println(tm.subMap(new R(-5), new R(9)));
+    &#125;
+&#125;</code></pre>
+<h3 id="8-6-6-WeakHashMap-实现类"><a href="#8-6-6-WeakHashMap-实现类" class="headerlink" title="8.6.6 WeakHashMap 实现类"></a>8.6.6 WeakHashMap 实现类</h3><p>WeakHashMap 只持有对 key 的弱引用，所以 entry 有可能被 GC。</p>
+<pre><code class="java">public class WeakHashMapTest &#123;
+    public static void main(String[] args) &#123;
+        WeakHashMap whm = new WeakHashMap();
+        // key 为 匿名字符串对象（没有其他引用）
+        whm.put(new String(&quot;语文&quot;), new String(&quot;良好&quot;));
+        whm.put(new String(&quot;数学&quot;), new String(&quot;及格&quot;));
+        whm.put(new String(&quot;英文&quot;), new String(&quot;中等&quot;));
+        // key 为系统缓存的字符串对象，系统会自动保持强引用
+        whm.put(&quot;java&quot;, new String(&quot;中等&quot;));
+        System.out.println(whm);
+        System.gc();
+        System.runFinalization();
+        System.out.println(whm);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-6-7-IdentityHashMap-实现类"><a href="#8-6-7-IdentityHashMap-实现类" class="headerlink" title="8.6.7 IdentityHashMap 实现类"></a>8.6.7 IdentityHashMap 实现类</h3><p>IdentityHashMap 中当且仅当两个 key 严格相等时（key1 == key2）才判定 key 相等。</p>
+<pre><code class="java">public class IdentityHashMapTest &#123;
+    public static void main(String[] args) &#123;
+        IdentityHashMap ihm = new IdentityHashMap();
+        ihm.put(new String(&quot;语文&quot;), 89);
+        ihm.put(new String(&quot;语文&quot;), 89);
+        ihm.put(&quot;语文&quot;, 89);
+        ihm.put(&quot;java&quot;, 93);
+        ihm.put(&quot;java&quot;, 93);
+        // 4个
+        System.out.println(ihm);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-6-8-EnumMap-实现类"><a href="#8-6-8-EnumMap-实现类" class="headerlink" title="8.6.8 EnumMap 实现类"></a>8.6.8 EnumMap 实现类</h3><ul>
+<li>内部以数组形式保存</li>
+<li>顺序根据枚举类中的定义</li>
+<li>不允许 null 作为 key，但可以作为 value</li>
+</ul>
+<pre><code class="java">enum Season&#123;
+    SPRING,SUMMER,FALL,WINTER
+&#125;
+public class EnumTest &#123;
+    public static void main(String[] args) &#123;
+        EnumMap enumMap = new EnumMap(Season.class);
+        enumMap.put(Season.SUMMER, &quot;夏日炎炎&quot;);
+        enumMap.put(Season.SPRING, &quot;春暖花开&quot;);
+        // 春、夏
+        System.out.println(enumMap);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-6-9-各-Map-实现类性能分析"><a href="#8-6-9-各-Map-实现类性能分析" class="headerlink" title="8.6.9 各 Map 实现类性能分析"></a>8.6.9 各 Map 实现类性能分析</h3><p>HashMap、Hashtable 实现机制几乎一样，但 Hashtable 是一个古老并且线程安全的集合，HashMap 效率通常更高。</p>
+<p>TreeMap通常比 HashMap、Hashtable 慢，尤其在插入删除时，因为要维护红黑树。</p>
+<p>LinkedHashMap 比 HashMap 慢一点，因为要维护链表。</p>
+<h2 id="8-7-HashSet-和-HashMap-的性能选项"><a href="#8-7-HashSet-和-HashMap-的性能选项" class="headerlink" title="8.7 HashSet 和 HashMap 的性能选项"></a>8.7 HashSet 和 HashMap 的性能选项</h2><p>发生 hash 冲突时，hash 表中存储元素的示意图。</p>
+<p><img src="../../images/java/c8/hash%E5%AD%98%E5%82%A8%E7%A4%BA%E6%84%8F%E5%9B%BE.png"></p>
+<p>因此，HashSet、HashMap、HashTable 的 hash 表包含如下属性：</p>
+<ul>
+<li><p>容量（capacity）：hash 表中桶的数量</p>
+</li>
+<li><p>初始化容量（initial capacity）：创建 hash 表时桶的数量</p>
+</li>
+<li><p>尺寸（size）：当前 hash 表中记录的数量</p>
+</li>
+<li><p>负载因子（load factor）：size/capacity</p>
+</li>
+<li><p>负载极限：决定 hash 表的最大填满程度，达到该极限时，hash 表自动成倍增加容量，并将原有的对象重新分配，成为 rehashing</p>
+</li>
+</ul>
+<p>负载极限默认 0.75 是时间和空间成本上的一种折中方案。极限大节省空间，极限小查询效率高。</p>
+<h2 id="8-8-操作集合工具类：Collections"><a href="#8-8-操作集合工具类：Collections" class="headerlink" title="8.8 操作集合工具类：Collections"></a>8.8 操作集合工具类：Collections</h2><h3 id="8-8-1-排序操作"><a href="#8-8-1-排序操作" class="headerlink" title="8.8.1 排序操作"></a>8.8.1 排序操作</h3><ul>
+<li>void reverse(List list)</li>
+<li>void shuffle(List list)：随机排序</li>
+<li>void sort(List list)：自然顺序升序</li>
+<li>void sort(List list, Comparator c)</li>
+<li>void swap(List list, int i, int j)</li>
+<li>void rotate(List list, int distance)：移动过元素，不改变长度</li>
+</ul>
+<h3 id="8-8-2-查找、替换操作"><a href="#8-8-2-查找、替换操作" class="headerlink" title="8.8.2 查找、替换操作"></a>8.8.2 查找、替换操作</h3><ul>
+<li>int binarySearch(List list, Object key)：二分搜索法获取指定对象的索引。list 必须已经处于有序状态</li>
+<li>Object max(Collection coll)</li>
+<li>Object max(Collection coll, Comparator comp)</li>
+<li>Object min(Collection coll)</li>
+<li>Object min(Collection coll, Comparator comp)</li>
+<li>void fill(List list, Object obj)：替换所有元素</li>
+<li>int frequency(Collection c, Object o)：次数</li>
+<li>int indexOfSublist(List source, List target)：目标list出现的索引，没有为 -1</li>
+<li>int lastIndexOfSubList(List source, List target)</li>
+<li>boolean repalceAll(List list, Object oldVal, Object newVal)</li>
+</ul>
+<pre><code class="java">public class SearchTest &#123;
+    public static void main(String[] args) &#123;
+        ArrayList nums = new ArrayList();
+        nums.add(2);
+        nums.add(-5);
+        nums.add(3);
+        nums.add(0);
+        // 2 -5 3 0
+        System.out.println(nums);
+        // 3
+        System.out.println(Collections.max(nums));
+        Collections.replaceAll(nums, 0, 1);
+        // 2 -5 3 1
+        System.out.println(nums);
+        // 1
+        System.out.println(Collections.frequency(nums, -5));
+        Collections.sort(nums);
+        // -5 1 2 3
+        System.out.println(nums);
+        // 3
+        System.out.println(Collections.binarySearch(nums, 3));
+    &#125;
+&#125;</code></pre>
+<h3 id="8-8-3-同步操作"><a href="#8-8-3-同步操作" class="headerlink" title="8.8.3 同步操作"></a>8.8.3 同步操作</h3><pre><code class="java">public class SynchronizedTest &#123;
+    public static void main(String[] args) &#123;
+        Collection c = Collections.synchronizedCollection(new ArrayList());
+        List list = Collections.synchronizedList(new ArrayList());
+    &#125;
+&#125;</code></pre>
+<h3 id="8-8-4-设置不可变集合"><a href="#8-8-4-设置不可变集合" class="headerlink" title="8.8.4 设置不可变集合"></a>8.8.4 设置不可变集合</h3><ul>
+<li>emptyXxx()：空的、不可变的集合对象，List、Set、SortedSet、Map、SortedMap</li>
+<li>singletonXxx()：只包含一个元素的不可变集合对象，List、Map</li>
+<li>unmodifiableXxx()：指定集合的不可变试图，List、Set、SortedSet、Map、SortedMap</li>
+</ul>
+<pre><code class="java">public class UnmodifiableTest &#123;
+    public static void main(String[] args) &#123;
+        List&lt;Object&gt; l = Collections.emptyList();
+        Set&lt;String&gt; s = Collections.singleton(&quot;test1&quot;);
+        HashMap scores = new HashMap();
+        scores.put(&quot;语文&quot;, 80);
+        scores.put(&quot;java&quot;, 82);
+        Map map = Collections.unmodifiableMap(scores);
+        // 下面都会抛出异常 UnsupportedOperationException
+        l.add(&quot;test&quot;);
+        s.add(&quot;test&quot;);
+        map.put(&quot;test&quot;, 10);
+    &#125;
+&#125;</code></pre>
+<h3 id="8-8-5-Java9-新增的不可变集合"><a href="#8-8-5-Java9-新增的不可变集合" class="headerlink" title="8.8.5 Java9 新增的不可变集合"></a>8.8.5 Java9 新增的不可变集合</h3><p>不可变意味着程序不能向集合中添加元素，也不能从集合中删除元素。</p>
+<pre><code class="java">public class Java9Collection &#123;
+    public static void main(String[] args) &#123;
+        // 创建包含 4 个元素的 set 集合
+        Set&lt;String&gt; set = Set.of(&quot;Java&quot;, &quot;Kotlin&quot;, &quot;C&quot;, &quot;C++&quot;);
+        System.out.println(set);
+        // 报错
+        // set.add(&quot;test&quot;);
+
+        List&lt;Integer&gt; l = List.of(1, 2, 3, 4);
+        System.out.println(l);
+        // l.remove(1);
+
+        Map&lt;String, Integer&gt; m = Map.of(&quot;test1&quot;, 1, &quot;test2&quot;, 2);
+        System.out.println(m);
+
+        Map&lt;String, Integer&gt; m2 = Map.ofEntries(Map.entry(&quot;t1&quot;, 1),
+                Map.entry(&quot;t2&quot;, 2));
+        System.out.println(m2);
+    &#125;
+&#125;</code></pre>
+<h2 id="8-9-繁琐的接口：Enumeration"><a href="#8-9-繁琐的接口：Enumeration" class="headerlink" title="8.9 繁琐的接口：Enumeration"></a>8.9 繁琐的接口：Enumeration</h2><p>古老的迭代器，不推荐使用。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '8b4bf9e725fa9e5652a9',
+            clientSecret: 'bfc996b7a7d84a81599a9af4ca153637bd05b9f3',
+            repo: 'gitalk',
+            owner: 'monkey-kong',
+            admin: ['monkey-kong'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yelog
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().trim().split('\n').length, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: ;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 562px;
+    }
+    .nav.fullscreen {
+        margin-left: -562px;
+    }
+    .nav-left {
+        width: 140px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="/photo">相册</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="http://wiki.monkey-kong.cn/">悟空</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/Monkey-kong">github</a>
+    
+</div>
+
+
+<div id="musicMouseDrag" style="position:fixed; z-index: 9999; bottom: 0; right: 0;">
+    <div id="musicDragArea" style="position: absolute; top: 0; left: 0; width: 100%;height: 10px;cursor: move; z-index: 10;"></div>
+	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=500665328&auto=1&height=66"></iframe>
+</div>
+</html>
