@@ -146,7 +146,7 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(113)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(114)</small></div></li>
     
         
             
@@ -206,7 +206,7 @@
     
         
             
-            <li><div data-rel="分布式">分布式<small>(13)</small></div>
+            <li><div data-rel="分布式">分布式<small>(14)</small></div>
                 
             </li>
             
@@ -262,8 +262,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="113">
-<input type="hidden" id="yelog_site_word_count" value="329.4k">
+<input type="hidden" id="yelog_site_posts_number" value="114">
+<input type="hidden" id="yelog_site_word_count" value="331.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -326,6 +326,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>分布式会话</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>架构</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -459,6 +463,14 @@
     
     <nav id="title-list-nav">
         
+        <a  class="全部文章 分布式 "
+           href="/2021-01-07-08%E5%88%86%E5%B8%83%E5%BC%8F/%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9E%B6%E6%9E%84(1).html"
+           data-tag="架构"
+           data-author="" >
+            <span class="post-title" title="高并发架构(一)">高并发架构(一)</span>
+            <span class="post-date" title="2021-01-07 20:43:12">2021/01/07</span>
+        </a>
+        
         <a  class="全部文章 Spring基础 "
            href="/2020-12-25-13Spring%E5%9F%BA%E7%A1%80/springmvc.html"
            data-tag="sia"
@@ -503,7 +515,7 @@
            href="/2020-12-22-13Spring%E5%9F%BA%E7%A1%80/20191022sia2.html"
            data-tag="sia"
            data-author="" >
-            <span class="post-title" title="第 2 章 构建 装配 Bean">第 2 章 构建 装配 Bean</span>
+            <span class="post-title" title="第 2 章 装配 Bean">第 2 章 装配 Bean</span>
             <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
         </a>
         
@@ -1407,7 +1419,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2020-12-27 23:17:49'>2020-12-23 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-01-02 20:44:05'>2020-12-23 22:13</time>
         
     </div>
     <div class="article-meta">
@@ -1499,7 +1511,7 @@ public class DataSourceConfig
 &lt;/beans&gt;</code></pre>
 <p>带有 @Profile(“dev”) 注解的 bean，只有对应的 profile 被激活时，才会创建，否则会被忽略。</p>
 <p>没有指定 profile 的 bean 始终都会被创建，与激活哪个 profile 没有关系。</p>
-<h3 id="激活-profile"><a href="#激活-profile" class="headerlink" title="激活 profile"></a>激活 profile</h3><p>Spring在确定哪个profile处于激活状态时，需要依赖两个独立的属性:</p>
+<h3 id="激活-profile"><a href="#激活-profile" class="headerlink" title="激活 profile"></a>激活 profile</h3><p>Spring 在确定哪个 profile 处于激活状态时，需要依赖两个独立的属性:</p>
 <ul>
 <li>spring.profiles.active</li>
 <li>spring.profiles.default</li>
@@ -1513,7 +1525,7 @@ public class DataSourceConfig
 <li>作为 Web 应用的上下文参数；</li>
 <li>作为 JNDI 条目；</li>
 <li>作为环境变量；</li>
-<li>作为JVM的系统属性；</li>
+<li>作为 JVM 的系统属性；</li>
 <li>在集成测试类上，使用 @ActiveProfiles 注解设置。</li>
 </ul>
 <p>DispatcherServlet 的初始化参数</p>
@@ -1594,7 +1606,7 @@ public class MagicExistsTest
     assertTrue(context.containsBean(&quot;magicBean&quot;));
   &#125;
 &#125;</code></pre>
-<h3 id="理解原理"><a href="#理解原理" class="headerlink" title="理解原理"></a>理解原理</h3><p>MagicExistsCondition 中只是使用了 ConditionContext 得到的 Environment，但<br>Condition 实现的考量因素可能会比这更多。matches() 方法会得到 ConditionContext 和<br>AnnotatedTypeMetadata 对象用来做出决策。</p>
+<h3 id="理解原理"><a href="#理解原理" class="headerlink" title="理解原理"></a>理解原理</h3><p>MagicExistsCondition 中只是使用了 ConditionContext 得到的 Environment，但 Condition 实现的考量因素可能会比这更多。matches() 方法会得到 ConditionContext 和 AnnotatedTypeMetadata 对象用来做出决策。</p>
 <pre><code class="java">public interface ConditionContext 
 &#123;
     // 返回 BeanDefinitionRegistry 检查 bean 定义；
@@ -1618,7 +1630,7 @@ public class MagicExistsTest
     MultiValueMap&lt;String, Object&gt; getAllAnnotationAttributes(String annotationType);
     MultiValueMap&lt;String, Object&gt; getAllAnnotationAttributes(String annotationType, boolean classValuesAsString);
 &#125;</code></pre>
-<h3 id="Spring-自身项目中的实际应用"><a href="#Spring-自身项目中的实际应用" class="headerlink" title="Spring 自身项目中的实际应用"></a>Spring 自身项目中的实际应用</h3><p>从 Spring 4 开始，@Profile 注解进行了重构，使其基于 @Conditional 和 Condition 实现。作为如何使用@Conditional 和 Condition 的例子，我们来看一下在 Spring 4 中，@Profile是 如何实现的。</p>
+<h3 id="Spring-自身项目中的实际应用"><a href="#Spring-自身项目中的实际应用" class="headerlink" title="Spring 自身项目中的实际应用"></a>Spring 自身项目中的实际应用</h3><p>从 Spring 4 开始，@Profile 注解进行了重构，使其基于 @Conditional 和 Condition 实现。作为如何使用 @Conditional 和 Condition 的例子，我们来看一下在 Spring 4 中，@Profile 是如何实现的。</p>
 <ol>
 <li>profile 注解的定义</li>
 </ol>
@@ -1835,9 +1847,9 @@ public void setDessert(Dessert dessert)
 <p>Spring 的作用域：</p>
 <ul>
 <li>单例（Singleton）：在整个应用中，只创建 bean 的一个实例。</li>
-<li>原型（Prototype）：每次注入或者通过Spring应用上下文获取的时候，都会创建一个新的bean实例。</li>
-<li>会话（Session）：在Web应用中，为每个会话创建一个bean实例。</li>
-<li>请求（Rquest）：在Web应用中，为每个请求创建一个bean实例。</li>
+<li>原型（Prototype）：每次注入或者通过 Spring 应用上下文获取的时候，都会创建一个新的bean实例。</li>
+<li>会话（Session）：在 Web 应用中，为每个会话创建一个 bean 实例。</li>
+<li>请求（Rquest）：在 Web 应用中，为每个请求创建一个 bean 实例。</li>
 </ul>
 <h3 id="使用会话和请求作用域"><a href="#使用会话和请求作用域" class="headerlink" title="使用会话和请求作用域"></a>使用会话和请求作用域</h3><ol>
 <li>设置作用域的方式</li>
@@ -1873,8 +1885,8 @@ public void setShoppingCart(ShoppingCart shoppingCart)
     this.shoppingCart = shoppingCart;
 &#125;</code></pre>
 <p>proxyMode 的理解：</p>
-<p>StoreService 是单例的，会在 Spring 应用上下文加载的时候创建，当它创建的时候，Spring 会试图将 ShoppingCart bean 注入到 setShoppingCart() 方法中。但是 ShoppingCart bean 是会话作用域的，此时并不存在。直到某个用户进入系统，创建了会话之后，才会出现ShoppingCart实例。</p>
-<p>所以，Spring并不会将实际的 ShoppingCart bean 注入到 StoreService 中，Spring 会注入一个到ShoppingCart bean 的代理。这个代理会暴露与ShoppingCart相同的方法，所以StoreService会认为它就是一个购物车。但是，当StoreService调用ShoppingCart的方法时，代理会对其进行懒解析并将调用委托给会话作用域内真正的 ShoppingCart bean。</p>
+<p>StoreService 是单例的，会在 Spring 应用上下文加载的时候创建，当它创建的时候，Spring 会试图将 ShoppingCart bean 注入到 setShoppingCart() 方法中。但是 ShoppingCart bean 是会话作用域的，此时并不存在。直到某个用户进入系统，创建了会话之后，才会出现 ShoppingCart 实例。</p>
+<p>所以，Spring 并不会将实际的 ShoppingCart bean 注入到 StoreService 中，Spring 会注入一个到 ShoppingCart bean 的代理。这个代理会暴露与 ShoppingCart 相同的方法，所以 StoreService 会认为它就是一个购物车。但是，当 StoreService 调用 ShoppingCart 的方法时，代理会对其进行<strong>懒解析并将调用委托给会话作用域内</strong>真正的 ShoppingCart bean。</p>
 <p>proxyMode 属性被设置成了 ScopedProxyMode.INTERFACES，这表明这个代理要实现 ShoppingCart 接口，并将调用委托给实现 bean。</p>
 <h3 id="在-XML-中声明作用域代理"><a href="#在-XML-中声明作用域代理" class="headerlink" title="在 XML 中声明作用域代理"></a>在 XML 中声明作用域代理</h3><pre><code class="xml">&lt;bean id=&quot;cart&quot; class=&quot;com.myapp.ShoppingCart&quot; scope=&quot;session&quot; &gt;
     &lt;aop:scoped-proxy proxy-target-class=&quot;true&quot;/&gt;
@@ -2087,7 +2099,11 @@ public static PropertySourcesPlaceholderConfigurer placeholderConfigurer()
 
     </div>
     <div class="copyright">
-        <p class="footer-entry">
+        <p class="footer-entry"><span class="miit">
+                <img src="/img/gov.png" title="中华人民共和国工业和信息化部">
+                <a href="http://beian.miit.gov.cn/">粤ICP备2020135752号</a>
+        </span>
+    
     ©2019-2020 悟空
 </p>
 <p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>

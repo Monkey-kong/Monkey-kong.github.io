@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>第 2 章 构建 装配 Bean | 悟空</title>
+  <title>第 2 章 装配 Bean | 悟空</title>
   <meta name="keywords" content=" sia ">
-  <meta name="description" content="第 2 章 构建 装配 Bean | 悟空">
+  <meta name="description" content="第 2 章 装配 Bean | 悟空">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="悟空">
@@ -146,7 +146,7 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(113)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(114)</small></div></li>
     
         
             
@@ -206,7 +206,7 @@
     
         
             
-            <li><div data-rel="分布式">分布式<small>(13)</small></div>
+            <li><div data-rel="分布式">分布式<small>(14)</small></div>
                 
             </li>
             
@@ -262,8 +262,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="113">
-<input type="hidden" id="yelog_site_word_count" value="329.4k">
+<input type="hidden" id="yelog_site_posts_number" value="114">
+<input type="hidden" id="yelog_site_word_count" value="331.8k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -326,6 +326,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>分布式会话</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>架构</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -459,6 +463,14 @@
     
     <nav id="title-list-nav">
         
+        <a  class="全部文章 分布式 "
+           href="/2021-01-07-08%E5%88%86%E5%B8%83%E5%BC%8F/%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9E%B6%E6%9E%84(1).html"
+           data-tag="架构"
+           data-author="" >
+            <span class="post-title" title="高并发架构(一)">高并发架构(一)</span>
+            <span class="post-date" title="2021-01-07 20:43:12">2021/01/07</span>
+        </a>
+        
         <a  class="全部文章 Spring基础 "
            href="/2020-12-25-13Spring%E5%9F%BA%E7%A1%80/springmvc.html"
            data-tag="sia"
@@ -503,7 +515,7 @@
            href="/2020-12-22-13Spring%E5%9F%BA%E7%A1%80/20191022sia2.html"
            data-tag="sia"
            data-author="" >
-            <span class="post-title" title="第 2 章 构建 装配 Bean">第 2 章 构建 装配 Bean</span>
+            <span class="post-title" title="第 2 章 装配 Bean">第 2 章 装配 Bean</span>
             <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
         </a>
         
@@ -1382,7 +1394,7 @@
     <div class="pjax">
         <article id="post-13Spring基础/20191022sia2" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">第 2 章 构建 装配 Bean</h1>
+        <h1 class="article-title">第 2 章 装配 Bean</h1>
     
     <div class="article-meta">
         
@@ -1407,12 +1419,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2020-12-27 23:17:54'>2020-12-22 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-01-02 16:01:36'>2020-12-22 22:13</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.3k</span>
+        <span>字数:2.4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1442,7 +1454,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A3%85%E9%85%8D-bean"><span class="toc-text">自动化装配 bean</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E6%89%AB%E6%8F%8F"><span class="toc-text">组件扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E4%B8%BA-bean-%E6%B7%BB%E5%8A%A0%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="toc-text">通过为 bean 添加注解实现自动装配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="toc-text">验证自动装配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-Java-%E4%BB%A3%E7%A0%81%E8%A3%85%E9%85%8D-bean"><span class="toc-text">通过 Java 代码装配 bean</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E7%B1%BB"><span class="toc-text">创建配置类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-XML-%E8%A3%85%E9%85%8D-bean"><span class="toc-text">通过 XML 装配 bean</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-XML-%E8%A7%84%E8%8C%83"><span class="toc-text">创建 XML 规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-lt-bean-gt"><span class="toc-text">声明一个简单的&lt;bean&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%9F%E5%8A%A9%E6%9E%84%E9%80%A0%E5%99%A8%E6%B3%A8%E5%85%A5%E5%88%9D%E5%A7%8B%E5%8C%96-bean"><span class="toc-text">借助构造器注入初始化 bean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="toc-text">设置属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E5%92%8C%E6%B7%B7%E5%90%88%E9%85%8D%E7%BD%AE"><span class="toc-text">导入和混合配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-JavaConfig-%E4%B8%AD%E5%BC%95%E7%94%A8-XML-%E9%85%8D%E7%BD%AE"><span class="toc-text">在 JavaConfig 中引用 XML 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-XML-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BC%95%E7%94%A8-JavaConfig"><span class="toc-text">在 XML 配置中引用 JavaConfig</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E8%87%AA%E5%8A%A8%E5%8C%96%E8%A3%85%E9%85%8D-bean"><span class="toc-text">1、自动化装配 bean</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%BB%84%E4%BB%B6%E6%89%AB%E6%8F%8F"><span class="toc-text">1.1 组件扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E9%80%9A%E8%BF%87%E4%B8%BA-bean-%E6%B7%BB%E5%8A%A0%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="toc-text">1.2 通过为 bean 添加注解实现自动装配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="toc-text">1.3 验证自动装配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E9%80%9A%E8%BF%87-Java-%E4%BB%A3%E7%A0%81%E6%98%BE%E7%A4%BA%E8%A3%85%E9%85%8D"><span class="toc-text">2、通过 Java 代码显示装配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E7%B1%BB"><span class="toc-text">2.1 创建配置类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E9%80%9A%E8%BF%87-XML-%E6%98%BE%E7%A4%BA%E8%A3%85%E9%85%8D"><span class="toc-text">3、通过 XML 显示装配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E5%88%9B%E5%BB%BA-XML-%E8%A7%84%E8%8C%83"><span class="toc-text">3.1 创建 XML 规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84-lt-bean-gt"><span class="toc-text">3.2 声明一个简单的&lt;bean&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%80%9F%E5%8A%A9%E6%9E%84%E9%80%A0%E5%99%A8%E6%B3%A8%E5%85%A5%E5%88%9D%E5%A7%8B%E5%8C%96-bean"><span class="toc-text">3.3 借助构造器注入初始化 bean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E8%AE%BE%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="toc-text">3.4 设置属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%AF%BC%E5%85%A5%E5%92%8C%E6%B7%B7%E5%90%88%E9%85%8D%E7%BD%AE"><span class="toc-text">4、导入和混合配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%9C%A8-JavaConfig-%E4%B8%AD%E5%BC%95%E7%94%A8-XML-%E9%85%8D%E7%BD%AE"><span class="toc-text">4.1 在 JavaConfig 中引用 XML 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%9C%A8-XML-%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BC%95%E7%94%A8-JavaConfig"><span class="toc-text">4.2 在 XML 配置中引用 JavaConfig</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1459,25 +1471,37 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ul>
-<li>声明 bean</li>
-<li>构造器注入和 Setter 方法注入</li>
-<li>装配 bean</li>
-<li>控制 bean 的创建和销毁</li>
+<li>自动装配：<ul>
+<li>@Component、@Autowired：定义组件和自动装配</li>
+<li>@Configuration、@ComponentScan：启用组件扫描</li>
 </ul>
-<p>Spring 配置的可选方案：</p>
-<ul>
-<li>在 XML 中进行显式配置</li>
-<li>在 Java 中进行显式配置</li>
-<li>隐式的 bean 发现机制和自动装配</li>
+</li>
+<li>Java 方式显示装配：<ul>
+<li>@Configuration、@Bean</li>
+</ul>
+</li>
+<li>Xml 方式显示装配：    <ul>
+<li>构造器注入：&lt;bean、&lt;constructor-arg</li>
+<li>C命名空间注入：c:_0=、c:_0-ref</li>
+<li>属性注入：&lt;property</li>
+<li>P命名空间注入：p:title、p:compactDisc-ref</li>
+<li>Util命名空间工具：&lt;util:list</li>
+</ul>
+</li>
+<li>组合显示装配：<ul>
+<li>Java 配置为主：@Import(、@ImportResource(</li>
+<li>Xml 配置为主：<code>&lt;import resource=&quot;cd-config.xml&quot;/&gt;</code>、<code>&lt;bean class=&quot;soundsystem.CDPlayerConfig&quot; /&gt;</code></li>
+</ul>
+</li>
 </ul>
 <a id="more"></a>
 
-<h2 id="自动化装配-bean"><a href="#自动化装配-bean" class="headerlink" title="自动化装配 bean"></a>自动化装配 bean</h2><ul>
+<h2 id="1、自动化装配-bean"><a href="#1、自动化装配-bean" class="headerlink" title="1、自动化装配 bean"></a>1、自动化装配 bean</h2><ul>
 <li>组件扫描（component scanning）：Spring 自动发现应用上下文中创建的 bean</li>
 <li>自动装配（autowiring）：Spring 自动满足 bean 之间的依赖</li>
 </ul>
 <p>如果你不将 CD 插入（注入）到 CD 播放器中，那么 CD 播放器其实是没有太大用处的。所以，可以这样说，CD 播放器依赖于 CD 才能完成它的使命。</p>
-<h3 id="组件扫描"><a href="#组件扫描" class="headerlink" title="组件扫描"></a>组件扫描</h3><p><code>@Component</code>：表明该类会作为组件类，并<br>告知Spring要为这个类创建bean。</p>
+<h3 id="1-1-组件扫描"><a href="#1-1-组件扫描" class="headerlink" title="1.1 组件扫描"></a>1.1 组件扫描</h3><p><code>@Component</code>：表明该类会作为组件类，并告知 Spring 要为这个类创建 bean。</p>
 <pre><code class="java">@Component
 public class SgtPeppers implements CompactDisc
 &#123;
@@ -1488,7 +1512,7 @@ public class SgtPeppers implements CompactDisc
     System.out.print(&quot;Playing &quot; + title + &quot; by &quot; + artist);
   &#125;
 &#125;</code></pre>
-<p><code>@ComponentScan</code>：组件扫描默认是不启用，使用注解启用组件扫描，默认扫描该配置类所在的包</p>
+<p><code>@ComponentScan</code>：组件扫描<strong>默认是不启用</strong>，使用注解启用组件扫描，<strong>默认扫描该配置类所在的包。</strong></p>
 <pre><code class="java">@Configuration
 @ComponentScan
 public class CDPlayerConfig &#123;&#125;</code></pre>
@@ -1514,7 +1538,7 @@ public class CDPlayerTest
 <li><code>@ComponentScan(basePackages = &#123;&quot;soundsystem&quot;,&quot;aaa&quot;&#125;)</code></li>
 <li><code>@ComponentScan(basePackageClasses = &#123;SgtPeppers.class, CDPlayer.class&#125;)</code>：扫描设置的类所在的包</li>
 </ul>
-<h3 id="通过为-bean-添加注解实现自动装配"><a href="#通过为-bean-添加注解实现自动装配" class="headerlink" title="通过为 bean 添加注解实现自动装配"></a>通过为 bean 添加注解实现自动装配</h3><p><strong>自动装配</strong>就是让 Spring 自动满足 bean 依赖的一种方法，在满足依赖的过程中，会在 Spring 应用上下文中寻找匹配某个 bean 需求的其他 bean。为了声明要进行自动装配，我们可以借助 Spring 的 @Autowired 注解。</p>
+<h3 id="1-2-通过为-bean-添加注解实现自动装配"><a href="#1-2-通过为-bean-添加注解实现自动装配" class="headerlink" title="1.2 通过为 bean 添加注解实现自动装配"></a>1.2 通过为 bean 添加注解实现自动装配</h3><p><strong>自动装配</strong>就是让 Spring 自动满足 bean 依赖的一种方法，在满足依赖的过程中，会在 Spring 应用上下文中寻找匹配某个 bean 需求的其他 bean。为了声明要进行自动装配，我们可以借助 Spring 的 <strong>@Autowired</strong> 注解。</p>
 <pre><code class="java">@Component
 public class CDPlayer implements MediaPlayer
 &#123;
@@ -1531,10 +1555,10 @@ public class CDPlayer implements MediaPlayer
 &#125;</code></pre>
 <p>Spring 创建 CDPlayer bean 的时候，会通过这个构造器来进行实例化并且会传入一个可设置给 CompactDisc 类型的 bean。</p>
 <p>@Autowired 注解可以用在类的任何方法上。</p>
-<p>不管是构造器、Setter方法还是其他的方法，Spring都会尝试满足方法参数上所声明的依赖。假如有且只有一个bean匹配依赖需求的话，那么这个bean将会被装配进来。</p>
+<p>不管是构造器、Setter方法还是其他的方法，Spring 都会尝试满足方法参数上所声明的依赖。假如有且只有一个bean 匹配依赖需求的话，那么这个 bean 将会被装配进来。</p>
 <p>如果没有匹配的 bean，那么在应用上下文创建的时候，Spring 会抛出一个异常。<code>@Autowired(required = false)</code>可以避免该异常。</p>
-<p>如果有多个bean都能满足依赖关系的话，Spring将会抛出一个异常，表明没有明确指定要选择哪个bean进行自动装配。</p>
-<h3 id="验证自动装配"><a href="#验证自动装配" class="headerlink" title="验证自动装配"></a>验证自动装配</h3><pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
+<p>如果有多个 bean 都能满足依赖关系的话，Spring 将会抛出一个异常，表明没有明确指定要选择哪个 bean 进行自动装配。</p>
+<h3 id="1-3-验证自动装配"><a href="#1-3-验证自动装配" class="headerlink" title="1.3 验证自动装配"></a>1.3 验证自动装配</h3><pre><code class="java">@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=CDPlayerConfig.class)
 public class CDPlayerTest
 &#123;
@@ -1557,8 +1581,9 @@ public class CDPlayerTest
   &#125;
 &#125;</code></pre>
 <p>player.play() 方法最终实际调用的的式 cd 的 play() 方法，说明 cd 成功的自动装配到了 cdplay 中。</p>
-<h2 id="通过-Java-代码装配-bean"><a href="#通过-Java-代码装配-bean" class="headerlink" title="通过 Java 代码装配 bean"></a>通过 Java 代码装配 bean</h2><p>尽管在很多场景下通过组件扫描和自动装配实现 Spring 的自动化配置是更为推荐的方式，但有时候自动化配置的方案行不通，因此需要明确配置 Spring。比如说，你想要将第三方库中的组件装配到你的应用中，在这种情况下，是没有办法在它的类上添加 @Component 和 @Autowired 注解的，因此就不能使用自动化装配的方案了。</p>
-<h3 id="创建配置类"><a href="#创建配置类" class="headerlink" title="创建配置类"></a>创建配置类</h3><pre><code class="java">@Configuration
+<h2 id="2、通过-Java-代码显示装配"><a href="#2、通过-Java-代码显示装配" class="headerlink" title="2、通过 Java 代码显示装配"></a>2、通过 Java 代码显示装配</h2><p>尽管在很多场景下通过组件扫描和自动装配实现 Spring 的自动化配置是更为推荐的方式，但有时候自动化配置的方案行不通，因此需要明确配置 Spring。比如说，你想要<strong>将第三方库中的组件</strong>装配到你的应用中，在这种情况下，是没有办法在它的类上添加 @Component 和 @Autowired 注解的，因此就不能使用自动化装配的方案了。</p>
+<h3 id="2-1-创建配置类"><a href="#2-1-创建配置类" class="headerlink" title="2.1 创建配置类"></a>2.1 创建配置类</h3><p>@Configuration：表明这个类是一个配置类，该类应该包含在 Spring 应用上下文中如何创建bean的细节。</p>
+<pre><code class="java">@Configuration
 public class CDPlayerConfig
 &#123;
   @Bean
@@ -1572,21 +1597,21 @@ public class CDPlayerConfig
     return new CDPlayer(compactDisc);
   &#125;
 &#125;</code></pre>
-<p>带有 @Bean 注解的方法可以采用任何必要的Java功能来产生bean实例。</p>
-<h2 id="通过-XML-装配-bean"><a href="#通过-XML-装配-bean" class="headerlink" title="通过 XML 装配 bean"></a>通过 XML 装配 bean</h2><h3 id="创建-XML-规范"><a href="#创建-XML-规范" class="headerlink" title="创建 XML 规范"></a>创建 XML 规范</h3><p>快速生成 XML 配置文件：<a href="https://spring.io/tools/sts">https://spring.io/tools/sts</a></p>
+<p>带有 @Bean 注解的方法可以采用任何必要的 Java 功能来产生 bean 实例。</p>
+<h2 id="3、通过-XML-显示装配"><a href="#3、通过-XML-显示装配" class="headerlink" title="3、通过 XML 显示装配"></a>3、通过 XML 显示装配</h2><h3 id="3-1-创建-XML-规范"><a href="#3-1-创建-XML-规范" class="headerlink" title="3.1 创建 XML 规范"></a>3.1 创建 XML 规范</h3><p>快速生成 XML 配置文件：<strong>idea-&gt;new-&gt;file-&gt;config xml file-&gt;spring config file</strong></p>
 <pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
   xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
 
 &lt;/beans&gt;</code></pre>
-<h3 id="声明一个简单的-lt-bean-gt"><a href="#声明一个简单的-lt-bean-gt" class="headerlink" title="声明一个简单的&lt;bean&gt;"></a>声明一个简单的<code>&lt;bean&gt;</code></h3><pre><code class="xml">&lt;bean id=&quot;compactDisc&quot; class=&quot;soundsystem.BlankDisc&quot;/&gt;</code></pre>
+<h3 id="3-2-声明一个简单的-lt-bean-gt"><a href="#3-2-声明一个简单的-lt-bean-gt" class="headerlink" title="3.2 声明一个简单的&lt;bean&gt;"></a>3.2 声明一个简单的<code>&lt;bean&gt;</code></h3><pre><code class="xml">&lt;bean id=&quot;compactDisc&quot; class=&quot;soundsystem.BlankDisc&quot;/&gt;</code></pre>
 <p>XML 配置的缺点：</p>
 <ul>
-<li>bean的类型以字符串的形式设置在了class属性中，不能保证设置给class属性的值是真正的类</li>
+<li>bean的类型以字符串的形式设置在了 class 属性中，不能保证设置给 class 属性的值是真正的类</li>
 <li>重命名了类后，xml 也需要修改</li>
 </ul>
-<h3 id="借助构造器注入初始化-bean"><a href="#借助构造器注入初始化-bean" class="headerlink" title="借助构造器注入初始化 bean"></a>借助构造器注入初始化 bean</h3><ol>
+<h3 id="3-3-借助构造器注入初始化-bean"><a href="#3-3-借助构造器注入初始化-bean" class="headerlink" title="3.3 借助构造器注入初始化 bean"></a>3.3 借助构造器注入初始化 bean</h3><ol>
 <li>使用 constructor-arg 注入</li>
 </ol>
 <pre><code class="xml">&lt;bean id=&quot;compactDisc&quot; class=&quot;soundsystem.SgtPeppers&quot; /&gt;
@@ -1627,7 +1652,7 @@ public class CDPlayerConfig
 <pre><code class="xml">&lt;bean id=&quot;cdPlayer&quot; class=&quot;soundsystem.CDPlayer&quot; c:_0-ref=&quot;compactDisc&quot; /&gt;
 &lt;!-- 只有一个参数时，索引也可以省略 --&gt;
 &lt;bean id=&quot;cdPlayer&quot; class=&quot;soundsystem.CDPlayer&quot; c:_-ref=&quot;compactDisc&quot; /&gt;</code></pre>
-<h3 id="设置属性"><a href="#设置属性" class="headerlink" title="设置属性"></a>设置属性</h3><p><property>元素为属性的Setter方法所提供的功能与<constructor-arg>元素为构造器<br>所提供的功能是一样的。</p>
+<h3 id="3-4-设置属性"><a href="#3-4-设置属性" class="headerlink" title="3.4 设置属性"></a>3.4 设置属性</h3><p><code>&lt;property&gt;</code>元素为属性的 Setter 方法所提供的功能与 <code>&lt;constructor-arg&gt;</code> 元素为构造器<br>所提供的功能是一样的。</p>
 <ol>
 <li>使用 property 注入</li>
 </ol>
@@ -1667,12 +1692,13 @@ public class CDPlayerConfig
     &lt;/property&gt;
 &lt;/bean&gt;
 &lt;!-- 注入集合,p 命名空间不支持集合的注入 --&gt;
-&lt;!-- 但是，我们可以使用 Spring util-命名空间中的一些功能来简化BlankDiscbean。 --&gt;
+&lt;!-- 但是，我们可以使用 Spring util-命名空间中的一些功能来简化 BlankDiscbean。 --&gt;
 &lt;bean id=&quot;compactDisc&quot;
       class=&quot;soundsystem.properties.BlankDisc&quot;
       p:title=&quot;Sgt. Pepper&#39;s Lonely Hearts Club Band&quot;
       p:artist=&quot;The Beatles&quot;
       p:tracks-ref=&quot;trackList&quot; /&gt;
+
 &lt;util:list id=&quot;trackList&quot;&gt;  
     &lt;value&gt;Sgt. Pepper&#39;s Lonely Hearts Club Band&lt;/value&gt;
     &lt;value&gt;With a Little Help from My Friends&lt;/value&gt;
@@ -1688,7 +1714,7 @@ public class CDPlayerConfig
 </thead>
 <tbody><tr>
 <td>util:constant</td>
-<td>引用某个类型的public static域，并将其暴露为bean</td>
+<td>引用某个类型的 public static 域，并将其暴露为bean</td>
 </tr>
 <tr>
 <td>util:list</td>
@@ -1711,13 +1737,13 @@ public class CDPlayerConfig
 <td>创建一个java.util.Set类型的bean，其中包含值或引用</td>
 </tr>
 </tbody></table>
-<h2 id="导入和混合配置"><a href="#导入和混合配置" class="headerlink" title="导入和混合配置"></a>导入和混合配置</h2><p>在典型的 Spring 应用中，我们可能会同时使用自动化和显式配置。这些配置方案都不是互斥的。</p>
-<h3 id="在-JavaConfig-中引用-XML-配置"><a href="#在-JavaConfig-中引用-XML-配置" class="headerlink" title="在 JavaConfig 中引用 XML 配置"></a>在 JavaConfig 中引用 XML 配置</h3><pre><code class="java">@Configuration
+<h2 id="4、导入和混合配置"><a href="#4、导入和混合配置" class="headerlink" title="4、导入和混合配置"></a>4、导入和混合配置</h2><p>在典型的 Spring 应用中，我们可能会同时使用自动化和显式配置。这些配置方案都不是互斥的。</p>
+<h3 id="4-1-在-JavaConfig-中引用-XML-配置"><a href="#4-1-在-JavaConfig-中引用-XML-配置" class="headerlink" title="4.1 在 JavaConfig 中引用 XML 配置"></a>4.1 在 JavaConfig 中引用 XML 配置</h3><pre><code class="java">@Configuration
 @Import(CDPlayerConfig.class) // 引入配置类
 @ImportResource(&quot;classpath:cd-config.xml&quot;) // 引入配置文件
 public class SoundSystemConfig
 &#123;&#125;</code></pre>
-<h3 id="在-XML-配置中引用-JavaConfig"><a href="#在-XML-配置中引用-JavaConfig" class="headerlink" title="在 XML 配置中引用 JavaConfig"></a>在 XML 配置中引用 JavaConfig</h3><pre><code class="xml">&lt;!-- 引入配置类,注入CDPlayer --&gt;
+<h3 id="4-2-在-XML-配置中引用-JavaConfig"><a href="#4-2-在-XML-配置中引用-JavaConfig" class="headerlink" title="4.2 在 XML 配置中引用 JavaConfig"></a>4.2 在 XML 配置中引用 JavaConfig</h3><pre><code class="xml">&lt;!-- 引入配置类,注入CDPlayer --&gt;
 &lt;bean class=&quot;soundsystem.CDPlayerConfig&quot; /&gt;
 &lt;!-- 引入xml,注入CD --&gt;
 &lt;import resource=&quot;cd-config.xml&quot;/&gt;</code></pre>
@@ -1765,7 +1791,11 @@ public class SoundSystemConfig
 
     </div>
     <div class="copyright">
-        <p class="footer-entry">
+        <p class="footer-entry"><span class="miit">
+                <img src="/img/gov.png" title="中华人民共和国工业和信息化部">
+                <a href="http://beian.miit.gov.cn/">粤ICP备2020135752号</a>
+        </span>
+    
     ©2019-2020 悟空
 </p>
 <p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
