@@ -46,6 +46,12 @@ $(document).on({
     /*pjax开始请求页面时触发的事件*/
     'pjax:start': function () {
         content.css({'opacity': 0});
+        if (window.aplayers) {
+            for (let i = 0; i < window.aplayers.length; i++) {
+                window.aplayers[i].destroy();
+            }
+            window.aplayers = [];
+        }
     },
 
     /*pjax请求回来页面后触发的事件*/
@@ -58,6 +64,9 @@ $(document).on({
         if ($(window).width() <= 1024) {
             $fullBtn.trigger("click");
         }
+    },
+    'pjax:success': function () {
+        loadMeting();
     },
     'click': function (e) {
         $(".nav-right .tags-list").hide()
