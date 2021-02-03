@@ -148,7 +148,7 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(121)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(123)</small></div></li>
     
         
             
@@ -208,7 +208,7 @@
     
         
             
-            <li><div data-rel="分布式">分布式<small>(20)</small></div>
+            <li><div data-rel="分布式">分布式<small>(22)</small></div>
                 
             </li>
             
@@ -264,8 +264,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="121">
-<input type="hidden" id="yelog_site_word_count" value="344.6k">
+<input type="hidden" id="yelog_site_posts_number" value="123">
+<input type="hidden" id="yelog_site_word_count" value="347.5k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -478,6 +478,22 @@
            data-tag="架构"
            data-author="" >
             <span class="post-title" title="高并发架构(七)">高并发架构(七)</span>
+            <span class="post-date" title="2021-01-18 20:43:12">2021/01/18</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2021-01-18-08%E5%88%86%E5%B8%83%E5%BC%8F/%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9E%B6%E6%9E%84(8)-%E6%89%A9%E5%AE%B9.html"
+           data-tag="架构"
+           data-author="" >
+            <span class="post-title" title="高并发架构(8) 扩容">高并发架构(8) 扩容</span>
+            <span class="post-date" title="2021-01-18 20:43:12">2021/01/18</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2021-01-18-08%E5%88%86%E5%B8%83%E5%BC%8F/%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9E%B6%E6%9E%84(9)-%E9%99%8D%E7%BA%A7.html"
+           data-tag="架构"
+           data-author="" >
+            <span class="post-title" title="高并发架构(9) 降级">高并发架构(9) 降级</span>
             <span class="post-date" title="2021-01-18 20:43:12">2021/01/18</span>
         </a>
         
@@ -1477,12 +1493,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-01-31 23:12:37'>2021-01-18 20:43</time>
+            发布时间 : <time class="date" title='最后更新: 2021-02-01 22:20:41'>2021-01-18 20:43</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.5k</span>
+        <span>字数:2.6k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1651,6 +1667,9 @@ limit_conn_log_level error;</code></pre>
     limit_req zone=req burst=4 nodelay;
     content_by_lua_file conf/lua/hello.lua;
 &#125;</code></pre>
+<blockquote>
+<p>虽然设置 burs t和 nodelay 能够降低突发请求的处理时间，但是长期来看并不会提高吞吐量的上限，长期吞吐量的上限是由 rate 决定的，因为 nodelay 只能保证 burst 的请求被立即处理，但 Nginx 会<strong>限制队列元素释放的速度</strong>，就像是限制了令牌桶中令牌产生的速度。</p>
+</blockquote>
 <p>从结果看，请求的成功率并没有变化，但是<strong>总体耗时变短了</strong>。</p>
 <blockquote>
 <p>问： 加了 nodelay 参数的限流是漏桶还是令牌桶？</p>
