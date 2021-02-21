@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>设计模式之 - Singleton | 悟空</title>
-  <meta name="keywords" content=" Singleton ">
-  <meta name="description" content="设计模式之 - Singleton | 悟空">
+  <title>Spring Cloud学习(八) | 悟空</title>
+  <meta name="keywords" content=" Spring Cloud ">
+  <meta name="description" content="Spring Cloud学习(八) | 悟空">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:title" content="悟空">
@@ -1474,9 +1474,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-09设计模式/设计模式-singleton" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-08分布式/SpringCloud(8)-分布式事务实践" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">设计模式之 - Singleton</h1>
+        <h1 class="article-title">Spring Cloud学习(八)</h1>
     
     <div class="article-meta">
         
@@ -1486,7 +1486,7 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="设计模式">设计模式</a>
+            <a  data-rel="分布式">分布式</a>
             
         </span>
         
@@ -1494,19 +1494,19 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color5">Singleton</a>
+            <a class="color3">Spring Cloud</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2020-11-22 23:21:35'>2020-03-20 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-02-21 23:25:49'>2020-10-12 23:43</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:838</span>
+        <span>字数:3.2k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1536,7 +1536,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E9%A5%BF%E6%B1%89%E5%BC%8F"><span class="toc-text">1. 饿汉式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%87%92%E6%B1%89%E5%BC%8F"><span class="toc-text">2. 懒汉式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%9C%80%E4%B8%8D%E9%9C%80%E8%A6%81%E5%8A%A0-volatile"><span class="toc-text">3. 需不需要加 volatile?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E6%A8%A1%E5%BC%8F"><span class="toc-text">4. 静态内部类模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9E%9A%E4%B8%BE%E6%A8%A1%E5%BC%8F"><span class="toc-text">5. 枚举模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%B0%8F%E7%BB%93"><span class="toc-text">6. 小结</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81Seata-Server-%E9%83%A8%E7%BD%B2"><span class="toc-text">1、Seata Server 部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6"><span class="toc-text">1.1 前置条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E4%B8%8B%E8%BD%BD%E5%B9%B6%E9%85%8D%E7%BD%AE-Seata-Server"><span class="toc-text">1.2 下载并配置 Seata Server</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD-seata"><span class="toc-text">下载 seata</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9registry-conf%E9%85%8D%E7%BD%AE"><span class="toc-text">修改registry.conf配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%85%B6%E4%BB%96%E9%85%8D%E7%BD%AE%E5%88%B0-nacos"><span class="toc-text">发布其他配置到 nacos</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">配置数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%90%AF%E5%8A%A8-seata-server"><span class="toc-text">1.3 启动 seata server</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81Seata-AT-%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="toc-text">2、Seata AT 模式实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">2.1 创建测试数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%88%9B%E5%BB%BA%E6%B5%8B%E8%AF%95%E6%9C%8D%E5%8A%A1"><span class="toc-text">2.2 创建测试服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E8%AE%BF%E9%97%AE%E6%B5%8B%E8%AF%95"><span class="toc-text">2.3 访问测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-PhaseTwo-RollbackFailed-Retryable"><span class="toc-text">2.4 PhaseTwo_RollbackFailed_Retryable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCC"><span class="toc-text">TCC</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1552,109 +1552,488 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>设计模式之 Singleton 模式。</p>
-<p>模式引入：有时候系统的某些类确实不需要多个对象。</p>
+        <ul>
+<li>分布式事务实践</li>
+</ul>
 <a id="more"></a>
 
-<h2 id="1-饿汉式"><a href="#1-饿汉式" class="headerlink" title="1. 饿汉式"></a>1. 饿汉式</h2><p>类加载到内存后，就实例化一个单例，JVM保证线程安全。唯一缺点：不管用到与否，类装载时就完成实例化。</p>
-<pre><code class="java">/**
- * 饿汉式：在 JVM 加载单价类时创建它的唯一实例。
- * 缺点：还没有使用该实例，实例就已经创建了
- */
-public class Singleton &#123;
-    private static final Singleton uniqueInstance = new Singleton();
+<h2 id="1、Seata-Server-部署"><a href="#1、Seata-Server-部署" class="headerlink" title="1、Seata Server 部署"></a>1、Seata Server 部署</h2><p>以类似生产环境形式部署 Seata Server 服务。模式使用 db，注册中心使用 nacos，配置中心也使用 nacos。</p>
+<h3 id="1-1-前置条件"><a href="#1-1-前置条件" class="headerlink" title="1.1 前置条件"></a>1.1 前置条件</h3><ul>
+<li><p><strong>安装 mysql</strong>：不做说明。见 mysql 相关第一篇笔记。</p>
+</li>
+<li><p><strong>安装 nacos</strong>：比较简单，下载安装文件，解压后直接运行即可。更多说明见<a href="https://nacos.io/zh-cn/docs/quick-start.html">nacoe 官方文档。</a></p>
+<pre><code class="shell"># 下载 nacos 安装文件
+https://github.com/alibaba/nacos/tags
+https://github.com/alibaba/nacos/archive/1.3.2.tar.gz
+# 解压安装包
+tar -xvf nacos-server-1.3.2.tar.gz
+# 启动 server 端
+sh startup.sh -m standalone
+# 关闭 server 端
+sh shutdown.sh
 
-    private Singleton()&#123;&#125;
+# 注册服务
+curl -X POST &#39;http://127.0.0.1:8848/nacos/v1/ns/instance serviceName=nacos.naming.serviceName&amp;ip=20.18.7.10&amp;port=8080&#39;
+# 服务发现
+curl -X GET &#39;http://127.0.0.1:8848/nacos/v1/ns/instance/list?serviceName=nacos.naming.serviceName&#39;
+# 发布配置
+curl -X POST &quot;http://127.0.0.1:8848/nacos/v1/cs/configs dataId=nacos.cfg.dataId&amp;group=test&amp;content=HelloWorld&quot;
+# 获取配置
+curl -X GET &quot;http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=nacos.cfg.dataId&amp;group=test&quot;</code></pre>
+</li>
+<li><p><strong>安装 eureka</strong>：nacos 和 eureka 随便用哪个都行。</p>
+</li>
+</ul>
+<h3 id="1-2-下载并配置-Seata-Server"><a href="#1-2-下载并配置-Seata-Server" class="headerlink" title="1.2 下载并配置 Seata Server"></a>1.2 下载并配置 Seata Server</h3><h4 id="下载-seata"><a href="#下载-seata" class="headerlink" title="下载 seata"></a><strong>下载 seata</strong></h4><p>直接去官网下载即可。<a href="https://github.com/seata/seata/archive/v1.3.0.tar.gz">https://github.com/seata/seata/archive/v1.3.0.tar.gz</a></p>
+<h4 id="修改registry-conf配置"><a href="#修改registry-conf配置" class="headerlink" title="修改registry.conf配置"></a>修改registry.conf配置</h4><p><code>registry.conf</code>主要配置 seata 的注册中心和配置中心，相当于 seata 的基础配置，需要放在本地。其他配置可以放入注册中心即可。</p>
+<pre><code class="shell"># 使用 eureka 作为注册中心
+registry &#123;
+  # file,nacos,eureka,redis,zk,consule
+  type = &quot;eureka&quot;
 
-    public static Singleton getInstance() &#123;
-        return uniqueInstance;
-    &#125;
+  nacos &#123;
+    application = &quot;seata-server&quot;
+    serverAddr = &quot;192.168.47.11:8848&quot;
+    group = &quot;SEATA_GROUP&quot;
+    namespace = &quot;&quot;
+    cluster = &quot;default&quot;
+    username = &quot;nacos&quot;
+    password = &quot;nacos&quot;
+  &#125;
+
+  eureka &#123;
+    serviceUrl = &quot;http://localhost:8761/eureka&quot;
+    # 指定seata服务名称
+    application = &quot;seata-server&quot;
+    weight = &quot;1&quot;
+  &#125;
+&#125;
+
+# 使用 nacos 作为配置中心
+config &#123;
+  type = &quot;nacos&quot;
+  nacos &#123;
+    serverAddr = &quot;192.168.47.11:8848&quot;
+    namespace = &quot;&quot;
+    group = &quot;SEATA_GROUP&quot;
+    username = &quot;nacos&quot;
+    password = &quot;nacos&quot;
+  &#125;
 &#125;</code></pre>
-<h2 id="2-懒汉式"><a href="#2-懒汉式" class="headerlink" title="2. 懒汉式"></a>2. 懒汉式</h2><p>虽然达到了按需初始化的目的，但却带来线程不安全的问题。可以通过synchronized解决，但也带来效率下降。</p>
-<pre><code class="java">/**
- * 饿汉式：减小锁粒度，以提高效率
- */
-public class Singletion &#123;
-    // 思考这里为什么非要加 volatile？
-    private static volatile Singletion uniqueInstance;
-    private Singletion()&#123;&#125;
-
-    public static Singletion getInstance() throws InterruptedException &#123;
-        if(uniqueInstance == null)&#123;
-            synchronized (Singletion.class)&#123;
-                Thread.sleep(10);
-                // 这里必须判断，只让第一个进来的线程创建实例，否则还是存在同步问题
-                if(uniqueInstance == null)&#123;
-                    uniqueInstance = new Singletion();
-                &#125; else &#123;
-                    return uniqueInstance;
-                &#125;
-            &#125;
-            // TODO: 这里可能有比较耗时的初始化动作，不需要加锁
-        &#125;
-        return uniqueInstance;
-    &#125;
-&#125;</code></pre>
-<h2 id="3-需不需要加-volatile"><a href="#3-需不需要加-volatile" class="headerlink" title="3. 需不需要加 volatile?"></a>3. 需不需要加 volatile?</h2><p>答案：需要。JVM 创建一个对象时，分为三步</p>
+<h4 id="发布其他配置到-nacos"><a href="#发布其他配置到-nacos" class="headerlink" title="发布其他配置到 nacos"></a>发布其他配置到 nacos</h4><p>在 config.txt 中写入配置，然后使用官方提供的发布脚本进行发布。</p>
 <ol>
-<li>申请内存空间</li>
-<li>设置成员变量的值</li>
-<li>对象地址赋值给变量</li>
+<li>创建 config.txt 文件，写入如下配置。主要配置 seata 模式和数据源相关信息。</li>
 </ol>
-<p>但是如果发生<strong>指令重排序</strong>，可能2、3步位置可能会互换。这时可能刚刚执行完1、3两个步骤，就是说成员变量还没来得及赋值，还是初始值的时候，第二个线程来了，而且那个单例变量的值不为空，那么就拿去直接使用了，并且可能修改、使用那些还没来得及初始化的成员变量，导致一些问题。但是加了 volatile 之后，这个对象的指令重排序就不存在了。</p>
-<h2 id="4-静态内部类模式"><a href="#4-静态内部类模式" class="headerlink" title="4. 静态内部类模式"></a>4. 静态内部类模式</h2><p>JVM保证单例。加载外部类时不会加载内部类，这样可以实现懒加载。</p>
-<pre><code class="java">/**
- * 静态内部类方法：JVM 保证单例。但是加载外部类时不会内部类，这样可以实现懒加载
- * 缺点：看似完美，但是存在反射和反序列攻击
+<pre><code class="properties">store.mode=db
+store.db.datasource=druid
+store.db.dbType=mysql
+store.db.driverClassName=com.mysql.jdbc.Driver
+store.db.url=jdbc:mysql://192.168.47.11:3306/seata-server?useUnicode=true&amp;useSSL=false&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai
+store.db.user=root
+store.db.password=pass9876
+store.db.minConn=5
+store.db.maxConn=30
+store.db.globalTable=global_table
+store.db.branchTable=branch_table
+store.db.queryLimit=100
+store.db.lockTable=lock_table
+store.db.maxWait=5000</code></pre>
+<ol start="2">
+<li><p>然后执行 <code>sh nacos-config.sh</code> 命令发布配置。</p>
+</li>
+<li><p>发布完成即可在 nacos 控制台看到刚刚发布的配置。</p>
+<p><a href="http://192.168.47.11:8848/nacos">http://192.168.47.11:8848/nacos</a> 用户名/密码：nacos/nacos</p>
+</li>
+</ol>
+<p><code>nacos-config.sh</code> 脚本获取：<a href="https://github.com/seata/seata/tree/develop/script/config-center/nacos/nacos-config.sh">https://github.com/seata/seata/tree/develop/script/config-center/nacos/nacos-config.sh</a></p>
+<h4 id="配置数据库"><a href="#配置数据库" class="headerlink" title="配置数据库"></a>配置数据库</h4><p>db 模式需要创建几个数据表用来给 seata server 使用。</p>
+<pre><code class="sql">-- 创建数据库
+SHOW CHARACTER SET;
+SHOW COLLATION;
+CREATE DATABASE `seata-server` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+-- 分支事务表
+CREATE TABLE `branch_table` (
+  `branch_id` bigint(20) NOT NULL,
+  `xid` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `transaction_id` bigint(20) DEFAULT NULL,
+  `resource_group_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `resource_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `branch_type` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `client_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `application_data` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`branch_id`) USING BTREE,
+  KEY `idx_xid` (`xid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- 全局事务表
+CREATE TABLE `global_table` (
+  `xid` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `transaction_id` bigint(20) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
+  `application_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `transaction_service_group` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `transaction_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `timeout` int(11) DEFAULT NULL,
+  `begin_time` bigint(20) DEFAULT NULL,
+  `application_data` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`xid`) USING BTREE,
+  KEY `idx_gmt_modified_status` (`gmt_modified`,`status`) USING BTREE,
+  KEY `idx_transaction_id` (`transaction_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- 全局锁
+CREATE TABLE `lock_table` (
+  `row_key` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `xid` varchar(96) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `transaction_id` bigint(20) DEFAULT NULL,
+  `branch_id` bigint(20) NOT NULL,
+  `resource_id` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `table_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `pk` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `gmt_create` datetime DEFAULT NULL,
+  `gmt_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`row_key`) USING BTREE,
+  KEY `idx_branch_id` (`branch_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;</code></pre>
+<h3 id="1-3-启动-seata-server"><a href="#1-3-启动-seata-server" class="headerlink" title="1.3 启动 seata server"></a>1.3 启动 seata server</h3><p>启动服务：</p>
+<pre><code class="shell">nohup sh seata-server.sh -h 192.168.47.11 -p 8091 -m db -n 1 &amp;</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>全写</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-h</td>
+<td>–host</td>
+<td>指定在注册中心注册的 IP</td>
+<td>不指定时获取当前的 IP，外部访问部署在云环境和容器中的 server 建议指定</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>–port</td>
+<td>指定 server 启动的端口</td>
+<td>默认为 8091</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>–storeMode</td>
+<td>事务日志存储方式</td>
+<td>支持<code>file</code>,<code>db</code>,<code>redis</code>，默认为 <code>file</code> 注:redis需seata-server 1.3版本及以上</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>-serverNode</td>
+<td>用于指定seata-server节点ID</td>
+<td>如 <code>1</code>,<code>2</code>,<code>3</code>…, 默认为 <code>1</code></td>
+</tr>
+<tr>
+<td>-e</td>
+<td>–seataEnv</td>
+<td>指定 seata-server 运行环境</td>
+<td>如 <code>dev</code>, <code>test</code> 等, 服务启动时会使用 <code>registry-dev.conf</code> 这样的配置</td>
+</tr>
+</tbody></table>
+<h2 id="2、Seata-AT-模式实现"><a href="#2、Seata-AT-模式实现" class="headerlink" title="2、Seata AT 模式实现"></a>2、Seata AT 模式实现</h2><h3 id="2-1-创建测试数据库"><a href="#2-1-创建测试数据库" class="headerlink" title="2.1 创建测试数据库"></a>2.1 创建测试数据库</h3><pre><code class="sql">-- 创建三个数据库
+CREATE DATABASE `seate-rm-one` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+CREATE DATABASE `seate-rm-two` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+CREATE DATABASE `seate-rm-three` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+-- 创建业务表
+DROP TABLE IF EXISTS `seate-rm-one`.tbl_one;
+DROP TABLE IF EXISTS `seate-rm-two`.tbl_two;
+DROP TABLE IF EXISTS `seate-rm-three`.tbl_three;
+
+CREATE TABLE `seate-rm-one`.tbl_one(id INT PRIMARY KEY AUTO_INCREMENT, NAME VARCHAR(50)) ENGINE INNODB DEFAULT CHARSET utf8;
+CREATE TABLE `seate-rm-two`.tbl_two(id INT PRIMARY KEY AUTO_INCREMENT, NAME VARCHAR(50)) ENGINE INNODB DEFAULT CHARSET utf8;
+CREATE TABLE `seate-rm-three`.tbl_three(id INT PRIMARY KEY AUTO_INCREMENT, NAME VARCHAR(50)) ENGINE INNODB DEFAULT CHARSET utf8;
+
+SELECT * FROM `seate-rm-one`.tbl_one;
+SELECT * FROM `seate-rm-two`.tbl_two;
+SELECT * FROM `seate-rm-three`.tbl_three;
+
+-- 三个库均创建 undo_log 表，用于 RM 回滚
+CREATE TABLE `undo_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `branch_id` bigint(20) NOT NULL,
+  `xid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `context` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `rollback_info` longblob NOT NULL,
+  `log_status` int(11) NOT NULL,
+  `log_created` datetime NOT NULL,
+  `log_modified` datetime NOT NULL,
+  `ext` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;</code></pre>
+<p>神坑：</p>
+<ul>
+<li>业务表必须要主键</li>
+</ul>
+<p>seata 相关脚本官网位置：</p>
+<pre><code>https://github.com/seata/seata/tree/1.3.0/script</code></pre>
+<h3 id="2-2-创建测试服务"><a href="#2-2-创建测试服务" class="headerlink" title="2.2 创建测试服务"></a>2.2 <strong>创建测试服务</strong></h3><p>1、pom</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;parent&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;2.2.6.RELEASE&lt;/version&gt;
+        &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+    &lt;/parent&gt;
+    &lt;groupId&gt;com.monkeykong&lt;/groupId&gt;
+    &lt;artifactId&gt;seata-rm-one&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;name&gt;seata-rm-one&lt;/name&gt;
+    &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;
+
+    &lt;properties&gt;
+        &lt;java.version&gt;1.8&lt;/java.version&gt;
+        &lt;spring-cloud.version&gt;Hoxton.SR3&lt;/spring-cloud.version&gt;
+        &lt;seata.version&gt;1.3.0&lt;/seata.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;!-- web --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!-- eureka client --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;!-- mybatis --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+            &lt;version&gt;2.1.3&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!-- mysql:阿里巴巴数据库连接池 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+            &lt;artifactId&gt;druid&lt;/artifactId&gt;
+            &lt;version&gt;1.1.12&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;!-- mysql:connector --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;scope&gt;runtime&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;!-- seata --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.alibaba.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-alibaba-seata&lt;/artifactId&gt;
+            &lt;version&gt;2.1.0.RELEASE&lt;/version&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;artifactId&gt;seata-all&lt;/artifactId&gt;
+                    &lt;groupId&gt;io.seata&lt;/groupId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+        &lt;!-- seata-all --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;io.seata&lt;/groupId&gt;
+            &lt;artifactId&gt;seata-all&lt;/artifactId&gt;
+            &lt;version&gt;$&#123;seata.version&#125;&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+            &lt;exclusions&gt;
+                &lt;exclusion&gt;
+                    &lt;groupId&gt;org.junit.vintage&lt;/groupId&gt;
+                    &lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt;
+                &lt;/exclusion&gt;
+            &lt;/exclusions&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;
+                &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+
+&lt;/project&gt;
+</code></pre>
+<p>2、properties</p>
+<pre><code class="properties"># 服务名称
+spring.application.name=seata-rm-one
+server.port=8001
+# 注册中心
+eureka.client.enabled=true
+eureka.client.service-url.defaultZone=http://192.168.47.11:8761/eureka/
+eureka.instance.hostname=localhost
+# mybatis 配置
+## mybatis 配置文件所在路径
+mybatis.config-location=classpath:mybatis/mybatis.cfg.xml
+#mybatis.type-aliases-package=
+## 所有 mapper 映射文件
+mybatis.mapper-locations[0]=classpath:mybatis/mapper/*.xml
+# 数据源配置
+spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+## sqlyog 客户端连接不上:ALTER USER &#39;root&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;root&#39;;
+spring.datasource.url=jdbc:mysql://localhost:3306/seate-rm-one?characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.dbcp2.initial-size=5
+spring.datasource.dbcp2.min-idle=5
+spring.datasource.dbcp2.max-idle=5
+spring.datasource.dbcp2.max-wait-millis=200
+spring.datasource.dbcp2.validation-query=SELECT 1
+spring.datasource.dbcp2.test-while-idle=true
+spring.datasource.dbcp2.test-on-borrow=false
+spring.datasource.dbcp2.test-on-return=false
+
+spring.cloud.alibaba.seata.tx-service-group=my_test_tx_group</code></pre>
+<p>3、配置数据源代理</p>
+<pre><code class="java">// 排除数据源自动装配
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+
+/**
+ * 数据源代理
  */
-public class Singleton implements Serializable &#123;
-    private Singleton()&#123;&#125;
+@Configuration
+public class DataSourceConfiguration &#123;
 
-    private static class SingletonHolder&#123;
-        private final static Singleton UNIQUEINSTANCE = new Singleton();
+    @Bean
+    @ConfigurationProperties(prefix = &quot;spring.datasource&quot;)
+    public DataSource druidDataSource()&#123;
+        DruidDataSource druidDataSource = new DruidDataSource();
+        return druidDataSource;
     &#125;
 
-    public static Singleton getInstance()&#123;
-        return SingletonHolder.UNIQUEINSTANCE;
+    @Primary
+    @Bean(&quot;dataSource&quot;)
+    public DataSourceProxy dataSource(DataSource druidDataSource)&#123;
+        return new DataSourceProxy(druidDataSource);
     &#125;
 
-    public static void main(String[] args) throws Exception &#123;
-
-        Singleton singleton = Singleton.getInstance();
-
-        // 反射攻击
-        Constructor&lt;Singleton&gt; constructor = Singleton.class.getDeclaredConstructor();
-        constructor.setAccessible(true);
-        Singleton newSingleton = constructor.newInstance();
-        // false
-        System.out.println(singleton == newSingleton);
-
-        // 反序列攻击
-        byte[] serialize = SerializationUtils.serialize(singleton);
-        Singleton newInstance = SerializationUtils.deserialize(serialize);
-        // false
-        System.out.println(singleton == newInstance);
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(DataSourceProxy dataSourceProxy)throws Exception&#123;
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSourceProxy);
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
+                .getResources(&quot;classpath*:/mybatis/mapper/*.xml&quot;));
+        sqlSessionFactoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
+        return sqlSessionFactoryBean.getObject();
     &#125;
 &#125;</code></pre>
-<h2 id="5-枚举模式"><a href="#5-枚举模式" class="headerlink" title="5. 枚举模式"></a>5. 枚举模式</h2><p>不仅可以解决线程同步，还可以防止反序列化。</p>
-<pre><code class="java">/**
- * 枚举方式：可以防止序列化和反序列化
- */
-public enum Singleton &#123;
+<p>4、启动服务测试</p>
+<pre><code class="java">@GetMapping(&quot;/rm1&quot;)
+public String rm1() &#123;
+    rmOneService.rm1();
+    return &quot;rm1 成功&quot;;
+&#125;
 
-    INSTANCE;
+//此注解开启全局事务
+@GlobalTransactional(name = &quot;fsp-create-order&quot;,rollbackFor = Exception.class)
+public void rm1() &#123;
+    rm2();
+    rm3();
 
-    private int age;
-    public void doSomething()&#123;
-        age = 10;
-        System.out.println(&quot;do something. age:&quot;+age);
-    &#125;
+    One o = new One();
+    o.setName(&quot;rm1&quot;);
+    mapper.insertSelective(o);
+    //        int i = 1/0;
+&#125;
 
-    public static void main(String[] args) &#123;
-        Singleton.INSTANCE.doSomething();
-    &#125;
+private void rm2() &#123;
+    restTemplate.getForEntity(&quot;http://seata-rm-two/test/rm2&quot;, null);
+&#125;
+
+private void rm3() &#123;
+    restTemplate.getForEntity(&quot;http://seata-rm-three/test/rm3&quot;, null);
 &#125;</code></pre>
-<h2 id="6-小结"><a href="#6-小结" class="headerlink" title="6. 小结"></a>6. 小结</h2><p><strong>经验之谈：</strong>一般情况下，建议使用<strong>饿汉方式</strong>。只有在要明确实现 lazy loading 效果时，才会使用<strong>静态内部类模式</strong>。如果涉及到反序列化创建对象时，可以尝试使用<strong>枚举方式</strong>。如果有其他特殊的需求，可以考虑<strong>懒汉双重检查式</strong>。</p>
+<p>seata RM 启动成功日志：</p>
+<pre><code class="json"># TM 要连接的 seata-server 地址
+NettyClientChannelManager  : will connect to 192.168.238.1:8091
+# 为 TM 创建 NettyPool
+NettyPoolableFactory  : NettyPool create channel to transactionRole:TMROLE,address:192.168.238.1:8091,msg:&lt; RegisterTMRequest&#123;applicationId=&#39;seata-rm-two&#39;, transactionServiceGroup=&#39;my_test_tx_group&#39;&#125; &gt;
+# TM 注册成功
+TmNettyRemotingClient    : register TM success. client version:1.3.0, server version:1.3.0,channel:[id: 0xc2bcb0b5, L:/192.168.238.1:55335 - R:/192.168.238.1:8091]
+# TM 注册成功
+NettyPoolableFactory  : register success, cost 9 ms, version:1.3.0,role:TMROLE,channel:[id: 0xc2bcb0b5, L:/192.168.238.1:55335 - R:/192.168.238.1:8091]</code></pre>
+<h3 id="2-3-访问测试"><a href="#2-3-访问测试" class="headerlink" title="2.3 访问测试"></a>2.3 访问测试</h3><p>访问：<code>http://localhost:8001/test/rm1</code></p>
+<p><strong>事务失败</strong></p>
+<p>1、全局事务表，有一个全局事务</p>
+<p><img src="E:\02_blog\blog\source\images\springcloud\8\seata-全局事务表.png"></p>
+<p>2、分支事务表，有两个分支事务</p>
+<p><img src="E:\02_blog\blog\source\images\springcloud\8\seata-分支事务表.png"></p>
+<p>3、锁定表，两条锁定数据</p>
+<p><img src="E:\02_blog\blog\source\images\springcloud\8\seata-锁定表.png"></p>
+<p>4、回滚表，两个库各一条记录</p>
+<p><img src="E:\02_blog\blog\source\images\springcloud\8\seata-回滚表.png"></p>
+<p>5、日志信息</p>
+<pre><code class="json"># SeataRmOneApplication 日志
+## 全局事务开始
+DefaultGlobalTransaction  : Begin new global transaction [192.168.238.1:8091:63599496698793984]
+## 全局事务回滚完成
+DefaultGlobalTransaction  : [192.168.238.1:8091:63599496698793984] rollback status: Rollbacked
+
+# SeataRmTwoApplication 日志
+## 分支事务完成，xid 变为 null
+web.SeataHandlerInterceptor  : xid in change during RPC from 192.168.238.1:8091:63599496698793984 to null
+## 分支事务回滚
+RmBranchRollbackProcessor    : rm handle branch rollback process:xid=192.168.238.1:8091:63599496698793984,branchId=63599496786874369,branchType=AT,resourceId=jdbc:mysql://localhost:3306/seate-rm-two,applicationData=null
+## 分支事务回滚中...
+AbstractRMHandler            : Branch Rollbacking: 192.168.238.1:8091:63599496698793984 63599496786874369 jdbc:mysql://localhost:3306/seate-rm-two
+## 通过 undo_log 回滚并删除 undo_log
+AbstractUndoLogManager       : xid 192.168.238.1:8091:63599496698793984 branch 63599496786874369, undo_log deleted with GlobalFinished
+## 分支事务回滚完成
+AbstractRMHandler            : Branch Rollbacked result: PhaseTwo_Rollbacked</code></pre>
+<p>6、业务表均无数据，分布式事务成功</p>
+<pre><code class="sql">SELECT * FROM `seate-rm-one`.tbl_one;
+SELECT * FROM `seate-rm-two`.tbl_two;
+SELECT * FROM `seate-rm-three`.tbl_three;</code></pre>
+<p><strong>事务成功</strong></p>
+<p>业务表正常插入数据。</p>
+<h3 id="2-4-PhaseTwo-RollbackFailed-Retryable"><a href="#2-4-PhaseTwo-RollbackFailed-Retryable" class="headerlink" title="2.4 PhaseTwo_RollbackFailed_Retryable"></a>2.4 PhaseTwo_RollbackFailed_Retryable</h3><p>回滚时报如下错误：</p>
+<pre><code class="json">Field not equals, name NAME, old value rm2, new value 333
+branchRollback failed. branchType:[AT], xid:[192.168.47.11:8091:102850563426750464]
+Branch Rollbacked result: PhaseTwo_RollbackFailed_Retryable</code></pre>
+<p>场景还原：</p>
+<ol>
+<li>在全局事务回滚前（报错前），修改已经提交的局部事务。这里是在插入seate-rm-two之后，插入seate-rm-three之前断点，然后手动去数据库把值由 rm2 修改为 333</li>
+<li>放开断点，由于 undo_log 中的数据和当前数据库中数据不一致，导致一直回滚失败。</li>
+</ol>
+<p>如果有人在事务回滚期间修改了相关数据，那么有可能导致回滚日志一直未能成功？ </p>
+<p>答：所以at需要通过全局锁来修改数据，如果没拿到锁是不允许的，也就是如果有人直接在回滚前去数据库修改了，就会把数据变脏</p>
+<p><a href="https://www.sofastack.tech/blog/seata-distributed-transaction-deep-dive/">https://www.sofastack.tech/blog/seata-distributed-transaction-deep-dive/</a></p>
+<h3 id="TCC"><a href="#TCC" class="headerlink" title="TCC"></a>TCC</h3><p><a href="http://seata.io/zh-cn/blog/integrate-seata-tcc-mode-with-spring-cloud.html">http://seata.io/zh-cn/blog/integrate-seata-tcc-mode-with-spring-cloud.html</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 lixianfu1@outlook.com </span>

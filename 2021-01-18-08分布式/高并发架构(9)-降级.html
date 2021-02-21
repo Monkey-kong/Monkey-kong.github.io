@@ -148,7 +148,7 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(123)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(124)</small></div></li>
     
         
             
@@ -208,7 +208,7 @@
     
         
             
-            <li><div data-rel="分布式">分布式<small>(22)</small></div>
+            <li><div data-rel="分布式">分布式<small>(23)</small></div>
                 
             </li>
             
@@ -264,8 +264,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="123">
-<input type="hidden" id="yelog_site_word_count" value="347.5k">
+<input type="hidden" id="yelog_site_posts_number" value="124">
+<input type="hidden" id="yelog_site_word_count" value="349.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -671,6 +671,14 @@
            data-author="" >
             <span class="post-title" title="算法基础（一）">算法基础（一）</span>
             <span class="post-date" title="2020-10-28 22:13:12">2020/10/28</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-12-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(8)-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%AE%9E%E8%B7%B5.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(八)">Spring Cloud学习(八)</span>
+            <span class="post-date" title="2020-10-12 23:43:12">2020/10/12</span>
         </a>
         
         <a  class="全部文章 分布式 "
@@ -1493,7 +1501,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-02-04 00:05:26'>2021-01-18 20:43</time>
+            发布时间 : <time class="date" title='最后更新: 2021-02-06 13:24:53'>2021-01-18 20:43</time>
         
     </div>
     <div class="article-meta">
@@ -1571,12 +1579,12 @@
 <li>WEB 端：在服务不可用时，web 端增加重试按钮或自动重试可以提供更加友好的体验</li>
 </ul>
 <p>自动重试需要设置重试次数和数据<strong>幂等</strong>处理。</p>
-<h3 id="3-5-降级开关"><a href="#3-5-降级开关" class="headerlink" title="3.5 降级开关"></a>3.5 降级开关</h3><p>对于一些较为不稳定的服务，可以在服务调用方设置一个 flag，标记服务是否可用。这个标记需要存储在第三方：配置文件、数据库、redis、zookeeper 中。</p>
+<h3 id="3-5-降级开关"><a href="#3-5-降级开关" class="headerlink" title="3.5 降级开关"></a>3.5 降级开关</h3><p>对于一些较为不稳定的服务，可以在服务调用方设置一个 flag，标记服务是否可用。这个标记需要存储在第三方：配置文件、数据库、Redis、zookeeper 中。</p>
 <p>配置文件和数据库在高并发系统中不适用，频繁调用数据库是非常致命的。至于放在 redis 中还是 zookeeper 中，这里我们没必要要求这个 flag 强一致性，而是更注重服务的可用性，所以选择 AP 架构的 redis。</p>
 <h3 id="3-6-数据组装降级"><a href="#3-6-数据组装降级" class="headerlink" title="3.6 数据组装降级"></a>3.6 数据组装降级</h3><p>多库、多维度组装 JSON 或 XML 时，如果有一些不重要的数据无法获取或数据出错，可以忽略错误，返回可以返回的数据，而不是直接将服务降级。</p>
 <h3 id="3-7-爬虫和机器人"><a href="#3-7-爬虫和机器人" class="headerlink" title="3.7 爬虫和机器人"></a>3.7 爬虫和机器人</h3><p>网络爬虫占用的流量非常大，一个正常的网站，网站越好，爬虫占用的比值就越高，可能 30%-50% 的流量都来自爬虫。爬虫的目的是搜索引擎为了提高数据质量，所以不停爬虫获取实时数据。搜索引擎厂商也比较多，所以网站可能被频繁爬取数据。</p>
 <ul>
-<li>分析机器人行为：短时间连续操作、agent（正规的爬虫会带有 agent，表明自己是爬虫请求）、行为轨迹分析（js录屏，发送到服务器，服务器分析是否是人的行为）、拖拽（模拟登录/秒杀/灌水）</li>
+<li>分析机器人行为：短时间连续操作、agent（正规的爬虫会带有 agent，表明自己是爬虫请求）、行为轨迹分析（js 录屏，发送到服务器，服务器分析是否是人的行为）、拖拽（模拟登录/秒杀/灌水）</li>
 <li>爬虫：引导爬虫请求到静态页或者缓存页。</li>
 </ul>
 <h3 id="3-8-读降级"><a href="#3-8-读降级" class="headerlink" title="3.8 读降级"></a>3.8 读降级</h3><p>在一个请求内，多级缓存架构下，后端缓存或 DB 不可用，可以使用前端缓存或兜底数据。</p>

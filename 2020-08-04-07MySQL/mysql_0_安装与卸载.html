@@ -148,7 +148,7 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(123)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(124)</small></div></li>
     
         
             
@@ -208,7 +208,7 @@
     
         
             
-            <li><div data-rel="分布式">分布式<small>(22)</small></div>
+            <li><div data-rel="分布式">分布式<small>(23)</small></div>
                 
             </li>
             
@@ -264,8 +264,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="123">
-<input type="hidden" id="yelog_site_word_count" value="347.5k">
+<input type="hidden" id="yelog_site_posts_number" value="124">
+<input type="hidden" id="yelog_site_word_count" value="349.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -671,6 +671,14 @@
            data-author="" >
             <span class="post-title" title="算法基础（一）">算法基础（一）</span>
             <span class="post-date" title="2020-10-28 22:13:12">2020/10/28</span>
+        </a>
+        
+        <a  class="全部文章 分布式 "
+           href="/2020-10-12-08%E5%88%86%E5%B8%83%E5%BC%8F/SpringCloud(8)-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%AE%9E%E8%B7%B5.html"
+           data-tag="Spring Cloud"
+           data-author="" >
+            <span class="post-title" title="Spring Cloud学习(八)">Spring Cloud学习(八)</span>
+            <span class="post-date" title="2020-10-12 23:43:12">2020/10/12</span>
         </a>
         
         <a  class="全部文章 分布式 "
@@ -1493,12 +1501,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2020-10-11 00:37:51'>2020-08-04 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-02-09 20:48:19'>2020-08-04 22:13</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:426</span>
+        <span>字数:455</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1565,12 +1573,17 @@ tar zxvf /path/to/mysql-VERSION-OS.tar.gz #记得改为自己的安装包
 ln -s full-path-to-mysql-VERSION-OS mysql #记得改为自己的安装包
 cd mysql
 
+# 删除之前mysql相关文件
+rm -rf /etc/my.cnf
+rm -rf /etc/mysql/
+rm -rf /etc/mysql.cnf.d/
+
 # 这个文件夹干啥的？
 mkdir mysql-files
 chown mysql:mysql mysql-files
 chmod 750 mysql-files
 
-# 启动服务 kYrgW!ec.47d
+# 启动服务 kYrgW!ec.47d  R9uVI437ih*B HqTiIL&amp;sw2YH
 bin/mysqld --initialize --user=mysql #记得记住临时密码 n_u=T=eld0i.
 bin/mysql_ssl_rsa_setup
 bin/mysqld_safe --user=mysql &amp;
