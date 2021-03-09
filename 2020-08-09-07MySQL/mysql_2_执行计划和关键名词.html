@@ -6,13 +6,15 @@
   <meta name="keywords" content=" MySQL ">
   <meta name="description" content="MySql 调优(二) | 悟空">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Nickname: 悟空  Email: lixianfu1@outlook.com  Github: Monkey-kong">
 <meta property="og:type" content="website">
-<meta property="og:title" content="悟空">
-<meta property="og:url" content="http://yoursite.com/404.html">
+<meta property="og:title" content="关于">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
 <meta property="og:site_name" content="悟空">
+<meta property="og:description" content="Nickname: 悟空  Email: lixianfu1@outlook.com  Github: Monkey-kong">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-11-16T00:43:02.436Z">
-<meta property="article:modified_time" content="2019-11-08T14:02:36.972Z">
+<meta property="article:published_time" content="2020-02-23T04:03:49.717Z">
+<meta property="article:modified_time" content="2020-02-23T04:03:49.717Z">
 <meta property="article:author" content="悟空">
 <meta name="twitter:card" content="summary">
 
@@ -265,7 +267,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="124">
-<input type="hidden" id="yelog_site_word_count" value="349.4k">
+<input type="hidden" id="yelog_site_word_count" value="353.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -1501,12 +1503,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2020-09-11 21:07:48'>2020-08-09 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-02-28 14:55:23'>2020-08-09 22:13</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:3.4k</span>
+        <span>字数:6.4k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1536,7 +1538,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92"><span class="toc-text">1. 执行计划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-id"><span class="toc-text">1.1 id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-select-type"><span class="toc-text">1.2 select_type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-table"><span class="toc-text">1.3 table</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-type"><span class="toc-text">1.4 type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-possible-keys"><span class="toc-text">1.5 possible_keys</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-key"><span class="toc-text">1.6 key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-key-len"><span class="toc-text">1.7 key_len</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-8-ref"><span class="toc-text">1.8 ref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-9-rows"><span class="toc-text">1.9 rows</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-10-extra"><span class="toc-text">1.10 extra</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="toc-text">2. 索引优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%B4%A2%E5%BC%95%E4%BC%98%E7%82%B9"><span class="toc-text">2.1 索引优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%B4%A2%E5%BC%95%E7%9A%84%E7%94%A8%E5%A4%84"><span class="toc-text">2.2 索引的用处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">2.3 索引的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E7%B4%A2%E5%BC%95%E9%87%87%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">2.4 索引采用的数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-text">1. 哈希表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-B-%E6%A0%91"><span class="toc-text">2. B+ 树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E5%90%8D%E8%AF%8D"><span class="toc-text">2.5 索引相关名词</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9B%9E%E8%A1%A8"><span class="toc-text">1. 回表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95"><span class="toc-text">2. 覆盖索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D%E5%8E%9F%E5%88%99"><span class="toc-text">3. 最左匹配原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8-index-condition-pushdown"><span class="toc-text">4. 索引下推( index condition pushdown  )</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%97%AE%E9%A2%98"><span class="toc-text">3. 问题</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92"><span class="toc-text">1. 执行计划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-id"><span class="toc-text">1.1 id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-select-type"><span class="toc-text">1.2 select_type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-table"><span class="toc-text">1.3 table</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-type"><span class="toc-text">1.4 type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-possible-keys"><span class="toc-text">1.5 possible_keys</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-key"><span class="toc-text">1.6 key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-key-len"><span class="toc-text">1.7 key_len</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-8-ref"><span class="toc-text">1.8 ref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-9-rows"><span class="toc-text">1.9 rows</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-10-extra"><span class="toc-text">1.10 extra</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="toc-text">2. 索引优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%B4%A2%E5%BC%95%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">2.1 索引优缺点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-text">优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A3%E5%8A%BF"><span class="toc-text">劣势</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%B4%A2%E5%BC%95%E7%9A%84%E7%94%A8%E5%A4%84"><span class="toc-text">2.2 索引的用处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">2.3 索引的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E7%B4%A2%E5%BC%95%E9%87%87%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">2.4 索引采用的数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-text">1. 哈希表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-B-%E6%A0%91"><span class="toc-text">2. B+ 树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E5%90%8D%E8%AF%8D"><span class="toc-text">2.5 索引相关名词</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9B%9E%E8%A1%A8"><span class="toc-text">1. 回表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95"><span class="toc-text">2. 覆盖索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D%E5%8E%9F%E5%88%99"><span class="toc-text">3. 最左匹配原则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8-index-condition-pushdown"><span class="toc-text">4. 索引下推( index condition pushdown  )</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95"><span class="toc-text">5. 联合索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E5%85%B6%E4%BB%96"><span class="toc-text">2.6 其他</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%B4%A2%E5%BC%95%E5%AD%98%E6%94%BE%E7%9A%84%E4%BD%8D%E7%BD%AE%EF%BC%9F"><span class="toc-text">1. 索引存放的位置？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-B-%E6%A0%91%E5%A5%BD%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F"><span class="toc-text">2. B+树好在哪里？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-B-%E6%A0%91%E6%9B%B4%E8%BF%91%E4%B8%80%E6%AD%A5%E5%AD%A6%E4%B9%A0"><span class="toc-text">2.7 B+树更近一步学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88AVL%EF%BC%89"><span class="toc-text">平衡二叉树（AVL）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E6%A0%91"><span class="toc-text">2-3 树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-4-%E6%A0%91"><span class="toc-text">2-3-4 树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B%E6%A0%91"><span class="toc-text">B树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B-%E6%A0%91%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="toc-text">B 树的查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B-%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5"><span class="toc-text">B 树的插入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B-%E6%A0%91%E7%9A%84%E5%88%A0%E9%99%A4"><span class="toc-text">B 树的删除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B-%E6%A0%91"><span class="toc-text">B+树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-%E7%BA%A2%E9%BB%91%E6%A0%91%E6%9B%B4%E8%BF%91%E4%B8%80%E6%AD%A5%E5%AD%A6%E4%B9%A0"><span class="toc-text">2.8 红黑树更近一步学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E6%A0%91-1"><span class="toc-text">2-3 树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="toc-text">红黑树</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%97%AE%E9%A2%98"><span class="toc-text">3. 问题</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1679,7 +1681,33 @@ WHERE primary_key_part1=1 AND primary_key_part2=2;</code></pre>
 <li><p>system：表只有一行记录</p>
 </li>
 </ul>
-<p>all -&gt; index -&gt; range -&gt; ref -&gt;const</p>
+<p>个人理解：</p>
+<pre><code class="sql">-- country 表，code 为主键
+-- 增加一个索引
+ALTER TABLE country ADD INDEX name_idx(NAME);
+-- all
+EXPLAIN SELECT * FROM country;
+-- all，表示全表扫描，因为 region 不是索引列
+EXPLAIN SELECT CODE,NAME,region FROM country;
+-- index，表示查询的列都是索引列，即满足了覆盖索引条件，不用回表
+-- 可以理解为查询索引文件即可，不用查询数据文件。Extra：Using index
+EXPLAIN SELECT CODE,NAME FROM country;
+-- all，虽然使用了 where，但是条件字段不是索引字段。Extra：Using where
+EXPLAIN SELECT CODE,NAME FROM country WHERE region IN (&#39;A&#39;,&#39;B&#39;);
+-- range，索引列范围查询。Extra:Using index condition
+EXPLAIN SELECT CODE,NAME,region FROM country WHERE NAME IN (&#39;A&#39;,&#39;B&#39;);
+-- ref，使用非唯一索引作为等于条件。统计 ref_or_null、eq_ref 应该就知道啥意思了
+EXPLAIN SELECT CODE,NAME,region FROM country WHERE NAME = &#39;A&#39;;
+-- const，表最多一个匹配行，使用主键索引或者唯一索引
+EXPLAIN SELECT CODE,NAME,region FROM country WHERE CODE = &#39;ALB&#39;;
+
+-- 理解组合索引的最左匹配原则
+-- ref
+EXPLAIN SELECT * FROM country WHERE population = 1 AND LifeExpectancy = 10;
+-- ref
+EXPLAIN SELECT * FROM country WHERE region = &#39;a&#39; AND population = 1;
+-- all
+EXPLAIN SELECT * FROM country WHERE LifeExpectancy = 10;</code></pre>
 <h3 id="1-5-possible-keys"><a href="#1-5-possible-keys" class="headerlink" title="1.5 possible_keys"></a>1.5 possible_keys</h3><p>显示可能应用在这张表中的索引，一个或多个；查询涉及到的字段上若存在索引，则该索引将被列出，但是不一定被查询实际使用。</p>
 <h3 id="1-6-key"><a href="#1-6-key" class="headerlink" title="1.6 key"></a>1.6 key</h3><p>实际使用的索引，如果为 null，则没有使用索引。</p>
 <h3 id="1-7-key-len"><a href="#1-7-key-len" class="headerlink" title="1.7 key_len"></a>1.7 key_len</h3><p>索引中使用的字节数，在不损失精度的情况下，<strong>长度越短越好</strong></p>
@@ -1691,10 +1719,14 @@ WHERE primary_key_part1=1 AND primary_key_part2=2;</code></pre>
 <li>using index：当前查询走<strong>覆盖索引</strong>，不用回表。</li>
 <li>using where：使用 where 进行条件过滤</li>
 </ul>
-<h2 id="2-索引优化"><a href="#2-索引优化" class="headerlink" title="2. 索引优化"></a>2. 索引优化</h2><h3 id="2-1-索引优点"><a href="#2-1-索引优点" class="headerlink" title="2.1 索引优点"></a>2.1 索引优点</h3><ol>
-<li>大大减少服务器需要扫描的数据量</li>
-<li>帮助服务器避免排序和临时表</li>
+<h2 id="2-索引优化"><a href="#2-索引优化" class="headerlink" title="2. 索引优化"></a>2. 索引优化</h2><h3 id="2-1-索引优缺点"><a href="#2-1-索引优缺点" class="headerlink" title="2.1 索引优缺点"></a>2.1 索引优缺点</h3><h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ol>
+<li>提高数据检索的效率，大大减少服务器需要扫描的数据量，即减少磁盘 I/O 的次数</li>
+<li>帮助服务器<strong>避免排序（索引是有序的）</strong>和临时表，降低数据排序的成本，降低了 CPU 的消耗</li>
 <li>将随机 IO 变成顺序 IO？</li>
+</ol>
+<h4 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h4><ol>
+<li><strong>索引会占据磁盘空间</strong></li>
+<li><strong>索引虽然会提高查询效率，但是会降低更新表的效率。</strong>比如每次对表进行增删改操作，MySQL不仅要保存数据，还有保存或者更新对应的索引文件。</li>
 </ol>
 <h3 id="2-2-索引的用处"><a href="#2-2-索引的用处" class="headerlink" title="2.2 索引的用处"></a>2.2 索引的用处</h3><ol>
 <li>快速查找匹配 where 子句的行</li>
@@ -1703,22 +1735,35 @@ WHERE primary_key_part1=1 AND primary_key_part2=2;</code></pre>
 <li>当有表连接的时候，从其他表检索行数据？</li>
 <li>查找特定索引列的 min 或 max 值</li>
 <li>如果排序或分组时在可用索引的最左前缀上完成的，则对表进行排序和分组？</li>
-<li>在某些情况下，可以优化查询以检索值而无需查询数据行。覆盖索引。</li>
+<li>在某些情况下，可以优化查询以检索索引值而无需查询数据行。覆盖索引。</li>
 </ol>
+<ul>
+<li>在经常需要搜索的列上建立索引，可以加快搜索的速度。</li>
+<li>在作为主键的列上创建索引，强制该列的唯一性，并组织表中数据的排列结构。</li>
+<li>在经常使用表连接的列上创建索引，这些列主要是一些外键，可以加快表连接的速度。</li>
+<li>在经常需要根据范围进行搜索的列上创建索引，因为索引已经排序，所以其指定的范围是连续的。</li>
+<li>在经常需要排序的列上创建索引，因为索引已经排序，所以查询时可以利用索引的排序，加快排序查询。</li>
+<li>在经常使用 WHERE 子句的列上创建索引，加快条件的判断速度。</li>
+</ul>
 <h3 id="2-3-索引的分类"><a href="#2-3-索引的分类" class="headerlink" title="2.3 索引的分类"></a>2.3 索引的分类</h3><ol>
 <li><p>主键索引</p>
 <p>如果没有特殊需求，尽量选择自增主键(自增锁实现)。因为自增主键，插入数据维护索引时，一直往后添加元素就行，但是如果不是自增，可能会在中间插入元素，如果要插入的位置所在的页刚好满了，就会产生<strong>页分裂</strong>问题，一来可能浪费空间，二来会产生不必要的磁盘 I/O。</p>
 </li>
-<li><p>唯一索引：索引列的所有值都只能出现一次，即必须唯一，值可以为空。不需要回表？</p>
+<li><p>唯一索引：索引列的所有值都只能出现一次，即必须唯一，值可以为空。不需要回表，因为索引数叶子节点包含了行数据。</p>
 </li>
-<li><p>普通索引：不走覆盖索引(两遍遍历B+树优化为一次)的话会回表。</p>
+<li><p>普通索引：不走覆盖索引(两遍遍历B+树优化为一次)的话查询数据需要回表才能查询到结果。</p>
 </li>
 <li><p>全文索引：倒排索引。索引类型为 fulltext。全文索引可以在 varchar、char、text 类型的列上创建。</p>
 </li>
-<li><p>组合索引（不是一种类型）：最左匹配</p>
+<li><p>空间索引。5.7 开始支持。</p>
+</li>
+<li><p>前缀索引。在文本类型如 <strong>CHAR,VARCHAR,TEXT</strong>类型的列上创建索引时，可以指定索引列的长度。数值类型不能指定。</p>
+</li>
+<li><p>组合索引（不是一种类型）：<strong>最左前缀匹配原则</strong></p>
 <p>注意索引的顺序会影响查询，同时需要考虑如何更好的满足排序和分组。</p>
 <p>使用范围查询，可以走索引，但是范围查询后面的字段索引失效。</p>
-<p>name,age、age 和 age,name、name 好。结合工作来说明。</p>
+<p>可以说创建的 idx_abc(a,b,c) 索引，相当于创建了(a)、（a,b）（a,b,c）三个索引</p>
+<p><strong>name,age、age 和 age,name、name 哪个好？结合工作来说明。</strong></p>
 </li>
 </ol>
 <h3 id="2-4-索引采用的数据结构"><a href="#2-4-索引采用的数据结构" class="headerlink" title="2.4 索引采用的数据结构"></a>2.4 索引采用的数据结构</h3><h4 id="1-哈希表"><a href="#1-哈希表" class="headerlink" title="1. 哈希表"></a>1. 哈希表</h4><ul>
@@ -1728,7 +1773,7 @@ WHERE primary_key_part1=1 AND primary_key_part2=2;</code></pre>
 </ul>
 <p>哈希索引的限制：</p>
 <ol>
-<li><strong>无法覆盖索引：</strong>哈希索引中只包含哈希值和行指针，不存储字段值，索引肯定会回表，无法覆盖索引。</li>
+<li><strong>无法覆盖索引：</strong>哈希索引中只包含哈希值和行指针，不存储<strong>字段值</strong>，索引肯定会回表，无法覆盖索引。</li>
 <li><strong>无法排序：</strong>哈希索引数据不是按照索引值顺序存储的，无法进行排序</li>
 <li><strong>无法部分列匹配查找：</strong>哈希索引不支持部分列匹配查找，哈希索引使用索引列的全部内容来计算哈希值</li>
 <li><strong>无法范围查询：</strong>哈希索引支持等值比较查询。不支持任何范围查询</li>
@@ -1738,24 +1783,24 @@ WHERE primary_key_part1=1 AND primary_key_part2=2;</code></pre>
 <p><strong>如何避免 hash 冲突？</strong></p>
 <ul>
 <li>扰动函数</li>
-<li>不要直接用 %（取模）</li>
+<li>不要直接用 %（取模）。比如 java 中的 hashmap 中使用异或这些操作。</li>
 </ul>
-<h4 id="2-B-树"><a href="#2-B-树" class="headerlink" title="2. B+ 树"></a>2. B+ 树</h4><p>二叉树</p>
+<h4 id="2-B-树"><a href="#2-B-树" class="headerlink" title="2. B+ 树"></a>2. B+ 树</h4><p><strong>二叉树</strong></p>
 <ul>
-<li>不平衡</li>
-<li>节点深</li>
+<li><strong>不平衡</strong></li>
+<li><strong>节点深</strong></li>
 </ul>
-<p>二叉搜索树</p>
-<p>平衡二叉树(AVL)</p>
+<p><strong>二叉搜索树</strong></p>
+<p>每个节点最多有2个分叉，左子树和右子树数据顺序左小右大。</p>
+<p><strong>平衡二叉树(AVL)</strong></p>
 <ul>
-<li><p>真正意义上的平衡树，最高子树和最低子树高度之差不能超过 1</p>
-</li>
-<li><p>所以插入时会进行一次至多次旋转，严重影响性能</p>
-</li>
-<li><p>查询速度块，修改、删除慢</p>
-</li>
+<li>真正意义上的平衡树，<strong>最高子树和最低子树高度之差不能超过 1</strong></li>
+<li>所以插入时会进行一次至多次旋转，严重影响性能</li>
+<li>查询速度块，修改、删除慢</li>
+<li><strong>不支持范围查询。范围查询需要从根节点多次遍历。</strong></li>
+<li><strong>时间复杂度和树高相关。数据量大时，查询性能就会差。</strong></li>
 </ul>
-<p>红黑树</p>
+<p><strong>红黑树</strong></p>
 <ul>
 <li><p>基于 AVL 树的一个升级，损失了部分查询的性能，来提升插入的性能</p>
 </li>
@@ -1767,7 +1812,8 @@ WHERE primary_key_part1=1 AND primary_key_part2=2;</code></pre>
 </li>
 </ul>
 <p>这些二叉树，最终都会由<strong>于节点过深导致 IO 次数过多</strong>，影响数据读取的效率，所以不合适。</p>
-<p>B 树（多叉树）：</p>
+<p>MySQL 的数据是存储在磁盘文件中的，查询处理数据时，需要先把磁盘中的数据加载到内存中，磁盘 IO 操作非常耗时，所以我们优化的重点就是尽量减少磁盘 IO 操作。访问二叉树的每个节点就会发生一次 IO，如果想要减少磁盘 IO 操作，就需要尽量降低树的高度。所以想到了<strong>多叉树</strong>。</p>
+<p><strong>B 树（多叉树）：</strong></p>
 <ol>
 <li><p>所有键值分布在整棵树中</p>
 </li>
@@ -1775,33 +1821,46 @@ WHERE primary_key_part1=1 AND primary_key_part2=2;</code></pre>
 </li>
 <li><p>每个节点最多拥有 m 个子树</p>
 </li>
-<li><p>根节点至少有 2 个子树   </p>
+<li><p>根节点至少有 2 个子树  </p>
 </li>
 <li><p>分支节点至少拥有 m/2 棵子树(除掉根节点和叶子节点都是分支节点)</p>
 </li>
 <li><p>所有<strong>叶子节点都在同一层</strong>，每个节点最多可以有 m-1 个 key，并且以<strong>升序</strong>排列</p>
-<p>每个节点都有 key，同时和包含 data，而每个页存储的空间是有限的，如果 data 比较大的话，会导致每个节点存储的 key 数量变小。大量空间用来存 data 了，三层的 B 数只能存 4096 kb 数据。</p>
+<p>每个节点都有 key，同时和包含 data，而每个页存储的空间是有限的，如果 data 比较大的话，会导致每个节点存储的 key 数量变小。大量空间用来存 data 了，三层的 B 数只能存 4096 kb 数据。怎么算的？？？</p>
 <p><img src="../../images/mysql/2/B%E6%A0%91.png"></p>
 </li>
 </ol>
+<p>和二叉搜索树相比较，在整个查找过程中，虽然数据的比较次数并没有减少，但是磁盘 IO 次数会大大减少。同时，由于我们的比较是在内存中进行的，比较的耗时可与忽略不计。B 树的高度一般 2 到 3 层就能满足大部分的应用场景了，所以使用 B 树构建索引可以很好的提升查询效率。</p>
+<p>B 树的缺点：</p>
+<ul>
+<li>不支持范围查询的快速查找。因为需要从根节点进行多次遍历。</li>
+<li>树节点同时存有指针和行数据，行数据大小随着列的增多，所占空间会变大，这时一个页中可存储的数据量就会变少，树相应的就会变高，磁盘 IO 次数就会变多。</li>
+</ul>
 <p><strong>B+ 树</strong>：</p>
 <p>对 B 树进行优化</p>
 <ol>
 <li>每个节点可以包含更多的元素，这样可以降低树的高度；将数据的范围变为多个区间，区间越多，数据检索越快</li>
-<li>非叶子节点存储 key，叶子节点存储 key 和数据</li>
-<li>叶子节点两两指针互相连接（符合磁盘的预读特性），顺序查询性能更高</li>
+<li><strong>非叶子节点只存储 key，叶子节点存储 key 和数据</strong></li>
+<li><strong>叶子节点两两指针互相连接，构成一个双向有序链表</strong>（符合磁盘的预读特性），顺序查询性能更高</li>
 </ol>
+<blockquote>
+<ul>
+<li>正常来说，B+树每次都需要检索到叶子节点才能查询到数据。但是和 B 树相比，树高是更低的。</li>
+<li>但是覆盖索引时可能不需要检索到叶子节点</li>
+</ul>
+</blockquote>
 <p><img src="../../images/mysql/2/B+%E6%A0%91.png"></p>
 <p>B+ 树上有两个头指针，一个指向根节点，另一个指向关键字最小的叶子节点，而且所有叶子节点之间是一种链式环结构。因此可以对 B+ 树进行两种查询运算：</p>
 <ol>
-<li>对于主键的范围查找和分页查找；</li>
+<li>对于主键的范围查找和分页查找（<strong>先等值查询找到对应的叶子节点，然后根据双向链表找需要的数据</strong>）</li>
 <li>从根节点开始，进行随机查找。</li>
 </ol>
-<p>InnoDB 是通过 B+ 树结构对主键创建索引，然后叶子节点中存储记录，如果没有主键，那么会选择唯一键，如果没有唯一键，那么会生成一个 6 位的 row_id 来作为主键。</p>
+<p><strong>InnoDB 是通过 B+ 树结构对主键创建索引，然后叶子节点中存储记录，如果没有主键，那么会选择唯一键，如果没有唯一键，那么会生成一个 6 位的 row_id 来作为主键。</strong></p>
 <p><img src="../../images/mysql/2/InnoDB%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E7%9B%B4%E6%8E%A5%E6%94%BE%E7%BD%AE%E6%95%B0%E6%8D%AE.png"></p>
 <p><strong>如果创建索引的键是其他字段，那么在叶子节点中存储的是该记录的主键，然后通过主键索引找到对应的记录，叫做回表。</strong></p>
 <p><img src="../../images/mysql/2/%E6%99%AE%E9%80%9A%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95.png"></p>
-<p>MyISAM 索引文件和数据文件分开存放（非聚簇索引）。</p>
+<p>MyISAM 索引文件和数据文件分开存放（<strong>非聚簇索引</strong>）。索引存储在索引文件<code>表名称.MYI</code>中，数据文件存储在数据文件 <code>表名称.MYD</code>中。</p>
+<p>InnoDB 主键索引（<strong>聚簇索引</strong>），其他索引都称之为<strong>辅助索引或者二级索引，但是也是聚簇索引，存的是主键值，而不是数据行地址</strong>。InnoDB的数据和索引存储在一个文件<strong>表名称.ibd</strong> 中。</p>
 <h3 id="2-5-索引相关名词"><a href="#2-5-索引相关名词" class="headerlink" title="2.5 索引相关名词"></a>2.5 索引相关名词</h3><h4 id="1-回表"><a href="#1-回表" class="headerlink" title="1. 回表"></a>1. 回表</h4><p>普通索引叶子节点没有存行记录，存储的是主键。所以需要回去再找<strong>主键索引树</strong>，这就是回表。</p>
 <h4 id="2-覆盖索引"><a href="#2-覆盖索引" class="headerlink" title="2. 覆盖索引"></a>2. 覆盖索引</h4><p>基本介绍：</p>
 <ol>
@@ -1824,6 +1883,7 @@ WHERE primary_key_part1=1 AND primary_key_part2=2;</code></pre>
 <ol>
 <li>explain 的 extra 的值为 <code>using index</code> 时表示使用了覆盖索引。</li>
 </ol>
+<p><strong>比如经常根据 code 来查询 id,code,name，其他字段较少用到，但是只建了 id 主键索引和 code 的普通索引。所以可以优化 code 的索引为组合索引（code,name）。</strong></p>
 <h4 id="3-最左匹配原则"><a href="#3-最左匹配原则" class="headerlink" title="3. 最左匹配原则"></a>3. 最左匹配原则</h4><p>根据 name、age 建立组合索引。<code>where name = ? and age = ?</code> 可以匹配索引，但是 <code>where age = ？</code> 不会走索引。可以在建立组合索引时，name、age 互换。如果单独建立 name、age 两个索引，会涉及到索引合并优化。</p>
 <h4 id="4-索引下推-index-condition-pushdown"><a href="#4-索引下推-index-condition-pushdown" class="headerlink" title="4. 索引下推( index condition pushdown  )"></a>4. 索引下推( index condition pushdown  )</h4><p>过滤二级索引的同时，<strong>判断是否可以先进行 where 条件过滤再进行索引回表查询，如果条件中包含了组合索引中的列，就可以索引下推</strong>，也就是说提前执行 where 的部分过滤操作，在某些场景下，可以大大减少回表次数，从而提升整体性能。 和 sql 查询的<strong>谓词下推</strong>类似， <strong>始终将过滤表达式尽可能移至靠近数据源的位置。</strong></p>
 <p>执行计划 extra 提示 Using index condition</p>
@@ -1839,6 +1899,108 @@ create table icp_test(
 create index idx_name_age(name, age);
 explain SELECT * from icp_test where  name like &#39;陈%&#39; and age=20;</code></pre>
 <p> 1、innodb 引擎的表，索引下推只能用于二级索引（除了聚簇索引之外的索引都是二级索引(辅助索引)，每一个二级的记录中除了索引列的值之外，还包含主健值。通过二级索引查询首先查到是主键值，然后InnoDB再根据查到的主键值通过主键/聚簇索引找到相应的数据块。）。innodb的主键索引(聚簇索引)树叶子结点上保存的是全行数据，所以这个时候索引下推并不会起到减少查询全行数据的效果。<br>2、索引下推一般可用于所求查询字段（select列）不全是联合索引的字段，查询条件为多条件查询且查询条件子句（where/order by）字段全是联合索引。 </p>
+<h4 id="5-联合索引"><a href="#5-联合索引" class="headerlink" title="5. 联合索引"></a>5. 联合索引</h4><p><strong>创建原则</strong></p>
+<ul>
+<li>频繁使用的列、区分度高的列放在前面</li>
+<li>常用查询字段，如果能达到覆盖索引，建议加入到联合索引中</li>
+</ul>
+<h3 id="2-6-其他"><a href="#2-6-其他" class="headerlink" title="2.6 其他"></a>2.6 其他</h3><h4 id="1-索引存放的位置？"><a href="#1-索引存放的位置？" class="headerlink" title="1. 索引存放的位置？"></a>1. 索引存放的位置？</h4><p>索引本身也很大，不会直接存在内存中，一般放在磁盘文件（可能是单独的文件也可能是和数据文件在一起）。</p>
+<h4 id="2-B-树好在哪里？"><a href="#2-B-树好在哪里？" class="headerlink" title="2. B+树好在哪里？"></a>2. B+树好在哪里？</h4><p>一百万的数据量，假设用二叉树，log2n约等于20，磁盘每次寻到时间为10ms左右，所以需要200ms左右。</p>
+<p>假设用B+树，假设指针大小4字节，节点索引值8字节，一个节点一共16字节（4*2+8），Innodb 存储引擎每次读取一页数据到内存（索引如果用二叉树，每次读取磁盘，16kb只用了16字节，空间利用率极低），一页默认16KB，可以存储1000个索引（16KB/16B），树的高度只需要两层就可以轻松检索100万数据（1000乘以1000）。</p>
+<h3 id="2-7-B-树更近一步学习"><a href="#2-7-B-树更近一步学习" class="headerlink" title="2.7 B+树更近一步学习"></a>2.7 B+树更近一步学习</h3><h4 id="平衡二叉树（AVL）"><a href="#平衡二叉树（AVL）" class="headerlink" title="平衡二叉树（AVL）"></a>平衡二叉树（AVL）</h4><ul>
+<li><p>左右子树高度差绝对值不超过1，即节点的平衡因子只可能是-1、0、1</p>
+</li>
+<li><p>距离插入节点最近的，平衡因子绝对值大于1的节点为根的子树称为<strong>最小不平衡子树</strong></p>
+</li>
+<li><p>调整都是调整最小不平衡子树</p>
+</li>
+<li><p>LL、RR类型，直接右旋或者左旋即可</p>
+</li>
+<li><p>LR、RL类型，先将孩子节点的平衡因子转换成和根节点正负一致，就变成LL、RR类型了</p>
+</li>
+</ul>
+<p>34，23，15，98，115，28，107构造出的AVL树如下：</p>
+<p><img src="../../images/mysql/2/AVL%E6%A0%91.png"></p>
+<h4 id="2-3-树"><a href="#2-3-树" class="headerlink" title="2-3 树"></a>2-3 树</h4><ul>
+<li><p>2节点，包含一个元素和两个孩子（或者没有孩子），左子树小，右子树大。</p>
+</li>
+<li><p>2节点要不有两个孩子，要不就没有孩子，不允许有一个孩子</p>
+</li>
+<li><p>3节点，包含一大一小两个元素和三个孩子（或者没有孩子），两个元素按大小顺序排放。</p>
+</li>
+<li><p>2-3树所有叶子节点都在同一个层次</p>
+</li>
+</ul>
+<h4 id="2-3-4-树"><a href="#2-3-4-树" class="headerlink" title="2-3-4 树"></a>2-3-4 树</h4><ul>
+<li>4节点，包含三个元素和四个指针。其他性质同2节点和3节点</li>
+</ul>
+<h4 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h4><p>B树也是一种<strong>平衡的多路查找树</strong>，2-3树和2-3-4树都是B树的特例，我们把树中节点最大的<strong>孩子数目</strong>称为B树的阶。通常记为m。</p>
+<p>一颗m阶B树要么为空树，要么为满足如下特性的<strong>m叉树</strong></p>
+<ul>
+<li>每个节点至多m颗子树（即至多m-1个关键字）</li>
+<li>若根节点不是终端节点，则至少有两个子树（即至少一个关键字）</li>
+<li>除根节点外的所有非叶子节点至少有<strong>m/2向上取整</strong>颗子树</li>
+<li>所有非叶子节点，关键字大小顺序和2-3树一样</li>
+<li><strong>所有的叶子节点都在同一层次上，不带信息。</strong></li>
+</ul>
+<h4 id="B-树的查找"><a href="#B-树的查找" class="headerlink" title="B 树的查找"></a>B 树的查找</h4><p>从根节点开始，用 key 和节点上关键字进行比较。</p>
+<h4 id="B-树的插入"><a href="#B-树的插入" class="headerlink" title="B 树的插入"></a>B 树的插入</h4><p>20，30，50，52，60，68，70，构建一颗3阶B树。</p>
+<ul>
+<li>分裂：取这个关键字数组中的中间关键字（m/2）作为新的根节点。</li>
+<li>分裂：插入60时，分裂出的根节点可以向上合并。</li>
+</ul>
+<p><img src="../../images/mysql/2/B%E6%A0%91%E6%8F%92%E5%85%A5.png"></p>
+<h4 id="B-树的删除"><a href="#B-树的删除" class="headerlink" title="B 树的删除"></a>B 树的删除</h4><ul>
+<li><p>如果删除的关键字在终端节点上（<strong>最底层非叶子节点</strong>）</p>
+<ul>
+<li><p>节点内关键字数量<strong>大于</strong>m/2向上取整减一：删除不会破坏任何B树定义，直接删除即可</p>
+</li>
+<li><p>等于：并且其左右兄弟节点中存在关键字数量<strong>大于</strong>m/2减一的节点，则去兄弟节点中借关键字</p>
+<p><img src="../../images/mysql/2/B%E6%A0%91%E5%88%A0%E9%99%A4.png"></p>
+</li>
+<li><p>等于：并且兄弟节点也没有，则需要进行<strong>节点合并</strong>。即把上一层的节点取关键字与下一层的节点合并。</p>
+<p><img src="../../images/mysql/2/B%E6%A0%91%E5%88%A0%E9%99%A42.png"></p>
+</li>
+</ul>
+</li>
+<li><p>非终端节点关键字删除，先转换到终端节点上，再按照终端节点来删除</p>
+<ul>
+<li><p>通过和相邻关键字交换来删除</p>
+<p><img src="../../images/mysql/2/%E9%9D%9E%E7%BB%88%E7%AB%AF%E8%8A%82%E7%82%B9%E5%85%B3%E9%94%AE%E5%AD%97%E5%88%A0%E9%99%A4.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h4><ul>
+<li>B+树中，n个关键字的节点只含有n颗子树，而B树中有n+1颗子树</li>
+<li>m/2向上取整&lt;=n&lt;=m（根节点：1&lt;=n&lt;=m），B树中m/2向上取整-1&lt;=n&lt;=m-1（根节点：1&lt;=n&lt;=m-1）</li>
+<li>B+树中只有终端节点包含信息，所有非终端节点仅仅起到索引的作用。</li>
+<li>B+树中，终端节点包含了全部关键字，即在非叶子节点中出现的关键字也会出现在叶子节点中；而在B树中，叶节点包含的关键字和其他节点包含的关键字是不重复的。</li>
+<li>在B+树中，有一个指针指向关键字最小的叶子节点。所有叶子节点构成一个链表</li>
+</ul>
+<p>20，30，50，52，60，68，70，构建一颗3阶B树。</p>
+<p><img src="../../images/mysql/2/B+%E6%A0%91%E6%9E%84%E5%BB%BA.png"></p>
+<h3 id="2-8-红黑树更近一步学习"><a href="#2-8-红黑树更近一步学习" class="headerlink" title="2.8 红黑树更近一步学习"></a>2.8 红黑树更近一步学习</h3><h4 id="2-3-树-1"><a href="#2-3-树-1" class="headerlink" title="2-3 树"></a>2-3 树</h4><p>2-3-4树是红黑树的概念模型，可以通过它来理解红黑树的5条定义。在2-3-4树中，由于直接进行不同节点间的转换开销较大，所以选择二叉树为基础，在二叉树的属性中加入一个<strong>颜色</strong>属性来表示2-3-4树中不同的节点。</p>
+<ul>
+<li>2节点对应黑节点</li>
+<li>非2节点是以红节点+黑节点的方式存在</li>
+<li>红节点存在的意义就是与黑节点结合，表达2-3-4树中的3、4节点</li>
+</ul>
+<p><img src="../../images/mysql/2/2-3-4%E6%A0%91%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91.png"></p>
+<p>下面来研究<strong>2-3树</strong>到<strong>左倾红黑树</strong>的转换</p>
+<p><img src="../../images/mysql/2/%E7%BA%A2%E9%BB%91%E6%A0%91%E5%88%B02-3%E6%A0%91.png"></p>
+<h4 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h4><p><strong>五条性质</strong>：</p>
+<ul>
+<li>节点有红色和黑色</li>
+<li>根节点为黑色（2节点本身为黑色，3节点大的为根小的为左倾红节点）</li>
+<li>叶子节点为黑色（这里的叶子节点只空链接）</li>
+<li>任意节点到叶子节点经过的黑色节点数目相同（红黑树中红色节点其实是和黑色节点绑定，也就是2-3树中的3节点，也就是类比到2-3树，红色节点是不奉献高度的。同时2-3有<strong>所有叶子节点在同一层次</strong>的性质，所以到红黑树中，任意节点到叶子节点黑色节点肯定一样）</li>
+<li>不能有连续的红色节点（2-3树中本来没有这样的情况）</li>
+</ul>
+<p>通过五条性质达到自平衡。通过变色和旋转实现。</p>
+<p>所以，只要学会4阶B树的插入、删除就相当于掌握了红黑树的插入删除。</p>
+<p><img src="../../images/mysql/2/B%E6%A0%91%E5%92%8C%E7%BA%A2%E9%BB%91%E6%A0%91.png"></p>
+<p><strong>具体变色和旋转细节？</strong></p>
 <h2 id="3-问题"><a href="#3-问题" class="headerlink" title="3. 问题"></a>3. 问题</h2><p>1、一、二、三四范式？</p>
 <p>2、另一个从父表冗余数据到子表的理由是<strong>排序</strong>的需要？索引排序？</p>
 <p>3、通用的主键策略？：减少需要编写的源码数量？减少系统的总体拥有成本？</p>

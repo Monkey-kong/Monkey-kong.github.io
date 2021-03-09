@@ -6,13 +6,15 @@
   <meta name="keywords" content=" MySQL ">
   <meta name="description" content="MySql 调优(三) | 悟空">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Nickname: 悟空  Email: lixianfu1@outlook.com  Github: Monkey-kong">
 <meta property="og:type" content="website">
-<meta property="og:title" content="悟空">
-<meta property="og:url" content="http://yoursite.com/404.html">
+<meta property="og:title" content="关于">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
 <meta property="og:site_name" content="悟空">
+<meta property="og:description" content="Nickname: 悟空  Email: lixianfu1@outlook.com  Github: Monkey-kong">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-11-16T00:43:02.436Z">
-<meta property="article:modified_time" content="2019-11-08T14:02:36.972Z">
+<meta property="article:published_time" content="2020-02-23T04:03:49.717Z">
+<meta property="article:modified_time" content="2020-02-23T04:03:49.717Z">
 <meta property="article:author" content="悟空">
 <meta name="twitter:card" content="summary">
 
@@ -265,7 +267,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="124">
-<input type="hidden" id="yelog_site_word_count" value="349.4k">
+<input type="hidden" id="yelog_site_word_count" value="353.4k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -1501,12 +1503,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2020-09-13 19:28:44'>2020-08-10 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-02-28 15:48:58'>2020-08-10 22:13</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.4k</span>
+        <span>字数:2.6k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1576,6 +1578,8 @@
 <li>聚簇索引可能导致全表扫描变慢，尤其是行比较稀疏，或者由于<strong>页分裂</strong>导致数据存储不连续的时候。</li>
 </ol>
 <h3 id="1-2-非聚簇索引"><a href="#1-2-非聚簇索引" class="headerlink" title="1.2 非聚簇索引"></a>1.2 非聚簇索引</h3><p>将数据文件和索引文件分开存放。</p>
+<p>MyISAM 索引文件和数据文件分开存放（<strong>非聚簇索引</strong>）。索引存储在索引文件<code>表名称.MYI</code>中，数据文件存储在数据文件 <code>表名称.MYD</code>中。</p>
+<p>InnoDB 主键索引（<strong>聚簇索引</strong>），其他索引都称之为<strong>辅助索引或者二级索引，但是也是聚簇索引，存的是主键值，而不是数据行地址</strong>。InnoDB的数据和索引存储在一个文件<strong>表名称.ibd</strong> 中。</p>
 <h2 id="2-索引匹配方式"><a href="#2-索引匹配方式" class="headerlink" title="2. 索引匹配方式"></a>2. 索引匹配方式</h2><h3 id="2-1-全值匹配"><a href="#2-1-全值匹配" class="headerlink" title="2.1 全值匹配"></a>2.1 全值匹配</h3><p>可以和组合索引中所有列进行匹配。</p>
 <pre><code class="sql">create table staffs(
     id int primary key auto_increment,
@@ -1603,7 +1607,8 @@ possible_keys: idx_nap
      filtered: 100.00
         Extra: NULL</code></pre>
 <h3 id="2-2-匹配最左前缀"><a href="#2-2-匹配最左前缀" class="headerlink" title="2.2 匹配最左前缀"></a>2.2 匹配最左前缀</h3><p>可以只匹配的组合索引的前面几列。</p>
-<pre><code class="sql">-- 匹配索引 type=ref
+<pre><code class="sql">
+-- 匹配索引 type=ref
 explain select * from staffs where name = &#39;July&#39; and age = &#39;23&#39;;
 -- 匹配索引 type=ref
 explain select * from staffs where name = &#39;July&#39;;
@@ -1616,7 +1621,7 @@ explain select * from staffs where name like &#39;J%&#39;;
 explain select * from staffs where name like &#39;J%&#39; and age = 23;
 -- 全表扫描 type=1all
 explain select * from staffs where name like &#39;%y&#39;;</code></pre>
-<h3 id="2-4-匹配范围值"><a href="#2-4-匹配范围值" class="headerlink" title="2.4 匹配范围值"></a>2.4 匹配范围值</h3><p>范围查询也可以匹配索引，但是会中断组合索引。</p>
+<h3 id="2-4-匹配范围值"><a href="#2-4-匹配范围值" class="headerlink" title="2.4 匹配范围值"></a>2.4 匹配范围值</h3><p>范围查询也可以匹配索引，但是会<strong>中断组合索引</strong>。</p>
 <pre><code class="sql">-- 匹配索引 type=range
 explain select * from staffs where name &gt; &#39;Mary&#39;;
 -- age 未走索引 type=range
@@ -1644,8 +1649,8 @@ possible_keys: idx_nap
 -- possible_keys:null key:idx_actor_last_name ?
 select actor_id from actor where actor_id+1=5;</code></pre>
 <h3 id="3-2-尽量使用主键查询"><a href="#3-2-尽量使用主键查询" class="headerlink" title="3.2 尽量使用主键查询"></a>3.2 尽量使用主键查询</h3><p>尽量使用主键查询，而不是其他索引，因为主键查询不会触发<strong>回表查询</strong>。</p>
-<h3 id="3-3-使用前缀索引"><a href="#3-3-使用前缀索引" class="headerlink" title="3.3 使用前缀索引"></a>3.3 使用前缀索引</h3><p>有时候需要索引很长的字符串，这会让索引变的大且慢，通常情况下可以使用某个列开始的部分字符串，这样大大的节约索引空间，从而提高索引效率，但这会降低索引的选择性，索引的选择性是指不重复的索引值和数据表记录总数的比值，范围从1/#T到1之间。索引的选择性越高则查询效率越高，因为选择性更高的索引可以让       mysql 在查找的时候过滤掉更多的行。</p>
-<p>一般情况下某个列前缀的选择性也是足够高的，足以满足查询的性能，对应 BLOB,TEXT,VARCHAR 类型的列，必须要使用前缀索引，因为 mysql 不允许索引这些列的完整长度，使用该方法的诀窍在于要选择足够长的前缀以保证较高的选择性，通过又不能太长。</p>
+<h3 id="3-3-使用前缀索引"><a href="#3-3-使用前缀索引" class="headerlink" title="3.3 使用前缀索引"></a>3.3 使用前缀索引</h3><p>有时候需要索引很长的字符串，这会让索引变的大且慢，通常情况下可以使用某个列开始的部分字符串，这样大大的节约索引空间，从而提高索引效率，但这会降低索引的选择性，索引的选择性是指不重复的索引值和数据表记录总数的比值，范围从1/#T到1之间。索引的选择性越高则查询效率越高，因为选择性更高的索引可以让 mysql 在查找的时候过滤掉更多的行。</p>
+<p>一般情况下某个列前缀的选择性也是足够高的，足以满足查询的性能，对应 BLOB,TEXT,VARCHAR 类型的列，必须要使用<strong>前缀索引</strong>，因为 mysql 不允许索引这些列的完整长度，使用该方法的诀窍在于要选择足够长的前缀以保证较高的选择性，通过又不能太长。</p>
 <pre><code class="sql">-- 查询不同长度前缀的选择性
 select count(distinct left(city,3))/count(*) as sel3,
 count(distinct left(city,4))/count(*) as sel4,
@@ -1660,9 +1665,9 @@ alter table citydemo add key(city(7));</code></pre>
 <p>注意：前缀索引是一种能使索引更小更快的有效方法，但是也包含缺点：<strong>mysql无法使用前缀索引做order by 和 group by</strong>。 </p>
 <h3 id="3-4-使用索引扫描来排序"><a href="#3-4-使用索引扫描来排序" class="headerlink" title="3.4 使用索引扫描来排序"></a>3.4 使用索引扫描来排序</h3><p>mysql有两种方式可以生成有序的结果：</p>
 <ol>
-<li><p>通过排序操作</p>
+<li><p>通过排序操作：系统手动排序</p>
 </li>
-<li><p>通过索引顺序扫描</p>
+<li><p>通过索引顺序扫描：利用索引结构排序。<strong>使用了索引，多列排序规则一致，没有非索引列排序</strong></p>
 <p>如果 explain 出来的 type 列的值为 index，则说明mysql使用了索引扫描来做排序。extra：Using filesort 表示没有用索引排序。</p>
 </li>
 </ol>
@@ -1673,6 +1678,9 @@ explain select rental_id,staff_id from rental where rental_date=&#39;2005-05-25&
 -- 索引排序
 explain select rental_id,staff_id from rental where rental_date=&#39;2005-05-25&#39; order by inventory_id desc\G
 -- Using filesort 不符合索引匹配规则
+-- 这里符合最左匹配规则，但是mysql有自己的优化，如果索引选择性太低，会直接走全表扫描。
+-- type为all：EXPLAIN SELECT * FROM rental WHERE rental_date&gt;&#39;2005-05-25&#39;;
+-- type为range：EXPLAIN SELECT * FROM rental WHERE rental_date&lt;&#39;2005-05-25&#39;;
 explain select rental_id,staff_id from rental where rental_date&gt;&#39;2005-05-25&#39; order by rental_date,inventory_id\G
 *************************** 1. row ***************************
            id: 1
@@ -1690,7 +1698,8 @@ possible_keys: rental_date
 -- Using filesort 两个字段排序不一样
 explain select rental_id,staff_id from rental where rental_date=&#39;2005-05-25&#39; order by inventory_id desc,customer_id asc\G
 -- Using filesort 使用了非索引列排序
-explain select rental_id,staff_id from rental where rental_date=&#39;2005-05-25&#39; order by inventory_id,staff_id\G</code></pre>
+explain select rental_id,staff_id from rental where rental_date=&#39;2005-05-25&#39; order by inventory_id,staff_id\G
+</code></pre>
 <h3 id="3-5-union-all-in-or-都能够使用索引，但是推荐使用in"><a href="#3-5-union-all-in-or-都能够使用索引，但是推荐使用in" class="headerlink" title="3.5 union all,in,or 都能够使用索引，但是推荐使用in"></a>3.5 union all,in,or 都能够使用索引，但是推荐使用in</h3><h3 id="3-6-范围列可以用到索引"><a href="#3-6-范围列可以用到索引" class="headerlink" title="3.6 范围列可以用到索引"></a>3.6 范围列可以用到索引</h3><p>范围条件是：&lt;、&lt;=、&gt;、&gt;=、between</p>
 <p>范围列可以用到索引，但是范围列后面的列无法用到索引，索引最多用于一个范围列</p>
 <h3 id="3-7-强制类型转换会全表扫描"><a href="#3-7-强制类型转换会全表扫描" class="headerlink" title="3.7 强制类型转换会全表扫描"></a>3.7 强制类型转换会全表扫描</h3><pre><code class="sql">create table typecast_test(id int primary key auto_increment, phone varchar(11));
@@ -1709,6 +1718,7 @@ show global variables like `%datadir%`;</code></pre>
 <p>index 和 ref 区别？</p>
 <p>index：只是用到了覆盖索引，并没有用索引过滤数据</p>
 <p>ref：用索引来过滤数据了</p>
+<p><strong>类型要匹配。否则全表扫描了。</strong></p>
 <h3 id="3-8-更新频繁、区分度不高字段不建索引"><a href="#3-8-更新频繁、区分度不高字段不建索引" class="headerlink" title="3.8 更新频繁、区分度不高字段不建索引"></a>3.8 更新频繁、区分度不高字段不建索引</h3><p>更新可能会变更 B+ 树，可能导致页分裂、页合并等问题。</p>
 <p>区分度不高，即使建立了索引页不能有效的过滤数据。</p>
 <p>一般区分度在 80% 以上的时候就可以建立索引，区分度可以使用 count(distinct(列名))/count(*) 来计算。</p>
