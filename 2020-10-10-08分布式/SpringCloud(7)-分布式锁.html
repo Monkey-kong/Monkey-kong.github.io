@@ -150,11 +150,11 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(127)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(129)</small></div></li>
     
         
             
-            <li><div data-rel="Java基础">Java基础<small>(17)</small></div>
+            <li><div data-rel="Java基础">Java基础<small>(18)</small></div>
                 
             </li>
             
@@ -242,7 +242,7 @@
     
         
             
-            <li><div data-rel="其他">其他<small>(7)</small></div>
+            <li><div data-rel="其他">其他<small>(8)</small></div>
                 
             </li>
             
@@ -274,8 +274,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="127">
-<input type="hidden" id="yelog_site_word_count" value="366.8k">
+<input type="hidden" id="yelog_site_posts_number" value="129">
+<input type="hidden" id="yelog_site_word_count" value="371.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -354,6 +354,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>随笔</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -612,6 +616,14 @@
            data-tag="博客"
            data-author="" >
             <span class="post-title" title="Hexo 博客集成 hexo-tag-aplayer">Hexo 博客集成 hexo-tag-aplayer</span>
+            <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-12-22-12%E5%85%B6%E4%BB%96/%E5%86%85%E5%AE%B9%E5%88%9B%E4%B8%9A.html"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="内容创业">内容创业</span>
             <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
         </a>
         
@@ -1495,6 +1507,14 @@
             <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
         </a>
         
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-01-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E8%A1%A5%E5%85%851-HashMap.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="HashMap 源码">HashMap 源码</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
         <div id="no-item-tips">
 
         </div>
@@ -1539,12 +1559,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-03-25 00:36:40'>2020-10-10 23:43</time>
+            发布时间 : <time class="date" title='最后更新: 2021-04-01 00:40:14'>2020-10-10 23:43</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:4.8k</span>
+        <span>字数:5.9k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1622,7 +1642,7 @@
 </ol>
 <p>问题：</p>
 <ul>
-<li>第一步的更新没用。2、3步操作时间长的化，别人刷新页面，依然可以确认。</li>
+<li>第一步的更新没用。2、3步操作时间长的话，别人刷新页面，依然可以确认。</li>
 </ul>
 <p>分析：</p>
 <ul>
@@ -1634,16 +1654,50 @@
 </li>
 <li><p>同一个单据，可能一个实例在确认，一个实例在取消，导致最终订单的状态错误。</p>
 </li>
-<li><p>外部系统推送主数据包基础模块。没有使用分布式锁，导致重要属性被更新没了。应该使用分布式锁，对相同类型的数据排队处理。</p>
+<li><p>外部系统推送主数据到基础模块。没有使用分布式锁，导致重要属性被更新没了。应该使用分布式锁，对相同类型的数据排队处理。</p>
 </li>
 </ol>
-<h2 id="2、分布式锁解决方案"><a href="#2、分布式锁解决方案" class="headerlink" title="2、分布式锁解决方案"></a>2、分布式锁解决方案</h2><p>服务启动：</p>
+<h2 id="2、分布式锁解决方案"><a href="#2、分布式锁解决方案" class="headerlink" title="2、分布式锁解决方案"></a>2、分布式锁解决方案</h2><p><code>ribbon-consumer</code>消费服务，<code>service-order</code>订单服务（启动两个作为集群）。</p>
+<p>服务启动：</p>
 <p><img src="../../images/springcloud/7/%E5%90%AF%E5%8A%A8%E7%9A%84%E6%9C%8D%E5%8A%A1.png"></p>
 <p>jmeter 测试：10个司机同时抢一张订单。</p>
 <p><img src="../../images/springcloud/7/jmeter%E6%B5%8B%E8%AF%951.png"></p>
 <p><img src="../../images/springcloud/7/jmeter%E6%B5%8B%E8%AF%952.png"></p>
 <p><img src="../../images/springcloud/7/jmeter%E6%B5%8B%E8%AF%953.png"></p>
-<h3 id="2-1-无锁情况"><a href="#2-1-无锁情况" class="headerlink" title="2.1 无锁情况"></a>2.1 无锁情况</h3><p>测试结果：全部枪单成了。。。</p>
+<p>枪单方法，根据订单主键查询订单，然后修改订单状态，谁修改状态成功就表示谁拿到锁了。</p>
+<pre><code class="java">public boolean grab(int orderId, int driverId) &#123;
+    Order order = mapper.selectByPrimaryKey(orderId);
+    // 模拟耗时的业务操作
+    //        try &#123;
+    //            Thread.sleep(5000);
+    //        &#125; catch (InterruptedException e) &#123;
+    //            e.printStackTrace();
+    //        &#125;
+    if (order.getStatus().intValue() == 0) &#123;
+        // 操作完成修改状态
+        order.setStatus(1);
+        mapper.updateByPrimaryKeySelective(order);
+        // 抢单成功
+        return true;
+    &#125;
+    return false;
+&#125;</code></pre>
+<h3 id="2-1-无锁情况"><a href="#2-1-无锁情况" class="headerlink" title="2.1 无锁情况"></a>2.1 无锁情况</h3><pre><code class="java">@Override
+public ResponseResult grabOrder(int orderId, int driverId) &#123;
+    try &#123;
+        System.out.println(&quot;司机:&quot;+driverId+&quot; 执行抢单逻辑&quot;);
+        boolean b = orderService.grab(orderId, driverId);
+        if(b) &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单成功&quot;);
+        &#125;else &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单失败&quot;);
+        &#125;
+    &#125; finally &#123;
+
+    &#125;
+    return null;
+&#125;</code></pre>
+<p>测试结果：全部枪单成了。。。</p>
 <pre><code class="json">@Qualifier(&quot;grabNoLockService&quot;)
 
 司机:5 执行抢单逻辑
@@ -1668,7 +1722,26 @@
 司机:4 抢单成功
 司机:3 抢单成功</code></pre>
 <p>结论：没锁肯定不行的。本来只有一张订单，现在你分出去十张订单了。</p>
-<h3 id="2-1-JVM-锁"><a href="#2-1-JVM-锁" class="headerlink" title="2.1 JVM 锁"></a>2.1 JVM 锁</h3><p>测试结果：有两个司机枪单成功了。</p>
+<h3 id="2-1-JVM-锁"><a href="#2-1-JVM-锁" class="headerlink" title="2.1 JVM 锁"></a>2.1 JVM 锁</h3><pre><code class="java">@Override
+public ResponseResult grabOrder(int orderId, int driverId) &#123;
+    String lock = (orderId + &quot;&quot;);
+    // 锁订单
+    synchronized (lock.intern()) &#123;
+        try &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 执行抢单逻辑&quot;);
+            boolean b = orderService.grab(orderId, driverId);
+            if(b) &#123;
+                System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单成功&quot;);
+            &#125;else &#123;
+                System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单失败&quot;);
+            &#125;
+        &#125; finally &#123;
+
+        &#125;
+    &#125;
+    return null;
+&#125;</code></pre>
+<p>测试结果：有两个司机枪单成功了。</p>
 <pre><code class="json">@Qualifier(&quot;grabJvmLockService&quot;)
 
 司机:4 执行抢单逻辑
@@ -1694,7 +1767,40 @@
 司机:2 抢单失败
 </code></pre>
 <p>结论：JVM 锁无法解决分布式，集群环境的问题。因为 JVM 锁只能控制单个 JVM 内部同步。所以需要分布式锁。</p>
-<h3 id="2-2-基于-MySQL-实现分布式锁"><a href="#2-2-基于-MySQL-实现分布式锁" class="headerlink" title="2.2 基于 MySQL 实现分布式锁"></a>2.2 基于 MySQL 实现分布式锁</h3><p>测试结果：只有一个司机抢单成功，OK 的。</p>
+<h3 id="2-2-基于-MySQL-实现分布式锁"><a href="#2-2-基于-MySQL-实现分布式锁" class="headerlink" title="2.2 基于 MySQL 实现分布式锁"></a>2.2 基于 MySQL 实现分布式锁</h3><p>新建一张锁定表，表的主键为 orderId。利用 MySQL 的主键冲突实现锁冲突。</p>
+<pre><code class="sql">create table tbl_order_lock(
+   order_id int(10) not null,
+   driver_id int(10) not null,
+   primary key(order_id)
+) engine = InnoDB default charset=utf8 comment=&#39;测试分布式锁,mysql 实现&#39;
+;</code></pre>
+<pre><code class="java">    @Override
+    public ResponseResult grabOrder(int orderId, int driverId) &#123;
+        // 生成 key
+        OrderLock ol = new OrderLock();
+        ol.setOrderId(orderId);
+        ol.setDriverId(driverId);
+        orderLock.set(ol);
+
+        lock.setOrderLockThreadLocal(orderLock);
+        lock.lock();
+
+        try &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 执行抢单逻辑&quot;);
+            boolean b = orderService.grab(orderId, driverId);
+            if(b) &#123;
+                System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单成功&quot;);
+            &#125;else &#123;
+                System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单失败&quot;);
+            &#125;
+        &#125; finally &#123;
+            // 可能加完锁后，服务所在的服务器直接宕机，unlock() 根本没有执行机会，导致锁无法释放
+            lock.unlock();
+        &#125;
+
+        return null;
+    &#125;</code></pre>
+<p>测试结果：只有一个司机抢单成功，OK 的。</p>
 <pre><code class="json">
 加锁对象:OrderLock(orderId=1001, driverId=2)
 司机:2 执行抢单逻辑
@@ -1740,12 +1846,12 @@
 <p>结论：基于 MySQL 可以实现分布式锁。</p>
 <p>存在的问题：</p>
 <ul>
-<li><p>如果中间出现异常了，如何释放锁？比如加锁后服务器断电了，finally 都来不及跑。</p>
+<li><p><strong>不安全</strong>：如果中间出现异常了，如何释放锁？比如加锁后服务器断电了，finally 都来不及跑。</p>
 <ul>
-<li>用存储过程可以解决？具体怎么解决？加锁-操作订单-释放锁 放在一个 sp 中？</li>
+<li>用存储过程可以解决？具体怎么解决？加锁-操作订单-释放锁 放在一个 sp 中</li>
 </ul>
 </li>
-<li><p>MySQL 的并发是有限制的，不适合高并发场景。<strong>具体并发数要看机器的配置而定。</strong></p>
+<li><p><strong>并发量有限</strong>：MySQL 的并发是有限制的，不适合高并发场景。<strong>具体并发数要看机器的配置而定。</strong></p>
 <ul>
 <li><p>压测结果：<a href="https://help.aliyun.com/document_detail/150351.html?spm=a2c4g.11186623.6.1463.1e732d02nCMBBa">https://help.aliyun.com/document_detail/150351.html?spm=a2c4g.11186623.6.1463.1e732d02nCMBBa</a></p>
 <p>4核 16GB ：最大连接数 4000，QPS  39766.67  四万左右，TPS  1988.33  两千左右</p>
@@ -1758,7 +1864,7 @@
 </ul>
 <h3 id="2-3-基于-Redis-实现分布式锁"><a href="#2-3-基于-Redis-实现分布式锁" class="headerlink" title="2.3 基于 Redis 实现分布式锁"></a>2.3 基于 Redis 实现分布式锁</h3><pre><code class="sh">stringRedisTemplate 用法
 https://blog.csdn.net/zzz127333092/article/details/88742088</code></pre>
-<p>redis：内存存储的数据结构服务器，内存数据库。redis 是单进程单线程的。</p>
+<p>redis：<strong>内存存储</strong>的数据结构服务器，内存数据库。redis 是单进程单线程的。</p>
 <p>可用于：数据库，高速缓存，消息队列。采用单线程模型，并发能力强大。10 万并发没问题。</p>
 <p>测试结果：只有一个司机抢单成功，OK 的。</p>
 <pre><code class="json">
@@ -1783,10 +1889,7 @@ https://blog.csdn.net/zzz127333092/article/details/88742088</code></pre>
 司机:6 抢单失败
 司机:1 执行抢单逻辑
 司机:1 抢单失败</code></pre>
-<p>结论：如果 redis 是单节点是 OK 的。但是如果是多节点，由于 Redis 的主从复制（replication）是异步的，这可能导致丧失锁的安全性。</p>
-<blockquote>
-<p>《Redis 分布锁》</p>
-</blockquote>
+<p>结论：如果 <strong>Redis 是单节点是 OK 的</strong>。但是如果是多节点，由于 Redis 的主从复制（replication）是异步的，这可能导致丧失锁的安全性。</p>
 <h4 id="单节点"><a href="#单节点" class="headerlink" title="单节点"></a>单节点</h4><p><strong><em>加锁</em></strong></p>
 <pre><code class="shell">SET orderId driverId NX PX 30000
 set order_1001 driver_001 nx px 30000</code></pre>
@@ -1810,7 +1913,7 @@ set order_1001 driver_001 nx px 30000</code></pre>
 EXPIRE orderId 30
 虽然这两个命令和前面算法描述中的一个 SET 命令执行效果相同，但却不是原子的。如果客户端在执行完SETNX 后崩溃了，那么就没有机会执行 EXPIRE 了，导致它一直持有这个锁。造成死锁。</code></pre>
 </li>
-<li><p>必须给 key 设置一个 value，并且保证每个线程不一样，用于释放锁时判断是否是自己的锁。如果 value 在每个线程间一样。会发生 <strong>误解锁</strong>的问题。</p>
+<li><p>必须给 key 设置一个 value，并且<strong>保证每个线程不一样</strong>，用于释放锁时判断是否是自己的锁。如果 value 在每个线程间一样。会发生 <strong>误解锁</strong>的问题。</p>
 <pre><code class="sh">1.客户端1获取锁成功。
 2.客户端1在某个操作上阻塞了很长时间。
 3.过期时间到了，锁自动释放了。
@@ -1826,7 +1929,7 @@ EXPIRE orderId 30
 5.客户端1由于某个原因阻塞住了很长时间。
 6.过期时间到了，锁自动释放了。
 7.客户端2获取到了对应同一个资源的锁。
-8.客户端1从阻塞中恢复过来，执行DEL操纵，释放掉了客户端2持有的锁。</code></pre>
+8.客户端1从阻塞中恢复过来，执行DEL操作，释放掉了客户端2持有的锁。</code></pre>
 </li>
 <li><p>redis故障问题。</p>
 <p>如果 redis 故障了，所有客户端无法获取锁，服务变得不可用。为了提高可用性，我们给 redis 配置主从，当master不可用时，系统切换到 slave，但是由于 Redis 的主从复制（replication）是异步的，这可能导致丧失锁的安全性。</p>
@@ -1843,11 +1946,98 @@ EXPIRE orderId 30
 <pre><code class="sh">断点打在：rlock.lock();
 执行完，之后，等着，去redis查看，看过期时间，是不是一直在变，
 答案：一直在变。到20时，自动加到30.</code></pre>
-<p>为了解决 9、10 问题。antirez 设计了 Redlock 算法</p>
+<p><strong>手写版：</strong></p>
+<pre><code class="java">@Override
+public ResponseResult grabOrder(int orderId , int driverId)&#123;
+    //生成key
+    String lock = &quot;order_&quot;+(orderId+&quot;&quot;);
+    /*
+         *  情况一，如果锁没执行到释放，比如业务逻辑执行一半，运维重启服务，或 服务器挂了，没走 finally，怎么办？
+         *  所以需要加超时时间
+         */
+    //        boolean lockStatus = stringRedisTemplate.opsForValue().setIfAbsent(lock.intern(), driverId+&quot;&quot;);
+    //        if(!lockStatus) &#123;
+    //            return null;
+    //        &#125;
+
+    /*
+         *  情况二：加超时时间,会有加不上的情况，运维重启
+         *  所以不能拆分为两个指令
+         */
+    //        boolean lockStatus = stringRedisTemplate.opsForValue().setIfAbsent(lock.intern(), driverId+&quot;&quot;);
+    //        stringRedisTemplate.expire(lock.intern(), 30L, TimeUnit.SECONDS);
+    //        if(!lockStatus) &#123;
+    //            return null;
+    //        &#125;
+
+    /*
+         * 情况三：超时时间应该一次加，不应该分2行代码，
+         */
+    boolean lockStatus = stringRedisTemplate.opsForValue().setIfAbsent(lock.intern(), driverId+&quot;&quot;, 30L, TimeUnit.SECONDS);
+    if(!lockStatus) &#123;
+        //TODO:自旋等待锁
+        return null;
+    &#125;
+
+    /**
+         * 必须要续约。如果不续约，锁持有者过期，就丧失了锁的安全性。
+         */
+    // 开个子线程，原来时间 N，每隔 n/3，去续上n
+    renewGrabLockService.renewLock(lock.intern(), driverId+&quot;&quot;, 30);
+
+    try &#123;
+        System.out.println(&quot;司机:&quot;+driverId+&quot; 执行抢单逻辑&quot;);
+
+        boolean b = orderService.grab(orderId, driverId);
+        if(b) &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单成功&quot;);
+        &#125;else &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单失败&quot;);
+        &#125;
+    &#125; finally &#123;
+        /**
+             * 直接删除锁有可能释放了别人的锁。
+             * A进程拿到锁后网络分区了，即无法续约了。过一段时间锁过期
+             * B进程拿到锁
+             * A进程网络恢复，这里如果不判断，直接把B进程的锁释放了。
+             * 所以释放锁时需要判断是否是当前线程持有的锁。所以value要保证每个线程不一样。
+             * redisson 内部使用的 uuid+threadId
+             */
+        //            stringRedisTemplate.delete(lock.intern());
+
+        if((driverId+&quot;&quot;).equals(stringRedisTemplate.opsForValue().get(lock.intern()))) &#123;
+            stringRedisTemplate.delete(lock.intern());
+        &#125;
+    &#125;
+    return null;
+&#125;</code></pre>
+<p><strong>Redisson 版本：</strong></p>
+<pre><code class="java">@Override
+public ResponseResult grabOrder(int orderId , int driverId)&#123;
+    //生成key
+    String lock = &quot;order_&quot;+(orderId+&quot;&quot;);
+
+    RLock rlock = redissonClient.getLock(lock.intern());
+
+    try &#123;
+        // 此代码默认 设置key 超时时间30秒，过10秒，再延时
+        rlock.lock();
+        System.out.println(&quot;司机:&quot;+driverId+&quot; 执行抢单逻辑&quot;);
+        boolean b = orderService.grab(orderId, driverId);
+        if(b) &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单成功&quot;);
+        &#125;else &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单失败&quot;);
+        &#125;
+    &#125; finally &#123;
+        rlock.unlock();
+    &#125;
+    return null;
+&#125;</code></pre>
+<h4 id="RedLock（多master）"><a href="#RedLock（多master）" class="headerlink" title="RedLock（多master）"></a>RedLock（多master）</h4><p>为了解决 9（Redis集群环境锁安全问题，这是硬伤）、10（需要设置锁超时时间并且需要续约） 问题。antirez 设计了 Redlock 算法</p>
 <p>Redis 的作者 antirez 给出了一个更好的实现，称为 Redlock，算是 Redis 官方对于实现分布式锁的指导规范。Redlock 的算法描述就放在 Redis 的官网上：</p>
 <p><a href="https://redis.io/topics/distlock">https://redis.io/topics/distlock</a></p>
-<h4 id="RedLock（多master）"><a href="#RedLock（多master）" class="headerlink" title="RedLock（多master）"></a>RedLock（多master）</h4><p>debug</p>
-<pre><code class="sh">断点达到：rLock.lock()
+<pre><code class="sh">断点打到：rLock.lock()
 执行完后，看结果，发现如果是 3 个 redis 节点，则有 2 个节点中 设置了值。</code></pre>
 <p>目的：对共享资源做互斥访问。   </p>
 <p>因此 antirez 提出了新的分布式锁的算法 Redlock，它基于 N 个完全独立的 Redis 节点（通常情况下 N 可以设置成 5）。</p>
@@ -1872,12 +2062,37 @@ EXPIRE orderId 30
 <li>节点C重启后，客户端2锁住了C, D, E， <strong>获取锁</strong> 成功。</li>
 </ol>
 <p>这样，客户端1和客户端2同时获得了锁（针对同一资源）。</p>
-<p>在默认情况下，Redis 的 AOF 持久化方式是每秒写一次磁盘（即执行fsync），因此最坏情况下可能丢失1秒的数据。为了尽可能不丢数据，Redis 允许设置成每次修改数据都进行 fsync，但这会降低性能。当然，即使执行了 fsync 也仍然有可能丢失数据（这取决于系统而不是 Redis 的实现）。所以，上面分析的由于节点重启引发的锁失效问题，总是有可能出现的。为了应对这一问题，antirez 又提出了<strong>延迟重启</strong> (delayed restarts)的概念。也就是说，一个节点崩溃后，先不立即重启它，而是等待一段时间再重启，这段时间应该大于锁的有效时间(lock validity time)。这样的话，这个节点在重启前所参与的锁都会过期，它在重启后就不会对现有的锁造成影响。</p>
+<p>在默认情况下，Redis 的 AOF 持久化方式是每秒写一次磁盘（即执行fsync），因此最坏情况下可能丢失1秒的数据。为了尽可能不丢数据，Redis 允许设置成每次修改数据都进行 fsync，但这会降低性能。当然，即使每次执行了 fsync 也仍然有可能丢失数据（这取决于系统而不是 Redis 的实现）。所以，上面分析的由于节点重启引发的锁失效问题，总是有可能出现的。为了应对这一问题，antirez 又提出了<strong>延迟重启</strong> (delayed restarts)的概念。也就是说，一个节点崩溃后，先不立即重启它，而是等待一段时间再重启，这段时间应该大于锁的有效时间(lock validity time)。这样的话，这个节点在重启前所参与的锁都会过期，它在重启后就不会对现有的锁造成影响。</p>
 <blockquote>
 <p>问题：为啥释放锁时要向所有 Redis 节点发送释放消息？</p>
 <p>答案：因为异步通信模型中可能存在客户端向服务器是正常的，但是反方向却有问题。</p>
 </blockquote>
 <p>关于 Redlock 还有一点细节值得拿出来分析一下：在最后 释放锁 的时候，antirez 在算法描述中特别强调，客户端应该向所有 Redis 节点发起<strong>释放锁</strong>的操作。也就是说，即使当时向某个节点获取锁没有成功，在释放锁的时候也不应该漏掉这个节点。这是为什么呢？设想这样一种情况，客户端发给某个 Redis 节点的 获取锁 的请求成功到达了该Redis节点，这个节点也成功执行了 <code>SET</code> 操作，但是它返回给客户端的响应包却丢失了。这在客户端看来，获取锁的请求由于超时而失败了，但在 Redis 这边看来，加锁已经成功了。因此，释放锁的时候，客户端也应该对当时获取锁失败的那些 Redis 节点同样发起请求。实际上，这种情况在异步通信模型中是有可能发生的：客户端向服务器通信是正常的，但反方向却是有问题的。</p>
+<pre><code class="java">@Override
+public ResponseResult grabOrder(int orderId , int driverId)&#123;
+    //生成key
+    String lockKey = (RedisKeyConstant.GRAB_LOCK_ORDER_KEY_PRE + orderId).intern();
+
+    //红锁
+    RLock rLock1 = redissonRed1.getLock(lockKey);
+    RLock rLock2 = redissonRed2.getLock(lockKey);
+    RLock rLock3 = redissonRed3.getLock(lockKey);
+    RedissonRedLock rLock = new RedissonRedLock(rLock1,rLock2,rLock3);
+
+    rLock.lock();
+    try &#123;
+        System.out.println(&quot;司机:&quot;+driverId+&quot; 执行抢单逻辑&quot;);
+        boolean b = orderService.grab(orderId, driverId);
+        if(b) &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单成功&quot;);
+        &#125;else &#123;
+            System.out.println(&quot;司机:&quot;+driverId+&quot; 抢单失败&quot;);
+        &#125;
+    &#125; finally &#123;
+        rLock.unlock();
+    &#125;
+    return null;
+&#125;</code></pre>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 lixianfu1@outlook.com </span>

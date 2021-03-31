@@ -150,11 +150,11 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(127)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(129)</small></div></li>
     
         
             
-            <li><div data-rel="Java基础">Java基础<small>(17)</small></div>
+            <li><div data-rel="Java基础">Java基础<small>(18)</small></div>
                 
             </li>
             
@@ -242,7 +242,7 @@
     
         
             
-            <li><div data-rel="其他">其他<small>(7)</small></div>
+            <li><div data-rel="其他">其他<small>(8)</small></div>
                 
             </li>
             
@@ -274,8 +274,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="127">
-<input type="hidden" id="yelog_site_word_count" value="366.8k">
+<input type="hidden" id="yelog_site_posts_number" value="129">
+<input type="hidden" id="yelog_site_word_count" value="371.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -354,6 +354,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>随笔</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -612,6 +616,14 @@
            data-tag="博客"
            data-author="" >
             <span class="post-title" title="Hexo 博客集成 hexo-tag-aplayer">Hexo 博客集成 hexo-tag-aplayer</span>
+            <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-12-22-12%E5%85%B6%E4%BB%96/%E5%86%85%E5%AE%B9%E5%88%9B%E4%B8%9A.html"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="内容创业">内容创业</span>
             <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
         </a>
         
@@ -1495,6 +1507,14 @@
             <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
         </a>
         
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-01-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E8%A1%A5%E5%85%851-HashMap.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="HashMap 源码">HashMap 源码</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
         <div id="no-item-tips">
 
         </div>
@@ -1539,7 +1559,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-03-21 19:15:11'>2020-06-27 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-03-27 00:02:04'>2020-06-27 22:13</time>
         
     </div>
     <div class="article-meta">
@@ -1646,7 +1666,7 @@
     // 然后把 TankTimeProxy 作为代理对象传给 TankLogProxy 代理然后执行
     new TankLogProxy(new TankTimeProxy(new Tank())).move();
 &#125;</code></pre>
-<p>这时程序看上去非常完美了，但是其实我们现在的代理其实只能代理 Movable 类型的对象，而没法代理其他类型对象，如果需要代理其他类型对象就需要使用动态代理了。所谓的动态代理就是我们不再需要手动写代理类了，系统会自动生成代理类，这个代理类我们看不到（可以配置系统参数 <strong>saveGeneratedFiles</strong> 保存文件然后反编译看到）。</p>
+<p>这时程序看上去非常完美了，但是其实我们现在的代理其实<strong>只能代理 Movable 类型的对象</strong>，而没法代理其他类型对象，如果需要代理其他类型对象就需要使用动态代理了。所谓的动态代理就是我们不再需要手动写代理类了，系统会自动生成代理类，这个代理类我们看不到（可以配置系统参数 <strong>saveGeneratedFiles</strong> 保存文件然后反编译看到）。</p>
 <h2 id="4-使用-JDK-自带的动态代理"><a href="#4-使用-JDK-自带的动态代理" class="headerlink" title="4. 使用 JDK 自带的动态代理"></a>4. 使用 JDK 自带的动态代理</h2><p>jdk  Proxy 类提供了动态代理的功能，但是 jdk 代理是基于接口的，也就是说被代理的对象必须实现某个接口，否则没法代理。</p>
 <pre><code class="java">public static void main(String[] args) &#123;
     Tank tank = new Tank();

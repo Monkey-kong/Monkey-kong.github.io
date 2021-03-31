@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Hexo 博客集成 hexo-tag-aplayer | 悟空</title>
-  <meta name="keywords" content=" 博客 ">
-  <meta name="description" content="Hexo 博客集成 hexo-tag-aplayer | 悟空">
+  <title>内容创业 | 悟空</title>
+  <meta name="keywords" content=" 随笔 ">
+  <meta name="description" content="内容创业 | 悟空">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="悟空的技术博客">
 <meta property="og:type" content="article">
@@ -1532,9 +1532,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-12其他/博客-音乐组件集成" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-12其他/内容创业" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Hexo 博客集成 hexo-tag-aplayer</h1>
+        <h1 class="article-title">内容创业</h1>
     
     <div class="article-meta">
         
@@ -1552,19 +1552,19 @@
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color3">博客</a>
+            <a class="color3">随笔</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-01-26 23:52:49'>2020-12-22 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-03-26 21:44:36'>2020-12-22 22:13</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:571</span>
+        <span>字数:329</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1594,7 +1594,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-text">1、安装与使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AE%89%E8%A3%85-hexo-tag-aplayer"><span class="toc-text">1.1 安装 hexo-tag-aplayer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E4%BD%BF%E7%94%A8-hexo-tag-aplayer"><span class="toc-text">1.2 使用 hexo-tag-aplayer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E8%B8%A9%E5%9D%91"><span class="toc-text">2、踩坑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">2.1 解决方法</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AE%B9%E5%88%9B%E4%B8%9A%EF%BC%9F"><span class="toc-text">什么是内容创业？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%86%85%E5%AE%B9%E5%88%9B%E4%B8%9A%EF%BC%9F"><span class="toc-text">如何实现内容创业？</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -1610,41 +1610,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Hexo 博客通过 <a href="https://github.com/MoePlayer/hexo-tag-aplayer">hexo-tag-aplayer</a> 插件集成 APlayer 音乐播放器。</p>
+        <p>今天和公司一个较为资深的项目经理吃饭，提到了一个词语【内容创业】。就是说对于大多数普通人即没有胆量去赌也没有资本去投资，内容创业是个人发展的一个方向。</p>
 <a id="more"></a>
 
-<h2 id="1、安装与使用"><a href="#1、安装与使用" class="headerlink" title="1、安装与使用"></a>1、安装与使用</h2><h3 id="1-1-安装-hexo-tag-aplayer"><a href="#1-1-安装-hexo-tag-aplayer" class="headerlink" title="1.1 安装 hexo-tag-aplayer"></a>1.1 安装 hexo-tag-aplayer</h3><p>在博客根目录（<code>package.json</code>文件所在目录）下安装 hexo-tag-aplayer 插件。</p>
-<pre><code class="shell">npm install --save hexo-tag-aplayer</code></pre>
-<h3 id="1-2-使用-hexo-tag-aplayer"><a href="#1-2-使用-hexo-tag-aplayer" class="headerlink" title="1.2 使用 hexo-tag-aplayer"></a>1.2 使用 hexo-tag-aplayer</h3><p><strong>a) 开启 MetingJS</strong><br>在博客根目录（注意是博客的配置文件，不是主题的配置文件）增加如下配置。</p>
-<pre><code class="yml">aplayer:
-  meting: true</code></pre>
-<p><strong>b) 在博客用插入音乐</strong><br>插入歌单，例如想插入 <a href="https://music.163.com/#/playlist?id=2008272804">https://music.163.com/#/playlist?id=2008272804</a> 这个歌单。在 markdown 文件需要插入的位置加入如下内容即可：</p>
-<pre><code>&#123;% meting "2008272804" "netease" "playlist" "theme:#FF4081" "mode:circulation" "mutex:true" "listmaxheight:340px" "preload:auto" %&#125;</code></pre>
-
-    <div id="aplayer-IycSbyzb" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="2008272804" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#FF4081"
-    ></div>
-
-<p>插入单曲，例如想插入 <a href="https://y.qq.com/n/yqq/song/002AFMXr2h7cVY.html">https://y.qq.com/n/yqq/song/002AFMXr2h7cVY.html</a> 这首单曲。在 markdown 文件需要插入的位置加入如下内容即可：</p>
-<pre><code>&#123;% meting "002AFMXr2h7cVY" "tencent" "song" "theme:#555" "mutex:true" "listmaxheight:340px" "preload:auto" %&#125;</code></pre>
-
-    <div id="aplayer-WBKtSNZa" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="002AFMXr2h7cVY" data-server="tencent" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#555"
-    ></div>
-<p>更多详细参数及说明请查阅 <a href="https://github.com/MoePlayer/hexo-tag-aplayer/blob/master/docs/README-zh_cn.md">hexo-tag-aplayer 中文文档</a></p>
-<h2 id="2、踩坑"><a href="#2、踩坑" class="headerlink" title="2、踩坑"></a>2、踩坑</h2><p>以上配置完成，正常来说，博客部署后，进入对应页面，应该是可以加载出音乐插件的。当然也有不正常的情况，比如我弄完后就加载不出来，必须要刷新一下才能加载出来。找了下原因，可能是由于 pjax 导致的。参照 <a href="https://yxyvpn.com/2020/04/15/pjax%E5%AF%BC%E8%87%B4%E6%97%A0%E6%B3%95%E5%88%9D%E5%A7%8B%E5%8C%96aplayer%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/">pjax导致无法初始化aplayer音乐播放器</a> 这篇博客，解决了问题。</p>
-<h3 id="2-1-解决方法"><a href="#2-1-解决方法" class="headerlink" title="2.1 解决方法"></a>2.1 解决方法</h3><p><strong>1、手动引入 <a href="https://aplayer.js.org/#/zh-Hans/?id=%E5%85%A5%E9%97%A8">APlayer</a>、<a href="https://github.com/metowolf/MetingJS">MetingJS</a></strong><br>我使用的主题是 <a href="https://github.com/yelog/hexo-theme-3-hexo">3-hexo</a>，3-hexo 主题中 <code>meta.ejs</code> 是公共 header 引入位置，所以在这里引入相关文件即可。</p>
-<pre><code class="html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css&quot;/&gt;
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://unpkg.com/meting@1.2/dist/Meting.min.js&quot;&gt;&lt;/script&gt;</code></pre>
-<p><strong>2、加载 MetingJS</strong><br>在主题中找到 pjax 生命周期相关函数，在<code>paja:success</code>函数中加载 Meting。3-hexo 主题是在 <code>script.js</code> 文件，其他主题需要大致看下源码找到相应位置。</p>
-<pre><code class="js">&#39;pjax:success&#39;: function () &#123;
-    loadMeting();
-&#125;</code></pre>
-<p><strong>3、关闭自定加载 MetingJS</strong><br>在博客配置文件中加上如下配置关闭。不过我本地不加也没什么异常。</p>
-<pre><code class="yml">aplayer:
-  meting: true
-  asset_inject: false</code></pre>
+<h3 id="什么是内容创业？"><a href="#什么是内容创业？" class="headerlink" title="什么是内容创业？"></a>什么是内容创业？</h3><p>我个人的理解就是在自己的专业方向做到深入做到极致，让自己能在行业内有一定的影响力。如果做到了不管是出书、做公众号还是做 UP 主都很容易发展，从而慢慢变成自己的资产。</p>
+<h3 id="如何实现内容创业？"><a href="#如何实现内容创业？" class="headerlink" title="如何实现内容创业？"></a>如何实现内容创业？</h3><p>其实自己现在做的事情（记录自己的学习笔记）就算是迈出第一步了，Hyman 也说这一点他在向我学习。但是现在我做的都是一些杂乱的，没有方向性，很难深入。其实生活中大部分人是没有目标的，因为没有方向，所以做什么事情都很难坚持下来，很容易被其他事情打断，所以经常回觉得无聊和迷茫。所以找准自己的方向和目标获取是个人内容创业的一个难点。如果有了正确的方向，不怕你走的慢，只需保持一直走即可。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 lixianfu1@outlook.com </span>

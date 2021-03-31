@@ -150,11 +150,11 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(127)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(129)</small></div></li>
     
         
             
-            <li><div data-rel="Java基础">Java基础<small>(17)</small></div>
+            <li><div data-rel="Java基础">Java基础<small>(18)</small></div>
                 
             </li>
             
@@ -242,7 +242,7 @@
     
         
             
-            <li><div data-rel="其他">其他<small>(7)</small></div>
+            <li><div data-rel="其他">其他<small>(8)</small></div>
                 
             </li>
             
@@ -274,8 +274,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="127">
-<input type="hidden" id="yelog_site_word_count" value="366.8k">
+<input type="hidden" id="yelog_site_posts_number" value="129">
+<input type="hidden" id="yelog_site_word_count" value="371.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -354,6 +354,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>随笔</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -612,6 +616,14 @@
            data-tag="博客"
            data-author="" >
             <span class="post-title" title="Hexo 博客集成 hexo-tag-aplayer">Hexo 博客集成 hexo-tag-aplayer</span>
+            <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-12-22-12%E5%85%B6%E4%BB%96/%E5%86%85%E5%AE%B9%E5%88%9B%E4%B8%9A.html"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="内容创业">内容创业</span>
             <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
         </a>
         
@@ -1495,6 +1507,14 @@
             <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
         </a>
         
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-01-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E8%A1%A5%E5%85%851-HashMap.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="HashMap 源码">HashMap 源码</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
         <div id="no-item-tips">
 
         </div>
@@ -1539,7 +1559,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-03-02 20:21:20'>2020-08-26 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-03-29 23:29:50'>2020-08-26 22:13</time>
         
     </div>
     <div class="article-meta">
@@ -1684,8 +1704,8 @@ INSERT INTO `mylock` (`id`, `NAME`) VALUES (&#39;4&#39;, &#39;d&#39;);</code></p
 </tr>
 </tbody></table>
 <p>总结：</p>
-<p>当前 session：非锁定表不可读不可写，锁定表可读不可写（报错）</p>
-<p>其他 session：非锁定表可读可写，锁定表可读不可写（阻塞）</p>
+<p><strong>当前 session：非锁定表不可读不可写，锁定表可读不可写（报错）</strong></p>
+<p><strong>其他 session：非锁定表可读可写，锁定表可读不可写（阻塞）</strong></p>
 <h3 id="2-2-表独占写锁"><a href="#2-2-表独占写锁" class="headerlink" title="2.2 表独占写锁"></a>2.2 表独占写锁</h3><p>写锁阻塞读写。</p>
 <table>
 <thead>
@@ -1716,8 +1736,8 @@ INSERT INTO `mylock` (`id`, `NAME`) VALUES (&#39;4&#39;, &#39;d&#39;);</code></p
 </tr>
 </tbody></table>
 <p>总结：</p>
-<p>当前 session：非锁定表不可读不可写，锁定表可读可写</p>
-<p>其他 session：非锁定表可读可写，锁定表不可读不可写</p>
+<p><strong>当前 session：非锁定表不可读不可写，锁定表可读可写</strong></p>
+<p><strong>其他 session：非锁定表可读可写，锁定表不可读不可写</strong></p>
 <p>可以看出，MyISAM 表的读操作与写操作之间，以及写操作之间是串行的！ </p>
 <h3 id="2-3-read-local-实现并发插入"><a href="#2-3-read-local-实现并发插入" class="headerlink" title="2.3 read local 实现并发插入"></a>2.3 read local 实现并发插入</h3><table>
 <thead>
@@ -1937,7 +1957,7 @@ insert into tab_with_index  values(1,&#39;1&#39;);</code></pre>
 <p>5、尽量用相等条件访问数据，这样可以避免<strong>间隙锁</strong>对并发插入的影响； 不要申请超过实际需要的锁级别；除非必须，查询时不要显示加锁；？？？</p>
 <p>6、对于一些特定的事务，可以使用表锁来提高处理速度或减少死锁的可能。</p>
 <h2 id="4-多版本并发控制-MVCC"><a href="#4-多版本并发控制-MVCC" class="headerlink" title="4. 多版本并发控制-MVCC"></a>4. 多版本并发控制-MVCC</h2><p>所谓的<code>MVCC（Multi-Version Concurrency Control ，多版本并发控制）</code>指的就是在使用<code>读已提交（READ COMMITTD）、可重复读（REPEATABLE READ）</code>这两种隔离级别的事务在执行<strong>普通的SELECT操作时访问记录的版本链的过程，不会加锁</strong>，这样子可以使不同事务的读-写、写-读操作并发执行，从而提升系统性能（<strong>并发处理能力</strong>）。</p>
-<p>这两个隔离级别的一个很大不同就是：<code>生成ReadView的时机不同</code>，READ COMMITTD 在每一次进行普通 SELECT 操作前都会生成一个 ReadView，而 REPEATABLE READ 只在第一次进行普通 SELECT 操作前生成一个 ReadView，数据的可重复读其实就是 ReadView 的重复使用。</p>
+<p>这两个隔离级别的一个很大不同就是：<code>生成ReadView的时机不同</code>，READ COMMITTD 在每一次进行普通 SELECT 操作前都会生成一个 ReadView，而 REPEATABLE READ 只在第一次<strong>进行普通 SELECT 操作前</strong>生成一个 ReadView，数据的可重复读其实就是 ReadView 的重复使用。</p>
 <p>与 MVCC 对应的是 LBCC（基于锁的并发控制）。</p>
 <p><strong>MVCC 在mysql 中的实现依赖的是 undo log 与 read view 。</strong></p>
 <h3 id="4-1-主要特点"><a href="#4-1-主要特点" class="headerlink" title="4.1 主要特点"></a>4.1 主要特点</h3><ul>
@@ -2047,12 +2067,12 @@ insert into tab_with_index  values(1,&#39;1&#39;);</code></pre>
 <p><strong>答</strong>： 要么是 RC 隔离级别；要么是 RR 隔离级别，同时设置了 innodb_locks_unsafe_for_binlog 参数 </p>
 </li>
 <li><p><strong>组合九：</strong>Serializable隔离级别</p>
-<p>SQL2 和组合 RR 一致。 但是 SQL1 会加读锁，也就是说快照读不复存在，MVCC 并发控制降级为 Lock-Based CC。 </p>
+<p>SQL2 和组合 RR 一致。 但是 SQL1 会加读锁，也就是说<strong>快照读不复存在</strong>，MVCC 并发控制降级为 Lock-Based CC。 </p>
 </li>
 </ul>
 <h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><h3 id="6-1-MyISAM的表锁"><a href="#6-1-MyISAM的表锁" class="headerlink" title="6.1 MyISAM的表锁"></a>6.1 MyISAM的表锁</h3><p>1、共享读锁和共享读锁之间兼容；共享读锁和排他写锁之间，排他写锁和排他写锁之间互斥；就是说同一张表读写是串行的。</p>
 <p>2、允许查询和插入并发执行，可以利用这一点来解决应用中对同一表<strong>查询和插入的锁争用</strong>问题。</p>
-<p>3、表锁粒度大，读写之间串行，所以如果更新操作比较多，可能会出现严重的锁等待，这是可以考虑使用 InnoDB 存储引擎来减小锁粒度，从而减少锁冲突。</p>
+<p>3、表锁粒度大，读写之间串行，所以如果更新操作比较多，可能会出现严重的锁等待，这时可以考虑使用 InnoDB 存储引擎来减小锁粒度，从而减少锁冲突。</p>
 <p>4、默认写的优先级更高，设置LOW_PRIORITY_UPDATES 参数或者在 insert、update、delete 语句中指定 LOW_PRIORITY 选项来降低写锁的争用。</p>
 <pre><code class="sql">delete low_priority from mylock where id =1;</code></pre>
 <h3 id="6-2-InnoDB-表-行锁"><a href="#6-2-InnoDB-表-行锁" class="headerlink" title="6.2 InnoDB 表/行锁"></a>6.2 InnoDB 表/行锁</h3><p>1、行锁基于索引实现，如果不通过索引访问数据，使用的仍然是表锁</p>

@@ -150,11 +150,11 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(127)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(129)</small></div></li>
     
         
             
-            <li><div data-rel="Java基础">Java基础<small>(17)</small></div>
+            <li><div data-rel="Java基础">Java基础<small>(18)</small></div>
                 
             </li>
             
@@ -242,7 +242,7 @@
     
         
             
-            <li><div data-rel="其他">其他<small>(7)</small></div>
+            <li><div data-rel="其他">其他<small>(8)</small></div>
                 
             </li>
             
@@ -274,8 +274,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="127">
-<input type="hidden" id="yelog_site_word_count" value="366.8k">
+<input type="hidden" id="yelog_site_posts_number" value="129">
+<input type="hidden" id="yelog_site_word_count" value="371.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -354,6 +354,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>随笔</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -612,6 +616,14 @@
            data-tag="博客"
            data-author="" >
             <span class="post-title" title="Hexo 博客集成 hexo-tag-aplayer">Hexo 博客集成 hexo-tag-aplayer</span>
+            <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-12-22-12%E5%85%B6%E4%BB%96/%E5%86%85%E5%AE%B9%E5%88%9B%E4%B8%9A.html"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="内容创业">内容创业</span>
             <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
         </a>
         
@@ -1495,6 +1507,14 @@
             <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
         </a>
         
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-01-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E8%A1%A5%E5%85%851-HashMap.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="HashMap 源码">HashMap 源码</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
         <div id="no-item-tips">
 
         </div>
@@ -1539,12 +1559,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-02-28 22:02:57'>2020-08-16 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-03-29 23:51:49'>2020-08-16 22:13</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:3.7k</span>
+        <span>字数:3.8k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1793,7 +1813,7 @@ default-character-set=utf8
 <p>redo log 保证了 MySQL 数据<strong>一致性和持久性</strong>（MySQL 崩溃了，重启后仍然可以通过 redo log 里的记录进行重放，重新刷盘）。</p>
 <p>redo log 大小固定，循环写入，相当于一个环形，所以是顺序写。当 redo log 满了，就需要对旧的记录进行擦除，擦除之前必须确保被擦除的记录在内存中的数据页都已刷到磁盘中了。在 redo log 满了到擦除旧记录之前，是不能再接收新的更新请求的，所以有可能导致 MySQL 卡顿。所以针对并发量大的系统，<strong>适当设置 redo log 的文件大小</strong>非常重要。</p>
 <h4 id="回滚日志-undo-log"><a href="#回滚日志-undo-log" class="headerlink" title="回滚日志 undo log"></a>回滚日志 undo log</h4><p>主要提供回滚的作用，另外一个作用就是多个行版本控制（MVCC），保证事务的<strong>原子性</strong>。在数据修改的流程中，会记录一条与当前操作相反的逻辑日志到 undo log 中。</p>
-<h4 id="归档日志-binlog"><a href="#归档日志-binlog" class="headerlink" title="归档日志 binlog"></a>归档日志 binlog</h4><p>binlog 在 MySQL 的 server 产生，不属于任何引擎，主要记录用户对数据库操作的 SQL 语句（除了查询语句）。之所以叫做归档日志，因为 binlog 不会像 redo log 一样擦除旧日志，而是追加，操作 <code>max_binlog_size </code>  就新起一个文件。</p>
+<h4 id="归档日志-binlog"><a href="#归档日志-binlog" class="headerlink" title="归档日志 binlog"></a>归档日志 binlog</h4><p>binlog 在 MySQL 的 server 产生，不属于任何引擎，主要记录用户对数据库操作的 SQL 语句（除了查询语句）。之所以叫做归档日志，因为 binlog 不会像 redo log 一样擦除旧日志，而是追加，超过 <code>max_binlog_size </code>  就新起一个文件。</p>
 <p>日志可能是基于事务来记录的（如 InnoDB），而事务是绝对不可能也不应该跨文件记录的，所以 <code>max_binlog_size </code> 和实际的 binlog 日志大小不一定相等。</p>
 <h4 id="binlog-和-redo-log-的区别"><a href="#binlog-和-redo-log-的区别" class="headerlink" title="binlog 和 redo log 的区别"></a>binlog 和 redo log 的区别</h4><ul>
 <li>redolog 是 innodb 独有的，binlog 是所有 engine 都可以使用的</li>
@@ -1802,7 +1822,10 @@ default-character-set=utf8
 </ul>
 <h3 id="2-4-三个日志都必须开启吗？"><a href="#2-4-三个日志都必须开启吗？" class="headerlink" title="2.4 三个日志都必须开启吗？"></a>2.4 三个日志都必须开启吗？</h3><ul>
 <li>redo log 保证数据的持久性，必不可少。如果没有 MySQL 肯定不能认为修改了内存数据就表示操作成功。</li>
-<li>undo log 保证事务原子性，必不可少。为啥必不可少？如果我知道哪个事务有问题，我把这个事务的 redo log 做一遍相反的操作不也可以实现吗？</li>
+<li>undo log 保证事务原子性，必不可少。为啥必不可少？如果我知道哪个事务有问题，我把这个事务的 redo log 做一遍相反的操作不也可以实现吗？<ul>
+<li>答案：redo log是物理日志，没法根据事务做相反的操作</li>
+</ul>
+</li>
 <li>binlog <ul>
 <li>主从模式必不可少，因为从库的数据同步依赖的就是 binlog</li>
 <li>单机模式如果不考虑数据库基于某个时间点还原，那么 binlog 就不是必须的。redo log 就可以保证 crash-safe 了。</li>

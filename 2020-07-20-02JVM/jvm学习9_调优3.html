@@ -150,11 +150,11 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(127)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(129)</small></div></li>
     
         
             
-            <li><div data-rel="Java基础">Java基础<small>(17)</small></div>
+            <li><div data-rel="Java基础">Java基础<small>(18)</small></div>
                 
             </li>
             
@@ -242,7 +242,7 @@
     
         
             
-            <li><div data-rel="其他">其他<small>(7)</small></div>
+            <li><div data-rel="其他">其他<small>(8)</small></div>
                 
             </li>
             
@@ -274,8 +274,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="127">
-<input type="hidden" id="yelog_site_word_count" value="366.8k">
+<input type="hidden" id="yelog_site_posts_number" value="129">
+<input type="hidden" id="yelog_site_word_count" value="371.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -354,6 +354,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>随笔</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -612,6 +616,14 @@
            data-tag="博客"
            data-author="" >
             <span class="post-title" title="Hexo 博客集成 hexo-tag-aplayer">Hexo 博客集成 hexo-tag-aplayer</span>
+            <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-12-22-12%E5%85%B6%E4%BB%96/%E5%86%85%E5%AE%B9%E5%88%9B%E4%B8%9A.html"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="内容创业">内容创业</span>
             <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
         </a>
         
@@ -1495,6 +1507,14 @@
             <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
         </a>
         
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-01-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E8%A1%A5%E5%85%851-HashMap.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="HashMap 源码">HashMap 源码</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
         <div id="no-item-tips">
 
         </div>
@@ -1539,12 +1559,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2020-07-22 22:35:25'>2020-07-20 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-03-29 08:20:33'>2020-07-20 22:13</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:986</span>
+        <span>字数:1.1k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -1594,40 +1614,40 @@
 <a id="more"></a>
 <h2 id="1-arthas-在线排查工具"><a href="#1-arthas-在线排查工具" class="headerlink" title="1. arthas 在线排查工具"></a>1. arthas 在线排查工具</h2><ul>
 <li><p>为什么需要在线排查?</p>
-<p>在生产上我们经常会碰到一些不好排查的问题，比如线程安全问题，用最简单的 threaddump 或者 headdump 不好查到问题原因。为了排查这些问题，有时我们会临时加一些日志，比如在一些关键的函数里打印出入参数，，然后重新打包发布，如果打了日志还是没有找到问题，继续加日志，重新打包发布。对于上线流程复杂而且审核比较严的公司，从改代码到上线需要层层的流转，会大大影响问题的排查进度。</p>
+<p>在生产上我们经常会碰到一些不好排查的问题，比如线程安全问题，用最简单的 threaddump 或者 headdump 不好查到问题原因。为了排查这些问题，有时我们会临时加一些日志，比如在一些关键的函数里打印出入参数，然后重新打包发布，如果打了日志还是没有找到问题，继续加日志，重新打包发布。对于上线流程复杂而且审核比较严的公司，从改代码到上线需要层层的流转，会大大影响问题的排查进度。</p>
 </li>
 </ul>
 <ul>
-<li><p>help</p>
+<li><p><strong>help</strong></p>
 </li>
-<li><p>JVM(相当于之前的 jinfo)，观察 jvm 信息</p>
+<li><p>**JVM(相当于之前的 jinfo)**，观察 jvm 信息</p>
 </li>
-<li><p>thread(相当于之前的 jstack)，定位线程问题。thread 54</p>
+<li><p>**thread(相当于之前的 jstack)**，定位线程问题。thread 54</p>
 </li>
-<li><p>dashboard 观察系统情况（和之前 top 类似）</p>
+<li><p><strong>dashboard</strong> 观察系统情况（和之前 top 类似）</p>
 </li>
-<li><p>heapdump 导出堆。heapdump /root/20200722.hprof 能不导就不导，最好在线定位，因为对主进程有影响。</p>
+<li><p><strong>heapdump</strong> 导出堆。heapdump /root/20200722.hprof 能不导就不导，最好在线定位，因为对主进程有影响。</p>
 </li>
-<li><p>jhat/MAT/jvisualvm 进行 dump 文件分析</p>
+<li><p>jhat/MAT/<strong>jvisualvm</strong> 进行 dump 文件分析</p>
 <p>jhat -J-mx512M 20200722.hprof</p>
 <p>jhat 服务启动后，可以进入控制台查看  <a href="http://192.168.238.66:7000/">http://192.168.238.66:7000/</a> </p>
 <p>OQL 语句：select s from java.lang.String s</p>
 </li>
-<li><p>jad T15_FullGC_Problem01 直接反编译</p>
+<li><p><strong>jad T15_FullGC_Problem01</strong> 直接反编译</p>
 <p>动态代理生成类的问题定位</p>
 <p>第三方的类（观察代码）</p>
 <p>版本问题（确定自己最新提交的版本是不是被使用）</p>
 </li>
-<li><p>redefine 热替换</p>
+<li><p><strong>retransform</strong> 热替换。可以配合<code>jad</code> 和 <code>mc</code>命令。jad 反编译，修改代码，mc 内存编译，再使用 retransform 替换。</p>
 <p>目前有些限制条件：只能改方法实现（方法已经运行完成），不能改方法名称，不能改属性</p>
 <p>可以在不停止程序的情况下修改代码。</p>
-<p>redefine /root/testJvm/TT.class</p>
+<p><code>retransform /tmp/com/example/demo/arthas/user/UserController.class</code></p>
 </li>
-<li><p>sc - search class</p>
+<li><p><strong>sc</strong>：查看JVM已加载的类信息</p>
 </li>
-<li><p>watch - watch method</p>
+<li><p><strong>watch</strong>：监控方法返回值、入参。<code>watch demo.MathGame primeFactors returnObj</code></p>
 </li>
-<li><p>没有包含的功能：jmap -histo 4655 | head -20</p>
+<li><p><strong>没有包含的功能：jmap -histo 4655 | head -20</strong></p>
 </li>
 </ul>
 <h2 id="2-案例汇总"><a href="#2-案例汇总" class="headerlink" title="2. 案例汇总"></a>2. 案例汇总</h2><p>OOM 产生的原因多种多样，有些程序未必产生 OOM，但是不断 FGC（CPU 飙高，但内存回收特别少）（上面案例）</p>
@@ -1683,6 +1703,8 @@
 <li><p>new 大量线程，会产生 native thread OOM，（low）应该用线程池</p>
 <p>解决方案：减少堆空间（太low了），预留更多内存产生 native thread</p>
 <p>JVM 内存占物理内存比例 50%-80%</p>
+</li>
+<li><p>有时候凌晨报表服务OOM，观察OOM堆转储文件，发现so实体数量+DN实体数量占据大量内存。同时还有一个库存对碰的job再跑。适当调整堆区</p>
 </li>
 </ol>
 

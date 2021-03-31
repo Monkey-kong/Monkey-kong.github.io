@@ -150,11 +150,11 @@
 
 
 <ul>
-    <li><div class="all active" data-rel="全部文章">全部文章<small>(127)</small></div></li>
+    <li><div class="all active" data-rel="全部文章">全部文章<small>(129)</small></div></li>
     
         
             
-            <li><div data-rel="Java基础">Java基础<small>(17)</small></div>
+            <li><div data-rel="Java基础">Java基础<small>(18)</small></div>
                 
             </li>
             
@@ -242,7 +242,7 @@
     
         
             
-            <li><div data-rel="其他">其他<small>(7)</small></div>
+            <li><div data-rel="其他">其他<small>(8)</small></div>
                 
             </li>
             
@@ -274,8 +274,8 @@
     </div>
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="127">
-<input type="hidden" id="yelog_site_word_count" value="366.8k">
+<input type="hidden" id="yelog_site_posts_number" value="129">
+<input type="hidden" id="yelog_site_word_count" value="371.9k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -354,6 +354,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>随笔</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -612,6 +616,14 @@
            data-tag="博客"
            data-author="" >
             <span class="post-title" title="Hexo 博客集成 hexo-tag-aplayer">Hexo 博客集成 hexo-tag-aplayer</span>
+            <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
+        </a>
+        
+        <a  class="全部文章 其他 "
+           href="/2020-12-22-12%E5%85%B6%E4%BB%96/%E5%86%85%E5%AE%B9%E5%88%9B%E4%B8%9A.html"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="内容创业">内容创业</span>
             <span class="post-date" title="2020-12-22 22:13:12">2020/12/22</span>
         </a>
         
@@ -1495,6 +1507,14 @@
             <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
         </a>
         
+        <a  class="全部文章 Java基础 "
+           href="/2020-01-01-01%E7%96%AF%E7%8B%82Java%E8%AE%B2%E4%B9%89/%E8%A1%A5%E5%85%851-HashMap.html"
+           data-tag="Java讲义"
+           data-author="" >
+            <span class="post-title" title="HashMap 源码">HashMap 源码</span>
+            <span class="post-date" title="2020-01-01 22:13:12">2020/01/01</span>
+        </a>
+        
         <div id="no-item-tips">
 
         </div>
@@ -1539,7 +1559,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2020-07-20 23:57:56'>2020-07-20 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-03-28 19:59:18'>2020-07-20 22:13</time>
         
     </div>
     <div class="article-meta">
@@ -1650,7 +1670,7 @@
 </blockquote>
 </li>
 <li><p>java -Xmn10M -Xms40M -Xmx60M -XX:+PrintCommandLineFlags -XX:+PrintGC HelloGC</p>
-<p>可以看到自定义了NewSize，初始堆大小，最大堆大小。</p>
+<p>可以看到自定义了年轻代大小，初始堆大小，最大堆大小。</p>
 <p>可以看到 GC 执行信息。由于测试程序数据都在一个链表，都不能被回收，最后导致内存溢出。</p>
 <p><img src="../../images/jvm/07/%E6%9F%A5%E7%9C%8BGC%E4%BF%A1%E6%81%AF.png"></p>
 <p>PrintGCDetails PrintGCTimeStamps PrintGCCauses</p>
@@ -1676,8 +1696,8 @@
 <p><strong>响应时间</strong>=用户线程停顿的时间短。STW 越短，响应时间越好</p>
 <p>确定调优之前，应该确定到底是哪个优先，是计算型任务还是响应型任务。还是在满足一定的响应时间的情况下，要求达到多大的吞吐量。</p>
 <p>问题：</p>
-<p>吞吐量：科学计算，吞吐量。数据挖掘，throughput。吞吐量优先的一般：PS + PO</p>
-<p>响应时间：网站 GUI API （1.8 选 G1）</p>
+<p><strong>吞吐量：</strong>科学计算，吞吐量。数据挖掘，throughput。吞吐量优先的一般：PS + PO。多线程快速完成 GC，但是GC期间，无法提供服务。</p>
+<p><strong>响应时间：</strong>网站 GUI API （1.8 选 G1）</p>
 <h2 id="5-什么是调优"><a href="#5-什么是调优" class="headerlink" title="5. 什么是调优"></a>5. 什么是调优</h2><ol>
 <li>根据需求进行 JVM <strong>规划和预调优</strong></li>
 <li>优化运行 JVM 运行环境（慢、卡顿怎么优化）</li>
@@ -1691,21 +1711,39 @@
 </li>
 <li><p>步骤</p>
 <ol>
-<li>熟悉业务场景（没有最好的垃圾回收器，只有最适合的）<ol>
+<li><p>熟悉业务场景（没有最好的垃圾回收器，只有最适合的）</p>
+<ol>
 <li>响应时间、停顿时间【CMS G1 ZGC】</li>
 <li>吞吐量 【PS】</li>
 </ol>
 </li>
-<li>选择回收器组合</li>
-<li>计算内存需求（其实不好计算，内存小，可能 GC 频繁一些，但是可能也没问题，内存大 GC 频度小一些。经验值 1.5G 16G）</li>
-<li>选定 CPU （越高越好，越好核心数越多，处理更快，GC 就更快，节省内存，两者相辅相成）</li>
-<li>设定年代大小、升级年龄</li>
-<li>设定日志参数<ol>
-<li>-Xloggc:/opt/xxx/logs/xxx-xxx-gc-%t.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=20M -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCCause  五个日志文件循环使用</li>
-<li>或者每天产生一个日志文件</li>
+<li><p>选择回收器组合</p>
+</li>
+<li><p>计算内存需求（其实不好计算，内存小，可能 GC 频繁一些，但是可能也没问题，内存大 GC 频度小一些。经验值 1.5G 16G）</p>
+</li>
+<li><p>选定 CPU （越高越好，越好核心数越多，处理更快，GC 就更快，节省内存，两者相辅相成）</p>
+</li>
+<li><p>设定年代大小、升级年龄</p>
+</li>
+<li><p>设定日志参数</p>
+<ol>
+<li><p>五个日志文件循环使用</p>
+<pre><code class="shell">java -Xmn10M -Xms40M -Xmx60M -XX:+PrintCommandLineFlags 
+-Xloggc:/opt/learnjvm/logs/xxx-xxx-gc-%t.log 
+-XX:+UseGCLogFileRotation 
+-XX:NumberOfGCLogFiles=5 
+-XX:GCLogFileSize=20M 
+-XX:+PrintGCDetails 
+-XX:+PrintGCDateStamps 
+-XX:+PrintGCCause 
+HelloGC</code></pre>
+</li>
+<li><p>或者每天产生一个日志文件</p>
+</li>
 </ol>
 </li>
-<li>观察日志情况</li>
+<li><p>观察日志情况</p>
+</li>
 </ol>
 </li>
 </ul>
@@ -1742,7 +1780,7 @@
 </li>
 </ul>
 <h2 id="7-优化环境"><a href="#7-优化环境" class="headerlink" title="7. 优化环境"></a>7. 优化环境</h2><ol>
-<li><p>有一个 50万 PV 的资料类网站（从磁盘提取文档到内存）原服务器 32 位，1.5G 的堆，用户反馈网站比较慢（），因此公司决定升级，新的服务器为 64 位， 16G 的堆内存，结果用户反馈卡顿十分严重，反而比以前效率更低了</p>
+<li><p>有一个 50万 PV 的资料类网站（从磁盘提取文档到内存）原服务器 32 位，1.5G 的堆，用户反馈网站比较慢，因此公司决定升级，新的服务器为 64 位， 16G 的堆内存，结果用户反馈卡顿十分严重，反而比以前效率更低了</p>
 <ol>
 <li><p>为什么原网站慢？</p>
 <p>很多用户浏览数据，很多数据 load 到内存，内存不足，频繁 GC，STW 长，响应时间慢</p>
@@ -1773,7 +1811,11 @@
 </li>
 <li><p>如何监控 JVM</p>
 <ol>
-<li>jstat jvisualvm jprofiler arthas top</li>
+<li>jstat </li>
+<li>jvisualvm </li>
+<li>jprofiler </li>
+<li>arthas </li>
+<li>top</li>
 </ol>
 </li>
 </ol>
