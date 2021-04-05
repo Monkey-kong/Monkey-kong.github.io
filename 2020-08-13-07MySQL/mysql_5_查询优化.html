@@ -273,7 +273,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="129">
-<input type="hidden" id="yelog_site_word_count" value="372k">
+<input type="hidden" id="yelog_site_word_count" value="373.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -1561,7 +1561,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-02-28 16:44:02'>2020-08-13 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-04-05 19:12:59'>2020-08-13 22:13</time>
         
     </div>
     <div class="article-meta">
@@ -1700,7 +1700,7 @@ alter table min_test add index idx_b(b);
 <h4 id="关联查询优化"><a href="#关联查询优化" class="headerlink" title="关联查询优化"></a>关联查询优化</h4><ul>
 <li>Simple Nested-Loop Join，就是嵌套循环遍历，笛卡尔集。主表为驱动表，从表为匹配表。</li>
 <li>Index Nested-Loop Join，如果<strong>非驱动表</strong>有索引会走索引，这样不用每次扫描整个表。如果是主键索引速度更快，否则还有回表查询。</li>
-<li>Block Nested-Loop Join，如果有 join 列有索引会走第二种的索引方式，如果没有会建一个 join buffer，<strong>一次取出驱动表中的多条数据</strong>到 join_buffer 中，取出的数据只取所有 join 相关的列，然后批量与匹配表进行匹配，将第一种方法中的<strong>多次比较合并为一次</strong>，<strong>降低了非驱动表的访问频率</strong>。N 个表 join，会产生 N-1 个 join_buffer<ul>
+<li>Block Nested-Loop Join，如果 join 列有索引会走第二种的索引方式，如果没有会建一个 join buffer，<strong>一次取出驱动表中的多条数据</strong>到 join_buffer 中，取出的数据只取所有 join 相关的列，然后批量与匹配表进行匹配，将第一种方法中的<strong>多次比较合并为一次</strong>，<strong>降低了非驱动表的访问频率</strong>。N 个表 join，会产生 N-1 个 join_buffer<ul>
 <li>join buffer 会缓存所有参与查询的列而不只是 join 列</li>
 <li>join_buffer_size 大小可以调整</li>
 <li>join_buffer_size 默认值 256k，最大值 5.1.22 版本之前是 4G-1，之后 64 位系统可以申请更大空间</li>

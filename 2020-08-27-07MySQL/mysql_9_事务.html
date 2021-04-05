@@ -273,7 +273,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="129">
-<input type="hidden" id="yelog_site_word_count" value="372k">
+<input type="hidden" id="yelog_site_word_count" value="373.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -1561,7 +1561,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-02-28 23:23:20'>2020-08-27 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-04-04 21:57:22'>2020-08-27 22:13</time>
         
     </div>
     <div class="article-meta">
@@ -1625,7 +1625,7 @@
 <h2 id="1、事务目的及其-ACID-特性"><a href="#1、事务目的及其-ACID-特性" class="headerlink" title="1、事务目的及其 ACID 特性"></a>1、事务目的及其 ACID 特性</h2><h3 id="1-1-事务的目的"><a href="#1-1-事务的目的" class="headerlink" title="1.1 事务的目的"></a>1.1 事务的目的</h3><p>数据库事务通常包含了一个序列的对数据库的读/写操作，是数据库执行的逻辑单元。</p>
 <p>事务包含有以下两个目的：</p>
 <ol>
-<li> 为数据库操作序列提供了一个从失败中恢复到正常状态的方法，同时提供了数据库即使在异常状态下仍能保持一致性的方法。即 rollback 和 crash safe 能力（<strong>日志系统实现</strong>）。</li>
+<li> 为数据库操作序列提供了一个从失败中恢复到正常状态的方法，同时提供了数据库即使在异常状态下仍能保持一致性的方法。即 rollback 和 crash safe  能力（<strong>日志系统实现</strong>）。</li>
 <li>当多个应用程序在并发访问数据库时，可以在这些应用程序之间提供一个隔离方法，以防止彼此的操作互相干扰。即并发控制能力（<strong>隔离级别、锁、mvcc 实现</strong>）。</li>
 </ol>
 <h3 id="1-2-事务的-ACID-特性"><a href="#1-2-事务的-ACID-特性" class="headerlink" title="1.2 事务的 ACID 特性"></a>1.2 事务的 ACID 特性</h3><ul>
@@ -1637,7 +1637,7 @@
 <h2 id="2、并发事务问题和隔离级别"><a href="#2、并发事务问题和隔离级别" class="headerlink" title="2、并发事务问题和隔离级别"></a>2、并发事务问题和隔离级别</h2><h3 id="2-1-并发事务的好处以及带来的问题"><a href="#2-1-并发事务的好处以及带来的问题" class="headerlink" title="2.1 并发事务的好处以及带来的问题"></a>2.1 并发事务的好处以及带来的问题</h3><p>相对于串行处理来说，<strong>并发事务</strong>处理能大大增加数据库资源的利用率，提高数据库系统的事务吞吐量，从而可以支持更多用户的并发操作，但与此同时，会带来以下问题：</p>
 <ul>
 <li>脏读：读出的数据可能是脏数据。</li>
-<li>不可重复读：两次读出的数据不一致，刚刚查询 name 为 alvin，过一会再查变为 monkey 了。</li>
+<li>不可重复读：一个事务中两次读出的数据不一致，刚刚查询 name 为 alvin，过一会再查变为 monkey 了。</li>
 <li>幻读：明明查询出来没这记录，但是却插入不了，提示数据已存在（RR）；刚刚查出来只有一条记录，等会再查变为两条了（RU、RC）</li>
 </ul>
 <h3 id="2-2-隔离级别"><a href="#2-2-隔离级别" class="headerlink" title="2.2 隔离级别"></a>2.2 隔离级别</h3><p>上述出现的问题都是数据库读一致性的问题，可以通过事务的隔离机制来进行保证。数据库的事务隔离越严格，并发副作用就越小，但付出的代价也就越大，因为<strong>事务隔离本质上就是使事务在一定程度上串行化</strong>，需要根据具体的业务需求来决定使用哪种隔离级别。</p>

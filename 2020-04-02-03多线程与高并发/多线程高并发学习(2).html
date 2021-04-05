@@ -273,7 +273,7 @@
     <div><a class="about  hasFriend  site_url"  href="/about">关于</a><a style="width: 50%"  class="friends">友链</a></div>
 </div>
 <input type="hidden" id="yelog_site_posts_number" value="129">
-<input type="hidden" id="yelog_site_word_count" value="372k">
+<input type="hidden" id="yelog_site_word_count" value="373.2k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -1561,7 +1561,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2021-03-12 23:05:13'>2020-04-02 22:13</time>
+            发布时间 : <time class="date" title='最后更新: 2021-04-05 22:07:42'>2020-04-02 22:13</time>
         
     </div>
     <div class="article-meta">
@@ -1616,6 +1616,11 @@
 <a id="more"></a>
 
 <h2 id="1-可重入锁（ReentrantLock）"><a href="#1-可重入锁（ReentrantLock）" class="headerlink" title="1. 可重入锁（ReentrantLock）"></a>1. 可重入锁（ReentrantLock）</h2><p><strong>同一个线程去申请锁时</strong>，发现该锁本身就是自己所有，直接执行。synchronized 是可重入的。</p>
+<ul>
+<li>等待可中断</li>
+<li>可以实现公平锁，但是性能急剧下降</li>
+<li>锁可以绑定多个条件</li>
+</ul>
 <h3 id="1-1-ReentrantLock-之-lock"><a href="#1-1-ReentrantLock-之-lock" class="headerlink" title="1.1 ReentrantLock 之 lock()"></a>1.1 ReentrantLock 之 lock()</h3><pre><code class="java">/**
  * ReentrantLock 代替 synchronized
  * 由于m1锁定this,只有m1执行完毕的时候,m2才能执行
